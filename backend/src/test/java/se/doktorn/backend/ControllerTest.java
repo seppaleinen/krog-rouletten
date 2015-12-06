@@ -47,7 +47,7 @@ public class ControllerTest {
         assertNotNull(krogRouletteEntity);
         assertEquals("asd", krogRouletteEntity.getParam());
     }
-    
+
     @Test
     public void canFind() {
         KrogRouletteEntity krogRouletteEntity = new KrogRouletteEntity();
