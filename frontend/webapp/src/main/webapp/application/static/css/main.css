@@ -1,14 +1,12 @@
 body {
         background-color: #333333;
         color: white;
-        font-size:200%;
         font-family: 'Roboto', sans-serif;
         padding:0;
         margin:0px;
         }
 		.admin_input{
 		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-		font-size:50%;
 		padding:10px;
 		}
 		.admin_form{
@@ -37,24 +35,23 @@ body {
 		}
 		.namn{
 		font-weight: 400;
-		font-size:120%;
+		font-size:200%;
 		}
 		.adress{
 		font-weight: 400;
-		font-size:70%;
+		font-size:150%;
 		}
 		.beskrivning{
 		width:500px;
 		display: inline-block;
 		padding:50px;
 		font-weight: 400;
-		font-size:70%;
 		text-align:left; 
 		}
         .logo{
         font-family: 'Lobster', sans-serif;
         font-weight: 400;
-        font-size:170%;
+        font-size:340%;
 
         }
         .logobtn{
@@ -75,7 +72,7 @@ body {
         }
         .star_button {
         font-weight: 400;
-        font-size:100%;
+        font-size:150%;
         text-shadow:
         float:right;
 
@@ -91,7 +88,7 @@ body {
         .slumpa_button {
         font-family: 'Lobster', sans-serif;
         font-weight: 400;
-        font-size:150%;
+        font-size:260%;
         float left;
 
         background-color: #666666;
