@@ -2,32 +2,32 @@
 
 {% block content %}
 
+<!--Bˆrjan av header kan flyttas om till en base/_header.html-->
 <div style="height: 10px; padding:10px; border:0px;background-color: #333333;">
     <div class="dropdown" style="padding:15px;" >
         <a href="#dc"><button class="button shadow"><i class="fa fa-bars fa-2x logobtn"></i></button></a>
         <div id="dc" class="dropdown-content">
-            <a href="/">Favoriter</a>
-            <a href="/">Inst√§llningar</a>
-            <a href="/">Konto</a>
-			<a href="admin.html">Admin</a>
+		<a href="index.html">Slumpa</a>
+		<a href="fav.html">Favoriter</a>
+        <a href="/">Inst‰llningar</a>
+		<a href="admin.html">Admin</a>
         </div>
     </div>
 
     <div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo shadow">Krogrouletten</div>
 </div>
-
+<!--slut pÂ header-->
 
 <div class="flipInX animated" style="align:center;width:100%; text-align:center; clear: left;">
     <br/>
-    <h2>{{namn}}</h2>
-    <h3>{{adress}}</h3>
-    <iframe src="{{karta}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <h2>Namn</h2>
+    <h3>Adress</h3>
+    [KARTA]
     <br/>
-    {{beskrivning}}
-
+    Beskrivning
 </div>
-
-<div style="align:center; position:relative; bottom:0; text-align:center; width:100%; float:left; padding:0;">
+<!--Bˆrjan av slump knappen-->
+<div style="align:center; position:absolute; bottom:0; text-align:center; width:100%; float:left; padding:0;">
     <div style="align:center; text-align:center; width:100%; vertical-align: bottom; padding:10px; background-color: #333333;">
     </div>
     <div style="display: inline-block; text-align:center; ">
@@ -39,5 +39,5 @@
         </div>
     </div>
 </div>
-
+<!--Bˆrjan av slump knappen-->
 {% endblock %}
