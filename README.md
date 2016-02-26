@@ -5,7 +5,17 @@ https://git-scm.com/download/win <- för att installera git
 http://www.mkyong.com/maven/how-to-install-maven-in-windows/ <- för att installera maven
 https://www.mongodb.org/downloads <- mongo databas
 
-git clone ssh://git@github.com:22/seppaleinen/krog-rouletten <- för att få hem projektet
+För att ta hem projektet
+```
+git clone ssh://git@github.com:22/seppaleinen/krog-rouletten
+```
+
+
+```
+git add -A (för att lägga till alla filer du har ändrat)
+git commit -m "text" (För att sätta ett namn på din incheckning)
+git push (för att checka in dina förändringar)
+```
 
 
 frameworks för att skapa web/ios/android appar
