@@ -17,6 +17,11 @@ git commit -m "text" (För att sätta ett namn på din incheckning)
 git push (för att checka in dina förändringar)
 ```
 
+```
+git pull (för att ta hem mina förändringar)
+```
+
+
 
 frameworks för att skapa web/ios/android appar
 http://ionicframework.com/getting-started/ 
