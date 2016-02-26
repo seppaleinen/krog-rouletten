@@ -1,9 +1,9 @@
 # krog-rouletten
 Krogroulette
 
-https://git-scm.com/download/win <- för att installera git
-http://www.mkyong.com/maven/how-to-install-maven-in-windows/ <- för att installera maven
-https://www.mongodb.org/downloads <- mongo databas
+[Installera git](htts://git-scm.com/download/win)
+[Installera maven](http://www.mkyong.com/maven/how-to-install-maven-in-windows/)
+[Installera databasen mongo](https://www.mongodb.org/downloads)
 
 För att ta hem projektet
 ```
