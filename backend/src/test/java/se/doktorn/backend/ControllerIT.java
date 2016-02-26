@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class ControllerTest {
+public class ControllerIT {
     @Autowired
     private KrogRouletteRepository repository;
     @Value("${local.server.port}")

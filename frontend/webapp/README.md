@@ -2,16 +2,27 @@
 
 Framework:	Flask
 Language:	Javascript/Python
-Dependencies:	krog-rouletten-backend, Gunicorn http://docs.gunicorn.org/en/stable/install.html
+Dependencies: [Python](https://www.python.org/downloads)
 
+To install dependencies
+```
+cd src/main/webapp;
+pip install -r requirements.txt
+```
 
 To build and start server on port 8000
 ```
 cd src/main/webapp;
-gunicorn --config=gunicorn.config.py wsgi:app;
+gunicorn --config=gunicorn.config.py wsgi:app
 ```
 
 To build docker image
 ```
 mvn clean install -Pdocker
 ```
+
+
+## TODO
+frameworks för att skapa web/ios/android appar
+http://ionicframework.com/getting-started/ 
+http://foundation.zurb.com/ 
