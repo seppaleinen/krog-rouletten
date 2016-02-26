@@ -7,11 +7,29 @@ body {
         margin:0px;
         }
 		.admin_input{
-		font-family: "Times New Roman", Georgia, Serif;
-		font-size:18px;
+		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+		font-size:50%;
+		padding:10px;
 		}
 		.admin_form{
 		float:left;
+		}
+		.odd{
+		background:#696969;
+		height:100%;
+		box-sizing: border-box;
+		border:1px solid #222222;
+		padding:5px;
+		}
+		.even{
+		background:#898989;
+		height:100%;
+		box-sizing: border-box;
+		border:1px solid #222222;
+		padding:5px;
+		}
+		.edit_button{
+		float:right;
 		}
 		.adress a {
 		color: #999999;
