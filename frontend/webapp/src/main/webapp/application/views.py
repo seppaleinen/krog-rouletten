@@ -35,3 +35,7 @@ def home():
                            karta=objekt.karta,
                            beskrivning=objekt.beskrivning
                            )
+
+@app.route("/admin")
+def admin():
+    return render_template('admin.html')
