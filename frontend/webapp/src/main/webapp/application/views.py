@@ -1,6 +1,6 @@
 from application import app
-from flask import render_template
-import random
+from flask import render_template, request, Response
+import random, requests, json
 
 BACKEND = 'http://localhost:10080'
 
@@ -39,3 +39,20 @@ def home():
 @app.route("/admin")
 def admin():
     return render_template('admin.html')
+
+@app.route('/uploadFile', methods=['POST'])
+def uploadCsv():
+    file = request.files['file']
+    if file and '.csv' in file.filename:
+        print(file.readable())
+        file_ = {'file': ('file', file)}
+        response = requests.post(BACKEND + '/save/csv', files=file_)
+        data = response.content.decode("utf-8")
+        #session[request.environ['REMOTE_ADDR']] = data
+        return render_template('index.html', data=json.dumps(data))
+    else:
+        return render_template('index.html')
+
+def getKrogList():
+    response = requests.get(BACKEND + '/find/all').json()
+    return json.dumps(response)
