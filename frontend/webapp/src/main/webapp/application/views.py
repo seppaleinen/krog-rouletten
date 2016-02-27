@@ -1,6 +1,7 @@
 from application import app
 from flask import render_template, request, Response
 import random, requests, json
+from wtforms import Form, TextField
 
 BACKEND = 'http://localhost:10080'
 
@@ -38,6 +39,11 @@ def admin():
     return render_template('admin.html')
 
 
+@app.route('/input')
+def input():
+    return render_template('input.html', form=ManualForm())
+
+
 @app.route('/uploadFile', methods=['POST'])
 def uploadCsv():
     file = request.files['file']
@@ -47,11 +53,32 @@ def uploadCsv():
         response = requests.post(BACKEND + '/save/csv', files=file_)
         data = response.content.decode('utf-8')
         #session[request.environ['REMOTE_ADDR']] = data
-        return render_template('index.html', data=json.dumps(data))
+        return render_template('input.html', form=ManualForm(request.form), data=json.dumps(data))
     else:
-        return render_template('index.html')
+        return render_template('input.html', form=ManualForm(request.form))
 
 
 def getKrogList():
     response = requests.get(BACKEND + '/find/all').json()
     return json.dumps(response)
+
+
+class ManualForm(Form):
+    namn = TextField('namn')
+    adress = TextField('adress')
+    oppetTider = TextField('oppetTider')
+    barTyp = TextField('barTyp')
+    stadsdel = TextField('stadsdel')
+    beskrivning = TextField('beskrivning')
+    betyg = TextField('betyg')
+    hemsideLank = TextField('hemsideLank')
+    intrade = TextField('intrade')
+    iframeLank = TextField('iframeLank')
+
+
+@app.route('/input/submit', methods=['POST'])
+def submitInput():
+    form = ManualForm(request.form)
+    if request.method == 'POST':
+        print(form.namn.data)
+    return render_template('input.html', form=form)
