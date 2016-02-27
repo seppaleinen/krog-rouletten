@@ -20,16 +20,14 @@
 </br></br></br></br>
 <div class="flipInX animated" style="align:center;width:100%; text-align:center; clear: left;">
     <br/>
-	<span class="namn">{{namn}}</span></br><span class="adress">{{adress}}<a href="{{hemside_lank}}">&nbsp;&nbsp;&nbsp;webb</a></span></br></br>
-    <iframe src="{{karta}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+<<<<<<< HEAD
+	<span class="namn">{{data.namn}}</span></br><span class="adress">{{data.adress}}<a href="{{data.hemside_lank}}">&nbsp;&nbsp;&nbsp;webb</a></span></br></br>
+     <iframe src="{{data.karta}}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
     <br/>
-	<div style="width:100%;">
-		<div class="beskrivning">
-		<b>Typ av ställe:{{bar_typ}}, Öppet till{{oppettid_idag}}</br>
-		Omdöme;{{betyg}}</br>
-		</b>
-    {{beskrivning}}
-</div></div>
+	<b>Typ av ställe:{{data.bar_typ}}, Öppet till{{data.oppettid_idag}}</br>
+		Omdöme;{{data.betyg}}</br>
+	</b>
+    {{data.beskrivning}}
 </div>
 
 	<!--Start slump knappen-->
