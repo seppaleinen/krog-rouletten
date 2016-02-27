@@ -24,5 +24,11 @@ mvn clean install -Pdocker
 
 ## TODO
 frameworks för att skapa web/ios/android appar
-http://ionicframework.com/getting-started/ 
-http://foundation.zurb.com/ 
+
+* http://ionicframework.com/getting-started/ 
+* http://foundation.zurb.com/ 
+
+Allmänt
+
+* https://developers.google.com/places/javascript/ Specify location, radius and place types for your Places API search
+* https://developers.google.com/maps/documentation/javascript/ google maps javascript with markers and directions
