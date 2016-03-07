@@ -1,11 +1,12 @@
-import sys
+import sys, urllib2
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from application import views
+from application import views, app
 from tests import unittest, STATUS_405, STATUS_200, STATUS_404
-from flask import url_for
+from flask import url_for, Flask
 
-class homeTestCase(unittest.TestCase):
+
+class unitTests(unittest.TestCase):
     def setUp(self):
         views.app.config['TESTING'] = True
         self.app = views.app.test_client()
