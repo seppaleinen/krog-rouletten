@@ -1,44 +1,50 @@
-nginx:
-  restart: always
-  image: seppaleinen/krogrouletten-nginx
-  ports:
-    - "80:80"
-    - "443:443"
-  volumes:
-    - /www/static
-    - /etc/letsencrypt:/etc/letsencrypt
-   
-  volumes_from:
-    - webapp
-  links:
-    - webapp:webapp
+version: "2"
 
-webapp:
-  restart: always
-  image: seppaleinen/krogrouletten-webapp
-  expose:
-    - "8000"
-  links:
-    - backend:backend
-  volumes:
-    - /webapp/application/static
-  command: gunicorn --config=gunicorn.config.py wsgi:app
+services:
+  nginx:
+    restart: always
+    build: frontend/nginx/src/main
+    #image: seppaleinen/krogrouletten-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /www/static
+      - /etc/letsencrypt:/etc/letsencrypt
 
-backend:
-  image: seppaleinen/krogrouletten-backend
-  restart: always
-  links:
-   - mongo
+    volumes_from:
+      - webapp
+    links:
+      - webapp:webapp
 
-mongo:
-  image: mongo
-  restart: always
-  volumes_from:
-   - data
+  webapp:
+    restart: always
+    image: seppaleinen/krogrouletten-webapp
+    expose:
+      - "8000"
+    links:
+      - backend:backend
+    volumes:
+      - /webapp/application/static
+    environment:
+      - BACKEND_URL=http://backend:10080
+    command: gunicorn --config=gunicorn.config.py wsgi:app
 
-data:
-  image: mongo
-  restart: never
-  volumes:
-    - /data/db
-  command: echo ''
+  backend:
+    image: seppaleinen/krogrouletten-backend
+    restart: always
+    links:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: always
+    volumes_from:
+      - data
+
+  data:
+    image: mongo
+    restart: never
+    volumes:
+      - /data/db
+    command: echo ''

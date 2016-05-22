@@ -2,8 +2,9 @@ from application import app
 from flask import render_template, request, Response
 import random, requests, json
 from wtforms import Form, TextField
+import os
 
-BACKEND = 'http://localhost:10080'
+BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
 
 
 class Objekt(object):
