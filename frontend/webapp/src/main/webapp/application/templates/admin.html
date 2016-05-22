@@ -2,6 +2,21 @@
 
 {% block content %}
 
+{% macro render_field(field, label_visible=true) -%}
+<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+    {% if field.type != 'HiddenField' and label_visible %}
+    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+    {% endif %}
+    {{ field(class_='form-control', **kwargs) }}
+    {% if field.errors %}
+    {% for e in field.errors %}
+    <p class="help-block">{{ e }}</p>
+    {% endfor %}
+    {% endif %}
+</div>
+{%- endmacro %}
+
+
 	<!--start av header kan flyttas om till en egen header.html-->
 	<div style="height:*; width:100%; position:fixed; top:0; border:0px; background-color: #333333;z-index: 2;">
 		<div class="dropdown" style="padding:15px;" >
@@ -18,44 +33,86 @@
 	</div>
 	<!--slut header-->
 
-		
-</br></br></br></br></br></br></br>
+
+<br/><br/><br/><br/><br/><br/><br/>
 <div class="admin_input">
-	<form>
-		<div class="admin_form">namn<br>
-		<input type="text" name="namn">&nbsp;</div>
-		<div class="admin_form">adress<br>
-		<input type="text" name="adress">&nbsp;</div>
-		<div class="admin_form">oppet_tider<br>
-		<input type="text" name="oppet_tider">&nbsp;</div>
-		<div class="admin_form">bar_typ<br>
-		<input type="text" name="bar_typ">&nbsp;</div>
-		<div class="admin_form">stadsdel<br>
-		<input type="text" name="stadsdel">&nbsp;</div>
-		<div class="admin_form">beskrivning<br>
-		<input type="text" name="beskrivning">&nbsp;</div>
-		<div class="admin_form">betyg<br>
-		<input type="text" name="betyg">&nbsp;</div>
-		<div class="admin_form">hemside_lank<br>
-		<input type="text" name="hemside_lank">&nbsp;</div>
-		<div class="admin_form">intrade<br>
-		<input type="text" name="intrade">&nbsp;</div>
-		<div class="admin_form">iframe_lank<br>
-		<input type="text" name="iframe_lank">&nbsp;</div>
-		<div class="admin_form"><br><button>skicka</button></div>
-	</form></br></br>
-	</div>
-<div class="admin_input" style="clear:both; padding:25px;">
-<!--första objektet-->
-	<div id="krog_1" class="odd">
-		Odd<button id="edit_button" class="edit_button">edit</button>
+	<form method="post" action="/admin/submit">
+        {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
+        {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
+        {{ render_field(form.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
+        {{ render_field(form.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
+        {{ render_field(form.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
+        {{ render_field(form.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
+        {{ render_field(form.betyg, label_visible=true, placeholder='Betyg', type='text') }}
+        {{ render_field(form.hemsideLank, label_visible=true, placeholder='Hemsida', type='text') }}
+        {{ render_field(form.intrade, label_visible=true, placeholder='Inträde', type='text') }}
+        {{ render_field(form.iframeLank, label_visible=true, placeholder='Iframe', type='text') }}
+        <!--
+		<div class="admin_form">namn<br/>
+		    <input type="text" name="namn">&nbsp;
+        </div>
+		<div class="admin_form">adress<br/>
+		    <input type="text" name="adress">&nbsp;
+        </div>
+		<div class="admin_form">oppet_tider<br/>
+		    <input type="text" name="oppet_tider">&nbsp;
+        </div>
+		<div class="admin_form">bar_typ<br/>
+		    <input type="text" name="bar_typ">&nbsp;
+        </div>
+		<div class="admin_form">stadsdel<br/>
+		    <input type="text" name="stadsdel">&nbsp;
+        </div>
+		<div class="admin_form">beskrivning<br/>
+		    <input type="text" name="beskrivning">&nbsp;
+        </div>
+		<div class="admin_form">betyg<br/>
+		    <input type="text" name="betyg">&nbsp;
+        </div>
+		<div class="admin_form">hemside_lank<br/>
+		    <input type="text" name="hemside_lank">&nbsp;
+        </div>
+		<div class="admin_form">intrade<br/>
+		    <input type="text" name="intrade">&nbsp;
+        </div>
+		<div class="admin_form">iframe_lank<br/>
+		    <input type="text" name="iframe_lank">&nbsp;
+        </div>
+        -->
+		<div class="admin_form">
+            <br/>
+            <input type="submit" value="Skicka"/>
+        </div>
+	</form>
+    <br/>
+    <br/>
 </div>
-<!--andra ojektet-->
+
+<div class="admin_input" style="clear:both; padding:25px;">
+    <!--första objektet-->
+	<div id="krog_1" class="odd">
+		Odd<button id="edit_button_odd" class="edit_button">edit</button>
+    </div>
+    <!--andra ojektet-->
 	<div id="krog_2" class="even">
-		even<button id="edit_button" class="edit_button">edit</button>
+		Even<button id="edit_button_even" class="edit_button">edit</button>
 	</div>
 
 <!--fler objekt i databasen typ-->
 </div>
+
+<div style="align:center;width:100%; text-align:center; clear: left;">
+    <form action="/admin/uploadFile" method="POST" enctype="multipart/form-data">
+        <div style='height: 0px;width: 0px; overflow:hidden;'>
+            <input id="file" type="file" name="file" style="hidden">
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('file').click()">
+            Choose file
+        </button>
+        <input type="submit" value="Upload csv file">
+    </form>
+</div>
+
 
 {% endblock %}

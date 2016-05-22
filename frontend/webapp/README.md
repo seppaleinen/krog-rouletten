@@ -14,6 +14,7 @@ To build and start server on port 8000
 ```
 cd src/main/webapp;
 gunicorn --config=gunicorn.config.py wsgi:app
+python start_tornado.py
 ```
 
 To build docker image
@@ -32,3 +33,6 @@ Allmänt
 
 * https://developers.google.com/places/javascript/ Specify location, radius and place types for your Places API search
 * https://developers.google.com/maps/documentation/javascript/ google maps javascript with markers and directions
+
+
+* Make python unittests abort mvn test phase.

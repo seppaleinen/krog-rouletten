@@ -36,15 +36,10 @@ def home():
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    return render_template('admin.html', form=ManualForm())
 
 
-@app.route('/input')
-def input():
-    return render_template('input.html', form=ManualForm())
-
-
-@app.route('/uploadFile', methods=['POST'])
+@app.route('/admin/uploadFile', methods=['POST'])
 def uploadCsv():
     file = request.files['file']
     if file and '.csv' in file.filename:
@@ -53,9 +48,9 @@ def uploadCsv():
         response = requests.post(BACKEND + '/save/csv', files=file_)
         data = response.content.decode('utf-8')
         #session[request.environ['REMOTE_ADDR']] = data
-        return render_template('input.html', form=ManualForm(request.form), data=json.dumps(data))
+        return render_template('admin.html', form=ManualForm(request.form), data=json.dumps(data))
     else:
-        return render_template('input.html', form=ManualForm(request.form))
+        return render_template('admin.html', form=ManualForm(request.form))
 
 
 def getKrogList():
@@ -76,9 +71,9 @@ class ManualForm(Form):
     iframeLank = TextField('iframeLank')
 
 
-@app.route('/input/submit', methods=['POST'])
+@app.route('/admin/submit', methods=['POST'])
 def submitInput():
     form = ManualForm(request.form)
     if request.method == 'POST':
-        print(form.namn.data)
-    return render_template('input.html', form=form)
+        print(form.data)
+    return render_template('admin.html', form=form)

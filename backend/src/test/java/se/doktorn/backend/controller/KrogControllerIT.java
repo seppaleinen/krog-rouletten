@@ -1,6 +1,5 @@
 package se.doktorn.backend.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import org.junit.Before;
@@ -18,15 +17,12 @@ import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.controller.repository.entity.Krog;
 import se.doktorn.backend.controller.repository.KrogRepository;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jayway.restassured.RestAssured.expect;
 import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
