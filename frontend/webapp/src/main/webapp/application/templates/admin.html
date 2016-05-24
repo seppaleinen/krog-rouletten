@@ -94,8 +94,13 @@
 <div class="admin_input" style="clear:both; padding:25px;">
 
     {% for krog in kroglista %}
-        <div>{{ krog.namn }}</div>
-        <div>{{ krog.adress }}</div>
+        <div id="krog_1" class="odd">
+            <div class="admin_form">
+                {{krog.namn}} {{krog.adress}}
+            </div>
+            <button id="edit_button_odd" class="edit_button">edit</button>
+            <br/>
+        </div>
     {% endfor %}
     <!--första objektet-->
 	<div id="krog_1" class="odd">

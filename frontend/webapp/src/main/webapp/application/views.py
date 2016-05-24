@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from application import app
-from flask import render_template, request, Response, jsonify
+from flask import render_template, request, Response, jsonify, redirect, url_for
 import random, requests, json
 from wtforms import Form, TextField
 import os
@@ -78,4 +78,5 @@ def submitInput():
     form = ManualForm(request.form)
     if request.method == 'POST':
         requests.post(BACKEND + '/save', json=form.data)
-    return render_template('admin.html', form=form, kroglista=getKrogList())
+    return redirect(url_for('admin'))
+    #return render_template('admin.html', form=form, kroglista=getKrogList())
