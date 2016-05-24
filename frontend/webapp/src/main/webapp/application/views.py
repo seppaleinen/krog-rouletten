@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from application import app
-from flask import render_template, request, Response
+from flask import render_template, request, Response, jsonify
 import random, requests, json
 from wtforms import Form, TextField
 import os
+
 
 BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
 
@@ -32,12 +34,12 @@ def home():
     list = [kellys, arken]
 
     objekt = random.choice(list)
-    return render_template('index.html', data=objekt,)
+    return render_template('index.html', data=objekt)
 
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html', form=ManualForm())
+    return render_template('admin.html', form=ManualForm(), kroglista=getKrogList())
 
 
 @app.route('/admin/uploadFile', methods=['POST'])
@@ -49,32 +51,31 @@ def uploadCsv():
         response = requests.post(BACKEND + '/save/csv', files=file_)
         data = response.content.decode('utf-8')
         #session[request.environ['REMOTE_ADDR']] = data
-        return render_template('admin.html', form=ManualForm(request.form), data=json.dumps(data))
+        return render_template('admin.html', form=ManualForm(request.form), kroglista=getKrogList())
     else:
-        return render_template('admin.html', form=ManualForm(request.form))
+        return render_template('admin.html', form=ManualForm(request.form), kroglista=getKrogList())
 
 
 def getKrogList():
-    response = requests.get(BACKEND + '/find/all').json()
-    return json.dumps(response)
+    return requests.get(BACKEND + '/find/all').json()
 
 
 class ManualForm(Form):
-    namn = TextField('namn')
-    adress = TextField('adress')
-    oppetTider = TextField('oppetTider')
-    barTyp = TextField('barTyp')
-    stadsdel = TextField('stadsdel')
-    beskrivning = TextField('beskrivning')
-    betyg = TextField('betyg')
-    hemsideLank = TextField('hemsideLank')
-    intrade = TextField('intrade')
-    iframeLank = TextField('iframeLank')
+    namn = TextField('Namn')
+    adress = TextField('Adress')
+    oppetTider = TextField('Oppettider')
+    barTyp = TextField('Bartyp')
+    stadsdel = TextField('Stadsdel')
+    beskrivning = TextField('Beskrivning')
+    betyg = TextField('Betyg')
+    hemsideLank = TextField('Hemside Lank')
+    intrade = TextField('Intrade')
+    iframeLank = TextField('Iframe lank')
 
 
 @app.route('/admin/submit', methods=['POST'])
 def submitInput():
     form = ManualForm(request.form)
     if request.method == 'POST':
-        print(form.data)
-    return render_template('admin.html', form=form)
+        requests.post(BACKEND + '/save', json=form.data)
+    return render_template('admin.html', form=form, kroglista=getKrogList())

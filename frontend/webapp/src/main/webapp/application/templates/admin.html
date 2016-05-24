@@ -3,15 +3,17 @@
 {% block content %}
 
 {% macro render_field(field, label_visible=true) -%}
-<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+
+<div class="admin_form form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
-    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+        <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+        <br/>
     {% endif %}
     {{ field(class_='form-control', **kwargs) }}
     {% if field.errors %}
-    {% for e in field.errors %}
-    <p class="help-block">{{ e }}</p>
-    {% endfor %}
+        {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+        {% endfor %}
     {% endif %}
 </div>
 {%- endmacro %}
@@ -35,7 +37,8 @@
 
 
 <br/><br/><br/><br/><br/><br/><br/>
-<div class="admin_input">
+
+<div class="admin_input" style="clear:both; padding:25px;">
 	<form method="post" action="/admin/submit">
         {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
         {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
@@ -89,13 +92,20 @@
 </div>
 
 <div class="admin_input" style="clear:both; padding:25px;">
+
+    {% for krog in kroglista %}
+        <div>{{ krog.namn }}</div>
+        <div>{{ krog.adress }}</div>
+    {% endfor %}
     <!--första objektet-->
 	<div id="krog_1" class="odd">
-		Odd<button id="edit_button_odd" class="edit_button">edit</button>
+		Odd
+        <button id="edit_button_odd" class="edit_button">edit</button>
     </div>
     <!--andra ojektet-->
 	<div id="krog_2" class="even">
-		Even<button id="edit_button_even" class="edit_button">edit</button>
+		Even
+        <button id="edit_button_even" class="edit_button">edit</button>
 	</div>
 
 <!--fler objekt i databasen typ-->
