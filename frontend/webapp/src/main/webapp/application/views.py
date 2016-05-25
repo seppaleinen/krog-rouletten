@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from application import app
-from flask import render_template, request, Response, jsonify, redirect, url_for
+from flask import render_template, request, Response, jsonify, redirect, url_for, make_response
 import random, requests, json
 from wtforms import Form, TextField
 import os
+from flask.ext import excel
 
 
 BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
@@ -35,7 +36,7 @@ def home():
 
     objekt = random.choice(list)
 
-    if 'localhost2' in BACKEND:
+    if 'localhost' in BACKEND:
         return render_template('index.html', data=objekt)
     else:
         krog = requests.get(BACKEND + '/find/random').json()
@@ -85,3 +86,27 @@ def submitInput():
         requests.post(BACKEND + '/save', json=form.data)
     return redirect(url_for('admin'))
     #return render_template('admin.html', form=form, kroglista=getKrogList())
+
+@app.route('/admin/export', methods=['GET'])
+def exportCSV():
+    kroglist = requests.get(BACKEND + '/export/csv').json()
+    data = [
+        ["namn","adress","oppet_tider","bar_typ", 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
+    ]
+    for krog in kroglist:
+        print(krog)
+        data.append([krog['namn'],
+                     krog['adress'],
+                     krog['oppet_tider'],
+                     krog['bar_typ'],
+                     krog['stadsdel'],
+                     krog['beskrivning'],
+                     krog['betyg'],
+                     krog['hemside_lank'],
+                     krog['intrade'],
+                     krog['iframe_lank']])
+
+    response = excel.make_response_from_array(data, 'csv')
+    response.headers["Content-Disposition"] = "attachment; filename=export.csv"
+    response.headers["Content-type"] = "text/csv"
+    return response
