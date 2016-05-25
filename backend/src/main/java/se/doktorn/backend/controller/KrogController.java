@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class KrogController {
     public static final String SAVE_URL = "/save";
     public static final String FIND_URL = "/find";
     public static final String FIND_ALL_URL = "/find/all";
+    public static final String FIND_RANDOM_URL = "/find/random";
     public static final String SAVE_CSV_URL = "/save/csv";
     @Autowired
     private KrogRepository krogRepository;
@@ -46,6 +48,22 @@ public class KrogController {
     public List<Krog> findAll() {
         log.log(Level.INFO, "Finding all");
         return krogRepository.findAll();
+    }
+
+    @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.GET)
+    public Krog findRandom() {
+        log.log(Level.INFO, "Finding random");
+        long count = krogRepository.count();
+
+        if(count > 0) {
+            Long random = ThreadLocalRandom.current().nextLong(0, count + 1);
+
+            random = random == 0 ? 0L : random - 1;
+
+            return krogRepository.findAll().get((random.intValue()));
+        } else {
+            return null;
+        }
     }
 
     @RequestMapping(value = SAVE_CSV_URL, method = RequestMethod.POST)

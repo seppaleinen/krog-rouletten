@@ -24,7 +24,7 @@
 		<div class="dropdown" style="padding:15px;" >
 			<a href="#dc"><button class="button shadow"><i class="fa fa-bars fa-2x logobtn"></i></button></a>
 			<div id="dc" class="dropdown-content">
-				<a href="index">Slumpa</a>
+				<a href="/">Slumpa</a>
 				<a href="fav.html">Favoriter</a>
 				<a href="/">Inställningar</a>
 				<a href="admin">Admin</a>
@@ -47,9 +47,9 @@
         {{ render_field(form.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
         {{ render_field(form.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
         {{ render_field(form.betyg, label_visible=true, placeholder='Betyg', type='text') }}
-        {{ render_field(form.hemsideLank, label_visible=true, placeholder='Hemsida', type='text') }}
+        {{ render_field(form.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
         {{ render_field(form.intrade, label_visible=true, placeholder='Inträde', type='text') }}
-        {{ render_field(form.iframeLank, label_visible=true, placeholder='Iframe', type='text') }}
+        {{ render_field(form.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
         <!--
 		<div class="admin_form">namn<br/>
 		    <input type="text" name="namn">&nbsp;
