@@ -96,7 +96,36 @@
     {% for krog in kroglista %}
         <div id="krog_1" class="odd">
             <div class="admin_form">
-                {{krog.namn}} {{krog.adress}}
+                <div class="admin_form">
+                    <input type="text" name="namn" value={{ krog.namn }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="adress" value={{ krog.adress }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="oppet_tider" value={{ krog.oppet_tider }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="bar_typ" value={{ krog.bar_typ }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="stadsdel" value={{ krog.stadsdel }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="beskrivning" value={{ krog.beskrivning }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="betyg" value={{ krog.betyg }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="hemside_lank" value={{ krog.hemside_lank }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="intrade" value={{ krog.intrade }}>&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="iframe_lank" value={{ krog.iframe_lank }}>&nbsp;
+                </div>
             </div>
             <button id="edit_button_odd" class="edit_button">edit</button>
             <br/>
