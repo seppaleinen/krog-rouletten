@@ -36,7 +36,7 @@ def home():
 
     objekt = random.choice(list)
 
-    if 'localhost2' in BACKEND:
+    if 'localhost' in BACKEND:
         return render_template('index.html', data=objekt)
     else:
         krog = requests.get(BACKEND + '/find/random').json()
