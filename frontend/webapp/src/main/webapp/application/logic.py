@@ -1,6 +1,6 @@
 import random, requests
 from flask import render_template, request, redirect, url_for
-from model import ManualForm, Objekt
+from application.model import ManualForm, Objekt
 from flask.ext import excel
 
 

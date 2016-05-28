@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from application import app
+from application import app, logic
 import os
-import logic
 
 
 BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
