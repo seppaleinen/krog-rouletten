@@ -9,3 +9,4 @@ Flask-WTF==0.12
 tornado
 Flask-Testing
 Flask-Excel
+selenium
