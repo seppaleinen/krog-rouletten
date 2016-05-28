@@ -4,7 +4,7 @@ from model import ManualForm, Objekt
 from flask.ext import excel
 
 
-def home(backend_url):
+def mocked_random():
     kellys = Objekt()
     kellys.namn = 'Kellys'
     kellys.adress = 'Folkungagatan 49, 116 22 Stockholm'
@@ -19,10 +19,12 @@ def home(backend_url):
 
     list = [kellys, arken]
 
-    objekt = random.choice(list)
+    return random.choice(list)
 
-    if 'localhost' in backend_url:
-        return render_template('index.html', data=objekt)
+
+def home(backend_url):
+    if 'localhost2' in backend_url:
+        return render_template('index.html', data=mocked_random())
     else:
         krog = requests.get(backend_url + '/find/random').json()
         return render_template('index.html', data=krog)
