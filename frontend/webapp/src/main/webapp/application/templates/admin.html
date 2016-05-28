@@ -18,29 +18,11 @@
 </div>
 {%- endmacro %}
 
-
-	<!--start av header kan flyttas om till en egen header.html-->
-	<div style="height:*; width:100%; position:fixed; top:0; border:0px; background-color: #333333;z-index: 2;">
-		<div class="dropdown" style="padding:15px;" >
-			<a href="#dc"><button class="button shadow"><i class="fa fa-bars fa-2x logobtn"></i></button></a>
-			<div id="dc" class="dropdown-content">
-				<a href="/">Slumpa</a>
-				<a href="fav.html">Favoriter</a>
-				<a href="/">Inställningar</a>
-				<a href="admin">Admin</a>
-			</div>
-		</div>
-		
-		<div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo shadow">Krogrouletten</div>
-	</div>
-	<!--slut header-->
-
-
 <br/><br/><br/><br/><br/><br/><br/>
 
 <div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
     <a class="fancybox fancybox.iframe" data-fancybox-type="iframe"  rel="group" href="/admin/popup">
-        <button>Ny krog</button>
+        <button class="lobster">Ny krog</button>
     </a>
 </div>
 
@@ -81,7 +63,7 @@
                     <input type="text" name="iframe_lank" value={{ krog.iframe_lank }}>&nbsp;
                 </div>
             </div>
-                <input type="submit" class="edit_button" value="Skicka"/>
+                <input type="submit" class="edit_button lobster" value="Skicka"/>
             <br/>
             </form>
         </div>
@@ -89,12 +71,12 @@
     <!--första objektet-->
 	<div id="krog_1" class="odd">
 		Odd
-        <button id="edit_button_odd" class="edit_button">edit</button>
+        <button id="edit_button_odd" class="edit_button lobster">edit</button>
     </div>
     <!--andra ojektet-->
 	<div id="krog_2" class="even">
 		Even
-        <button id="edit_button_even" class="edit_button">edit</button>
+        <button id="edit_button_even" class="edit_button lobster">edit</button>
 	</div>
 
 <!--fler objekt i databasen typ-->
@@ -106,14 +88,14 @@
             <input id="file" type="file" name="file" style="hidden">
         </div>
 
-        <button type="button" class="btn btn-primary" onclick="document.getElementById('file').click()">
+        <button type="button" class="btn btn-primary lobster" onclick="document.getElementById('file').click()">
             Choose file
         </button>
-        <input type="submit" value="Upload csv file">
+        <input type="submit" value="Upload csv file"/>
     </form>
 
     <form action="/admin/export" method="GET">
-        <input type="submit" value="Export csv file">
+        <input type="submit" value="Export csv file"/>
     </form>
 
 </div>

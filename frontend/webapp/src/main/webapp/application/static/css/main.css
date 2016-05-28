@@ -59,6 +59,9 @@ body {
         font-size:170%;
 
         }
+        .lobster{
+        font-family: 'Lobster', sans-serif;
+        }
         .button {
         background-color: #666666;
         border: 3px solid #535353;
