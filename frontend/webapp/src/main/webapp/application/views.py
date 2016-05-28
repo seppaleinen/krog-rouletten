@@ -2,7 +2,7 @@
 from application import app
 from flask import render_template, request, Response, jsonify, redirect, url_for, make_response
 import random, requests, json
-from wtforms import Form, TextField
+from wtforms import Form, TextField, validators
 import os
 from flask.ext import excel
 
@@ -36,7 +36,7 @@ def home():
 
     objekt = random.choice(list)
 
-    if 'localhost' in BACKEND:
+    if 'localhost2' in BACKEND:
         return render_template('index.html', data=objekt)
     else:
         krog = requests.get(BACKEND + '/find/random').json()
@@ -67,8 +67,8 @@ def getKrogList():
 
 
 class ManualForm(Form):
-    namn = TextField('Namn')
-    adress = TextField('Adress')
+    namn = TextField('Namn', [validators.Required()])
+    adress = TextField('Adress', [validators.Required()])
     oppetTider = TextField('Oppettider')
     barTyp = TextField('Bartyp')
     stadsdel = TextField('Stadsdel')
@@ -76,16 +76,26 @@ class ManualForm(Form):
     betyg = TextField('Betyg')
     hemside_lank = TextField('Hemside Lank')
     intrade = TextField('Intrade')
-    iframe_lank = TextField('Iframe lank')
+    iframe_lank = TextField('Iframe lank', [validators.Required()])
 
 
 @app.route('/admin/submit', methods=['POST'])
 def submitInput():
     form = ManualForm(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate():
         requests.post(BACKEND + '/save', json=form.data)
+        return render_template('admin.html', form=form, closePopup='close')
+    else:
+        return render_template('krog_popup.html', form=form, closePopup=None)
+
+@app.route('/admin/submit', methods=['PUT'])
+def update():
+    form = ManualForm(request.form)
+    if request.method == 'POST':
+        requests.post(BACKEND + '/update', json=form.data)
     return redirect(url_for('admin'))
     #return render_template('admin.html', form=form, kroglista=getKrogList())
+
 
 @app.route('/admin/export', methods=['GET'])
 def exportCSV():
@@ -110,3 +120,7 @@ def exportCSV():
     response.headers["Content-Disposition"] = "attachment; filename=export.csv"
     response.headers["Content-type"] = "text/csv"
     return response
+
+@app.route('/admin/popup', methods=['GET'])
+def popup():
+    return render_template('krog_popup.html', form=ManualForm())

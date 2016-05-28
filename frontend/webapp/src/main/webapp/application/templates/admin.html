@@ -12,7 +12,7 @@
     {{ field(class_='form-control', **kwargs) }}
     {% if field.errors %}
         {% for e in field.errors %}
-            <p class="help-block">{{ e }}</p>
+            <p class="help-block" style="color:red">{{ e }}</p>
         {% endfor %}
     {% endif %}
 </div>
@@ -38,63 +38,17 @@
 
 <br/><br/><br/><br/><br/><br/><br/>
 
-<div class="admin_input" style="clear:both; padding:25px;">
-	<form method="post" action="/admin/submit">
-        {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
-        {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
-        {{ render_field(form.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
-        {{ render_field(form.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
-        {{ render_field(form.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
-        {{ render_field(form.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
-        {{ render_field(form.betyg, label_visible=true, placeholder='Betyg', type='text') }}
-        {{ render_field(form.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
-        {{ render_field(form.intrade, label_visible=true, placeholder='Inträde', type='text') }}
-        {{ render_field(form.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
-        <!--
-		<div class="admin_form">namn<br/>
-		    <input type="text" name="namn">&nbsp;
-        </div>
-		<div class="admin_form">adress<br/>
-		    <input type="text" name="adress">&nbsp;
-        </div>
-		<div class="admin_form">oppet_tider<br/>
-		    <input type="text" name="oppet_tider">&nbsp;
-        </div>
-		<div class="admin_form">bar_typ<br/>
-		    <input type="text" name="bar_typ">&nbsp;
-        </div>
-		<div class="admin_form">stadsdel<br/>
-		    <input type="text" name="stadsdel">&nbsp;
-        </div>
-		<div class="admin_form">beskrivning<br/>
-		    <input type="text" name="beskrivning">&nbsp;
-        </div>
-		<div class="admin_form">betyg<br/>
-		    <input type="text" name="betyg">&nbsp;
-        </div>
-		<div class="admin_form">hemside_lank<br/>
-		    <input type="text" name="hemside_lank">&nbsp;
-        </div>
-		<div class="admin_form">intrade<br/>
-		    <input type="text" name="intrade">&nbsp;
-        </div>
-		<div class="admin_form">iframe_lank<br/>
-		    <input type="text" name="iframe_lank">&nbsp;
-        </div>
-        -->
-		<div class="admin_form">
-            <br/>
-            <input type="submit" value="Skicka"/>
-        </div>
-	</form>
-    <br/>
-    <br/>
+<div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
+    <a class="fancybox fancybox.iframe" data-fancybox-type="iframe"  rel="group" href="/admin/popup">
+        <button>Ny krog</button>
+    </a>
 </div>
 
 <div class="admin_input" style="clear:both; padding:25px;">
 
     {% for krog in kroglista %}
         <div id="krog_1" class="odd">
+            <form method="put" action="/admin/submit">
             <div class="admin_form">
                 <div class="admin_form">
                     <input type="text" name="namn" value={{ krog.namn }}>&nbsp;
@@ -127,8 +81,9 @@
                     <input type="text" name="iframe_lank" value={{ krog.iframe_lank }}>&nbsp;
                 </div>
             </div>
-            <button id="edit_button_odd" class="edit_button">edit</button>
+                <input type="submit" class="edit_button" value="Skicka"/>
             <br/>
+            </form>
         </div>
     {% endfor %}
     <!--första objektet-->
@@ -162,6 +117,5 @@
     </form>
 
 </div>
-
 
 {% endblock %}

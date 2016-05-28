@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     -->
-    <link href="/static/css/main.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
     {% block css %}{% endblock %}
 </head>
 <body>
@@ -25,13 +26,45 @@
     {% block content %}{% endblock %}
 </div>
 
+<div id="closePopup" hidden>{{closePopup}}</div>
+
 <!-- scripts -->
 <script src="/static/js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="/static/js/jquery.fancybox.pack.js?v=2.1.5" type="text/javascript"></script>
 <!-- bootstrap fuckar up css:en
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox")
+            .attr('rel', 'gallery')
+            .fancybox({
+                maxWidth	: 800,
+		        maxHeight	: 400,
+		        fitToView	: false,
+		        width		: '70%',
+		        height		: '70%',
+		        autoSize	: false,
+                padding     : 0,
+                margin      : [20, 60, 20, 60],
+                afterClose : function() {
+                    location.reload();
+                    return;
+                }
+            });
+        $("#closefanc").click(function(){
+            parent.jQuery.fancybox.close()
+        });
+	});
+
+	var closePopup = $("#closePopup").text();
+	if(closePopup != "") {
+        parent.jQuery.fancybox.close();
+    }
+
+</script>
 {% block js %}{% endblock %}
 
 </body>
