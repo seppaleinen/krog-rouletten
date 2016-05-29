@@ -63,11 +63,12 @@ def update(backend_url):
 def export_csv(backend_url):
     kroglist = requests.get(backend_url + '/export/csv').json()
     data = [
-        ["namn","adress","oppet_tider","bar_typ", 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
+        ['namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
     ]
     for krog in kroglist:
         print(krog)
-        data.append([krog['namn'],
+        data.append([
+                     krog['namn'],
                      krog['adress'],
                      krog['oppet_tider'],
                      krog['bar_typ'],
