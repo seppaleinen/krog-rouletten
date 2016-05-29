@@ -2,8 +2,7 @@ import sys, urllib2, mock, os
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from application import views, app
-from tests import unittest, STATUS_405, STATUS_200, STATUS_404
-from flask import url_for, Flask
+from tests import STATUS_405, STATUS_200, STATUS_404
 from flask_testing import TestCase
 
 
@@ -18,7 +17,6 @@ class HomeUnitTests(TestCase):
     def test_home_get(self, mocked):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
         result = self.client.get('/')
-        #self.assertEquals(result.json, dict(success=True))
         self.assertEquals(STATUS_200, result.status)
         self.assertTrue('class="logo shadow">Krogrouletten</div>' in result.data)
         mocked.get.assert_called_with('http://localhost:10080/find/random')
@@ -27,7 +25,6 @@ class HomeUnitTests(TestCase):
     def test_home_post_not_allowed(self):
         result = self.client.post('/')
         self.assertEquals(STATUS_405, result.status)
-        #self.assertEquals(result.json, dict(success=True))
 
     def test_home_put_not_allowed(self):
         result = self.client.put('/')
