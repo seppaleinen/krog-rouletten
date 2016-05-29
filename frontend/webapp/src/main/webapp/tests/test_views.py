@@ -14,10 +14,6 @@ class HomeUnitTests(TestCase):
         app.config['TESTING'] = True
         return app
 
-
-    def tearDown(self):
-        self.app = None
-
     @mock.patch('application.logic.requests')
     def test_home_get(self, mocked):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
@@ -49,9 +45,6 @@ class AdminUnitTests(TestCase):
         app.config['TESTING'] = True
         return app
 
-    def tearDown(self):
-        self.app = None
-
     @mock.patch('application.logic.requests')
     def test_admin_get(self, mocked):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
@@ -69,14 +62,6 @@ class PopupUnitTests(TestCase):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
         app.config['TESTING'] = True
         return app
-
-    #def setUp(self):
-    #    os.environ['BACKEND_URL'] = 'http://localhost:10080'
-    #    views.app.config['TESTING'] = True
-    #    self.app = views.app.test_client()
-
-    def tearDown(self):
-        self.app = None
 
     def test_popup_get(self):
         response = self.client.get('/admin/popup')
