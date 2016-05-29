@@ -21,7 +21,6 @@ def upload_csv():
     return logic.upload_csv(BACKEND)
 
 
-
 @app.route('/admin/submit', methods=['POST'])
 def submit_input():
     return logic.submit_input(BACKEND)

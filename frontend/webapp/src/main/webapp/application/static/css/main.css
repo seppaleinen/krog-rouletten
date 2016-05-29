@@ -57,7 +57,6 @@ body {
         .logobtn{
         font-weight: 400;
         font-size:170%;
-
         }
         .lobster{
         font-family: 'Lobster', sans-serif;
@@ -73,6 +72,17 @@ body {
         margin: 4px 2px;
         cursor: pointer;
         }
+        .submit_button {
+                background-color: white;
+                border: 3px solid #535353;
+                border-radius:7px;
+                color: black;
+                padding: 12px 15px;
+                text-align: center;
+                display: inline-block;
+                margin: 4px 2px;
+                cursor: pointer;
+                }
         .star_button {
         font-weight: 400;
         font-size:150%;

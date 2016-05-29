@@ -11,3 +11,4 @@ Flask-Testing
 Flask-Excel
 selenium
 mock
+blinker

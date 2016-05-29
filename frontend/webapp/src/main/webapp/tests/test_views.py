@@ -2,70 +2,68 @@ import sys, urllib2, mock, os
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
 from application import views, app
-from tests import unittest, STATUS_405, STATUS_200, STATUS_404
-from flask import url_for, Flask
+from tests import STATUS_405, STATUS_200, STATUS_404
 from flask_testing import TestCase
 
 
-class HomeUnitTests(unittest.TestCase):
-    def setUp(self):
-        views.app.config['TESTING'] = True
-        self.app = views.app.test_client()
-        with views.app.test_request_context():
-            self.url = url_for('home')
-
-    def tearDown(self):
-        self.app = None
+class HomeUnitTests(TestCase):
+    def create_app(self):
+        app = views.app
+        os.environ['BACKEND_URL'] = 'http://localhost:10080'
+        app.config['TESTING'] = True
+        return app
 
     @mock.patch('application.logic.requests')
     def test_home_get(self, mocked):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
-        result = self.app.get(self.url)
-        assert STATUS_200 in result.status
-        assert 'Krogrouletten' in result.data
+        result = self.client.get('/')
+        self.assertEquals(STATUS_200, result.status)
+        self.assertTrue('class="logo shadow">Krogrouletten</div>' in result.data)
         mocked.get.assert_called_with('http://localhost:10080/find/random')
+        self.assert_template_used('index.html')
 
     def test_home_post_not_allowed(self):
-        result = self.app.post(self.url)
-        assert STATUS_405 in result.status
+        result = self.client.post('/')
+        self.assertEquals(STATUS_405, result.status)
 
     def test_home_put_not_allowed(self):
-        result = self.app.put(self.url)
-        assert STATUS_405 in result.status
+        result = self.client.put('/')
+        self.assertEquals(STATUS_405, result.status)
 
     def test_home_delete_not_allowed(self):
-        result = self.app.delete(self.url)
-        assert STATUS_405 in result.status
+        result = self.client.delete('/')
+        self.assertEquals(STATUS_405, result.status)
 
 
-class AdminUnitTests(unittest.TestCase):
-    def setUp(self):
+class AdminUnitTests(TestCase):
+    def create_app(self):
+        app = views.app
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
-        views.app.config['TESTING'] = True
-        self.app = views.app.test_client()
-
-    def tearDown(self):
-        self.app = None
+        app.config['TESTING'] = True
+        return app
 
     @mock.patch('application.logic.requests')
     def test_admin_get(self, mocked):
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
-        result = self.app.get('/admin')
-        assert STATUS_200 in result.status
-        assert 'Ny krog' in result.data
+        result = self.client.get('/admin')
+        self.assertEquals(STATUS_200, result.status)
+        self.assertTrue('class="logo shadow">Krogrouletten</div>' in result.data)
+        self.assertTrue('Ny krog' in result.data)
         mocked.get.assert_called_with('http://localhost:10080/find/all')
+        self.assert_template_used('admin.html')
 
 
-class PopupUnitTests(unittest.TestCase):
-    def setUp(self):
+class PopupUnitTests(TestCase):
+    def create_app(self):
+        app = views.app
         os.environ['BACKEND_URL'] = 'http://localhost:10080'
-        views.app.config['TESTING'] = True
-        self.app = views.app.test_client()
-
-    def tearDown(self):
-        self.app = None
+        app.config['TESTING'] = True
+        return app
 
     def test_popup_get(self):
-        result = self.app.get('/admin/popup')
-        assert STATUS_200 in result.status
-        assert 'Skicka' in result.data
+        response = self.client.get('/admin/popup')
+        self.assertEquals(STATUS_200, response.status)
+        self.assertFalse('class="logo shadow">Krogrouletten</div>' in response.data)
+        self.assertTrue('Skicka' in response.data)
+        self.assert_template_used('krog_popup.html')
+
