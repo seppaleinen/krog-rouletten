@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Log
 public class KrogController {
     public static final String SAVE_URL = "/save";
+    public static final String DELETE_URL = "/delete/krog";
     public static final String FIND_URL = "/find";
     public static final String FIND_ALL_URL = "/find/all";
     public static final String FIND_RANDOM_URL = "/find/random";
@@ -40,6 +41,13 @@ public class KrogController {
         log.log(Level.INFO, "Saving: " + krog);
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = DELETE_URL, method = RequestMethod.DELETE)
+    public ResponseEntity delete(@RequestBody Krog krog) {
+        log.log(Level.INFO, "Deleting: " + krog.toString());
+        krogRepository.delete(krog);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = FIND_URL, method = RequestMethod.GET)

@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@JsonIgnoreProperties(value = {"id"})
+//@JsonIgnoreProperties(value = {"id"})
 public class Krog {
     @Id
     private String id;

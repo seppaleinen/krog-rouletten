@@ -55,19 +55,24 @@ def submit_input(backend_url):
 
 def update(backend_url):
     form = ManualForm(request.form)
-    if request.method == 'POST':
-        requests.post(backend_url + '/update', json=form.data)
-    return redirect(url_for('admin'))
+    if request.form.get('update'):
+        if request.method == 'POST':
+            requests.post(backend_url + '/update', json=form.data)
+        return redirect(url_for('admin'))
+    elif request.form.get('delete'):
+        requests.delete(backend_url + '/delete/krog', json=form.data)
+        return redirect(url_for('admin'))
 
 
 def export_csv(backend_url):
     kroglist = requests.get(backend_url + '/export/csv').json()
     data = [
-        ['namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
+        ['id', 'namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
     ]
     for krog in kroglist:
         print(krog)
         data.append([
+                     krog['id'],
                      krog['namn'],
                      krog['adress'],
                      krog['oppet_tider'],

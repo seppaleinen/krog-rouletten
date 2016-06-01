@@ -23,22 +23,24 @@ public class CsvManager {
         log.info("LINE: " + string);
         String[] split = string.split(",", -1);
 
-        if(split.length != 10) {
+        if(split.length != 11) {
             throw new Exception("Not valid csv-file");
         }
 
-        String namn = split[0].replaceAll("\"", "");
-        String adress = split[1].replaceAll("\"", "");
-        String oppetTider = split[2].replaceAll("\"", "");
-        String barTyp = split[3].replaceAll("\"", "");
-        String stadsdel = split[4].replaceAll("\"", "");
-        String beskrivning = split[5].replaceAll("\"", "");
-        String betyg = split[6].replaceAll("\"", "");
-        String hemsideLank = split[7].replaceAll("\"", "");
-        String intrade = split[8].replaceAll("\"", "");
-        String iframeLank = split[9].replaceAll("\"", "");
+        String id = split[0].replaceAll("\"", "");
+        String namn = split[1].replaceAll("\"", "");
+        String adress = split[2].replaceAll("\"", "");
+        String oppetTider = split[3].replaceAll("\"", "");
+        String barTyp = split[4].replaceAll("\"", "");
+        String stadsdel = split[5].replaceAll("\"", "");
+        String beskrivning = split[6].replaceAll("\"", "");
+        String betyg = split[7].replaceAll("\"", "");
+        String hemsideLank = split[8].replaceAll("\"", "");
+        String intrade = split[9].replaceAll("\"", "");
+        String iframeLank = split[10].replaceAll("\"", "");
 
         return Krog.builder().
+                id(id).
                 namn(namn).
                 adress(adress).
                 oppet_tider(oppetTider).
