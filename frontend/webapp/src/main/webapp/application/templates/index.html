@@ -11,25 +11,24 @@
 			<a href="fav.html">Favoriter</a>
 			<a href="/">Inställningar</a>
 			<a href="admin">Admin</a>
+			<a href="http://localhost:8000/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
 		</div>
 	</div>
 
-	<div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo shadow">Krogrouletten</div>
+	<div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo shadow"><a href="/">Krogrouletten</a></div>
 </div>
 
 <br/><br/><br/><br/>
-<div class="flipInX animated" style="align:center;width:100%; text-align:center; clear: left;">
+<div class="flipInX animated" style="align:center;width:100%; padding:15px; text-align:center; clear: left;">
     <br/>
-	<span class="namn">{{data.namn}}</span>
-	<br/>
-	<span class="adress">{{data.adress}}<a href="{{ data.hemside_lank }}">&nbsp;&nbsp;&nbsp;webb</a></span>
+	<span class="namn"><a href="{{ data.hemside_lank }}">{{data.namn}}</a></span>
 	<br/><br/>
-	<iframe src="{{ data.iframe_lank }}" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+	<iframe src="{{ data.iframe_lank }}" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen></iframe>
     <br/>
-	<b>Typ av ställe:{{ data.bar_typ }}, Öppet till{{ data.oppettid_idag }}<br/>
-		Omdöme;{{ data.betyg }}<br/>
+	<b>{{data.beskrivning}} <br/>Omdöme:&nbsp;{{ data.betyg }}<br/>Typ:&nbsp;{{ data.bar_typ }} <br/>Öppet till:&nbsp;{{ data.oppet_tider }}<br/>
+		<br/>
 	</b>
-    {{data.beskrivning}}
+    
 </div>
 
 <!--Start slump knappen-->

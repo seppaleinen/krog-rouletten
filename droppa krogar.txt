@@ -1,0 +1,4 @@
+c:\program files\mongodb\server\3.2\bin\mongo.exe
+
+use krogrouletten
+db.krog.drop()
