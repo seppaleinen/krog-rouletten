@@ -22,4 +22,20 @@ $(document).ready(function () {
     if (closePopup !== "") {
         parent.jQuery.fancybox.close();
     }
+
+    var x = document.getElementById("location");
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "ERROR";
+        }
+    }
+    function showPosition(position) {
+        x.innerHTML = "LAT:" + position.coords.latitude + "," + "LON:" + position.coords.longitude;
+    }
+    if(x !== "") {
+        //getLocation();
+    }
+
 });
