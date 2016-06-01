@@ -1,4 +1,4 @@
-body {
+		body {
         background-color: #333333;
         color: white;
         font-family: 'Roboto', sans-serif;
@@ -6,6 +6,11 @@ body {
         margin:0px;
 		overflow-x:hidden;
         }
+		@media screen and (max-width: 480px) {
+		.logo {
+        font-size:170% !important;
+		}
+		}
 		a {
 		color: white;
 		text-decoration: none;
