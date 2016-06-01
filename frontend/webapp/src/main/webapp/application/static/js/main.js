@@ -18,12 +18,16 @@ $(document).ready(function () {
             }
         });
 
-    var closePopup = $("#closePopup").text();
+    var closePopup, x;
+    closePopup = $("#closePopup").text();
     if (closePopup !== "") {
         parent.jQuery.fancybox.close();
     }
 
-    var x = document.getElementById("location");
+    x = document.getElementById("location");
+    function showPosition(position) {
+        x.innerHTML = "LAT:" + position.coords.latitude + "," + "LON:" + position.coords.longitude;
+    }
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -31,11 +35,4 @@ $(document).ready(function () {
             x.innerHTML = "ERROR";
         }
     }
-    function showPosition(position) {
-        x.innerHTML = "LAT:" + position.coords.latitude + "," + "LON:" + position.coords.longitude;
-    }
-    if(x !== "") {
-        //getLocation();
-    }
-
 });
