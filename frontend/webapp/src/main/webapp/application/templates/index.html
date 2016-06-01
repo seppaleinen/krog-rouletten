@@ -3,8 +3,8 @@
 {% block content %}
 
 <!--Start av header kan flyttas om till en egen header.html-->
-<div style="height:*; width:100%; position:fixed; top:0; border:0px; background-color: #333333;z-index: 2;">
-	<div class="dropdown" style="padding:15px;" >
+<div style="height:*; width:100%; position:fixed; top:0; border:0px; background-color: #333333;z-index: ;">
+	<div class="dropdown" style="padding:10px;" >
 		<a href="#dc"><button class="button shadow"><i class="fa fa-bars fa-2x logobtn"></i></button></a>
 		<div id="dc" class="dropdown-content">
 			<a href="/">Slumpa</a>
@@ -22,7 +22,7 @@
 <div class="flipInX animated" style="align:center;width:100%; text-align:center; clear: left;">
     <br/>
 	<br/>
-	<iframe src="{{ data.iframe_lank }}" width="90%" height="300" frameborder="0" style="border:0; background-color:#f3f3f3;" allowfullscreen></iframe>
+	<iframe src="{{ data.iframe_lank }}" width="92%" height="300" frameborder="0" style="border:0; background-color:#f3f3f3;" allowfullscreen></iframe>
     <br/><br/><span class="namn"><a href="{{ data.hemside_lank }}">{{data.namn}}</a></span>
 	<br/>
 	<b>{{data.beskrivning}} <br/>Omdöme:&nbsp;{{ data.betyg }}<br/>Typ:&nbsp;{{ data.bar_typ }} <br/>Öppet till:&nbsp;{{ data.oppet_tider }}<br/>
