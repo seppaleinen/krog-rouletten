@@ -67,7 +67,7 @@
                             </excludes>
                             <options>
                                 <undef>true</undef>
-                                <predef>$, location, parent, document</predef>
+                                <predef>$, location, parent, document, navigator</predef>
                             </options>
                             <sourceFolders>${project.basedir}/src/main/webapp/application/static/js</sourceFolders>
                         </configuration>
