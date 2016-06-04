@@ -11,6 +11,7 @@ services:
     volumes:
       - /www/static
       - /etc/letsencrypt:/etc/letsencrypt
+      - /tmp/letsencrypt-auto:/tmp/letsencrypt-auto
 
     volumes_from:
       - webapp

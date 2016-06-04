@@ -12,6 +12,8 @@ letsencrypt/letsencrypt-auto certonly -t --keep --authenticator webroot -w /root
 
 [Local CDN in nGinx](https://jesus.perezpaz.es/2014/02/configure-subdomain-as-cdn-in-nginx-wordpress-w3-total-cache-configurations/)
 
+
+letsencrypt/letsencrypt-auto certonly --server https://acme-v01.api.letsencrypt.org/directory -a webroot --webroot-path=/tmp/letsencrypt-auto --agree-dev-preview -d krogrouletten.se -d www.krogrouletten.se
 ```
 git clone https://github.com/letsencrypt/letsencrypt
 sudo dd if=/dev/zero of=/swapfile bs=1024 count=524288

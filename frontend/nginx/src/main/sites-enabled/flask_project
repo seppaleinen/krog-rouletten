@@ -30,11 +30,19 @@ server {
     }
 }
 
-#server {
-#    listen 80;
-#    server_name krogrouletten;
-#    return 301 https://$host$request_uri;
-#}
+server {
+    listen 80;
+    server_name krogrouletten;
+
+    location .well-known/acme-challenge {
+        default_type "text/plain";
+        root /tmp/lets-encrypt-auto;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
 
 server {
     listen 80;
