@@ -18,30 +18,12 @@
 	<div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo lobster"><a href="/">Krogrouletten</a></div>
 </div>
 
-<br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <div class="" style="align:center; width:100%; clear: left; text-align: center;">
-    <br/>
-	<div style="text-align: center;"><iframe class="" src="{{ data.iframe_lank }}" width="92%" height="250" frameborder="0" align="center" style="border:0; background-color:#f3f3f3;" allowfullscreen></iframe></div>
-    <br/><span class="namn" align="center"><a href="{{ data.hemside_lank }}">{{data.namn}}</a></span>
-	<div style="text-align: left; margin-left:4%"></br>
-	<b>Öppet till:&nbsp;{{ data.oppet_tider }}<br/>Typ:&nbsp;{{ data.bar_typ }} <br/>Beskrivning:&nbsp;{{data.beskrivning}} <br/>Omdöme:&nbsp;{{ data.betyg }}<br/>
-		<br/>
-	</b>
-	</div>
+	<a href="/krog/random">
+		<button class="slumpa_button lobster flipInX animated">Slumpa</button>
+	</a>
 </div>
-</br></br></br>
-
-
-<!--Start slump knappen-->
-<div class="slumpa_div" style="position:fixed;">
-	<div class="slumpa_div_inner">
-		<div style="display: inline-block; text-align:center; ">
-			<div style="float:left; padding: 10px;">
-				<a href="/"><button class="slumpa_button lobster flipInX animated">Slumpa</button></a>
-			</div>
-		</div>
-	</div>
-</div>
-<!--Slut Slump knappen-->
+<br/><br/><br/>
 
 {% endblock %}

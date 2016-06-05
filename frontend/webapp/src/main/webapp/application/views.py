@@ -8,7 +8,12 @@ BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
 
 @app.route('/')
 def home():
-    return logic.home(BACKEND)
+    return logic.home()
+
+
+@app.route('/krog/random')
+def random():
+    return logic.random(BACKEND)
 
 
 @app.route('/admin')

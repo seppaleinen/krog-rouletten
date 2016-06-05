@@ -4,13 +4,17 @@ from application.model import ManualForm, Objekt
 from flask.ext import excel
 
 
-def home(backend_url):
+def home():
+    return render_template('index.html')
+
+
+def random(backend_url):
     krog = None
     try:
         krog = requests.get(backend_url + '/find/random').json()
     except ValueError:
         pass
-    return render_template('index.html', data=krog)
+    return render_template('krog.html', data=krog)
 
 
 def admin(backend_url):
