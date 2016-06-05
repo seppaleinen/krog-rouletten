@@ -1,5 +1,5 @@
-import random, requests
-from flask import render_template, request, redirect, url_for
+import random, requests, json
+from flask import render_template, request, redirect, url_for, jsonify
 from application.model import ManualForm, Objekt
 from flask.ext import excel
 
@@ -10,8 +10,9 @@ def home():
 
 def random_page(backend_url):
     krog = None
+    print(json.dumps(request.args))
     try:
-        krog = requests.get(backend_url + '/find/random', params={'location' : 'value1'}).json()
+        krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
     except ValueError:
         pass
     return render_template('krog.html', data=krog)

@@ -27,6 +27,9 @@ $(document).ready(function () {
     x = document.getElementById("location");
     function showPosition(position) {
         x.innerHTML = "LAT:" + position.coords.latitude + "," + "LON:" + position.coords.longitude;
+        var requestParameter = 'longitude=' + position.coords.longitude + ',latitude=' + position.coords.latitude + ',distance=8';
+        window.location.href = "/krog/random?" + requestParameter;
+        return false;
     }
     function getLocation() {
         if (navigator.geolocation) {
@@ -35,4 +38,9 @@ $(document).ready(function () {
             x.innerHTML = "ERROR";
         }
     }
+    $("#slumpaGPS").click( function()
+        {
+            getLocation();
+        }
+    );
 });
