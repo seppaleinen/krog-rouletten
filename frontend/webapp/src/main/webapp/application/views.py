@@ -8,7 +8,12 @@ BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
 
 @app.route('/')
 def home():
-    return logic.home(BACKEND)
+    return logic.home()
+
+
+@app.route('/krog/random')
+def random_page():
+    return logic.random_page(BACKEND)
 
 
 @app.route('/admin')
@@ -21,11 +26,12 @@ def upload_csv():
     return logic.upload_csv(BACKEND)
 
 
-@app.route('/admin/submit', methods=['POST'])
-def submit_input():
-    return logic.submit_input(BACKEND)
+@app.route('/admin/save', methods=['POST'])
+def save_krog():
+    return logic.save_krog(BACKEND)
 
-@app.route('/admin/submit', methods=['PUT'])
+
+@app.route('/admin/update', methods=['POST'])
 def update():
     return logic.update(BACKEND)
 

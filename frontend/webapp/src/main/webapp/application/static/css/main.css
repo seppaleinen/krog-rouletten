@@ -1,16 +1,33 @@
-body {
-        background-color: #333333;
-        color: white;
+		html{
+		height: 100%
+		}
+		body {
+        background-color: #174e79;
+        color: #f8f5e3;
         font-family: 'Roboto', sans-serif;
         padding:0;
         margin:0px;
+		overflow-x:hidden;
+		height: 100%
         }
+		#holder{
+		min-height: 100%;
+		position:relative;
+		}
+		a {
+		color: #f8f5e3;
+		text-decoration: none;
+		}
 		.admin_input{
 		font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 		padding:10px;
 		}
 		.admin_form{
 		float:left;
+		}
+		.admin_button{
+		font-size:100%;
+		cursor: pointer;
 		}
 		.odd{
 		background:#696969;
@@ -28,6 +45,7 @@ body {
 		}
 		.edit_button{
 		float:right;
+		cursor: pointer;
 		}
 		.adress a {
 		color: #999999;
@@ -36,6 +54,7 @@ body {
 		.namn{
 		font-weight: 400;
 		font-size:200%;
+		text-align:center !important;
 		}
 		.adress{
 		font-weight: 400;
@@ -49,28 +68,37 @@ body {
 		text-align:left; 
 		}
         .logo{
-        font-family: 'Lobster', sans-serif;
         font-weight: 400;
-        font-size:340%;
+        font-size:180%;
 
         }
+		.logo_bg {
+		height:*;
+		width:100%;
+		position:fixed;
+		top:0;
+		border:0px;
+		background-color: #032b49;
+		z-index: 2;
+		}
         .logobtn{
         font-weight: 400;
-        font-size:170%;
+        font-size:150%;
         }
         .lobster{
         font-family: 'Lobster', sans-serif;
         }
         .button {
-        background-color: #666666;
-        border: 3px solid #535353;
+        background-color: #032b49;
+        border: 1px solid #f8f5e3;
         border-radius:7px;
-        color: white;
-        padding: 12px 15px;
+        color: #f8f5e3;
+        padding: 8px 12px;
         text-align: center;
         display: inline-block;
         margin: 4px 2px;
         cursor: pointer;
+		font-size:100% !important;
         }
         .submit_button {
                 background-color: white;
@@ -83,56 +111,42 @@ body {
                 margin: 4px 2px;
                 cursor: pointer;
                 }
-        .star_button {
-        font-weight: 400;
-        font-size:150%;
-        text-shadow:
-        float:right;
 
-        background-color: #666666;
-        border: 3px solid #535353;
-        border-radius:7px;
-        color: white;
-        padding: 17px 18px;
-        text-align: center;
-        display: inline-block;
-        cursor: pointer;
-        }
-        .slumpa_button {
+		.slumpa_button {
         font-family: 'Lobster', sans-serif;
         font-weight: 400;
-        font-size:260%;
-        float left;
-
-        background-color: #666666;
-        border: 3px solid #535353;
+        font-size:150%;
+        background-color: #174e79;
+        border: 1px solid #f8f5e3;
         border-radius:7px;
-        color: white;
+        color: #f8f5e3;
         padding: 5px 25px;
         text-align: center;
         display: inline-block;
-        cursor: pointer;
+		cursor: pointer;
         }
+		.slumpa_div{
+		position:fixed;
+		bottom:0;
+		text-align:center;
+		width:100%;
+		float:left;
+		padding:0;
+		height: 62px;	
+		}
+		.slumpa_div_inner{
+		align:center;
+		text-align:center;
+		width:100%;
+		vertical-align: bottom;
+		background-color: #032b49;
+		}
+		
         .dropdown {
         position: relative;
         display: inline-block;
         float:right;
 
-        }
-        .shadow{
-        text-shadow:
-        -1px -1px 6px #535353,
-        1px -1px 6px #535353,
-        -1px 1px 6px #535353,
-        1px 1px 6px #535353,
-        -1px -1px 6px #535353,
-        1px -1px 6px #535353,
-        -1px 1px 6px #535353,
-        1px 1px 6px #535353,
-        -1px -1px 6px #535353,
-        1px -1px 6px #535353,
-        -1px 1px 6px #535353,
-        1px 1px 6px #535353;
         }
 
         .dropdown-content {

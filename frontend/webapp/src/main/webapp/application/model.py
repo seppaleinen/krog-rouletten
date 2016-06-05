@@ -1,10 +1,11 @@
 from wtforms import Form, TextField, validators, HiddenField
 
 
+
 class ManualForm(Form):
     id = HiddenField('id')
     namn = TextField('Namn', [validators.Required()])
-    adress = TextField('Adress', [validators.Required()])
+    adress = TextField('Adress')
     oppetTider = TextField('Oppettider')
     barTyp = TextField('Bartyp')
     stadsdel = TextField('Stadsdel')

@@ -2,6 +2,10 @@ package se.doktorn.backend.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metric;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,6 +31,8 @@ import java.util.stream.Collectors;
 @Log
 public class KrogController {
     public static final String SAVE_URL = "/save";
+    public static final String UPDATE_URL = "/update";
+    public static final String DELETE_URL = "/delete/krog";
     public static final String FIND_URL = "/find";
     public static final String FIND_ALL_URL = "/find/all";
     public static final String FIND_RANDOM_URL = "/find/random";
@@ -38,8 +46,26 @@ public class KrogController {
     @RequestMapping(value = SAVE_URL, method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody Krog krog) {
         log.log(Level.INFO, "Saving: " + krog);
+        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
+        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = UPDATE_URL, method = RequestMethod.POST)
+    public ResponseEntity update(@RequestBody Krog krog) {
+        log.log(Level.INFO, "Updating: " + krog);
+        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
+        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
+        krogRepository.save(krog);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = DELETE_URL, method = RequestMethod.DELETE)
+    public ResponseEntity delete(@RequestBody Krog krog) {
+        log.log(Level.INFO, "Deleting: " + krog.toString());
+        krogRepository.delete(krog);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = FIND_URL, method = RequestMethod.GET)
@@ -55,18 +81,21 @@ public class KrogController {
     }
 
     @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.GET)
-    public Krog findRandom() {
+    public Krog findRandom(@RequestParam String location) {
         log.log(Level.INFO, "Finding random");
-        long count = krogRepository.count();
+        Point kellysPoint = new Point(18.0724716, 59.3144593);
+        Distance distance = new Distance(8, Metrics.KILOMETERS);
+        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance);
 
-        if(count > 0) {
-            Long random = ThreadLocalRandom.current().nextLong(0, count + 1);
-
-            random = random == 0 ? 0L : random - 1;
-
-            return krogRepository.findAll().get((random.intValue()));
-        } else {
+        log.log(Level.INFO, krogList.toString());
+        if(krogList.isEmpty()) {
             return null;
+        } else {
+            int random = ThreadLocalRandom.current().nextInt(0, krogList.size() + 1);
+
+            random = random == 0 ? 0 : random - 1;
+
+            return krogList.get(random);
         }
     }
 

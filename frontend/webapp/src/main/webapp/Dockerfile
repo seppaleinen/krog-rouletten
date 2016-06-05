@@ -3,4 +3,6 @@ FROM jfloff/alpine-python:3.4
 ADD . /webapp
 
 WORKDIR /webapp
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
+    pip install -r requirements.txt

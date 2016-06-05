@@ -21,7 +21,7 @@
 
 
 <div class="admin_input" style="clear:both; padding:25px;">
-	<form method="post" action="/admin/submit">
+	<form method="post" action="/admin/save">
         {{ render_field(form.id, readonly=true, label_visible=false, type='hidden') }}
         {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
         {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
