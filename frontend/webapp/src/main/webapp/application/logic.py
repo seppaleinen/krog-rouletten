@@ -11,7 +11,7 @@ def home():
 def random_page(backend_url):
     krog = None
     try:
-        krog = requests.get(backend_url + '/find/random').json()
+        krog = requests.get(backend_url + '/find/random', params={'location' : 'value1'}).json()
     except ValueError:
         pass
     return render_template('krog.html', data=krog)

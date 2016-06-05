@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import se.doktorn.backend.controller.repository.KrogRepository;
 import se.doktorn.backend.controller.repository.entity.Krog;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 public class KrogControllerTest {
@@ -34,11 +36,10 @@ public class KrogControllerTest {
                 krogList.add(new Krog());
             }
 
-            when(repository.count()).thenReturn(Long.valueOf(i));
-            when(repository.findAll()).thenReturn(krogList);
+            when(repository.findByLocationNear(any(Point.class), any(Distance.class))).thenReturn(krogList);
 
             try {
-                krogController.findRandom();
+                krogController.findRandom(null);
             } catch(Exception e) {
                 fail("Should not fail: " + e.toString());
             }

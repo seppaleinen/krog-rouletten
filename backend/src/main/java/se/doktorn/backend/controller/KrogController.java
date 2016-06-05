@@ -2,6 +2,9 @@ package se.doktorn.backend.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metric;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,18 +81,21 @@ public class KrogController {
     }
 
     @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.GET)
-    public Krog findRandom() {
+    public Krog findRandom(@RequestParam String location) {
         log.log(Level.INFO, "Finding random");
-        long count = krogRepository.count();
+        Point kellysPoint = new Point(18.0724716, 59.3144593);
+        Distance distance = new Distance(8, Metrics.KILOMETERS);
+        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance);
 
-        if(count > 0) {
-            Long random = ThreadLocalRandom.current().nextLong(0, count + 1);
-
-            random = random == 0 ? 0L : random - 1;
-
-            return krogRepository.findAll().get((random.intValue()));
-        } else {
+        log.log(Level.INFO, krogList.toString());
+        if(krogList.isEmpty()) {
             return null;
+        } else {
+            int random = ThreadLocalRandom.current().nextInt(0, krogList.size() + 1);
+
+            random = random == 0 ? 0 : random - 1;
+
+            return krogList.get(random);
         }
     }
 
