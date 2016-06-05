@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -44,7 +45,10 @@ public class KrogControllerIT {
 
     @Test
     public void canSave() {
-        Krog krog = Krog.builder().namn("NAMN").build();
+        Krog krog = Krog.builder()
+                .namn("NAMN")
+                .adress("ADRESS")
+                .build();
 
         given().contentType(ContentType.JSON).body(krog).when().post(KrogController.SAVE_URL).
                 then().statusCode(HttpStatus.CREATED.value());
@@ -54,6 +58,7 @@ public class KrogControllerIT {
         assertNotNull(krogList);
         assertEquals(1, krogList.size());
         assertEquals(krog.getNamn(), krogList.get(0).getNamn());
+        assertNotNull(krogList.get(0).getLocation());
     }
 
     @Test

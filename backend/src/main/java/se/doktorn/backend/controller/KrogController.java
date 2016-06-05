@@ -2,6 +2,7 @@ package se.doktorn.backend.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class KrogController {
     @RequestMapping(value = SAVE_URL, method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody Krog krog) {
         log.log(Level.INFO, "Saving: " + krog);
+        krog.setLocation(new Point(59.3144593, 18.0724716));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -47,6 +49,7 @@ public class KrogController {
     @RequestMapping(value = UPDATE_URL, method = RequestMethod.POST)
     public ResponseEntity update(@RequestBody Krog krog) {
         log.log(Level.INFO, "Updating: " + krog);
+        krog.setLocation(new Point(59.3144593, 18.0724716));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -1,11 +1,13 @@
 package se.doktorn.backend.controller.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -13,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-//@JsonIgnoreProperties(value = {"id"})
+@JsonIgnoreProperties(value = {"location"})
 public class Krog {
     @Id
     private String id;
@@ -27,4 +29,6 @@ public class Krog {
     private String hemside_lank;
     private String intrade;
     private String iframe_lank;
+    //@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_OBJECT, property = "x")
+    private Point location;
 }
