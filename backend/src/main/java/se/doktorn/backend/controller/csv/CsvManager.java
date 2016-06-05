@@ -57,10 +57,12 @@ public class CsvManager {
     public String parseIframeLink(String iframeLank) {
         final String IFRAME_START = "iframe src=\"";
         final String IFRAME_END   = "\" width=";
-        
-        if(iframeLank.contains(IFRAME_START)) {
-            iframeLank = iframeLank.split(IFRAME_START)[1];
-            iframeLank = iframeLank.split(IFRAME_END)[0];
+
+        if(iframeLank != null) {
+            if (iframeLank.contains(IFRAME_START)) {
+                iframeLank = iframeLank.split(IFRAME_START)[1];
+                iframeLank = iframeLank.split(IFRAME_END)[0];
+            }
         }
 
         return iframeLank;
