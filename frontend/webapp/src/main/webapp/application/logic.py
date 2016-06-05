@@ -5,7 +5,11 @@ from flask.ext import excel
 
 
 def home(backend_url):
-    krog = requests.get(backend_url + '/find/random').json()
+    krog = None
+    try:
+        krog = requests.get(backend_url + '/find/random').json()
+    except ValueError:
+        pass
     return render_template('index.html', data=krog)
 
 
@@ -25,6 +29,8 @@ def upload_csv(backend_url):
 
 def save_krog(backend_url):
     form = ManualForm(request.form)
+    # Either form is valid, then close popup,
+    # otherwise re-render popup and keep open
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
         return render_template('admin.html', form=form, closePopup='close')
@@ -74,4 +80,7 @@ def popup():
 
 
 def get_krog_list(backend_url):
-    return requests.get(backend_url + '/find/all').json()
+    try:
+        return requests.get(backend_url + '/find/all').json()
+    except Exception:
+        return []
