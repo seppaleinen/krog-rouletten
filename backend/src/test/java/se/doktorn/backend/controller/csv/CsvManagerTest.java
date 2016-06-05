@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.geo.Point;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class CsvManagerTest {
     @InjectMocks
@@ -43,6 +43,26 @@ public class CsvManagerTest {
         String result = csvManager.parseIframeLink(iframeLank);
 
         assertEquals(expectedLank, result);
+    }
+
+    @Test
+    public void test_getPointFromIframeLink() {
+        String link = "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2036.1076553101877!2d18.072471616071663!3d59.31445928165361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77fa6e38fd49%3A0x76f561b83359a005!2sKellys!5e0!3m2!1sen!2sse!4v1465135903719\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>";
+
+        Point result = csvManager.getPointFromIframeLink(link);
+
+        assertNotNull(result);
+        assertEquals(Double.valueOf("59.31445928165361"), Double.valueOf(result.getY()));
+        assertEquals(Double.valueOf("18.072471616071663"), Double.valueOf(result.getX()));
+    }
+
+    @Test
+    public void test_getPointFromIframeLink_null() {
+        String link = null;
+
+        Point result = csvManager.getPointFromIframeLink(link);
+
+        assertNull(result);
     }
 
     private void validate(String string) {

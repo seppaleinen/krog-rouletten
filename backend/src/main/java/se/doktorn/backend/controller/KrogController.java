@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,7 +43,7 @@ public class KrogController {
     @RequestMapping(value = SAVE_URL, method = RequestMethod.POST)
     public ResponseEntity save(@RequestBody Krog krog) {
         log.log(Level.INFO, "Saving: " + krog);
-        krog.setLocation(new Point(59.3144593, 18.0724716));
+        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
         krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.CREATED);
@@ -50,7 +52,7 @@ public class KrogController {
     @RequestMapping(value = UPDATE_URL, method = RequestMethod.POST)
     public ResponseEntity update(@RequestBody Krog krog) {
         log.log(Level.INFO, "Updating: " + krog);
-        krog.setLocation(new Point(59.3144593, 18.0724716));
+        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
         krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.OK);

@@ -1,8 +1,12 @@
 package se.doktorn.backend.controller.csv;
 
 import lombok.extern.java.Log;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
 import se.doktorn.backend.controller.repository.entity.Krog;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Component
@@ -38,6 +42,7 @@ public class CsvManager {
         String hemsideLank = split[8].replaceAll("\"", "");
         String intrade = split[9].replaceAll("\"", "");
         String iframeLank = parseIframeLink(split[10]).replaceAll("\"", "");
+        Point location = getPointFromIframeLink(iframeLank);
 
         return Krog.builder().
                 id(id).
@@ -51,6 +56,7 @@ public class CsvManager {
                 hemside_lank(hemsideLank).
                 intrade(intrade).
                 iframe_lank(iframeLank).
+                location(location).
                 build();
     }
 
@@ -66,5 +72,23 @@ public class CsvManager {
         }
 
         return iframeLank;
+    }
+
+    public Point getPointFromIframeLink(String iframeLink) {
+        //Ignore all until !2d and get longitude between !2d to !3d and latitude between !3d to !2m
+        if(iframeLink != null) {
+            final String regex = ".*!2d(.*)!3d(.*)!2m.*";
+            final Pattern pattern = Pattern.compile(regex);
+            final Matcher matcher = pattern.matcher(iframeLink);
+
+            if (matcher.matches()) {
+                final String latitude = matcher.group(2);
+                final String longitude = matcher.group(1);
+
+                return new Point(Double.valueOf(longitude), Double.valueOf(latitude));
+            }
+        }
+
+        return null;
     }
 }

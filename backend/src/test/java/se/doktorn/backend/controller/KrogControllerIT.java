@@ -48,6 +48,7 @@ public class KrogControllerIT {
         Krog krog = Krog.builder()
                 .namn("NAMN")
                 .adress("ADRESS")
+                .iframe_lank("<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2037.2153472197385!2d18.06997371607094!3d59.295960581647186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77898affb1ab%3A0xe6fc2f09c0721c6!2sKonstgjutarv%C3%A4gen+57%2C+121+44+Johanneshov!5e0!3m2!1ssv!2sse!4v1464789144183\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>")
                 .build();
 
         given().contentType(ContentType.JSON).body(krog).when().post(KrogController.SAVE_URL).
