@@ -42,7 +42,7 @@
                             </excludes>
                             <options>
                                 <undef>true</undef>
-                                <predef>$, location, parent, document, navigator</predef>
+                                <predef>$, location, parent, document, navigator, window</predef>
                             </options>
                             <sourceFolders>${project.basedir}/src/main/webapp/application/static/js</sourceFolders>
                         </configuration>

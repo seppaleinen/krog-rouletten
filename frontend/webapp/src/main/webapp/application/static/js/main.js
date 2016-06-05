@@ -38,9 +38,8 @@ $(document).ready(function () {
             x.innerHTML = "ERROR";
         }
     }
-    $("#slumpaGPS").click( function()
-        {
-            getLocation();
-        }
-    );
+    $("#slumpaGPS").click(function () {
+        getLocation();
+    }
+        );
 });
