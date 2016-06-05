@@ -20,7 +20,7 @@ public class CsvManager {
     private static final String IFRAME_LANK = "iframe_lank";
 
     public Krog parseKrog(String string) throws Exception {
-        log.info("LINE: " + string);
+        log.info("Parsing line: " + string);
         String[] split = string.split(",", -1);
 
         if(split.length != 11) {
@@ -37,7 +37,7 @@ public class CsvManager {
         String betyg = split[7].replaceAll("\"", "");
         String hemsideLank = split[8].replaceAll("\"", "");
         String intrade = split[9].replaceAll("\"", "");
-        String iframeLank = split[10].replaceAll("\"", "");
+        String iframeLank = parseIframeLink(split[10]).replaceAll("\"", "");
 
         return Krog.builder().
                 id(id).
@@ -52,5 +52,17 @@ public class CsvManager {
                 intrade(intrade).
                 iframe_lank(iframeLank).
                 build();
+    }
+
+    public String parseIframeLink(String iframeLank) {
+        final String IFRAME_START = "iframe src=\"";
+        final String IFRAME_END   = "\" width=";
+        
+        if(iframeLank.contains(IFRAME_START)) {
+            iframeLank = iframeLank.split(IFRAME_START)[1];
+            iframeLank = iframeLank.split(IFRAME_END)[0];
+        }
+
+        return iframeLank;
     }
 }

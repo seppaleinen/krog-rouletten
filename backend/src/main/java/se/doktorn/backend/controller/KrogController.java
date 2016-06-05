@@ -42,6 +42,7 @@ public class KrogController {
     public ResponseEntity save(@RequestBody Krog krog) {
         log.log(Level.INFO, "Saving: " + krog);
         krog.setLocation(new Point(59.3144593, 18.0724716));
+        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -50,6 +51,7 @@ public class KrogController {
     public ResponseEntity update(@RequestBody Krog krog) {
         log.log(Level.INFO, "Updating: " + krog);
         krog.setLocation(new Point(59.3144593, 18.0724716));
+        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
         krogRepository.save(krog);
         return new ResponseEntity(HttpStatus.OK);
     }
