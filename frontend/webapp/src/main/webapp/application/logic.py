@@ -8,7 +8,7 @@ def home():
     return render_template('index.html')
 
 
-def random(backend_url):
+def random_page(backend_url):
     krog = None
     try:
         krog = requests.get(backend_url + '/find/random').json()
