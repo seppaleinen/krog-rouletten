@@ -5,6 +5,12 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.geo.Point;
+import se.doktorn.backend.controller.repository.entity.Krog;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -63,6 +69,22 @@ public class CsvManagerTest {
         Point result = csvManager.getPointFromIframeLink(link);
 
         assertNull(result);
+    }
+
+    @Test
+    public void test() {
+        InputStream resource = CsvManagerTest.class.getClassLoader().getResourceAsStream("KR.csv");
+        BufferedReader br = new BufferedReader(new InputStreamReader(resource));
+
+        for(String line : br.lines().collect(Collectors.toList())) {
+            try {
+                Krog result = csvManager.parseKrog(line);
+                assertNotNull(result);
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail(e.getMessage());
+            }
+        }
     }
 
     private void validate(String string) {
