@@ -19,7 +19,7 @@
 </div>
 
 <br/><br/><br/>
-<div class="" style="align:center; width:100%; clear: left; text-align: center;">
+<div class="cream" style="align:center; width:100%; clear: left; text-align: center;">
     <br/>
 	<div style="text-align: center;"><iframe class="" src="{{ data.iframe_lank }}" width="92%" height="250" frameborder="0" align="center" style="border:0; background-color:#f3f3f3;" allowfullscreen></iframe></div>
     <br/><span class="namn" align="center"><a href="{{ data.hemside_lank }}">{{data.namn}}</a></span>
@@ -42,10 +42,10 @@
 		<div style="display: inline-block; text-align:center; ">
 			<div style="float:left; padding: 10px;">
 				<button id="slumpaGPS" class="slumpa_button lobster flipInX animated">Slumpa</button>
-				<form method="post" action="/gps">
+				<div style="display:none;"><form method="post" action="/gps">
 					<input type="text" name="adress"/>
 					<input id="manualGPS" type="submit" class="slumpa_button lobster flipInX animated" value="Hitta för adress">
-				</form>
+				</form></div>
 			</div>
 		</div>
 	</div>
