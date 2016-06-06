@@ -28,7 +28,12 @@ $(document).ready(function () {
     function showPosition(position) {
         x.innerHTML = "LAT:" + position.coords.latitude + "," + "LON:" + position.coords.longitude;
         var requestParameter = 'longitude=' + position.coords.longitude + ',latitude=' + position.coords.latitude + ',distance=8';
-        window.location.href = "/krog/random?" + requestParameter;
+        if(navigator.userAgent.match(/Android/i))
+            document.location= "/krog/random?" + requestParameter;
+        else
+            window.location.href = "/krog/random?" + requestParameter;
+        }
+
         return false;
     }
     function getLocation() {
