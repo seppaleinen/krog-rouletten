@@ -32,6 +32,7 @@ public class CsvManager {
         }
 
         String id = split[0].replaceAll("\"", "");
+        id = id.isEmpty() ? null : id;
         String namn = split[1].replaceAll("\"", "");
         String adress = split[2].replaceAll("\"", "");
         String oppetTider = split[3].replaceAll("\"", "");
