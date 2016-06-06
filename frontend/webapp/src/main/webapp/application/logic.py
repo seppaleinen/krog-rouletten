@@ -18,6 +18,30 @@ def random_page(backend_url):
     return render_template('krog.html', data=krog)
 
 
+def get_gps_from_address(backend_url):
+    adress = request.form['adress']
+    result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
+    if result.status_code == 200:
+        lat = result.json()
+
+        latitude = None
+        longitude = None
+
+        for place in lat['results']:
+            adress = place['formatted_address']
+            latitude = place['geometry']['location']['lat']
+            longitude = place['geometry']['location']['lng']
+
+        arguments = 'longitude:' + str(longitude) + ',latitude=' + str(latitude) + ',distance=8'
+        try:
+            krog_response = requests.get(backend_url + '/find/random', json=json.dumps(arguments))
+            return render_template('krog.html', data=krog_response.json())
+        except ValueError:
+            return render_template('index.html')
+    else:
+        return render_template('index.html')
+
+
 def admin(backend_url):
     return render_template('admin.html', form=ManualForm(), kroglista=get_krog_list(backend_url))
 
