@@ -24,6 +24,7 @@
 
     <build>
         <plugins>
+            <!--
             <plugin>
                 <groupId>com.googlecode.jslint4java</groupId>
                 <artifactId>jslint4java-maven-plugin</artifactId>
@@ -42,7 +43,7 @@
                             </excludes>
                             <options>
                                 <undef>true</undef>
-                                <predef>$, location, parent, document, navigator</predef>
+                                <predef>$, location, parent, document, navigator, window</predef>
                             </options>
                             <sourceFolders>${project.basedir}/src/main/webapp/application/static/js</sourceFolders>
                         </configuration>
@@ -50,7 +51,6 @@
                 </executions>
             </plugin>
 
-            <!--
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>

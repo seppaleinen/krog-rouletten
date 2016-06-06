@@ -1,5 +1,5 @@
-import random, requests
-from flask import render_template, request, redirect, url_for
+import random, requests, json
+from flask import render_template, request, redirect, url_for, jsonify
 from application.model import ManualForm, Objekt
 from flask.ext import excel
 
@@ -10,11 +10,36 @@ def home():
 
 def random_page(backend_url):
     krog = None
+    print(json.dumps(request.args))
     try:
-        krog = requests.get(backend_url + '/find/random', params={'location' : 'value1'}).json()
+        krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
     except ValueError:
         pass
     return render_template('krog.html', data=krog)
+
+
+def get_gps_from_address(backend_url):
+    adress = request.form['adress']
+    result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
+    if result.status_code == 200:
+        lat = result.json()
+
+        latitude = None
+        longitude = None
+
+        for place in lat['results']:
+            adress = place['formatted_address']
+            latitude = place['geometry']['location']['lat']
+            longitude = place['geometry']['location']['lng']
+
+        arguments = 'longitude:' + str(longitude) + ',latitude=' + str(latitude) + ',distance=8'
+        try:
+            krog_response = requests.get(backend_url + '/find/random', json=json.dumps(arguments))
+            return render_template('krog.html', data=krog_response.json())
+        except ValueError:
+            return render_template('index.html')
+    else:
+        return render_template('index.html')
 
 
 def admin(backend_url):

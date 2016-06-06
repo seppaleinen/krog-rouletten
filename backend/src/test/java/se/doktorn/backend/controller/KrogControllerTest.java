@@ -11,6 +11,7 @@ import se.doktorn.backend.controller.repository.KrogRepository;
 import se.doktorn.backend.controller.repository.entity.Krog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -39,7 +40,7 @@ public class KrogControllerTest {
             when(repository.findByLocationNear(any(Point.class), any(Distance.class))).thenReturn(krogList);
 
             try {
-                krogController.findRandom(null);
+                krogController.findRandom("\"{\\\"longitude\\\": \\\"18.0538818,latitude=59.26468549999999,distance=8\\\"}\"");
             } catch(Exception e) {
                 fail("Should not fail: " + e.toString());
             }

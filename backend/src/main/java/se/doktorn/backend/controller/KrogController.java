@@ -3,7 +3,6 @@ package se.doktorn.backend.controller;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metric;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import se.doktorn.backend.controller.csv.CsvManager;
 import se.doktorn.backend.controller.repository.entity.Krog;
 import se.doktorn.backend.controller.repository.KrogRepository;
 
-import javax.validation.ValidationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -81,13 +79,17 @@ public class KrogController {
     }
 
     @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.GET)
-    public Krog findRandom(@RequestParam String location) {
-        log.log(Level.INFO, "Finding random");
-        Point kellysPoint = new Point(18.0724716, 59.3144593);
-        Distance distance = new Distance(8, Metrics.KILOMETERS);
-        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance);
+    public Krog findRandom(@RequestBody String crapJson) {
+        log.log(Level.INFO, "Finding random" + crapJson);
+        String longitude = crapJson.split("longitude")[1].split(",")[0].replaceAll("[:\"\\\\]","");
+        String latitude = crapJson.split("latitude=")[1].split(",")[0].replaceAll("[:\"\\\\]","");
+        String requestDistance = crapJson.split("distance=")[1].split("\"}")[0].replaceAll("[:\"\\\\]","");
 
-        log.log(Level.INFO, krogList.toString());
+        Point kellysPoint = new Point(Double.valueOf(longitude), Double.valueOf(latitude));
+        Distance distance2 = new Distance(Integer.valueOf(requestDistance), Metrics.KILOMETERS);
+        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance2);
+
+        log.log(Level.FINEST, krogList.toString());
         if(krogList.isEmpty()) {
             return null;
         } else {
