@@ -42,7 +42,7 @@ $(document).ready(function () {
         }
     }
     $("#slumpaGPS").click(function () {
-        getLocation();
-    }
-        );
+            getLocation();
+        }
+    );
 });
