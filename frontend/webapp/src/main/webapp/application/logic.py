@@ -1,11 +1,11 @@
 import random, requests, json
 from flask import render_template, request, redirect, url_for, jsonify
-from application.model import ManualForm, Objekt
+from application.model import ManualForm, SearchForm, Objekt
 from flask.ext import excel
 
 
 def home():
-    return render_template('index.html')
+    return render_template('index.html', form=SearchForm())
 
 
 def random_page(backend_url):

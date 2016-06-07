@@ -1,5 +1,23 @@
-from wtforms import Form, TextField, validators, HiddenField
+from wtforms import Form, TextField, validators, HiddenField, SelectField
 
+
+class SearchForm(Form):
+    latitude = HiddenField('latitude', [validators.required()])
+    longitude = HiddenField('longitude', [validators.required()])
+    distance = SelectField("Test: ", [validators.required()], choices=[
+        (0.1, "100m"),
+        (0.2, "200m"),
+        (0.3, "300m"),
+        (0.5, "500m"),
+        (1, "1km"),
+        (3, "3km"),
+        (5, "5km"),
+        (8, "8km")],
+        default=8)
+    adress = HiddenField('adress')
+    stadsdel = HiddenField('stadsdel')
+    bar_typ = HiddenField('bar_typ')
+    oppet_tider = HiddenField('oppet_tider')
 
 
 class ManualForm(Form):
