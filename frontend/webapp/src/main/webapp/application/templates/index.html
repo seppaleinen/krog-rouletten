@@ -42,6 +42,9 @@
             <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body">
                     <form role="form" method="post" action="/gps">
+                        {{ render_field(form.latitude) }}
+                        {{ render_field(form.longitude, type='hidden') }}
+
                         <div class="radio">
                             <input type="radio" name="pos_" id="pos_gps" value="pos_gps" checked>
                             <label for="pos_gps">
@@ -54,6 +57,9 @@
                         <br/><br/>
                         <div class="clearfix visible-xs-block"></div>
 
+                        <!--
+                        {{render_field(form.search_type)}}
+                        -->
                         <div class="radio">
                             <input type="radio" name="pos_" id="pos_adress" value="pos_adress"/>
                             <label for="pos_adress">

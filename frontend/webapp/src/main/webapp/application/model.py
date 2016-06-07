@@ -1,4 +1,4 @@
-from wtforms import Form, TextField, validators, HiddenField, SelectField
+from wtforms import Form, TextField, validators, HiddenField, SelectField, RadioField
 
 
 class SearchForm(Form):
@@ -14,10 +14,11 @@ class SearchForm(Form):
         (5, "5km"),
         (8, "8km")],
         default=8)
-    adress = HiddenField('adress')
-    stadsdel = HiddenField('stadsdel')
-    bar_typ = HiddenField('bar_typ')
-    oppet_tider = HiddenField('oppet_tider')
+    search_type = RadioField('Label', choices=[('value','description'),('value_two','whatever')])
+    adress = TextField('adress')
+    stadsdel = RadioField('stadsdel')
+    bar_typ = RadioField('bar_typ')
+    oppet_tider = RadioField('oppet_tider')
 
 
 class ManualForm(Form):
