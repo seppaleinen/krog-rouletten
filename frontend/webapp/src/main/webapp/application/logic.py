@@ -10,12 +10,23 @@ def home():
 
 def random_page(backend_url):
     krog = None
-    print(json.dumps(request.args))
-    try:
-        krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
-    except ValueError:
-        pass
-    return render_template('krog.html', data=krog)
+    if request.form:
+        print("LONGITUDE: %s" % request.form['longitude'])
+        print("LATITUDE: %s" % request.form['latitude'])
+        print("FORM %s" % request.form)
+        try:
+            krog = requests.get(backend_url + '/find/random', json=request.form.data).json()
+        except ValueError:
+            pass
+        return render_template('krog.html', data=krog)
+
+    else:
+        print(json.dumps(request.args))
+        try:
+            krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
+        except ValueError:
+            pass
+        return render_template('krog.html', data=krog)
 
 
 def get_gps_from_address(backend_url):

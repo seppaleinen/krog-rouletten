@@ -25,14 +25,9 @@ $(document).ready(function () {
     }
 
     function showPosition(position) {
-        var requestParameter = 'longitude=' + position.coords.longitude + ',latitude=' + position.coords.latitude + ',distance=8';
-        document.location= "/krog/random?" + requestParameter;
-        //if(navigator.userAgent.match(/Android/i)) {
-        //}
-        //else {
-        //    window.location.href = "/krog/random?" + requestParameter;
-        //}
-        return false;
+        $("#latitude").val(position.coords.latitude);
+        $("#longitude").val(position.coords.latitude);
+        $("#hidden_submit").click()
     }
     function getLocation() {
         if (navigator.geolocation) {
