@@ -27,7 +27,7 @@
 <br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/>
 <div class="container">
-    <form role="form" method="get" action="/krog/random">
+    <form role="form" method="post" action="/krog/random">
 
         <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
             <div class="panel panel-default">
@@ -62,10 +62,10 @@
                         </div>
                         <div>
                             <div class="col-xs-12 col-md-8  col-sm-9 col-lg-9" style="margin:4px;">
-                                {{ form.adress }}
+                                {{ render_field(form.adress) }}
                             </div>
                             <div class="col-xs-2 col-md-2 col-lg-2 clearfix" style="margin:4px;">
-                                <input id="manualGPS" type="submit" class="btn btn-primary" value="Hitta adress"/>
+                                <input id="findByAdress" type="submit" class="btn btn-primary" value="Hitta adress"/>
                             </div>
                         </div>
 

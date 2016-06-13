@@ -11,7 +11,7 @@ def home():
     return logic.home()
 
 
-@app.route('/krog/random')
+@app.route('/krog/random', methods=['POST'])
 def random_page():
     return logic.random_page(BACKEND)
 

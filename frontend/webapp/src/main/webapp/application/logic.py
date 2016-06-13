@@ -11,21 +11,31 @@ def home():
 def random_page(backend_url):
     krog = None
     form = SearchForm(request.args)
-    if form:
-        print("form.data %s" % json.dumps(form.data))
+    if form and form.adress.data is None:
         try:
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
         except ValueError:
             pass
         return render_template('krog.html', data=krog)
-    else:
-        print('ARGS')
-        print(json.dumps(request.args))
-        try:
-            krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
-        except ValueError:
-            pass
-        return render_template('krog.html', data=krog)
+    elif form and form.adress.data:
+        adress = request.form['adress'].replace(" ", "%20")
+        result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
+        if result.status_code == 200:
+            lat = result.json()
+
+            # I'm a lazy and inefficient bastard.. Take the last location from list
+            for place in lat['results']:
+                print("ADRESS:%s LAT:%s LNG%s" % (place['formatted_address'], place['geometry']['location']['lat'], place['geometry']['location']['lng']))
+                form.adress = place['formatted_address']
+                form.latitude = place['geometry']['location']['lat']
+                form.longitude = place['geometry']['location']['lng']
+
+            try:
+                krog = requests.post(backend_url + '/find/random', json=form.data).json()
+                return render_template('krog.html', data=krog)
+            except ValueError:
+                return render_template('index.html')
+
 
 
 def get_gps_from_address(backend_url):
