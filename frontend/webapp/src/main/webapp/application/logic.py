@@ -12,12 +12,9 @@ def random_page(backend_url):
     krog = None
     form = SearchForm(request.args)
     if form:
-        print('FORM')
-        print("request.form %s" % request.args)
         print("form.data %s" % json.dumps(form.data))
-        print("form.data %s" % form.data)
         try:
-            krog = requests.post(backend_url + '/find/random', json=json.dumps(form.data)).json()
+            krog = requests.post(backend_url + '/find/random', json=form.data).json()
         except ValueError:
             pass
         return render_template('krog.html', data=krog)
