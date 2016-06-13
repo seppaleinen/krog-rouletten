@@ -42,9 +42,9 @@ public class KrogControllerTest {
 
             try {
                 Search search = Search.builder()
-                        .latitude("123")
-                        .longitude("123")
-                        .distance("0.1")
+                        .latitude(123.0)
+                        .longitude(123.0)
+                        .distance(0.1)
                         .build();
                 krogController.findRandom(search);
             } catch(Exception e) {

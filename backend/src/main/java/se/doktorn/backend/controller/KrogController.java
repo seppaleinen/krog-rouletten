@@ -83,15 +83,15 @@ public class KrogController {
     @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.POST)
     public Krog findRandom(@Validated @RequestBody Search search) {
         log.log(Level.INFO, "Finding random" + search);
-        Double longitude = Double.valueOf(search.getLongitude());
-        Double latitude = Double.valueOf(search.getLatitude());
-        Double requestDistance = Double.valueOf(search.getDistance());
+        Double longitude = search.getLongitude();
+        Double latitude = search.getLatitude();
+        Double requestDistance = search.getDistance();
 
-        Point kellysPoint = new Point(longitude, latitude);
-        Distance distance = new Distance(requestDistance, Metrics.KILOMETERS);
-        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance);
+        List<Krog> krogList = krogRepository.findByLocationNear(
+                new Point(longitude, latitude),
+                new Distance(requestDistance, Metrics.KILOMETERS));
 
-        log.log(Level.FINEST, krogList.toString());
+        log.log(Level.FINE, krogList.toString());
         if(krogList.isEmpty()) {
             return null;
         } else {

@@ -14,11 +14,11 @@ class SearchForm(Form):
         (5, "5km"),
         (8, "8km")],
         default=8)
-    #gps = RadioField('gps', choices=[('value','description')])
+    gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
-    #stadsdel = RadioField('stadsdel')
-    #bar_typ = RadioField('bar_typ')
-    #oppet_tider = RadioField('oppet_tider')
+    stadsdel = RadioField('stadsdel')
+    bar_typ = RadioField('bar_typ')
+    oppet_tider = RadioField('oppet_tider')
 
 
 class ManualForm(Form):

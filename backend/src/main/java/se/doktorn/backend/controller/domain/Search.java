@@ -13,11 +13,19 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Search {
     @JsonProperty
-    private String latitude;
+    private Double latitude;
     @JsonProperty
-    private String longitude;
+    private Double longitude;
     @JsonProperty
-    private String distance;
+    private Double distance;
     @JsonProperty
     private String adress;
+    @JsonProperty
+    private String gps;
+    @JsonProperty
+    private String stadsdel;
+    @JsonProperty
+    private String barTyp;
+    @JsonProperty
+    private String oppetTider;
 }

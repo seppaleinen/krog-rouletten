@@ -97,7 +97,7 @@ public class KrogControllerIT {
 
     @Test
     public void canSearch() {
-        String requestString = "{\"distance\": \"8\", \"bar_typ\": \"None\", \"stadsdel\": \"None\", \"longitude\": \"59.2646521\", \"oppet_tider\": \"None\", \"latitude\": \"59.2646521\", \"adress\": \"\", \"gps\": \"None\"}";
+        String requestString = "{\"distance\": 8, \"bar_typ\": \"None\", \"stadsdel\": \"None\", \"longitude\": \"59.2646521\", \"oppet_tider\": \"None\", \"latitude\": \"59.2646521\", \"adress\": \"\", \"gps\": \"None\"}";
 
         Response result = given().contentType(ContentType.JSON)
                         .body(requestString)
