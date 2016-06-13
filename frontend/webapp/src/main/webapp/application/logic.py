@@ -10,17 +10,19 @@ def home():
 
 def random_page(backend_url):
     krog = None
-    if request.form:
-        print("LONGITUDE: %s" % request.form['longitude'])
-        print("LATITUDE: %s" % request.form['latitude'])
-        print("FORM %s" % request.form)
+    form = SearchForm(request.args)
+    if form:
+        print('FORM')
+        print("request.form %s" % request.args)
+        print("form.data %s" % json.dumps(form.data))
+        print("form.data %s" % form.data)
         try:
-            krog = requests.get(backend_url + '/find/random', json=request.form.data).json()
+            krog = requests.post(backend_url + '/find/random', json=json.dumps(form.data)).json()
         except ValueError:
             pass
         return render_template('krog.html', data=krog)
-
     else:
+        print('ARGS')
         print(json.dumps(request.args))
         try:
             krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()

@@ -2,6 +2,8 @@ package se.doktorn.backend.controller;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
+import com.jayway.restassured.response.Response;
+import com.jayway.restassured.response.ResponseBody;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,6 +93,18 @@ public class KrogControllerIT {
 
         assertEquals(krog1.getNamn(), krogList[0].getNamn());
         assertEquals(krog2.getNamn(), krogList[1].getNamn());
+    }
+
+    @Test
+    public void canSearch() {
+        String requestString = "{\"distance\": \"8\", \"bar_typ\": \"None\", \"stadsdel\": \"None\", \"longitude\": \"59.2646521\", \"oppet_tider\": \"None\", \"latitude\": \"59.2646521\", \"adress\": \"\", \"gps\": \"None\"}";
+
+        Response result = given().contentType(ContentType.JSON)
+                        .body(requestString)
+                        .when().post(KrogController.FIND_RANDOM_URL);
+
+        assertNotNull(result);
+        assertEquals(HttpStatus.OK.value(), result.getStatusCode());
     }
 
 }

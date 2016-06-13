@@ -7,6 +7,7 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import se.doktorn.backend.controller.csv.CsvManager;
@@ -79,16 +80,16 @@ public class KrogController {
         return krogRepository.findAll();
     }
 
-    @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.GET)
-    public Krog findRandom(@RequestBody Search search) {
+    @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.POST)
+    public Krog findRandom(@Validated @RequestBody Search search) {
         log.log(Level.INFO, "Finding random" + search);
-        String longitude = search.getLongitude();
-        String latitude = search.getLatitude();
-        double requestDistance = Double.valueOf(search.getDistance());
+        Double longitude = Double.valueOf(search.getLongitude());
+        Double latitude = Double.valueOf(search.getLatitude());
+        Double requestDistance = Double.valueOf(search.getDistance());
 
-        Point kellysPoint = new Point(Double.valueOf(longitude), Double.valueOf(latitude));
-        Distance distance2 = new Distance(requestDistance, Metrics.KILOMETERS);
-        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance2);
+        Point kellysPoint = new Point(longitude, latitude);
+        Distance distance = new Distance(requestDistance, Metrics.KILOMETERS);
+        List<Krog> krogList = krogRepository.findByLocationNear(kellysPoint, distance);
 
         log.log(Level.FINEST, krogList.toString());
         if(krogList.isEmpty()) {
