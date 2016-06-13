@@ -26,12 +26,12 @@ $(document).ready(function () {
 
     function showPosition(position) {
         var requestParameter = 'longitude=' + position.coords.longitude + ',latitude=' + position.coords.latitude + ',distance=8';
-        if(navigator.userAgent.match(/Android/i)) {
-            document.location= "/krog/random?" + requestParameter;
-        }
-        else {
-            window.location.href = "/krog/random?" + requestParameter;
-        }
+        document.location= "/krog/random?" + requestParameter;
+        //if(navigator.userAgent.match(/Android/i)) {
+        //}
+        //else {
+        //    window.location.href = "/krog/random?" + requestParameter;
+        //}
         return false;
     }
     function getLocation() {
@@ -42,7 +42,7 @@ $(document).ready(function () {
         }
     }
     $("#slumpaGPS").click(function () {
-        getLocation();
-    }
-        );
+            getLocation();
+        }
+    );
 });
