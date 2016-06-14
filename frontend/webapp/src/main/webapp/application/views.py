@@ -16,11 +16,6 @@ def random_page():
     return logic.random_page(BACKEND)
 
 
-@app.route('/gps', methods=['POST'])
-def get_gps_from_address():
-    return logic.get_gps_from_address(BACKEND)
-
-
 @app.route('/admin')
 def admin():
     return logic.admin(BACKEND)
