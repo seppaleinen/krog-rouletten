@@ -25,6 +25,20 @@ position: fixed !important;
 	width:100%;
 	height:100%;
 }
+#myNavbar a {
+    color: #ffffff !important;
+
+}
+.active a{
+    color: #ffffff !important;
+		    background-color: #337ab7 !important;
+}
+.navbar-toggle:hover{
+background-color: #032b49 !important;
+}
+.navbar-inverse .navbar-toggle {
+	    border-color: #ffffff !important;
+}
 #holder{
 min-height: 100%;
 position:relative;
@@ -110,12 +124,15 @@ font-size:150%;
 font-weight: 400;
 text-align:left;
 }
-		.logo{
-		font-weight: 400;
-		font-size:180%;
-		text-align: center;
-
+.logo{
+font-weight: 400;
+font-size:180%;
+text-align: center;
+color:#ffffff !important;
 		}
+	.logo .navbar-inverse .navbar-brand a{
+		color:#ffffff !important;
+				}
 .logo_bg {
 height:*;
 max-width:990px;

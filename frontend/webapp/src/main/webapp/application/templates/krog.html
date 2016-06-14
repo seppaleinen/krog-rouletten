@@ -8,20 +8,123 @@
 </div>
 {%- endmacro %}
 
-
+<!-- Menyn -->
 <div class="container bodycontainer" style="max-width:990px; padding:0px; margin:0 auto;">
-<div class="logo_bg" >
-	<div class="dropdown" style="padding:15px;" >
-		<a href="#dc"><i class="fa fa-bars fa-2x logobtn"></i></a>
-		<div id="dc" class="dropdown-content">
-			<a href="/">Inställningar</a>
-			<a href="/admin">Admin</a>
-			<a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
+	<nav class="navbar navbar-inverse" style="background:#032b49; border-color:white;">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand logo lobster" href="/">Krogrouletten</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="#">Start</a></li>
+	        <li><a href="#">Inställningar</a></li>
+	        <li><a href="/admin">Admin</a></li>
+					<li><a href="/static/img/bpm.png">BPM</a></li>
+	      </ul>
+	      <ul class="nav navbar-nav navbar-right">
+					<li><a data-toggle="modal" data-target="#nykrog_modal" href="#"><span class="glyphicon glyphicon-plus"></span> Ny Krog</a></li>
+	        <li><a data-toggle="modal" data-target="#register_modal" href="#"><span class="glyphicon glyphicon-user"></span> Registrera dig</a></li>
+	        <li><a data-toggle="modal" data-target="#login_modal" href="#"><span class="glyphicon glyphicon-log-in"></span> Logga in</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+	<!-- Slut på menyn -->
+  <!-- Modal -->
+  <div class="modal fade" id="login_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Logga in</h4>
+        </div>
+        <div class="modal-body">
+					<div class="form-group">
+	  <label for="usr">Användare:</label>
+	  <input type="text" class="form-control" id="usr">
+	</div>
+	<div class="form-group">
+	  <label for="pwd">Lösenord:</label>
+	  <input type="password" class="form-control" id="pwd">
+	</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Logga in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<div class="modal fade" id="nykrog_modal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Ny Krog</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+					<label for="usr">Krog namn:</label>
+					<input type="text" class="form-control" id="usr">
+					</div>
+					<div class="form-group">
+					<label for="usr">Adress eller plats:</label>
+					<input type="text" class="form-control" id="usr">
+					</div>
+					<div class="form-group">
+					<label for="usr">Kommentar (frivilligt):</label>
+					<input type="text" class="form-control" id="usr">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Lägg till</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
-	<div style="text-align:center; vertical-align: center; padding:10px; padding-left:54px;" class="logo lobster"><a href="/">Krogrouletten</a></div>
+	<div class="modal fade" id="register_modal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Skapa ett nytt konto</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+	  <label for="usr">Användarnamn:</label>
+	  <input type="text" class="form-control" id="usr">
+	</div>
+	<div class="form-group">
+<label for="usr">Epost:</label>
+<input type="text" class="form-control" id="usr">
 </div>
+<div class="form-group">
+<label for="usr">Bekräfta epost:</label>
+<input type="text" class="form-control" id="usr">
+</div>
+	<div class="form-group">
+	  <label for="pwd">Skapa ett lösenord:</label>
+	  <input type="password" class="form-control" id="pwd">
+	</div>
+	<div class="form-group">
+		<label for="pwd">Bekräfta lösenordet:</label>
+		<input type="password" class="form-control" id="pwd">
+	</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Skapa</button>
+				</div>
+			</div>
+		</div>
+	</div>
+  <!-- Slut på Modal (popup rutorna)-->
 <div class="" style="width:100%; clear: left; padding-left:4%; padding-right:4%;">
 	<div class="panel panel-default" style=" text-align:center; padding:0px; max-width:100%; background: url('/static/img/exp_marielaveau/IMG_24721.jpg') center top; background-size: cover;">
 		<div class="panel-body cream" style="background: rgba(0,0,0,0.0);padding:0px; margin:0px;">
