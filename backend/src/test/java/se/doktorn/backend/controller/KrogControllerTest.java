@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
+import se.doktorn.backend.controller.domain.Search;
 import se.doktorn.backend.controller.repository.KrogRepository;
 import se.doktorn.backend.controller.repository.entity.Krog;
 
@@ -40,7 +41,12 @@ public class KrogControllerTest {
             when(repository.findByLocationNear(any(Point.class), any(Distance.class))).thenReturn(krogList);
 
             try {
-                krogController.findRandom("\"{\\\"longitude\\\": \\\"18.0538818,latitude=59.26468549999999,distance=8\\\"}\"");
+                Search search = Search.builder()
+                        .latitude(123.0)
+                        .longitude(123.0)
+                        .distance(0.1)
+                        .build();
+                krogController.findRandom(search);
             } catch(Exception e) {
                 fail("Should not fail: " + e.toString());
             }

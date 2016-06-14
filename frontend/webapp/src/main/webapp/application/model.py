@@ -14,7 +14,7 @@ class SearchForm(Form):
         (5, "5km"),
         (8, "8km")],
         default=8)
-    search_type = RadioField('Label', choices=[('value','description'),('value_two','whatever')])
+    gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
     stadsdel = RadioField('stadsdel')
     bar_typ = RadioField('bar_typ')

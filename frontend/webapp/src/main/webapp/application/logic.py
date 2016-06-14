@@ -10,36 +10,34 @@ def home():
 
 def random_page(backend_url):
     krog = None
-    print(json.dumps(request.args))
-    try:
-        krog = requests.get(backend_url + '/find/random', json=json.dumps(request.args)).json()
-    except ValueError:
-        pass
-    return render_template('krog.html', data=krog)
-
-
-def get_gps_from_address(backend_url):
-    adress = request.form['adress']
-    result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
-    if result.status_code == 200:
-        lat = result.json()
-
-        latitude = None
-        longitude = None
-
-        for place in lat['results']:
-            adress = place['formatted_address']
-            latitude = place['geometry']['location']['lat']
-            longitude = place['geometry']['location']['lng']
-
-        arguments = 'longitude:' + str(longitude) + ',latitude=' + str(latitude) + ',distance=8'
+    form = SearchForm(request.form)
+    print("FORMDATA: %s" % form.data)
+    if form and not form.adress.data:
         try:
-            krog_response = requests.get(backend_url + '/find/random', json=json.dumps(arguments))
-            return render_template('krog.html', data=krog_response.json())
+            krog = requests.post(backend_url + '/find/random', json=form.data).json()
         except ValueError:
-            return render_template('index.html')
-    else:
-        return render_template('index.html')
+            pass
+        return render_template('krog.html', data=krog, form=form)
+    elif form and form.adress.data:
+        adress = request.form['adress'].replace(" ", "%20")
+        result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
+        if result.status_code == 200:
+            lat = result.json()
+
+            # I'm a lazy and inefficient bastard.. Take the last location from list
+            for place in lat['results']:
+                form.adress = place['formatted_address']
+                form.latitude = place['geometry']['location']['lat']
+                form.longitude = place['geometry']['location']['lng']
+                print("ADRESS:%s LAT:%s LNG%s" % (form.adress, form.latitude, form.longitude))
+
+            try:
+                krog = requests.post(backend_url + '/find/random', json=form.data).json()
+                return render_template('krog.html', data=krog, form=form)
+            except ValueError:
+                return render_template('index.html', form=form)
+    #Hell has frozen over
+    return render_template('index.html', form=form)
 
 
 def admin(backend_url):

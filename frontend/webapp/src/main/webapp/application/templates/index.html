@@ -5,11 +5,6 @@
 {% macro render_field(field) -%}
 <div>
     {{ field(class_='form-control', **kwargs) }}
-    {% if field.errors %}
-        {% for e in field.errors %}
-            <p class="help-block" style="color:red">{{ e }}</p>
-        {% endfor %}
-    {% endif %}
 </div>
 {%- endmacro %}
 
@@ -19,7 +14,6 @@
     <div class="dropdown" style="padding:15px;" >
         <a href="#dc"><i class="fa fa-bars fa-2x logobtn"></i></a>
         <div id="dc" class="dropdown-content">
-            <a href="/krog/random">Slumpa</a>
             <a href="/">Inställningar</a>
             <a href="/admin">Admin</a>
             <a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
@@ -32,22 +26,23 @@
 <br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/>
 <div class="container">
-    <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
-        <div class="panel panel-default">
-            <a data-toggle="collapse" class="center" href="#collapse1"><div class="panel-heading">
-                <h4 class="panel-title black">
-                    Plats
-                </h4>
-            </div></a>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form role="form" method="post" action="/gps">
-                        {{ render_field(form.latitude) }}
-                        {{ render_field(form.longitude, type='hidden') }}
+    <form role="form" method="post" action="/krog/random">
+
+        <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
+            <div class="panel panel-default">
+                <a data-toggle="collapse" class="center" href="#collapse1"><div class="panel-heading">
+                    <h4 class="panel-title black">
+                        Plats
+                    </h4>
+                </div></a>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        {{ render_field(form.latitude, id="latitude") }}
+                        {{ render_field(form.longitude) }}
 
                         <div class="radio">
-                            <input type="radio" name="pos_" id="pos_gps" value="pos_gps" checked>
-                            <label for="pos_gps">
+                            <input type="radio" name="distance_radio" id="distance_radio" value="distance_radio" checked>
+                            <label for="distance_radio">
                                 Baserad på min plats, avstånd:
                             </label>
                         </div>
@@ -55,30 +50,29 @@
                             {{render_field(form.distance, id="distance")}}
                         </div>
                         <br/><br/>
+
                         <div class="clearfix visible-xs-block"></div>
 
-                        <!--
-                        {{render_field(form.search_type)}}
-                        -->
                         <div class="radio">
-                            <input type="radio" name="pos_" id="pos_adress" value="pos_adress"/>
-                            <label for="pos_adress">
+                            <input type="radio" name="post_adress" id="adress" placeholder="adress"/>
+                            <label for="adress">
                                 Från adress:
                             </label>
                         </div>
                         <div>
-
-                        <div class="col-xs-12 col-md-8  col-sm-9 col-lg-9" style="margin:4px;">
-                            <input class="form-control" type="text" name="adress"/>
+                            <div class="col-xs-12 col-md-8  col-sm-9 col-lg-9" style="margin:4px;">
+                                {{ render_field(form.adress) }}
+                            </div>
+                            <div class="col-xs-2 col-md-2 col-lg-2 clearfix" style="margin:4px;">
+                                <input id="findByAdress" type="submit" class="btn btn-primary" value="Hitta adress"/>
+                            </div>
                         </div>
-                        <div class="col-xs-2 col-md-2 col-lg-2 clearfix" style="margin:4px;">
-                            <input id="manualGPS" type="submit" class="btn btn-primary" value="Hitta adress"/>
-                        </div>
 
-                        </div> <div class="clearfix visible-xs-block"></div>
+                        <div class="clearfix visible-xs-block"></div>
+
                         <div class="radio col-lg-12 col-sm-12 col-md-12 clearfix">
-                            <input type="radio" name="pos_" id="pos_stadsdel" value="pos_stadsdel"/>
-                            <label for="pos_stadsdel">
+                            <input type="radio" name="stadsdel" id="stadsdel" value="stadsdel"/>
+                            <label for="stadsdel">
                                 Baserad på stadsdel:
                             </label>
                         </div>
@@ -128,24 +122,22 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="clearfix visible-xs-block visible-lg-block visible-md-block visible-sm-block"></div>
-    <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
-        <div class="panel panel-default">
-            <a data-toggle="collapse" class="center" href="#collapse2">
-                <div class="panel-heading">
-                    <h4 class="panel-title black">
-                        Preferenser
-                    </h4>
-                </div>
-            </a>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <form role="form">
+        <div class="clearfix visible-xs-block visible-lg-block visible-md-block visible-sm-block"></div>
+        <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
+            <div class="panel panel-default">
+                <a data-toggle="collapse" class="center" href="#collapse2">
+                    <div class="panel-heading">
+                        <h4 class="panel-title black">
+                            Preferenser
+                        </h4>
+                    </div>
+                </a>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
                         <h4 class="panel-title black">
                             Bar typ:
                         </h4>
@@ -202,19 +194,17 @@
                                 Öppet till 05
                             </label>
                         </div>
-                    </form>
-
+                    </div>
                 </div>
-
             </div>
         </div>
-    </div>
+        <br/>
+        <div class="" style="align:center; width:100%; clear: left; text-align: center;">
+            <button type="button" id="slumpaGPS" class="slumpa_button_dark lobster flipInX animated">Slumpa</button>
+        </div>
+        <br/><br/><br/>
+        <input type="submit" id="hidden_submit" hidden/>
+    </form>
 </div>
-<br/>
-<div class="" style="align:center; width:100%; clear: left; text-align: center;">
-    <button id="slumpaGPS" class="slumpa_button_dark lobster flipInX animated">Slumpa</button>
-
-</div>
-<br/><br/><br/>
 
 {% endblock %}
