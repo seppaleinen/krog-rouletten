@@ -41,9 +41,9 @@ def export_csv():
     return logic.export_csv(BACKEND)
 
 
-@app.route('/admin/popup', methods=['GET'])
-def popup():
-    return logic.popup()
+#@app.route('/admin/popup', methods=['GET'])
+#def popup():
+#    return logic.popup()
 
 
 @app.route('/user_profile')
