@@ -7,6 +7,14 @@ from flask.ext import excel
 def home():
     return render_template('index.html', form=SearchForm())
 
+def user_profile():
+    return render_template('user_profile.html', form=SearchForm())
+
+def bpm():
+    return render_template('bpm.html', form=SearchForm())
+
+def test1233():
+    return render_template('test1233.html', form=SearchForm())
 
 def random_page(backend_url):
     krog = None
