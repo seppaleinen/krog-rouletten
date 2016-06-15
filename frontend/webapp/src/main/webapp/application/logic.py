@@ -112,11 +112,14 @@ def get_krog_list(backend_url):
     except Exception:
         return []
 
+
 def user_profile():
     return render_template('user_profile.html', form=SearchForm())
 
+
 def bpm():
     return render_template('bpm.html', form=SearchForm())
+
 
 def test1233():
     return render_template('test1233.html', form=SearchForm())

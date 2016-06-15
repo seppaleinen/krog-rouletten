@@ -20,6 +20,7 @@ def random_page():
 def admin():
     return logic.admin(BACKEND)
 
+
 @app.route('/admin/uploadFile', methods=['POST'])
 def upload_csv():
     return logic.upload_csv(BACKEND)
@@ -44,13 +45,16 @@ def export_csv():
 def popup():
     return logic.popup()
 
+
 @app.route('/user_profile')
 def user_profile():
     return logic.user_profile()
 
+
 @app.route('/bpm')
 def bpm():
     return logic.bpm()
+
 
 @app.route('/test1233')
 def test1233():
