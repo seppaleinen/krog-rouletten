@@ -54,3 +54,8 @@ def bpm():
 @app.route('/test1233')
 def test1233():
     return logic.test1233()
+
+
+@app.route('/error')
+def error():
+    return logic.error()

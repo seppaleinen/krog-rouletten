@@ -7,13 +7,23 @@ $(document).ready(function () {
         $("#longitude").val(position.coords.longitude);
         $("#hidden_submit").click()
     }
+    function onError(error){
+        document.location= "/error";
+    }
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition, onError, options);
         } else {
-            x.innerHTML = "ERROR";
+            alert("VAFAN?");
         }
     }
+
     $("#slumpaGPS").click(function () {
             getLocation();
         }

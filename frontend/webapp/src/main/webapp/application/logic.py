@@ -126,3 +126,7 @@ def bpm():
 
 def test1233():
     return render_template('test1233.html', form=SearchForm())
+
+
+def error():
+    return render_template('error.html', data='DET GICK FEL')
