@@ -1,0 +1,20 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+
+{% macro render_field(field) -%}
+<div>
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
+
+<br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/>
+<div class="container">
+    <div class="" style="width:100%; clear: left; padding-left:4%; padding-right:4%; text-align:center;">
+        {{ data }}
+    </div>
+</div>
+
+{% endblock %}

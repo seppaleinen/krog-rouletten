@@ -49,7 +49,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="admin_form">
-                            <input type="submit" value="Skicka" class="button lobster" data-dismiss="modal"/>
+                            <input type="submit" value="Skicka" class="button lobster"/>
                         </div>
                     </div>
                 </div>
@@ -136,4 +136,20 @@
     </form>
 </div>
 
+<script>
+    var formErrors = {% if form_errors %}true{% else %}false{% endif %};
+</script>
+{% endblock %}
+
+{% block js %}
+<script>
+console.log("FASD");
+console.log(formErrors);
+$(document).ready(function() {
+    if (formErrors) {
+        console.log("CLOSEDATSHIT" + formErrors);
+        $('#nykrog_modal2').modal('show');
+    }
+});
+</script>
 {% endblock %}

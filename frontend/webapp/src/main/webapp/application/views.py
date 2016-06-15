@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=UTF-8
 from application import app, logic
 import os
 
@@ -39,11 +39,6 @@ def update():
 @app.route('/admin/export', methods=['GET'])
 def export_csv():
     return logic.export_csv(BACKEND)
-
-
-#@app.route('/admin/popup', methods=['GET'])
-#def popup():
-#    return logic.popup()
 
 
 @app.route('/user_profile')
