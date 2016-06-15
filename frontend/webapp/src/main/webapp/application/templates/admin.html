@@ -6,14 +6,14 @@
 
 <div class="admin_form form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
-        <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
-        <br/>
+    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+    <br/>
     {% endif %}
     {{ field(class_='form-control', **kwargs) }}
     {% if field.errors %}
-        {% for e in field.errors %}
-            <p class="help-block" style="color:red">{{ e }}</p>
-        {% endfor %}
+    {% for e in field.errors %}
+    <p class="help-block" style="color:red">{{ e }}</p>
+    {% endfor %}
     {% endif %}
 </div>
 {%- endmacro %}
@@ -25,7 +25,7 @@
         <div id="dc" class="dropdown-content">
             <a href="/">Inställningar</a>
             <a href="/admin">Admin</a>
-			<a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
+            <a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
         </div>
     </div>
 
@@ -43,61 +43,61 @@
 <div class="admin_input" style="clear:both; padding:25px;">
 
     {% for krog in kroglista %}
-        <div id="krog_1" class="odd">
-            <form method="post" action="/admin/update">
-                <div class="admin_form">
-                    <div class="admin_form" hidden>
-                        <input type="text" name="id" value="{{ krog.id }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="namn" value="{{ krog.namn }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="adress" value="{{ krog.adress }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="betyg" value="{{ krog.betyg }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="intrade" value="{{ krog.intrade }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
-                    </div>
+    <div id="krog_1" class="odd">
+        <form method="post" action="/admin/update">
+            <div class="admin_form">
+                <div class="admin_form" hidden>
+                    <input type="text" name="id" value="{{ krog.id }}">&nbsp;
                 </div>
-                <input type="submit" class="admin_button lobster" name="update" value="Update"/>
-                <input type="submit" class="admin_button lobster" name="delete" value="Delete"/>
-                <br/>
-            </form>
-        </div>
+                <div class="admin_form">
+                    <input type="text" name="namn" value="{{ krog.namn }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="adress" value="{{ krog.adress }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="betyg" value="{{ krog.betyg }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="intrade" value="{{ krog.intrade }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
+                </div>
+            </div>
+            <input type="submit" class="admin_button lobster" name="update" value="Update"/>
+            <input type="submit" class="admin_button lobster" name="delete" value="Delete"/>
+            <br/>
+        </form>
+    </div>
     {% endfor %}
     <!--första objektet-->
-	<div id="krog_1" class="odd">
-		Odd
+    <div id="krog_2" class="odd">
+        Odd
         <button id="edit_button_odd" class="edit_button lobster">edit</button>
     </div>
     <!--andra ojektet-->
-	<div id="krog_2" class="even">
-		Even
+    <div id="krog_3" class="even">
+        Even
         <button id="edit_button_even" class="edit_button lobster">edit</button>
-	</div>
+    </div>
 
-<!--fler objekt i databasen typ-->
+    <!--fler objekt i databasen typ-->
 </div>
 
 <div style="align:center;width:100%; text-align:center; clear: left;">
