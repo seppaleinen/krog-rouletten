@@ -7,7 +7,7 @@
 	{{ field(class_='form-control', **kwargs) }}
 </div>
 {%- endmacro %}
-
+<!--Start av headern logo och meny kan flyttas om till en egen header.html-->
 <!-- Menyn -->
 <div class="container bodycontainer" style="max-width:990px; padding:0px; margin:0 auto;">
 	<nav class="navbar navbar-inverse" style="background:#032b49; border-color:white;">
@@ -22,9 +22,9 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Start</a></li>
+	        <li class="active"><a href="/">Start</a></li>
 	        <li><a href="/admin">Admin</a></li>
-					<li><a href="/static/img/bpm.png">BPM</a></li>
+					<li><a href="/bpm">BPM</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 					<li><a data-toggle="modal" data-target="#nykrog_modal" href="#"><span class="glyphicon glyphicon-plus"></span> Ny Krog</a></li>
