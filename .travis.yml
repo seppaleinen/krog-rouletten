@@ -3,7 +3,6 @@ jdk:
   - "oraclejdk8"
 
 sudo: required
-dist: trusty
 group: edge
 
 before_install:
@@ -22,3 +21,4 @@ script: mvn clean install
 after_success:
   - mvn install -DskipTests=true -Pdocker
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && .
+  - echo "SHOULD NOT COME HERE"
