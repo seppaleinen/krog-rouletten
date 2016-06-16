@@ -1,0 +1,20 @@
+language: java
+jdk:
+  - "oraclejdk8"
+
+sudo: false
+#before_install:
+
+services:
+  - mongodb
+  - docker
+
+env:
+  global:
+    - TERM=dumb
+
+script: mvn clean install
+
+after_success:
+  - mvn clean install -Pdocker
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && .
