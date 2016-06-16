@@ -12,7 +12,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /tmp/letsencrypt-auto:/tmp/letsencrypt-auto
       - /opt/nginx:/opt/nginx
-    privileged: true
     volumes_from:
       - webapp
     links:
