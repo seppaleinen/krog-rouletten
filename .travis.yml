@@ -4,6 +4,7 @@ jdk:
 
 sudo: required
 dist: trusty
+group: edge
 
 before_install:
   - sleep 15
