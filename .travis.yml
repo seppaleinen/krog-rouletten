@@ -1,10 +1,9 @@
 language: java
 jdk:
-  - "oraclejdk8"
+- oraclejdk8
 
 sudo: required
 group: edge
-
 before_install:
   - sleep 15
 
@@ -14,11 +13,26 @@ services:
 
 env:
   global:
-    - TERM=dumb
-
+  - TERM=dumb
+  - secure: "EvRtQsJ3po1cKD8MPXHcGwAK6g3aBJ+MEMg4lc1Vm/L8HRXwnI/RDCWzOI7zMZI/vvvdeeifeeiRpaED+tQk1zK49rp+N19v0EBj3CeYNupfU2JwnTVgGrpxeMoCOWorQWJ2JXPJisjlrK5GAJb5JvkcJlYoDlEMUUikWfLAKZAFIpXeWnzgE0B1qw4CHZImt722EiJFszngW467Oh5xu5NHpVMrQXI9cNUxWR1fP/c4Tci4pzvm1rHsWf1iQLjzCGNv9frXteu+VdrzUHLDfGZDEPrWpUnncPLWLdCDS4lNhfC+xWF5H8cco23lKUZJwrpDMKHxMB6JRFsNSZ/tJYM+fw7UKq4TVP1IIVQvSe4fTs6WhTP5/AN00v9iXB5IdnyCyNafLv15eSl06OR+C8vGAOAjnX1DESmHLXyamXKYKsc/ZBXKTBE3zqN7z3y10JRLNM5jVYRpYY0v6JqZQzW2jgS+Zee4HhObZUpyFfE8pBUKAn3ztGiYNZP+x7CvXOtio/KuqNVNt4HMkzwNH+7jyFPIvaL0nPqreae1LXebB6y3lk2wisRLsMnAR5JkuF2IXgc78BzbDoiddLmp4OdZUc4tf0Qua0S0T9DunxSiRbhniKM/Qip8Pv4nYleZsptUXe7TnirxVGwVmJq4ZL3otg95w9hU2Ul/lYYg9hg=" #DOCKER_EMAIL
+  - secure: "hFzsx5R1Rn20FwF+szY3WLaE2BcnqTHfwfmWrGgaXLcbyiRgrW0tc2oS6lRiaMk+yll2asJuWuoOj8pUB3/hNtV1wIMmXopBTh6tajhFB18Eq/w0E4Cfm2auq0RLd+VY4RSGTI1VYDdwiEqFvCUp6yZG1OFkXGhycN14YkiWxbler8S8ajnSE2fYBeDDQW/bkx+rEyBWSttvzAIs/6Ep3KOXueXALXA1yUD7HyG2EEHerl2F0cUCKelyfPgr5RN0gnAZHboBWBYAT4IHKMd1mpY5QI9kHzrql/pl00xD2lVjh2K06VMImKbiZXbZiV7kznBeV1S9QvCMTZkTSataGhkKJJ/gONlM1tnEXqHyXdn++XUlHcs5yvObrixQ1LYpIDa1P0WIqkNXDGPuT6sn+qKzz6IiCUSmlhGiU5or2n3ahpwN2ZiRSm/S2lV6VvQggfT246EVfuLh/YI7oQiPbUhIQwHHYEjyQ9DiwYPXt59CU1YYbdo2CAQvwNJ1lLa/x77yR6MTnagFI9Hd/V43nzs7nI9lN3Wl6JlCY2w5cOO8B5W0t1R8fc3G1eyjNMH9vgc15Iy/c1pknexzzHY0FW1+BRpiJqXDYDV32TcVVlVXm0m87mQx8u7n3gRY282XMvWQiJe5+jdQC/SIBBHXqQm4QfvDANHTT/AUeyEt1PE=" #DOCKER_USER
+  - secure: "caeEEIemCCy2/nZTjA9t3rgFeojHrIw+fzswDUYsQckkQk7xaSQcYq5HRh3hwkZjQuqT577BYBj8kd8Gmo/TCpq1Qq9MaVFj2S7tmsuhlXDcent7wEYVbdY0np/lrIjyVloGY+2svJzpmrfC7bvwJ8+/IrS1R0BGVZEZ1kByGL7s5obK6dVfHGpcN1CieFEHB4lgvT0vpnsqpfTyhHk6ZoDHMU/xlw6s/Hq7J8EAMRubt37dDdNMkDFIFElLuO27pPgbeFD+sMKZ53kdWYxTJLgONTp60WcZXiMZU9RMxB0AKDubRllvS1pWmHpSMf0eA7VRh5E3aiOhnLrRqbaEEfjDfgfHKI5ovHwW9hAbZNVDxIkSLPT5ppEt96mh4WTz7ikHv+K1jhETjyDL5CqdYEzVtkfvseSWT/5X81+r7hKpzx8F5/gVeUIoZAXx453VhgZu+wyjwXbAB56wrsrLGv5ariv3jRiu81V6GB+Jt3pH+z87urKZTHlgeoL5Zxycf8IGpH82Zyxsfw3ylkYeFZxQjtlonpoW/QddbBBKopzfA0S8Pm0g3k2InQG2hXOqeSjhK3NHvbp5SmKXYmK1PCM/3IbkwS96/lM+1Gepr1msZo94ia9v6DpIBU0n5evTMskX8NFihXmZrrQkmpAC4H+shns82JNYOfTJWQ+ekaA=" #DOCKER_PASS
+  - COMMIT=${TRAVIS_COMMIT::8}
 script: mvn clean install
 
 after_success:
   - mvn install -DskipTests=true -Pdocker
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && .
-  - echo "SHOULD NOT COME HERE"
+#  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+#  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+#  - export BACKEND_REPO=seppaleinen/krogrouletten-backend
+#  - docker build -f Dockerfile -t $BACKEND_REPO:$COMMIT .
+#  - docker tag $BACKEND_REPO:$COMMIT $BACKEND_REPO:$TAG
+#  - docker tag $BACKEND_REPO:$COMMIT $BACKEND_REPO:travis-$TRAVIS_BUILD_NUMBER
+#  - docker push $BACKEND_REPO
+#
+#  - export WEBAPP_REPO=seppaleinen/krogrouletten-webapp
+#  - docker build -f Dockerfile -t $WEBAPP_REPO:$COMMIT .
+#  - docker tag $WEBAPP_REPO:$COMMIT $WEBAPP_REPO:$TAG
+#  - docker tag $WEBAPP_REPO:$COMMIT $WEBAPP_REPO:travis-$TRAVIS_BUILD_NUMBER
+#  - docker push $WEBAPP_REPO
