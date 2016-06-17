@@ -6,6 +6,7 @@ python:
 
 sudo: required
 group: edge
+dist: trusty
 before_install:
   - sleep 15
 
