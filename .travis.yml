@@ -6,10 +6,7 @@ sudo: required
 group: edge
 dist: trusty
 before_install:
-  - python -V
-  - sudo pip install -r frontend/webapp/src/main/webapp/requirements.txt
-  - sudo pip install -U pip
-  - sudo pip install -U setuptools
+  - pip install -r frontend/webapp/src/main/webapp/requirements.txt
 
 services:
   - mongodb
