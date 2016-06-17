@@ -19,6 +19,7 @@ addons:
 cache:
   directories: - $HOME/.m2
 
+
 env:
   global:
   - TERM=dumb
