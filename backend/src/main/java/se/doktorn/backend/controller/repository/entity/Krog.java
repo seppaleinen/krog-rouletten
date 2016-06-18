@@ -34,4 +34,5 @@ public class Krog {
     //@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_OBJECT, property = "x")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
     private Point location;
+    private boolean approved;
 }

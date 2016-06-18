@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,7 +32,8 @@ public class KrogController {
     public static final String UPDATE_URL = "/update";
     public static final String DELETE_URL = "/delete/krog";
     public static final String FIND_URL = "/find";
-    public static final String FIND_ALL_URL = "/find/all";
+    public static final String FIND_ALL_APPROVED_URL = "/find/all/approved";
+    public static final String FIND_ALL_UNAPPROVED_URL = "/find/all/unapproved";
     public static final String FIND_RANDOM_URL = "/find/random";
     public static final String SAVE_CSV_URL = "/save/csv";
     public static final String EXPORT_CSV_URL = "/export/csv";
@@ -74,10 +73,16 @@ public class KrogController {
         return krogRepository.findOne(id);
     }
 
-    @RequestMapping(value = FIND_ALL_URL, method = RequestMethod.GET)
-    public List<Krog> findAll() {
+    @RequestMapping(value = FIND_ALL_APPROVED_URL, method = RequestMethod.GET)
+    public List<Krog> findAllApproved() {
         log.log(Level.INFO, "Finding all");
-        return krogRepository.findAll();
+        return krogRepository.findByApprovedIsTrueOrderByNamnAsc();
+    }
+
+    @RequestMapping(value = FIND_ALL_UNAPPROVED_URL, method = RequestMethod.GET)
+    public List<Krog> findAllUnapproved() {
+        log.log(Level.INFO, "Finding all");
+        return krogRepository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
     }
 
     @RequestMapping(value = FIND_RANDOM_URL, method = RequestMethod.POST)
@@ -87,7 +92,7 @@ public class KrogController {
         Double latitude = search.getLatitude();
         Double requestDistance = search.getDistance();
 
-        List<Krog> krogList = krogRepository.findByLocationNear(
+        List<Krog> krogList = krogRepository.findByLocationNearAndApprovedIsTrue(
                 new Point(longitude, latitude),
                 new Distance(requestDistance, Metrics.KILOMETERS));
 

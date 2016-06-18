@@ -27,7 +27,7 @@ public class CsvManager {
         log.info("Parsing line: " + string);
         String[] split = string.split(",", -1);
 
-        if(split.length != 11) {
+        if(split.length != 12) {
             throw new Exception("Not valid csv-file");
         }
 
@@ -43,6 +43,8 @@ public class CsvManager {
         String hemsideLank = split[8].replaceAll("\"", "");
         String intrade = split[9].replaceAll("\"", "");
         String iframeLank = parseIframeLink(split[10]).replaceAll("\"", "");
+        String approvedString = parseIframeLink(split[11]).replaceAll("\"", "");
+        boolean approved = "True".equals(approvedString);
         Point location = getPointFromIframeLink(iframeLank);
 
         return Krog.builder().
@@ -58,6 +60,7 @@ public class CsvManager {
                 intrade(intrade).
                 iframe_lank(iframeLank).
                 location(location).
+                approved(approved).
                 build();
     }
 

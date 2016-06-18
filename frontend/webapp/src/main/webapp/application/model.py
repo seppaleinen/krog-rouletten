@@ -1,5 +1,5 @@
 # coding=UTF-8
-from wtforms import Form, TextField, validators, HiddenField, SelectField, RadioField
+from wtforms import Form, TextField, validators, HiddenField, SelectField, RadioField, BooleanField
 
 
 class SearchForm(Form):
@@ -34,6 +34,7 @@ class ManualForm(Form):
     hemside_lank = TextField('Hemside Lank')
     intrade = TextField('Intrade')
     iframe_lank = TextField('Iframe lank', [validators.Required()])
+    approved = BooleanField('Approved')
 
 
 class UserKrogForm(Form):

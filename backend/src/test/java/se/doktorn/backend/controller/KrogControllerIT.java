@@ -82,12 +82,12 @@ public class KrogControllerIT {
 
     @Test
     public void canFindAll() {
-        Krog krog1 = Krog.builder().namn("NAMN1").build();
-        Krog krog2 = Krog.builder().namn("NAMN2").build();
+        Krog krog1 = Krog.builder().namn("NAMN1").approved(true).build();
+        Krog krog2 = Krog.builder().namn("NAMN2").approved(true).build();
 
         repository.save(Arrays.asList(krog1, krog2));
 
-        Krog[] krogList = when().get(KrogController.FIND_ALL_URL).getBody().as(Krog[].class);
+        Krog[] krogList = when().get(KrogController.FIND_ALL_APPROVED_URL).getBody().as(Krog[].class);
         assertNotNull(krogList);
         assertEquals(2, krogList.length);
 

@@ -23,6 +23,11 @@ def admin():
     return logic.admin()
 
 
+@app.route('/admin/unapproved')
+def unapproved():
+    return logic.unapproved()
+
+
 @app.route('/admin/krog/save', methods=['POST'])
 def save_krog():
     return logic.save_krog()

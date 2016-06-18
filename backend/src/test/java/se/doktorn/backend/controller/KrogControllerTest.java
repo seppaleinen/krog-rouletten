@@ -12,11 +12,11 @@ import se.doktorn.backend.controller.repository.KrogRepository;
 import se.doktorn.backend.controller.repository.entity.Krog;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Mockito.when;
 
 public class KrogControllerTest {
@@ -38,7 +38,7 @@ public class KrogControllerTest {
                 krogList.add(new Krog());
             }
 
-            when(repository.findByLocationNear(any(Point.class), any(Distance.class))).thenReturn(krogList);
+            when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).thenReturn(krogList);
 
             try {
                 Search search = Search.builder()

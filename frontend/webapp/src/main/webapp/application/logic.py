@@ -20,7 +20,7 @@ def random_page():
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
             return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
         except ValueError:
-            return render_template('error.html', data='Hittade ingen krog på din sökning')
+            return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and form.adress.data:
         adress = urllib.quote(form.adress.data.encode('utf8'))
         result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
@@ -38,13 +38,17 @@ def random_page():
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
                 return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
             except Exception:
-                return render_template('error.html', data='Hittade ingen krog på din sökning')
+                return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     #Hell has frozen over
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
 def admin():
     return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms())
+
+
+def unapproved():
+    return render_template('admin.html', kroglista=Helper.get_unapproved_krog_list(), **Helper().forms())
 
 
 def upload_csv():
@@ -76,12 +80,16 @@ def update():
     elif request.form.get('delete'):
         requests.delete(backend_url + '/delete/krog', json=form.data)
         return redirect(url_for('admin'))
+    elif request.form.get('approve'):
+        form.approved.data = True
+        requests.post(backend_url + '/update', json=form.data)
+        return redirect(url_for('admin'))
 
 
 def export_csv():
     kroglist = requests.get(backend_url + '/export/csv').json()
     data = [
-        ['id', 'namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
+        ['id', 'namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank', 'approved']
     ]
     for krog in kroglist:
         print(krog)
@@ -96,7 +104,9 @@ def export_csv():
                      krog['betyg'],
                      krog['hemside_lank'],
                      krog['intrade'],
-                     krog['iframe_lank']])
+                     krog['iframe_lank'],
+                     krog['approved']
+        ])
 
     response = excel.make_response_from_array(data, 'csv')
     response.headers["Content-Disposition"] = "attachment; filename=export.csv"
@@ -145,6 +155,13 @@ class Helper(object):
     @staticmethod
     def get_krog_list():
         try:
-            return requests.get("%s/find/all" % backend_url).json()
+            return requests.get("%s/find/all/approved" % backend_url).json()
+        except Exception:
+            return []
+
+    @staticmethod
+    def get_unapproved_krog_list():
+        try:
+            return requests.get("%s/find/all/unapproved" % backend_url).json()
         except Exception:
             return []

@@ -10,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface KrogRepository extends MongoRepository<Krog, String> {
-    List<Krog> findByLocationNear(Point point, Distance distance);
+    List<Krog> findByLocationNearAndApprovedIsTrue(Point point, Distance distance);
+    List<Krog> findByApprovedIsTrueOrderByNamnAsc();
+    List<Krog> findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
 }

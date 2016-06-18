@@ -33,4 +33,6 @@ public class Search {
     private String barTyp;
     @JsonProperty
     private String oppetTider;
+    @JsonProperty
+    private boolean approved;
 }
