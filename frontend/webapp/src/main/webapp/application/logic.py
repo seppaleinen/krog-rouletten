@@ -15,7 +15,7 @@ def random_page(backend_url):
     if form and not form.adress.data:
         try:
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
-            return render_template('krog.html', data=krog, **Helper().forms(**{'searchForm':form}))
+            return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
         except ValueError:
             return render_template('error.html', data='Hittade ingen krog på din sökning')
     elif form and form.adress.data:
@@ -33,7 +33,7 @@ def random_page(backend_url):
 
             try:
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
-                return render_template('krog.html', data=krog, **Helper().forms(**{'searchForm':form}))
+                return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
             except Exception:
                 return render_template('error.html', data='Hittade ingen krog på din sökning')
     #Hell has frozen over
@@ -41,7 +41,7 @@ def random_page(backend_url):
 
 
 def admin(backend_url):
-    return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms())
+    return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms())
 
 
 def upload_csv(backend_url):
@@ -50,11 +50,11 @@ def upload_csv(backend_url):
         file_ = {'file': ('file', file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm': ManualForm(request.form)}))
+            return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm': ManualForm(request.form)}))
         except Exception:
             return render_template('error.html', data='Nånting gick fel', **Helper().forms())
     else:
-        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':ManualForm(request.form)}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':ManualForm(request.form)}))
 
 
 def save_krog(backend_url):
@@ -63,9 +63,9 @@ def save_krog(backend_url):
     # otherwise re-render popup and keep open
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
-        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':form}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':form}))
     else:
-        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':form}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':form}))
 
 
 def update(backend_url):
@@ -132,18 +132,18 @@ def user_krog_save(backend_url):
             requests.post(backend_url + '/save', json=userKrogForm.data)
         except Exception:
             pass
-        return render_template('index.html', **Helper().forms(**{'userKrogForm': userKrogForm}))
+        return render_template('index.html', **Helper().forms({'userKrogForm': userKrogForm}))
     else:
-        return render_template('index.html', **Helper().forms(**{'userKrogForm': userKrogForm}))
+        return render_template('index.html', **Helper().forms({'userKrogForm': userKrogForm}))
 
 
 class Helper(object):
-    def forms(self, **kwargs):
+    def forms(self, kwargs={}):
         forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': ManualForm()}
         forms.update(kwargs)
         return forms
 
-    def get_krog_list(self, backend_url):
+    def get_krog_list(backend_url):
         try:
             return requests.get("%s/find/all" % backend_url).json()
         except Exception:
