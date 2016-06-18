@@ -1,12 +1,12 @@
 # coding=UTF-8
-import random, requests, json
+import random, requests, json, urllib
 from flask import render_template, request, redirect, url_for, jsonify
 from application.model import ManualForm, SearchForm, UserKrogForm
 from flask.ext import excel
 
 
 def home():
-    return render_template('index.html', **{'searchForm': SearchForm(), 'userKrogForm': UserKrogForm()})
+    return render_template('index.html', **Helper().forms())
 
 
 def random_page(backend_url):
@@ -15,11 +15,11 @@ def random_page(backend_url):
     if form and not form.adress.data:
         try:
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
-            return render_template('krog.html', data=krog, form=form, userKrogForm=UserKrogForm())
+            return render_template('krog.html', data=krog, **Helper().forms(**{'searchForm':form}))
         except ValueError:
             return render_template('error.html', data='Hittade ingen krog på din sökning')
     elif form and form.adress.data:
-        adress = request.form['adress'].replace(" ", "%20")
+        adress = urllib.quote(form.adress.data.encode('utf8'))
         result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
         if result.status_code == 200:
             lat = result.json()
@@ -33,15 +33,15 @@ def random_page(backend_url):
 
             try:
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
-                return render_template('krog.html', data=krog, form=form, userKrogForm=UserKrogForm())
+                return render_template('krog.html', data=krog, **Helper().forms(**{'searchForm':form}))
             except Exception:
                 return render_template('error.html', data='Hittade ingen krog på din sökning')
     #Hell has frozen over
-    return render_template('error.html', data='Nånting gick fel', userKrogForm=UserKrogForm())
+    return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
 def admin(backend_url):
-    return render_template('admin.html', form=ManualForm(), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
+    return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms())
 
 
 def upload_csv(backend_url):
@@ -50,11 +50,11 @@ def upload_csv(backend_url):
         file_ = {'file': ('file', file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', form=ManualForm(request.form), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
+            return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm': ManualForm(request.form)}))
         except Exception:
-            return render_template('error.html', data='Nånting gick fel', userKrogForm=UserKrogForm())
+            return render_template('error.html', data='Nånting gick fel', **Helper().forms())
     else:
-        return render_template('admin.html', form=ManualForm(request.form), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
+        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':ManualForm(request.form)}))
 
 
 def save_krog(backend_url):
@@ -63,9 +63,9 @@ def save_krog(backend_url):
     # otherwise re-render popup and keep open
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
-        return render_template('admin.html', form=form, kroglista=get_krog_list(backend_url))
+        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':form}))
     else:
-        return render_template('admin.html', form=form, kroglista=get_krog_list(backend_url))
+        return render_template('admin.html', kroglista=Helper().get_krog_list(backend_url), **Helper().forms(**{'adminKrogForm':form}))
 
 
 def update(backend_url):
@@ -105,31 +105,20 @@ def export_csv(backend_url):
     return response
 
 
-def popup():
-    return render_template('krog_popup.html', form=ManualForm())
-
-
-def get_krog_list(backend_url):
-    try:
-        return requests.get(backend_url + '/find/all').json()
-    except Exception:
-        return []
-
-
 def user_profile():
-    return render_template('user_profile.html', form=SearchForm())
+    return render_template('user_profile.html', **Helper().forms())
 
 
 def bpm():
-    return render_template('bpm.html', form=SearchForm())
+    return render_template('bpm.html', **Helper().forms())
 
 
 def test1233():
-    return render_template('test1233.html', form=SearchForm())
+    return render_template('test1233.html', **Helper().forms())
 
 
 def error():
-    return render_template('error.html', data='DET GICK FEL')
+    return render_template('error.html', data='DET GICK FEL', **Helper().forms())
 
 
 def user_krog_save(backend_url):
@@ -143,6 +132,19 @@ def user_krog_save(backend_url):
             requests.post(backend_url + '/save', json=userKrogForm.data)
         except Exception:
             pass
-        return render_template('index.html', searchForm=SearchForm(), userKrogForm=userKrogForm)
+        return render_template('index.html', **Helper().forms(**{'userKrogForm': userKrogForm}))
     else:
-        return render_template('index.html', searchForm=SearchForm(), userKrogForm=userKrogForm)
+        return render_template('index.html', **Helper().forms(**{'userKrogForm': userKrogForm}))
+
+
+class Helper(object):
+    def forms(self, **kwargs):
+        forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': ManualForm()}
+        forms.update(kwargs)
+        return forms
+
+    def get_krog_list(self, backend_url):
+        try:
+            return requests.get("%s/find/all" % backend_url).json()
+        except Exception:
+            return []
