@@ -26,15 +26,15 @@ def random_page(backend_url):
 
             # I'm a lazy and inefficient bastard.. Take the last location from list
             for place in lat['results']:
-                form.adress = place['formatted_address']
-                form.latitude = place['geometry']['location']['lat']
-                form.longitude = place['geometry']['location']['lng']
-                print("ADRESS:%s LAT:%s LNG%s" % (form.adress, form.latitude, form.longitude))
+                form.adress.data = place['formatted_address']
+                form.latitude.data = place['geometry']['location']['lat']
+                form.longitude.data = place['geometry']['location']['lng']
+                print("ADRESS:%s LAT:%s LNG%s" % (form.adress.data, form.latitude.data, form.longitude.data))
 
             try:
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
                 return render_template('krog.html', data=krog, form=form)
-            except ValueError:
+            except Exception:
                 return render_template('error.html', data='Hittade ingen krog på din sökning')
     #Hell has frozen over
     return render_template('error.html', data='Nånting gick fel')
