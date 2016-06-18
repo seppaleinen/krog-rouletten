@@ -34,19 +34,17 @@ script: mvn clean install;
 
 after_success:
   - mvn install -DskipTests=true -Pdocker
-#  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
   - echo "test"
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 # docker push backend
   - export BACKEND_REPO=seppaleinen/krogrouletten-backend
-#  - docker build -f Dockerfile -t $BACKEND_REPO:$COMMIT .
   - docker tag $BACKEND_REPO $BACKEND_REPO:$TAG
   - docker tag $BACKEND_REPO $BACKEND_REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $BACKEND_REPO
 # docker push webapp
   - export WEBAPP_REPO=seppaleinen/krogrouletten-webapp
-#  - docker build -f Dockerfile -t $WEBAPP_REPO:$COMMIT .
   - docker tag $WEBAPP_REPO $WEBAPP_REPO:$TAG
   - docker tag $WEBAPP_REPO $WEBAPP_REPO:travis-$TRAVIS_BUILD_NUMBER
   - docker push $WEBAPP_REPO
