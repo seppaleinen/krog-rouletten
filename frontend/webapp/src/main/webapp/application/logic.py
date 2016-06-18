@@ -138,6 +138,7 @@ def user_krog_save():
     if request.method == 'POST' and userKrogForm.validate():
         print('POST')
         try:
+            userKrogForm.approved.data = False
             requests.post(backend_url + '/save', json=userKrogForm.data)
         except Exception:
             pass

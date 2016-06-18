@@ -41,3 +41,4 @@ class UserKrogForm(Form):
     namn = TextField('Namn', [validators.Required()])
     adress = TextField('Adress', [validators.Required()])
     beskrivning = TextField('Beskrivning')
+    approved = BooleanField('Approved')
