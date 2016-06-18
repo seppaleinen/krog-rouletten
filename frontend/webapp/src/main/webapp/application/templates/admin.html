@@ -26,7 +26,7 @@
     <a data-toggle="modal" data-target="#nykrog_modal2" href="#" class="button lobster">Ny Krog</a>
     <div class="modal fade" id="nykrog_modal2" role="dialog">
         <div class="modal-dialog modal-lg">
-            <form method="post" action="/admin/save">
+            <form method="post" action="/admin/krog/save">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -63,7 +63,7 @@
 
     {% for krog in kroglista %}
     <div id="krog_1" class="odd">
-        <form method="post" action="/admin/update">
+        <form method="post" action="/admin/krog/update">
             <div class="admin_form">
                 <div class="admin_form" hidden>
                     <input type="text" name="id" value="{{ krog.id }}">&nbsp;
@@ -120,7 +120,7 @@
 </div>
 
 <div style="align:center;width:100%; text-align:center; clear: left;">
-    <form action="/admin/uploadFile" method="POST" enctype="multipart/form-data">
+    <form action="/admin/uploadcsv" method="POST" enctype="multipart/form-data">
         <div style='height: 0px;width: 0px; overflow:hidden;'>
             <input id="file" type="file" name="file" style="hidden">
         </div>
@@ -131,7 +131,7 @@
         <input type="submit" value="Upload csv file" class="button lobster" style="font-size:120%;"/>
     </form>
 
-    <form action="/admin/export" method="GET">
+    <form action="/admin/exportcsv" method="GET">
         <input type="submit" value="Export csv file" class="button lobster" style="font-size:120%;"/>
     </form>
 </div>

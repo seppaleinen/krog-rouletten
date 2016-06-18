@@ -13,27 +13,32 @@ def random_page():
     return logic.random_page()
 
 
+@app.route('/krog/save', methods=['POST'])
+def user_krog_save():
+    return logic.user_krog_save()
+
+
 @app.route('/admin')
 def admin():
     return logic.admin()
 
 
-@app.route('/admin/uploadFile', methods=['POST'])
-def upload_csv():
-    return logic.upload_csv()
-
-
-@app.route('/admin/save', methods=['POST'])
+@app.route('/admin/krog/save', methods=['POST'])
 def save_krog():
     return logic.save_krog()
 
 
-@app.route('/admin/update', methods=['POST'])
+@app.route('/admin/krog/update', methods=['POST'])
 def update():
     return logic.update()
 
 
-@app.route('/admin/export', methods=['GET'])
+@app.route('/admin/uploadcsv', methods=['POST'])
+def upload_csv():
+    return logic.upload_csv()
+
+
+@app.route('/admin/exportcsv', methods=['GET'])
 def export_csv():
     return logic.export_csv()
 
@@ -56,8 +61,3 @@ def test1233():
 @app.route('/error')
 def error():
     return logic.error()
-
-
-@app.route('/krog/save', methods=['POST'])
-def user_krog_save():
-    return logic.user_krog_save()
