@@ -7,7 +7,8 @@ group: edge
 dist: trusty
 before_install:
   - sudo pip install -U pip
-  - sudo pip install -U setuptools
+  - sudo pip uninstall setuptools
+  - pip install setuptools
   - pip install -r frontend/webapp/src/main/webapp/requirements.txt
 
 services:
