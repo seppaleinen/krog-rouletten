@@ -59,3 +59,8 @@ def test1233():
 @app.route('/error')
 def error():
     return logic.error()
+
+
+@app.route('/krog/save', methods=['POST'])
+def user_krog_save():
+    return logic.user_krog_save(BACKEND)

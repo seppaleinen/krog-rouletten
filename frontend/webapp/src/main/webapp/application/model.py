@@ -36,9 +36,7 @@ class ManualForm(Form):
     iframe_lank = TextField('Iframe lank', [validators.Required()])
 
 
-class Objekt(object):
-    def __init__(self):
-        self.namn = None
-        self.adress = None
-        self.karta = None
-        self.beskrivning = None
+class UserKrogForm(Form):
+    namn = TextField('Namn', [validators.Required()])
+    adress = TextField('Adress', [validators.Required()])
+    beskrivning = TextField('Beskrivning')

@@ -1,12 +1,12 @@
 # coding=UTF-8
 import random, requests, json
 from flask import render_template, request, redirect, url_for, jsonify
-from application.model import ManualForm, SearchForm, Objekt
+from application.model import ManualForm, SearchForm, UserKrogForm
 from flask.ext import excel
 
 
 def home():
-    return render_template('index.html', form=SearchForm())
+    return render_template('index.html', **{'searchForm': SearchForm(), 'userKrogForm': UserKrogForm()})
 
 
 def random_page(backend_url):
@@ -15,7 +15,7 @@ def random_page(backend_url):
     if form and not form.adress.data:
         try:
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
-            return render_template('krog.html', data=krog, form=form)
+            return render_template('krog.html', data=krog, form=form, userKrogForm=UserKrogForm())
         except ValueError:
             return render_template('error.html', data='Hittade ingen krog på din sökning')
     elif form and form.adress.data:
@@ -33,15 +33,15 @@ def random_page(backend_url):
 
             try:
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
-                return render_template('krog.html', data=krog, form=form)
+                return render_template('krog.html', data=krog, form=form, userKrogForm=UserKrogForm())
             except Exception:
                 return render_template('error.html', data='Hittade ingen krog på din sökning')
     #Hell has frozen over
-    return render_template('error.html', data='Nånting gick fel')
+    return render_template('error.html', data='Nånting gick fel', userKrogForm=UserKrogForm())
 
 
 def admin(backend_url):
-    return render_template('admin.html', form=ManualForm(), kroglista=get_krog_list(backend_url))
+    return render_template('admin.html', form=ManualForm(), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
 
 
 def upload_csv(backend_url):
@@ -50,11 +50,11 @@ def upload_csv(backend_url):
         file_ = {'file': ('file', file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', form=ManualForm(request.form), kroglista=get_krog_list(backend_url))
+            return render_template('admin.html', form=ManualForm(request.form), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
         except Exception:
-            return render_template('error.html', data='Nånting gick fel')
+            return render_template('error.html', data='Nånting gick fel', userKrogForm=UserKrogForm())
     else:
-        return render_template('admin.html', form=ManualForm(request.form), kroglista=get_krog_list(backend_url))
+        return render_template('admin.html', form=ManualForm(request.form), userKrogForm=UserKrogForm(), kroglista=get_krog_list(backend_url))
 
 
 def save_krog(backend_url):
@@ -130,3 +130,19 @@ def test1233():
 
 def error():
     return render_template('error.html', data='DET GICK FEL')
+
+
+def user_krog_save(backend_url):
+    userKrogForm = UserKrogForm(request.form)
+    # Either form is valid, then close popup,
+    # otherwise re-render popup and keep open
+    print("Saving krog %s" % userKrogForm.data)
+    if request.method == 'POST' and userKrogForm.validate():
+        print('POST')
+        try:
+            requests.post(backend_url + '/save', json=userKrogForm.data)
+        except Exception:
+            pass
+        return render_template('index.html', searchForm=SearchForm(), userKrogForm=userKrogForm)
+    else:
+        return render_template('index.html', searchForm=SearchForm(), userKrogForm=userKrogForm)
