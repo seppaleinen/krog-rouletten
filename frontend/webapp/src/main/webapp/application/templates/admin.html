@@ -105,30 +105,18 @@
         </form>
     </div>
     {% endfor %}
-    <!--första objektet-->
-    <div id="krog_2" class="odd">
-        Odd
-        <button id="edit_button_odd" class="edit_button lobster">edit</button>
-    </div>
-    <!--andra ojektet-->
-    <div id="krog_3" class="even">
-        Even
-        <button id="edit_button_even" class="edit_button lobster">edit</button>
-    </div>
-
     <!--fler objekt i databasen typ-->
 </div>
 
 <div style="align:center;width:100%; text-align:center; clear: left;">
     <form action="/admin/uploadcsv" method="POST" enctype="multipart/form-data">
         <div style='height: 0px;width: 0px; overflow:hidden;'>
-            <input id="file" type="file" name="file" style="hidden">
+            <input id="file" type="file" name="file" style="hidden" onchange="this.form.submit()">
         </div>
 
         <button type="button" class="button lobster" style="font-size:120%;" onclick="document.getElementById('file').click()">
-            Choose file
+            Upload csv file
         </button>
-        <input type="submit" value="Upload csv file" class="button lobster" style="font-size:120%;"/>
     </form>
 
     <form action="/admin/exportcsv" method="GET">
@@ -136,20 +124,4 @@
     </form>
 </div>
 
-<script>
-    var formErrors = {% if form_errors %}true{% else %}false{% endif %};
-</script>
-{% endblock %}
-
-{% block js %}
-<script>
-console.log("FASD");
-console.log(formErrors);
-$(document).ready(function() {
-    if (formErrors) {
-        console.log("CLOSEDATSHIT" + formErrors);
-        $('#nykrog_modal2').modal('show');
-    }
-});
-</script>
 {% endblock %}
