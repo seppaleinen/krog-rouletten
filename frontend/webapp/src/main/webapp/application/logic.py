@@ -1,15 +1,18 @@
 # coding=UTF-8
-import random, requests, json, urllib
+import random, requests, json, urllib, os
 from flask import render_template, request, redirect, url_for, jsonify
 from application.model import ManualForm, SearchForm, UserKrogForm
 from flask.ext import excel
+
+
+backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
 
 
 def home():
     return render_template('index.html', **Helper().forms())
 
 
-def random_page(backend_url):
+def random_page():
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
     if form and not form.adress.data:
@@ -40,35 +43,35 @@ def random_page(backend_url):
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
-def admin(backend_url):
-    return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms())
+def admin():
+    return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms())
 
 
-def upload_csv(backend_url):
+def upload_csv():
     file = request.files['file']
     if file and '.csv' in file.filename:
         file_ = {'file': ('file', file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm': ManualForm(request.form)}))
+            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': ManualForm(request.form)}))
         except Exception:
             return render_template('error.html', data='Nånting gick fel', **Helper().forms())
     else:
-        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':ManualForm(request.form)}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':ManualForm(request.form)}))
 
 
-def save_krog(backend_url):
+def save_krog():
     form = ManualForm(request.form)
     # Either form is valid, then close popup,
     # otherwise re-render popup and keep open
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
-        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':form}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':form}))
     else:
-        return render_template('admin.html', kroglista=Helper.get_krog_list(backend_url), **Helper().forms({'adminKrogForm':form}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':form}))
 
 
-def update(backend_url):
+def update():
     form = ManualForm(request.form)
     if request.form.get('update'):
         if request.method == 'POST':
@@ -79,7 +82,7 @@ def update(backend_url):
         return redirect(url_for('admin'))
 
 
-def export_csv(backend_url):
+def export_csv():
     kroglist = requests.get(backend_url + '/export/csv').json()
     data = [
         ['id', 'namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank']
@@ -121,7 +124,7 @@ def error():
     return render_template('error.html', data='DET GICK FEL', **Helper().forms())
 
 
-def user_krog_save(backend_url):
+def user_krog_save():
     userKrogForm = UserKrogForm(request.form)
     # Either form is valid, then close popup,
     # otherwise re-render popup and keep open
@@ -143,7 +146,8 @@ class Helper(object):
         forms.update(kwargs)
         return forms
 
-    def get_krog_list(backend_url):
+    @staticmethod
+    def get_krog_list():
         try:
             return requests.get("%s/find/all" % backend_url).json()
         except Exception:

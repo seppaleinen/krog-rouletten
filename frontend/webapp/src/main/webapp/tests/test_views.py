@@ -64,7 +64,6 @@ class KrogUnitTests(TestCase):
         self.assertEquals(STATUS_405, result.status)
 
 
-
 class AdminUnitTests(TestCase):
     def create_app(self):
         app = views.app

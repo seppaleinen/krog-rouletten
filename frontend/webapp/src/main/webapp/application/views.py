@@ -3,9 +3,6 @@ from application import app, logic
 import os
 
 
-BACKEND = os.getenv('BACKEND_URL', 'http://localhost:10080')
-
-
 @app.route('/')
 def home():
     return logic.home()
@@ -13,32 +10,32 @@ def home():
 
 @app.route('/krog/random', methods=['POST'])
 def random_page():
-    return logic.random_page(BACKEND)
+    return logic.random_page()
 
 
 @app.route('/admin')
 def admin():
-    return logic.admin(BACKEND)
+    return logic.admin()
 
 
 @app.route('/admin/uploadFile', methods=['POST'])
 def upload_csv():
-    return logic.upload_csv(BACKEND)
+    return logic.upload_csv()
 
 
 @app.route('/admin/save', methods=['POST'])
 def save_krog():
-    return logic.save_krog(BACKEND)
+    return logic.save_krog()
 
 
 @app.route('/admin/update', methods=['POST'])
 def update():
-    return logic.update(BACKEND)
+    return logic.update()
 
 
 @app.route('/admin/export', methods=['GET'])
 def export_csv():
-    return logic.export_csv(BACKEND)
+    return logic.export_csv()
 
 
 @app.route('/user_profile')
@@ -63,4 +60,4 @@ def error():
 
 @app.route('/krog/save', methods=['POST'])
 def user_krog_save():
-    return logic.user_krog_save(BACKEND)
+    return logic.user_krog_save()
