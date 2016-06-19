@@ -32,10 +32,11 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - sudo pip install --upgrade setuptools
-  - sudo pip install -r frontend/webapp/src/main/webapp/requirements.txt;
+  - sudo pip uninstall setuptools
+  - pip install --upgrade setuptools
+  - pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
-script: sudo mvn clean install -Ptest;
+script: mvn clean install -Ptest;
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
