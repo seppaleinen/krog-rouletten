@@ -107,4 +107,13 @@ public class KrogControllerIT {
         assertEquals(HttpStatus.OK.value(), result.getStatusCode());
     }
 
+    /**
+     * Missing tests:
+     * saveCsv
+     * exportCsv
+     * findAllUnapproved
+     * delete
+     * update
+     */
+
 }

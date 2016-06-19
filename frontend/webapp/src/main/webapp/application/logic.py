@@ -83,7 +83,7 @@ def update():
     elif request.form.get('approve'):
         form.approved.data = True
         requests.post(backend_url + '/update', json=form.data)
-        return redirect(url_for('admin'))
+        return redirect(url_for('unapproved'))
 
 
 def export_csv():
