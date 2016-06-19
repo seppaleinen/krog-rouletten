@@ -33,7 +33,7 @@ env:
 
 before_install:
   - sudo pip uninstall setuptools
-  - pip install --upgrade setuptools
+  - pip install --upgrade setuptools -y
   - pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
 script: mvn clean install -Ptest;
