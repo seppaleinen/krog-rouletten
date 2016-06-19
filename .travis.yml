@@ -32,14 +32,12 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - /usr/bin/yes | sudo pip uninstall setuptools
-  - sudo find / -type f -name setuptools*.egg 2>/dev/null
-  - easy_install -m setuptools
-  - sudo rm -rf /usr/local/lib/python2.7/site-packages/setuptools*.egg
-  - pip install --upgrade setuptools
-  - pip install -r frontend/webapp/src/main/webapp/requirements.txt;
+  - sudo pip install --upgrade pip setuptools
+  - sudo pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
-script: mvn clean install -Ptest;
+script:
+  - mvn clean install;
+  - sudo python frontend/webapp/src/main/webapp/runtests.py;
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
