@@ -32,6 +32,7 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
+  - pip install --upgrade setuptools
   - pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
 script: mvn clean install -Ptest;
