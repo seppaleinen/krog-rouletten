@@ -22,7 +22,7 @@ class SearchForm(Form):
     oppet_tider = RadioField('oppet_tider')
 
 
-class ManualForm(Form):
+class AdminKrogForm(Form):
     id = HiddenField('id')
     namn = TextField('Namn', [validators.Required()])
     adress = TextField('Adress')

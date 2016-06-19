@@ -1,7 +1,7 @@
 # coding=UTF-8
 import random, requests, json, urllib, os
 from flask import render_template, request, redirect, url_for, jsonify
-from application.model import ManualForm, SearchForm, UserKrogForm
+from application.model import AdminKrogForm, SearchForm, UserKrogForm
 from flask.ext import excel
 
 
@@ -57,22 +57,22 @@ def upload_csv():
         file_ = {'file': ('file', file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': ManualForm(request.form)}))
+            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': AdminKrogForm(request.form)}))
         except Exception:
             return render_template('error.html', data='Nånting gick fel', **Helper().forms())
     else:
-        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':ManualForm(request.form)}))
+        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': AdminKrogForm(request.form)}))
 
 
 def save_krog():
-    form = ManualForm(request.form)
+    form = AdminKrogForm(request.form)
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
     return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':form}))
 
 
 def update():
-    form = ManualForm(request.form)
+    form = AdminKrogForm(request.form)
     if request.form.get('update'):
         if request.method == 'POST':
             requests.post(backend_url + '/update', json=form.data)
@@ -149,7 +149,7 @@ def user_krog_save():
 
 class Helper(object):
     def forms(self, kwargs={}):
-        forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': ManualForm()}
+        forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': AdminKrogForm()}
         forms.update(kwargs)
         return forms
 

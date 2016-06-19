@@ -1,6 +1,5 @@
 # coding=UTF-8
 from application import app, logic
-import os
 
 
 @app.route('/')

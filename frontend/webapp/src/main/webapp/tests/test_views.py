@@ -78,7 +78,7 @@ class AdminUnitTests(TestCase):
         self.assertEquals(STATUS_200, result.status)
         self.assertTrue('<a class="navbar-brand logo lobster" href="/">Krogrouletten</a>' in result.data)
         self.assertTrue('Ny krog' in result.data)
-        mocked.get.assert_called_with('http://localhost:10080/find/all')
+        mocked.get.assert_called_with('http://localhost:10080/find/all/approved')
         self.assert_template_used('admin.html')
 
 """
