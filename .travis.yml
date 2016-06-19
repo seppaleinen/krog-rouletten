@@ -33,6 +33,9 @@ env:
 
 before_install:
   - /usr/bin/yes | sudo pip uninstall setuptools
+  - sudo find / -type f -name setuptools*.egg 2>/dev/null
+  - easy_install -m setuptools
+  - sudo rm -rf /usr/local/lib/python2.7/site-packages/setuptools*.egg
   - pip install --upgrade setuptools
   - pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
