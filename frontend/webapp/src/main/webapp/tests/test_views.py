@@ -64,7 +64,6 @@ class KrogUnitTests(TestCase):
         self.assertEquals(STATUS_405, result.status)
 
 
-
 class AdminUnitTests(TestCase):
     def create_app(self):
         app = views.app
@@ -82,33 +81,51 @@ class AdminUnitTests(TestCase):
         mocked.get.assert_called_with('http://localhost:10080/find/all')
         self.assert_template_used('admin.html')
 
-"""
-class MyTest(LiveServerTestCase):
 
+class IndexPageTest(LiveServerTestCase):
     def create_app(self):
         app.config['TESTING'] = True
+        os.environ['BACKEND_URL'] = 'http://localhost:10080'
         # Default port is 5000
         app.config['LIVESERVER_PORT'] = 8944
         return app
 
-    @mock.patch('application.logic.requests')
-    def test_server_is_up_and_running(self, mocked):
-        os.environ['BACKEND_URL'] = 'http://localhost:10081'
-        response = urllib2.urlopen(self.get_server_url())
-        self.assertEqual(response.code, 200)
+    def test_selenium_homepage(self):
+        driver = webdriver.PhantomJS('phantomjs')
+        driver.set_window_size(1120, 550)
+        driver.get(self.get_server_url())
+        driver.find_element_by_id("slumpaGPS").click()
+        print driver.current_url
+        self.assertEquals('http://localhost:8944/', driver.current_url)
+        driver.quit()
 
-    def test_selenium(self):
-        binary = os.getenv('phantomjs.binary')
-        if binary is not None:
-            driver = webdriver.PhantomJS(executable_path=binary)
-            driver.set_window_size(1120, 550)
-            driver.get("https://duckduckgo.com/")
-            driver.find_element_by_id('search_form_input_homepage').send_keys("realpython")
-            driver.find_element_by_id("search_button_homepage").click()
-            print driver.current_url
-            driver.quit()
-        else:
-            raise Exception('Cant find phantomjs.binary')
+
+class AdminPageTest(LiveServerTestCase):
+    def create_app(self):
+        app.config['TESTING'] = True
+        os.environ['BACKEND_URL'] = 'http://localhost:10080'
+        # Default port is 5000
+        app.config['LIVESERVER_PORT'] = 8944
+        return app
+
+    def test_selenium_homepage(self):
+        driver = webdriver.PhantomJS('phantomjs')
+        driver.set_window_size(1120, 550)
+        driver.get(self.get_server_url() + '/admin')
+        self.assertTrue(driver.find_element_by_id("krog_2").is_displayed())
+        #print driver.page_source
+        self.assertEquals('http://localhost:8944/admin', driver.current_url)
+        driver.quit()
+
+
 """
-
-
+def test_selenium(self):
+        driver = webdriver.PhantomJS('phantomjs')
+        driver.set_window_size(1120, 550)
+        driver.get("https://duckduckgo.com/")
+        driver.find_element_by_id('search_form_input_homepage').send_keys("realpython")
+        driver.find_element_by_id("search_button_homepage").click()
+        print driver.current_url
+        self.assertEquals('https://duckduckgo.com/?q=realpython&ia=web', driver.current_url)
+        driver.quit()
+"""
