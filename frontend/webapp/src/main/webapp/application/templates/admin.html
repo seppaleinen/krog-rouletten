@@ -6,98 +6,117 @@
 
 <div class="admin_form form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
-        <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
-        <br/>
+    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+    <br/>
     {% endif %}
     {{ field(class_='form-control', **kwargs) }}
     {% if field.errors %}
-        {% for e in field.errors %}
-            <p class="help-block" style="color:red">{{ e }}</p>
-        {% endfor %}
+    {% for e in field.errors %}
+    <p class="help-block" style="color:red">{{ e }}</p>
+    {% endfor %}
     {% endif %}
 </div>
 {%- endmacro %}
 
-<!--Start av header kan flyttas om till en egen header.html-->
-<div class="logo_bg">
-    <div class="dropdown" style="padding:15px;" >
-        <a href="#dc"><i class="fa fa-bars fa-2x logobtn"></i></a>
-        <div id="dc" class="dropdown-content">
-            <a href="/">Inställningar</a>
-            <a href="/admin">Admin</a>
-			<a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
-        </div>
-    </div>
-
-    <div style="text-align:center; float:left; vertical-align: center; padding:10px;" class="logo lobster"><a href="/">Krogrouletten</a></div>
-</div>
 
 <br/><br/><br/><br/><br/><br/><br/>
 
+
 <div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
-    <a class="fancybox fancybox.iframe" data-fancybox-type="iframe"  rel="group" href="/admin/popup">
-        <button class="button lobster" style="font-size:120%;">Ny krog</button>
-    </a>
+    <a data-toggle="modal" data-target="#nykrog_modal2" href="#" class="button lobster">Ny Krog</a>
+    <div class="modal fade" id="nykrog_modal2" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <form method="post" action="/admin/save">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ny krog</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="admin_input" style="clear:both; padding:25px;">
+                            {{ render_field(form.id, readonly=true, label_visible=false, type='hidden') }}
+                            {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
+                            {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
+                            {{ render_field(form.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
+                            {{ render_field(form.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
+                            {{ render_field(form.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
+                            {{ render_field(form.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
+                            {{ render_field(form.betyg, label_visible=true, placeholder='Betyg', type='text') }}
+                            {{ render_field(form.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
+                            {{ render_field(form.intrade, label_visible=true, placeholder='Inträde', type='text') }}
+                            {{ render_field(form.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="admin_form">
+                            <input type="submit" value="Skicka" class="button lobster"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 
 <div class="admin_input" style="clear:both; padding:25px;">
 
     {% for krog in kroglista %}
-        <div id="krog_1" class="odd">
-            <form method="post" action="/admin/update">
-                <div class="admin_form">
-                    <div class="admin_form" hidden>
-                        <input type="text" name="id" value="{{ krog.id }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="namn" value="{{ krog.namn }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="adress" value="{{ krog.adress }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="betyg" value="{{ krog.betyg }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="intrade" value="{{ krog.intrade }}">&nbsp;
-                    </div>
-                    <div class="admin_form">
-                        <input type="text" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
-                    </div>
+    <div id="krog_1" class="odd">
+        <form method="post" action="/admin/update">
+            <div class="admin_form">
+                <div class="admin_form" hidden>
+                    <input type="text" name="id" value="{{ krog.id }}">&nbsp;
                 </div>
-                <input type="submit" class="admin_button lobster" name="update" value="Update"/>
-                <input type="submit" class="admin_button lobster" name="delete" value="Delete"/>
-                <br/>
-            </form>
-        </div>
+                <div class="admin_form">
+                    <input type="text" name="namn" value="{{ krog.namn }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="adress" value="{{ krog.adress }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="betyg" value="{{ krog.betyg }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="intrade" value="{{ krog.intrade }}">&nbsp;
+                </div>
+                <div class="admin_form">
+                    <input type="text" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
+                </div>
+            </div>
+            <input type="submit" class="admin_button lobster" name="update" value="Update"/>
+            <input type="submit" class="admin_button lobster" name="delete" value="Delete"/>
+            <br/>
+        </form>
+    </div>
     {% endfor %}
     <!--första objektet-->
-	<div id="krog_1" class="odd">
-		Odd
+    <div id="krog_2" class="odd">
+        Odd
         <button id="edit_button_odd" class="edit_button lobster">edit</button>
     </div>
     <!--andra ojektet-->
-	<div id="krog_2" class="even">
-		Even
+    <div id="krog_3" class="even">
+        Even
         <button id="edit_button_even" class="edit_button lobster">edit</button>
-	</div>
+    </div>
 
-<!--fler objekt i databasen typ-->
+    <!--fler objekt i databasen typ-->
 </div>
 
 <div style="align:center;width:100%; text-align:center; clear: left;">
@@ -115,7 +134,22 @@
     <form action="/admin/export" method="GET">
         <input type="submit" value="Export csv file" class="button lobster" style="font-size:120%;"/>
     </form>
-
 </div>
 
+<script>
+    var formErrors = {% if form_errors %}true{% else %}false{% endif %};
+</script>
+{% endblock %}
+
+{% block js %}
+<script>
+console.log("FASD");
+console.log(formErrors);
+$(document).ready(function() {
+    if (formErrors) {
+        console.log("CLOSEDATSHIT" + formErrors);
+        $('#nykrog_modal2').modal('show');
+    }
+});
+</script>
 {% endblock %}

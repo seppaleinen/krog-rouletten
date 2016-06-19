@@ -1,3 +1,4 @@
+# coding=UTF-8
 import random, requests, json
 from flask import render_template, request, redirect, url_for, jsonify
 from application.model import ManualForm, SearchForm, Objekt
@@ -9,15 +10,14 @@ def home():
 
 
 def random_page(backend_url):
-    krog = None
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
     if form and not form.adress.data:
         try:
             krog = requests.post(backend_url + '/find/random', json=form.data).json()
+            return render_template('krog.html', data=krog, form=form)
         except ValueError:
-            pass
-        return render_template('krog.html', data=krog, form=form)
+            return render_template('error.html', data='Hittade ingen krog på din sökning')
     elif form and form.adress.data:
         adress = request.form['adress'].replace(" ", "%20")
         result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
@@ -26,18 +26,18 @@ def random_page(backend_url):
 
             # I'm a lazy and inefficient bastard.. Take the last location from list
             for place in lat['results']:
-                form.adress = place['formatted_address']
-                form.latitude = place['geometry']['location']['lat']
-                form.longitude = place['geometry']['location']['lng']
-                print("ADRESS:%s LAT:%s LNG%s" % (form.adress, form.latitude, form.longitude))
+                form.adress.data = place['formatted_address']
+                form.latitude.data = place['geometry']['location']['lat']
+                form.longitude.data = place['geometry']['location']['lng']
+                print("ADRESS:%s LAT:%s LNG%s" % (form.adress.data, form.latitude.data, form.longitude.data))
 
             try:
                 krog = requests.post(backend_url + '/find/random', json=form.data).json()
                 return render_template('krog.html', data=krog, form=form)
-            except ValueError:
-                return render_template('index.html', form=form)
+            except Exception:
+                return render_template('error.html', data='Hittade ingen krog på din sökning')
     #Hell has frozen over
-    return render_template('index.html', form=form)
+    return render_template('error.html', data='Nånting gick fel')
 
 
 def admin(backend_url):
@@ -48,8 +48,11 @@ def upload_csv(backend_url):
     file = request.files['file']
     if file and '.csv' in file.filename:
         file_ = {'file': ('file', file)}
-        requests.post(backend_url + '/save/csv', files=file_)
-        return render_template('admin.html', form=ManualForm(request.form), kroglista=get_krog_list(backend_url))
+        try:
+            requests.post(backend_url + '/save/csv', files=file_)
+            return render_template('admin.html', form=ManualForm(request.form), kroglista=get_krog_list(backend_url))
+        except Exception:
+            return render_template('error.html', data='Nånting gick fel')
     else:
         return render_template('admin.html', form=ManualForm(request.form), kroglista=get_krog_list(backend_url))
 
@@ -60,9 +63,9 @@ def save_krog(backend_url):
     # otherwise re-render popup and keep open
     if request.method == 'POST' and form.validate():
         requests.post(backend_url + '/save', json=form.data)
-        return render_template('admin.html', form=form, closePopup='close')
+        return render_template('admin.html', form=form, kroglista=get_krog_list(backend_url))
     else:
-        return render_template('krog_popup.html', form=form, closePopup=None)
+        return render_template('admin.html', form=form, kroglista=get_krog_list(backend_url))
 
 
 def update(backend_url):
@@ -111,3 +114,19 @@ def get_krog_list(backend_url):
         return requests.get(backend_url + '/find/all').json()
     except Exception:
         return []
+
+
+def user_profile():
+    return render_template('user_profile.html', form=SearchForm())
+
+
+def bpm():
+    return render_template('bpm.html', form=SearchForm())
+
+
+def test1233():
+    return render_template('test1233.html', form=SearchForm())
+
+
+def error():
+    return render_template('error.html', data='DET GICK FEL')

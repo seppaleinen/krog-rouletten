@@ -4,83 +4,62 @@
 
 {% macro render_field(field) -%}
 <div>
-	{{ field(class_='form-control', **kwargs) }}
+    {{ field(class_='form-control', **kwargs) }}
 </div>
 {%- endmacro %}
 
-
-<div class="container bodycontainer" style="max-width:990px; padding:0px; margin:0 auto;">
-<div class="logo_bg" >
-	<div class="dropdown" style="padding:15px;" >
-		<a href="#dc"><i class="fa fa-bars fa-2x logobtn"></i></a>
-		<div id="dc" class="dropdown-content">
-			<a href="/">Inställningar</a>
-			<a href="/admin">Admin</a>
-			<a href="/static/img/bpm.png">BAJSA PÅ MÅNEN</a>
-		</div>
-	</div>
-
-	<div style="text-align:center; vertical-align: center; padding:10px; padding-left:54px;" class="logo lobster"><a href="/">Krogrouletten</a></div>
-</div>
 <div class="" style="width:100%; clear: left; padding-left:4%; padding-right:4%;">
-	<div class="panel panel-default" style=" text-align:center; padding:0px; max-width:100%; background: url('/static/img/exp_marielaveau/IMG_24721.jpg') center top; background-size: cover;">
-		<div class="panel-body cream" style="background: rgba(0,0,0,0.0);padding:0px; margin:0px;">
-<br/><br/><br/><br/><br/><br/>
+    <div class="panel panel-default" style=" text-align:center; padding:0px; max-width:100%; background: url('/static/img/exp_marielaveau/IMG_24721.jpg') center top; background-size: cover;">
+        <div class="panel-body cream" style="background: rgba(0,0,0,0.0);padding:0px; margin:0px;">
+            <br/><br/><br/><br/><br/><br/>
 
-		</div>
-		<div class="panel-body cream" style="background: rgba(0,0,0,0.7);padding:0px; margin:0px; width:100%; height:100%;">
-			<div class="col-md-offset-2 col-md-8" style="padding:0px;"><span class="namn1"><a href="">&nbsp;{{ data.namn }}&nbsp;</a></br>
+        </div>
+        <div class="panel-body cream" style="background: rgba(0,0,0,0.7);padding:0px; margin:0px; width:100%; height:100%;">
+            <div class="col-md-offset-2 col-md-8" style="padding:0px;"><span class="namn1"><a href="">&nbsp;{{ data.namn }}&nbsp;</a><br/>
 			</span><span class="betyg_avatar"><i class="fa fa-beer" aria-hidden="true"></i><i class="fa fa-beer" aria-hidden="true"></i><i class="fa fa-beer" aria-hidden="true"></i><i class="fa fa-beer" aria-hidden="true"></i></span></div>
-<div class="col-md-2" style="padding:15px; height:100%;">
-<button type="button" class="btn btn-default" style="background-color: rgba(255, 255, 255, 0.1); color: rgb(255, 255, 255);"><!--Ska länka till att öppna bilder stort--><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;&nbsp;Bilder</button></div>
-		</div>
+            <div class="col-md-2" style="padding:15px; height:100%;">
+                <button type="button" class="btn btn-default" style="background-color: rgba(255, 255, 255, 0.1); color: rgb(255, 255, 255);"><!--Ska länka till att öppna bilder stort--><i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp;&nbsp;Bilder</button></div>
+        </div>
 
+    </div>
+    <div class="panel panel-default col-md-7" style="padding:0px;">
+        <div class="panel-body black"style="padding:0px;margin:0px;">
+            <iframe class="iframe1" src="{{ data.iframe_lank }}" width="100%" height="205" frameborder="0" align="center"allowfullscreen></iframe>
+        </div>
+    </div>
 
-	</div>
-	<div class="panel panel-default col-md-7" style="padding:0px;">
-		<div class="panel-body black"style="padding:0px;margin:0px;">
-<iframe class="iframe1" src="{{ data.iframe_lank }}" width="100%" height="205" frameborder="0" align="center"allowfullscreen></iframe>
-	</div>
-</div>
-
-	<div class="panel panel-default  col-md-4 col-md-offset-1">
-			<div class="panel-body black">
-					<b>Mer info:<br/>
-				Öppet till:&nbsp;{{ data.oppet_tider }}<br/>
-					Typ:&nbsp;{{ data.bar_typ }} <br/>
-					Beskrivning:&nbsp;{{ data.beskrivning }}<br/>
-					Betyg:&nbsp; {{ data.betyg }}<br/>
-					Kommentarer:
-					<br/>
-				</b>
-			</div>
-		</div>
-
+    <div class="panel panel-default  col-md-4 col-md-offset-1">
+        <div class="panel-body black">
+            <b>Mer info:<br/>
+                Öppet till:&nbsp;{{ data.oppet_tider }}<br/>
+                Typ:&nbsp;{{ data.bar_typ }} <br/>
+                Beskrivning:&nbsp;{{ data.beskrivning }}<br/>
+                Betyg:&nbsp; {{ data.betyg }}<br/>
+                Kommentarer:
+                <br/>
+            </b>
+        </div>
+    </div>
 
 </div>
 <br/><br/><br/>
 
-
 <!--Start slump knappen-->
 <div class="slumpa_div">
-	<div class="slumpa_div_inner">
-		<div style="display: inline-block; text-align:center; ">
-			<form role="form" method="post" action="/krog/random">
-				{{ render_field(form.latitude) }}
-				{{ render_field(form.longitude) }}
+    <div class="slumpa_div_inner">
+        <div style="display: inline-block; text-align:center; ">
+            <form role="form" method="post" action="/krog/random">
+                {{ render_field(form.latitude) }}
+                {{ render_field(form.longitude) }}
 
-				<div style="float:left; padding: 10px;">
-					<button id="slumpaGPS" class="slumpa_button lobster flipInX animated">Slumpa &nbsp;<i class="fa fa-random"></i></button>
-					<input type="submit" id="hidden_submit" hidden/>
-				</div>
-			</form>
-		</div>
-	</div>
+                <div style="float:left; padding: 10px;">
+                    <button id="slumpaGPS" class="slumpa_button lobster flipInX animated">Slumpa &nbsp;<i class="fa fa-random"></i></button>
+                    <input type="submit" id="hidden_submit" hidden/>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-
-<!--
--->
 
 <!--Slut Slump knappen-->
 

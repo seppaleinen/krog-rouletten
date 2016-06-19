@@ -6,14 +6,14 @@
 
 <div class="admin_form form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
-        <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
-        <br/>
+    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+    <br/>
     {% endif %}
     {{ field(class_='form-control', **kwargs) }}
     {% if field.errors %}
-        {% for e in field.errors %}
-            <p class="help-block" style="color:red">{{ e }}</p>
-        {% endfor %}
+    {% for e in field.errors %}
+    <p class="help-block" style="color:red">{{ e }}</p>
+    {% endfor %}
     {% endif %}
 </div>
 {%- endmacro %}
@@ -21,7 +21,7 @@
 
 
 <div class="admin_input" style="clear:both; padding:25px;">
-	<form method="post" action="/admin/save">
+    <form method="post" action="/admin/save">
         {{ render_field(form.id, readonly=true, label_visible=false, type='hidden') }}
         {{ render_field(form.namn, label_visible=true, placeholder='Namn', type='text') }}
         {{ render_field(form.adress, label_visible=true, placeholder='Adress', type='text') }}
@@ -33,44 +33,11 @@
         {{ render_field(form.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
         {{ render_field(form.intrade, label_visible=true, placeholder='Inträde', type='text') }}
         {{ render_field(form.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
-        <!--
-		<div class="admin_form">namn<br/>
-		    <input type="text" name="namn">&nbsp;
-        </div>
-		<div class="admin_form">adress<br/>
-		    <input type="text" name="adress">&nbsp;
-        </div>
-		<div class="admin_form">oppet_tider<br/>
-		    <input type="text" name="oppet_tider">&nbsp;
-        </div>
-		<div class="admin_form">bar_typ<br/>
-		    <input type="text" name="bar_typ">&nbsp;
-        </div>
-		<div class="admin_form">stadsdel<br/>
-		    <input type="text" name="stadsdel">&nbsp;
-        </div>
-		<div class="admin_form">beskrivning<br/>
-		    <input type="text" name="beskrivning">&nbsp;
-        </div>
-		<div class="admin_form">betyg<br/>
-		    <input type="text" name="betyg">&nbsp;
-        </div>
-		<div class="admin_form">hemside_lank<br/>
-		    <input type="text" name="hemside_lank">&nbsp;
-        </div>
-		<div class="admin_form">intrade<br/>
-		    <input type="text" name="intrade">&nbsp;
-        </div>
-		<div class="admin_form">iframe_lank<br/>
-		    <input type="text" name="iframe_lank">&nbsp;
-        </div>
-        -->
-		<div class="admin_form">
+        <div class="admin_form">
             <br/>
             <input type="submit" value="Skicka"/>
         </div>
-
-	</form>
+    </form>
 </div>
 
 {% endblock %}

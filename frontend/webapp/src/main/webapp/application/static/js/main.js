@@ -1,41 +1,29 @@
 
 $(document).ready(function () {
     'use strict';
-    $(".fancybox")
-        .attr('rel', 'gallery')
-        .fancybox({
-            maxWidth: 800,
-            maxHeight: 400,
-            fitToView: false,
-            width: '70%',
-            height: '70%',
-            autoSize: false,
-            padding: 0,
-            margin: [20, 60, 20, 60],
-            afterClose: function () {
-                location.reload();
-                return;
-            }
-        });
-
-    var closePopup, x;
-    closePopup = $("#closePopup").text();
-    if (closePopup !== "") {
-        parent.jQuery.fancybox.close();
-    }
 
     function showPosition(position) {
         $("#latitude").val(position.coords.latitude);
         $("#longitude").val(position.coords.longitude);
         $("#hidden_submit").click()
     }
+    function onError(error){
+        document.location= "/error";
+    }
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition, onError, options);
         } else {
-            x.innerHTML = "ERROR";
+            alert("VAFAN?");
         }
     }
+
     $("#slumpaGPS").click(function () {
             getLocation();
         }
