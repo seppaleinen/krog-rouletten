@@ -30,11 +30,18 @@ env:
   - secure: "K1N83oYsHsNiXmZAgfMlef/pUORG/ecZwD60t7cz7fWN0i4i1z3xoBXZm05wHjosA2Jf8kus0v0hyxM5jaG43+LbPLgOEvE4FsFFMQLejA9RVTOoRn9Q0SF4ytn/fBu0ctKEnNrQkbklw7hK3cHSIFuYGELrT6ju9AljHiZjLOiUFIhr/+QbiAAVgK4wUsr4doe2+NLJcXPPjLKLcmnXACPVYE9HNKun6zf+UT/vi8OQ8gsieJAPf4MvN6XueIdzKFPeraeynCDEG1nw2ZUsayLLF4XBEzfFdRExJjLBgEIcTk0wzyq2UF5WXXeZ/7S9zUloYMEqttX/uShm56oUx852Z6VBoc7k+YkN7zg8H5MbjmJBJgglsR89tBzod0Nn7iNdKi/W3az7NIWJXT9RwWj2RluxcEgpje6ZXIkX3QIvCD/Kr1saFeYb+fh/nmuTlcZx5jTSe3sdL7iQIvaQ8mRHmmTZf64UtVWajGI+TT6hWXIw9jdS601Wj3QH62oq03UHCDNk/P4deIdnDhpP+rI7b1FBXjz6QeBqwgIyS6OYMMZtKgeHwFMYfunOOLfQ086yTfiL4Myd/lIstvQ4JX6SWb3ftEFAjKmy39T4Iwfrrsha8kJD5N27KAFpSr69B7q6aO/A5b+dlS9zCTBd5Su7jQORveU2sN3SJbDz9cM=" #DEPLOY_USER
   - secure: "U2ZokSfxlmNTZOAH9+Av+x5jnpBDA5PeNDcnVNNvxTquPYwAtvkEM5uUKgxcUlYvq7+WejLPoWfmYrl7nvVLBKC1C7RqiuLb66lDYQ6XJApWr0BDW6dJpVJHYWMkfbPO6JjBlmV2l02JYhK1hPDzOr8/H9KSekyq3od1397Qy0ujTJUTNVdhqS+wiRMtePr25I/Aou5uBgW59vrV6F1Nzw7kf9bv6a3xY+mtAcRnyfXRQTfwfQ/F7/MjqN+9StKOAKZPavRBQI4VOfjLn6vQJED5Q0iaYUZX4o0bb860QiWlGeFj0y1O5KJATKcfbQ+Y0SdiVPy1SCgQZgZnofb7jKKyg0vKg570SsibN1nG0DSZv3wZjSC7jMqbQW7Ntz3HMe2Z+Ixyne4w2kZssUps2qyN+jBI582NwOb8IfU3gb+fWzCrn926DyXFBzmpl/uE5i7X9Q5ojtVp4mnlVfYJtnIwHBZ6EWdY7GksrlEV/EHXVtcSXn2IO08P9T8yx0k5ol03t6dZ6nu1R6otfnMh38dkRw/2+x7I3U9RWdyCcgGuHfl2uSN1e2Bj6dAXX22AjdptQ/LpD1LTiHin+2wmZmdEaXFXd3HZ5OjgqmoQp7b++n1rjm+q3rNubjXi3HVVSfFdpBOvrmld5MNBrddfPb0ZLMqKwTJUWFsOWpmxDEs=" #DEPLOY_PATH
   - COMMIT=${TRAVIS_COMMIT::8}
-script: mvn clean install;
+
+before_install:
+  - sudo pip install --upgrade pip setuptools
+  - sudo pip install -r frontend/webapp/src/main/webapp/requirements.txt;
+
+script:
+  - mvn clean install;
+  - sudo python frontend/webapp/src/main/webapp/runtests.py;
 
 after_success:
-  - mvn install -DskipTests=true -Pdocker
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
+  - mvn install -DskipTests=true -Pdocker
   - echo "test"
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
