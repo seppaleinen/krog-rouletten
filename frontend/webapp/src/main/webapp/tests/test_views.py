@@ -112,7 +112,8 @@ class AdminPageTest(LiveServerTestCase):
         driver = webdriver.PhantomJS('phantomjs')
         driver.set_window_size(1120, 550)
         driver.get(self.get_server_url() + '/admin')
-        self.assertTrue(driver.find_element_by_id("krog_2").is_displayed())
+        #self.assertTrue(driver.find_element_by_id("admin_ny_krog").is_displayed())
+        #self.assertFalse(driver.find_element_by_id("admin_ny_krog").is_displayed())
         #print driver.page_source
         self.assertEquals('http://localhost:8944/admin', driver.current_url)
         driver.quit()
