@@ -8,7 +8,7 @@ body {
 background-repeat: repeat-y;
 background-attachment: fixed;
 background-position: center;*/
-background-color:#032b49;
+background-color:#032b49 !important;
 		color: black;
 		font-family: 'Roboto', sans-serif;
 		padding:0;
