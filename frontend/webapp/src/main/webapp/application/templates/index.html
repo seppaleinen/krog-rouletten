@@ -41,14 +41,15 @@
                         <div class="clearfix visible-xs-block"></div>
 
                         <div class="radio">
-                            <input type="radio" name="post_adress" id="adress" placeholder="adress"/>
-                            <label for="adress">
+                            <input type="radio" name="post_adress" id="radio_adress" placeholder="adress"/>
+                            <label for="radio_adress">
                                 Från adress:
                             </label>
                         </div>
                         <div>
                             <div class="col-xs-12 col-md-8  col-sm-9 col-lg-9" style="margin:4px;">
-                                {{ render_field(searchForm.adress) }}
+                                {{ render_field(searchForm.adress, id="sok_adress", size="40", list="adress_list") }}
+                                <datalist id="adress_list"></datalist>
                             </div>
                             <div class="col-xs-2 col-md-2 col-lg-2 clearfix" style="margin:4px;">
                                 <input id="findByAdress" type="submit" class="btn btn-primary" value="Hitta adress"/>

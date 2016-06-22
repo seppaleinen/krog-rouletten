@@ -10,11 +10,11 @@ class SearchForm(Form):
         (0.2, "200m"),
         (0.3, "300m"),
         (0.5, "500m"),
-        (1, "1km"),
-        (3, "3km"),
-        (5, "5km"),
-        (8, "8km")],
-        default=8)
+        (1, "1 km"),
+        (3, "3 km"),
+        (5, "5 km"),
+        (8, "8 km")],
+        default=1)
     gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
     stadsdel = RadioField('stadsdel')
