@@ -102,7 +102,7 @@ class IndexPageTest(LiveServerTestCase):
 
         self.assertEquals('http://localhost:8944/', driver.current_url)
 
-        driver.find_element_by_css_selector("h4.panel-title.black").click()
+        driver.find_element_by_id("primary_collapse").click()
         Select(driver.find_element_by_id("distance")).select_by_visible_text("300m")
         driver.find_element_by_id("slumpaGPS").click()
         self.assertEqual("Krogrouletten", driver.title)
@@ -148,7 +148,7 @@ class AdminPageTest(LiveServerTestCase):
 
         response = "[{u'bar_typ': None, u'stadsdel': u'None', u'intrade': u'None', u'betyg': u'None', u'beskrivning': u'beskrivning', u'namn': u'namn', u'approved': False, u'oppet_tider': None, u'iframe_lank': u'None', u'adress': u'adress', u'id': u'57696a7abee83aa6e93bfc09', u'hemside_lank': u'None'}]"
         mocked_requests.get('http://localhost:10080/find/all/unapproved', json=response)
-        driver.find_element_by_id("visa_ej_godkanda_button").click()
+        driver.find_element_by_id("visa_ej_godkanda").click()
         time.sleep(1)
 
         snapshot(driver, '05_after_click_visa_ej_godkanda.png')
