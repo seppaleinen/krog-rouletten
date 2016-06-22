@@ -67,6 +67,8 @@ def upload_csv():
 def save_krog():
     form = AdminKrogForm(request.form)
     if request.method == 'POST' and form.validate():
+        #If admin saves krog, automatically approve..
+        form.approved.data = True
         requests.post(backend_url + '/save', json=form.data)
     return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':form}))
 
@@ -148,7 +150,8 @@ def user_krog_save():
 
 
 class Helper(object):
-    def forms(self, kwargs={}):
+    @staticmethod
+    def forms(kwargs={}):
         forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': AdminKrogForm()}
         forms.update(kwargs)
         return forms

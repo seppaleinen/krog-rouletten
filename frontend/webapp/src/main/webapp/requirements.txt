@@ -12,3 +12,4 @@ Flask-Excel
 selenium
 mock
 blinker
+requests-mock

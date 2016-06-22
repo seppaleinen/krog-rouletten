@@ -19,7 +19,6 @@
 {%- endmacro %}
 
 
-<br/><br/><br/><br/><br/><br/><br/>
 
 <div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
     <form method="get" action="/admin">
@@ -32,37 +31,33 @@
 </div>
 
 <div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
-    <a id="admin_ny_krog" data-toggle="modal" data-target="#nykrog_modal2" href="#" class="button lobster">Ny Krog</a>
-    <div class="modal fade" id="d" role="dialog">
+    <a id="admin_ny_krog" data-toggle="modal" data-target="#admin_ny_krog_modal" href="#" class="button lobster">Ny Krog</a>
+    <div class="modal fade" id="admin_ny_krog_modal" role="dialog">
         <div class="modal-dialog modal-lg">
-            <form method="post" action="/admin/krog/save">
-                <div class="modal-content">
+            <div class="modal-content">
+                <form method="post" action="/admin/krog/save">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Ny krog</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="admin_input" style="clear:both; padding:25px;">
-                            {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
-                            {{ render_field(adminKrogForm.namn, label_visible=true, placeholder='Namn', type='text') }}
-                            {{ render_field(adminKrogForm.adress, label_visible=true, placeholder='Adress', type='text') }}
-                            {{ render_field(adminKrogForm.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
-                            {{ render_field(adminKrogForm.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
-                            {{ render_field(adminKrogForm.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
-                            {{ render_field(adminKrogForm.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
-                            {{ render_field(adminKrogForm.betyg, label_visible=true, placeholder='Betyg', type='text') }}
-                            {{ render_field(adminKrogForm.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
-                            {{ render_field(adminKrogForm.intrade, label_visible=true, placeholder='Inträde', type='text') }}
-                            {{ render_field(adminKrogForm.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
-                        </div>
+                        {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
+                        {{ render_field(adminKrogForm.namn, label_visible=true, placeholder='Namn', type='text') }}
+                        {{ render_field(adminKrogForm.adress, label_visible=true, placeholder='Adress', type='text') }}
+                        {{ render_field(adminKrogForm.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
+                        {{ render_field(adminKrogForm.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
+                        {{ render_field(adminKrogForm.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
+                        {{ render_field(adminKrogForm.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
+                        {{ render_field(adminKrogForm.betyg, label_visible=true, placeholder='Betyg', type='text') }}
+                        {{ render_field(adminKrogForm.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
+                        {{ render_field(adminKrogForm.intrade, label_visible=true, placeholder='Inträde', type='text') }}
+                        {{ render_field(adminKrogForm.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
                     </div>
                     <div class="modal-footer">
-                        <div class="admin_form">
-                            <input type="submit" value="Skicka" class="button lobster"/>
-                        </div>
+                        <input type="submit" value="Skicka" class="btn btn-default"/>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
