@@ -14,12 +14,14 @@
     <form role="form" method="post" action="/krog/random">
 
         <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
-            <div class="panel panel-default">
-                <a data-toggle="collapse" class="center" href="#collapse1"><div class="panel-heading">
-                    <h4 class="panel-title black">
-                        Plats
+            <div class="panel panel-primary shadow3">
+
+                  <div data-toggle="collapse" href="#collapse1" class="panel-heading panel-primary">
+                    <h4 class="panel-title">
+                        Plats    
                     </h4>
-                </div></a>
+                </div>
+
                 <div id="collapse1" class="panel-collapse collapse">
                     <div class="panel-body">
                         {{ render_field(searchForm.latitude, id="latitude") }}
@@ -112,15 +114,15 @@
             </div>
         </div>
         <div class="clearfix visible-xs-block visible-lg-block visible-md-block visible-sm-block"></div>
-        <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3">
-            <div class="panel panel-default">
-                <a data-toggle="collapse" class="center" href="#collapse2">
-                    <div class="panel-heading">
-                        <h4 class="panel-title black">
+        <div class="panel-group col-md-6 col-lg-offset-2 col-md-offset-3 ">
+            <div class="panel panel-primary shadow3">
+
+                    <div class="panel-heading" data-toggle="collapse" class="center" href="#collapse2">
+                        <h4 class="panel-title">
                             Preferenser
                         </h4>
                     </div>
-                </a>
+
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="panel-body">
                         <h4 class="panel-title black">
@@ -187,7 +189,7 @@
         <div class="slumpa_div">
             <div class="slumpa_div_inner">
                 <div style="display: inline-block; text-align:center; ">
-                    <button type="button" id="slumpaGPS" class="slumpa_button_dark lobster flipInX animated">Slumpa &nbsp;<i class="fa fa-random"></i></button>
+                    <button type="button" id="slumpaGPS" class="slumpa_button_dark lobster flipInX animated shadow3">Slumpa &nbsp;<i class="fa fa-random"></i></button>
                 </div>
             </div>
         </div>

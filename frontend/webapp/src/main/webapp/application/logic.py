@@ -77,6 +77,7 @@ def update():
     form = AdminKrogForm(request.form)
     if request.form.get('update'):
         if request.method == 'POST':
+            form.approved.data = True
             requests.post(backend_url + '/update', json=form.data)
         return redirect(url_for('admin'))
     elif request.form.get('delete'):
