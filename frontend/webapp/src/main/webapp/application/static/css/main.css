@@ -346,11 +346,23 @@ margin: 0 auto;
 background: rgba(0, 0, 0, .5);
 }
 
+.hide{
+	visibility: hidden !important; display: none !important;
+}
+.m2{
+	margin:2px;
+}
+.w150{
+width:150px !important;
+}
 
+.w100{
+width:100px !important;
+}
 
-
-
-
+.w50{
+width:50px !important;
+}
 
 		.shadow{
 		text-shadow:

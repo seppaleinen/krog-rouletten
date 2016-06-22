@@ -19,21 +19,30 @@
 {%- endmacro %}
 
 
-<br/><br/><br/><br/><br/><br/><br/>
-
-<div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
+<div class="admin_input" style="align:center; padding:25px; text-align:center; clear: left;">
     <form method="get" action="/admin">
-        <button type="submit" class="button lobster">Visa godkända</button>
+        <button type="submit" class="m2 btn btn-primary pull-left">Visa godkända</button>
     </form>
 
     <form method="get" action="/admin/unapproved">
-        <button type="submit" class="button lobster">Visa ej godkända</button>
+        <button type="submit" class="m2 btn btn-primary pull-left">Visa ej godkända</button>
     </form>
-</div>
 
-<div class="admin_input" style="align:center;width:100%; text-align:center; clear: left;">
-    <a id="admin_ny_krog" data-toggle="modal" data-target="#nykrog_modal2" href="#" class="button lobster">Ny Krog</a>
-    <div class="modal fade" id="d" role="dialog">
+    <form action="/admin/uploadcsv" method="POST" enctype="multipart/form-data">
+        <div style='height: 0px;width: 0px; overflow:hidden;'>
+            <input id="file" type="file" name="file" style="hidden" onchange="this.form.submit()">
+        </div>
+
+        <button type="button" class="m2 btn btn-primary pull-left" onclick="document.getElementById('file').click()">
+            Upload csv file
+        </button>
+    </form>
+
+    <form action="/admin/exportcsv" method="GET">
+        <input type="submit" value="Export csv file" class="m2 btn btn-primary pull-left"/>
+    </form>
+    <a id="admin_ny_krog" data-toggle="modal" data-target="#nykrog_modal2" href="#" class="m2 btn btn-primary pull-left"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Ny Krog</a>
+    <div class="modal fade" id="nykrog_modal2" role="dialog">
         <div class="modal-dialog modal-lg">
             <form method="post" action="/admin/krog/save">
                 <div class="modal-content">
@@ -44,21 +53,21 @@
                     <div class="modal-body">
                         <div class="admin_input" style="clear:both; padding:25px;">
                             {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
-                            {{ render_field(adminKrogForm.namn, label_visible=true, placeholder='Namn', type='text') }}
-                            {{ render_field(adminKrogForm.adress, label_visible=true, placeholder='Adress', type='text') }}
-                            {{ render_field(adminKrogForm.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
-                            {{ render_field(adminKrogForm.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
-                            {{ render_field(adminKrogForm.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
-                            {{ render_field(adminKrogForm.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
-                            {{ render_field(adminKrogForm.betyg, label_visible=true, placeholder='Betyg', type='text') }}
-                            {{ render_field(adminKrogForm.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
-                            {{ render_field(adminKrogForm.intrade, label_visible=true, placeholder='Inträde', type='text') }}
-                            {{ render_field(adminKrogForm.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
+                            {{ render_field(adminKrogForm.namn, label_visible=false, placeholder='Namn', type='text') }}
+                            {{ render_field(adminKrogForm.adress, label_visible=false, placeholder='Adress', type='text') }}
+                            {{ render_field(adminKrogForm.oppetTider, label_visible=false, placeholder='Öppettider', type='text') }}
+                            {{ render_field(adminKrogForm.barTyp, label_visible=false, placeholder='Bartyp', type='text') }}
+                            {{ render_field(adminKrogForm.stadsdel, label_visible=false, placeholder='Stadsdel', type='text') }}
+                            {{ render_field(adminKrogForm.beskrivning, label_visible=false, placeholder='Beskrivning', type='text') }}
+                            {{ render_field(adminKrogForm.betyg, label_visible=false, placeholder='Betyg', type='text') }}
+                            {{ render_field(adminKrogForm.hemside_lank, label_visible=false, placeholder='Hemsida', type='text') }}
+                            {{ render_field(adminKrogForm.intrade, label_visible=false, placeholder='Inträde', type='text') }}
+                            {{ render_field(adminKrogForm.iframe_lank, label_visible=false, placeholder='Iframe', type='text') }}
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="admin_form">
-                            <input type="submit" value="Skicka" class="button lobster"/>
+                            <input type="submit" value="Skicka" class="btn btn-primary"/>
                         </div>
                     </div>
                 </div>
@@ -71,67 +80,40 @@
 <div class="admin_input" style="clear:both; padding:25px;">
 
     {% for krog in kroglista %}
-    <div id="krog_1" class="odd">
+    <div id="krog_1" class="panel panel-default shadow3">
+
+  <div class="panel-body">
         <form method="post" action="/admin/krog/update">
-            <div class="admin_form">
-                <div class="admin_form" hidden>
-                    <input type="text" name="id" value="{{ krog.id }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="namn" value="{{ krog.namn }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="adress" value="{{ krog.adress }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="betyg" value="{{ krog.betyg }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="intrade" value="{{ krog.intrade }}">&nbsp;
-                </div>
-                <div class="admin_form">
-                    <input type="text" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
-                </div>
+            <div class="form-inline">
+                          <div class="form-group">
+                <div class="" hidden>
+                    <input type="text" class="form-control" name="id" value="{{ krog.id }}">&nbsp;</div>
+                    <div class="form-group">
+                    <input type="text" class="form-control m2" placeholder="Namn" name="namn" value="{{ krog.namn }}">&nbsp;
+                    <input type="text" class="form-control m2" placeholder="Adress" name="adress" value="{{ krog.adress }}">&nbsp;
+                    <input type="text" class="form-control m2" placeholder="Öppet tider" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
+                    <input type="text" class="form-control m2 w100" placeholder="Bar typ" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
+                    <input type="text" class="form-control m2 w100" placeholder="Stadsdel" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
+                    <input type="text" class="form-control m2" placeholder="Beskrivning" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
+                    <input type="text" class="form-control m2 w50" placeholder="Betyg" name="betyg" value="{{ krog.betyg }}">&nbsp;
+                    <input type="text" class="form-control m2 w100" placeholder="Hemside länk" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
+                    <input type="text" class="form-control m2 w100" placeholder="Inträde" name="intrade" value="{{ krog.intrade }}">&nbsp;
+                    <input type="text" class="form-control m2" placeholder="Iframe länk" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
+
+
             </div>
-            <input type="submit" class="admin_button lobster" name="update" value="Update"/>
-            <input type="submit" class="admin_button lobster" name="delete" value="Delete"/>
-            <input type="submit" class="admin_button lobster" name="approve" value="Approve"/>
-            <br/>
+            <input type="submit" class="m2 btn btn-primary pull-right" name="update" value="Update"/>
+            <input type="submit" class="m2 btn btn-danger pull-left" name="delete" value="Delete"/>
+            <input type="submit" class="m2 btn btn-success pull-right" name="approve" value="Approve"/>
+            <br/></div>
+          </div>
         </form>
+      </div>
     </div>
     {% endfor %}
     <!--fler objekt i databasen typ-->
 </div>
 
-<div style="align:center;width:100%; text-align:center; clear: left;">
-    <form action="/admin/uploadcsv" method="POST" enctype="multipart/form-data">
-        <div style='height: 0px;width: 0px; overflow:hidden;'>
-            <input id="file" type="file" name="file" style="hidden" onchange="this.form.submit()">
-        </div>
 
-        <button type="button" class="button lobster" style="font-size:120%;" onclick="document.getElementById('file').click()">
-            Upload csv file
-        </button>
-    </form>
-
-    <form action="/admin/exportcsv" method="GET">
-        <input type="submit" value="Export csv file" class="button lobster" style="font-size:120%;"/>
-    </form>
-</div>
 
 {% endblock %}
