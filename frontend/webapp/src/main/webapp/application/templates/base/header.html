@@ -1,22 +1,6 @@
 
-{% macro render_field(field, label_visible=true) -%}
-<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
-    {% if field.type != 'HiddenField' and label_visible %}
-    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
-    <br/>
-    {% endif %}
-    {{ field(class_='form-control', **kwargs) }}
-    {% if field.errors %}
-    {% for e in field.errors %}
-    <p class="help-block" style="color:red">{{ e }}</p>
-    {% endfor %}
-    {% endif %}
-</div>
-{%- endmacro %}
-
-
 <!-- Menyn -->
-<nav class="navbar navbar-inverse" style="background:#032b49; border-color:white;">
+<nav class="navbar navbar-inverse shadow4" style="background:#337ab7; border:0px;">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -69,20 +53,27 @@
 <div class="modal fade" id="nykrog_modal" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form method="post" action="/krog/save">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Ny Krog</h4>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ny Krog</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="krog_namn">Krog namn:</label>
+                    <input type="text" class="form-control" id="krog_namn">
                 </div>
-                <div class="modal-body">
-                        {{ render_field(userKrogForm.namn) }}
-                        {{ render_field(userKrogForm.adress) }}
-                        {{ render_field(userKrogForm.beskrivning) }}
+                <div class="form-group">
+                    <label for="krog_adress">Adress eller plats:</label>
+                    <input type="text" class="form-control" id="krog_adress">
                 </div>
-                <div class="modal-footer">
-                    <input type="submit" value="Lägg till" class="btn btn-default"/>
+                <div class="form-group">
+                    <label for="krog_kommentar">Kommentar (frivilligt):</label>
+                    <input type="text" class="form-control" id="krog_kommentar">
                 </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Lägg till</button>
+            </div>
         </div>
     </div>
 </div>
