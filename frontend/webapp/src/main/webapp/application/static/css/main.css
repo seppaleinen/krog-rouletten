@@ -340,7 +340,10 @@ margin: 0 auto;
 
 
 
-
+.form-control {
+	width:auto !important;
+	display: inline-block!important;
+}
 
 .namehighlight{
 background: rgba(0, 0, 0, .5);
