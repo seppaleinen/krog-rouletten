@@ -1,4 +1,3 @@
-
 {% macro render_field(field, label_visible=true) -%}
 <div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
@@ -16,7 +15,7 @@
 
 
 <!-- Menyn -->
-<nav class="navbar navbar-inverse" style="background:#032b49; border-color:white;">
+<nav class="navbar navbar-inverse shadow4" style="background:#337ab7; border:0px;">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -75,12 +74,12 @@
                     <h4 class="modal-title">Ny Krog</h4>
                 </div>
                 <div class="modal-body">
-                        {{ render_field(userKrogForm.namn) }}
-                        {{ render_field(userKrogForm.adress) }}
-                        {{ render_field(userKrogForm.beskrivning) }}
+                    {{ render_field(userKrogForm.namn) }}
+                    {{ render_field(userKrogForm.adress) }}
+                    {{ render_field(userKrogForm.beskrivning) }}
                 </div>
                 <div class="modal-footer">
-                    <input id="ny_user_krog_submit" type="submit" value="Lägg till" class="btn btn-default"/>
+                    <input type="submit" value="Lägg till" class="btn btn-default"/>
                 </div>
             </form>
         </div>

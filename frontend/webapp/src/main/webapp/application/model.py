@@ -38,7 +38,7 @@ class AdminKrogForm(Form):
 
 
 class UserKrogForm(Form):
-    namn = TextField('Namn', [validators.Required()])
-    adress = TextField('Adress', [validators.Required()])
-    beskrivning = TextField('Beskrivning')
+    namn = TextField('Krog namn', [validators.Required()])
+    adress = TextField('Adress eller plats', [validators.Required()])
+    beskrivning = TextField('Kommentar (frivilligt)')
     approved = BooleanField('Approved')
