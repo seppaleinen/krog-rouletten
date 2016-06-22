@@ -7,8 +7,11 @@ body {
 /*	background-image: url('/static/img/shadow.png');
 background-repeat: repeat-y;
 background-attachment: fixed;
+background-position: center;*//*	background-image: url('/static/img/shadow.png');
+background-repeat: repeat-y;
+background-attachment: fixed;
 background-position: center;*/
-background-color:#fcfcfc !important;
+background-color:#d9e3eb !important;
 		color: #333;
 		    line-height: 1.5;
 		font-family: 'Roboto', sans-serif;
@@ -159,7 +162,7 @@ z-index: 2;
 		padding: 8px 12px;
 		text-align: center;
 		display: inline-block;
-		margin: 4px 2px;
+		margin: 2px 2px;
 		cursor: pointer;
 font-size:100% !important;
 		}

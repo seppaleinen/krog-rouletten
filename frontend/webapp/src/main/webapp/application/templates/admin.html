@@ -46,73 +46,76 @@
             <input type="submit" value="Export csv file" class="m2 btn btn-primary pull-left"/>
         </form>
 
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="post" action="/admin/krog/save">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Ny krog</h4>
-                        </div>
-                        <div class="modal-body">
-                            {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
-                            {{ render_field(adminKrogForm.namn, label_visible=true, placeholder='Namn', type='text') }}
-                            {{ render_field(adminKrogForm.adress, label_visible=true, placeholder='Adress', type='text') }}
-                            {{ render_field(adminKrogForm.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
-                            {{ render_field(adminKrogForm.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
-                            {{ render_field(adminKrogForm.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
-                            {{ render_field(adminKrogForm.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
-                            {{ render_field(adminKrogForm.betyg, label_visible=true, placeholder='Betyg', type='text') }}
-                            {{ render_field(adminKrogForm.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
-                            {{ render_field(adminKrogForm.intrade, label_visible=true, placeholder='Inträde', type='text') }}
-                            {{ render_field(adminKrogForm.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" value="Skicka" class="btn btn-primary"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    </div>
-
-
-    <div class="admin_input" style="clear:both; padding:25px;">
-
-        {% for krog in kroglista %}
-        <div id="krog_1" class="panel panel-default shadow3">
-
-            <div class="panel-body">
-                <form method="post" action="/admin/krog/update">
-                    <div class="form-inline">
-                        <div class="form-group">
-                            <div class="" hidden>
-                                <input type="text" class="form-control" name="id" value="{{ krog.id }}">&nbsp;
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control m2" placeholder="Namn" name="namn" value="{{ krog.namn }}">&nbsp;
-                                <input type="text" class="form-control m2" placeholder="Adress" name="adress" value="{{ krog.adress }}">&nbsp;
-                                <input type="text" class="form-control m2" placeholder="Öppet tider" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
-                                <input type="text" class="form-control m2 w100" placeholder="Bar typ" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
-                                <input type="text" class="form-control m2 w100" placeholder="Stadsdel" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
-                                <input type="text" class="form-control m2" placeholder="Beskrivning" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
-                                <input type="text" class="form-control m2 w70" placeholder="Betyg" name="betyg" value="{{ krog.betyg }}">&nbsp;
-                                <input type="text" class="form-control m2 w100" placeholder="Hemside länk" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
-                                <input type="text" class="form-control m2 w100" placeholder="Inträde" name="intrade" value="{{ krog.intrade }}">&nbsp;
-                                <input type="text" class="form-control m2" placeholder="Iframe länk" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
-                            </div>
-
-                            <input type="submit" class="m2 btn btn-primary pull-right" name="update" value="Update"/>
-                            <input type="submit" class="m2 btn btn-danger pull-left" name="delete" value="Delete"/>
-                            <input type="submit" class="m2 btn btn-success pull-right" name="approve" value="Approve"/>
-                            <br/>
-                        </div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form method="post" action="/admin/krog/save">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Ny krog</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
+                        {{ render_field(adminKrogForm.namn, label_visible=true, placeholder='Namn', type='text') }}
+                        {{ render_field(adminKrogForm.adress, label_visible=true, placeholder='Adress', type='text') }}
+                        {{ render_field(adminKrogForm.oppetTider, label_visible=true, placeholder='Öppettider', type='text') }}
+                        {{ render_field(adminKrogForm.barTyp, label_visible=true, placeholder='Bartyp', type='text') }}
+                        {{ render_field(adminKrogForm.stadsdel, label_visible=true, placeholder='Stadsdel', type='text') }}
+                        {{ render_field(adminKrogForm.beskrivning, label_visible=true, placeholder='Beskrivning', type='text') }}
+                        {{ render_field(adminKrogForm.betyg, label_visible=true, placeholder='Betyg', type='text') }}
+                        {{ render_field(adminKrogForm.hemside_lank, label_visible=true, placeholder='Hemsida', type='text') }}
+                        {{ render_field(adminKrogForm.intrade, label_visible=true, placeholder='Inträde', type='text') }}
+                        {{ render_field(adminKrogForm.iframe_lank, label_visible=true, placeholder='Iframe', type='text') }}
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" value="Skicka" class="btn btn-primary"/>
                     </div>
                 </form>
             </div>
         </div>
-        {% endfor %}
-        <!--fler objekt i databasen typ-->
     </div>
+</div>
 
 
 
-    {% endblock %}
+
+<div class="admin_input" style="clear:both; padding:25px;">
+
+    {% for krog in kroglista %}
+    <div id="krog_1" class="panel panel-default shadow3">
+
+        <div class="panel-body">
+            <form method="post" action="/admin/krog/update">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <div class="" hidden>
+                            <input type="text" class="form-control" name="id" value="{{ krog.id }}">&nbsp;
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control m2" placeholder="Namn" name="namn" value="{{ krog.namn }}">&nbsp;
+                            <input type="text" class="form-control m2" placeholder="Adress" name="adress" value="{{ krog.adress }}">&nbsp;
+                            <input type="text" class="form-control m2" placeholder="Öppet tider" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
+                            <input type="text" class="form-control m2 w100" placeholder="Bar typ" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
+                            <input type="text" class="form-control m2 w100" placeholder="Stadsdel" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;
+                            <input type="text" class="form-control m2" placeholder="Beskrivning" name="beskrivning" value="{{ krog.beskrivning }}">&nbsp;
+                            <input type="text" class="form-control m2 w70" placeholder="Betyg" name="betyg" value="{{ krog.betyg }}">&nbsp;
+                            <input type="text" class="form-control m2 w100" placeholder="Hemside länk" name="hemside_lank" value="{{ krog.hemside_lank }}">&nbsp;
+                            <input type="text" class="form-control m2 w100" placeholder="Inträde" name="intrade" value="{{ krog.intrade }}">&nbsp;
+                            <input type="text" class="form-control m2" placeholder="Iframe länk" name="iframe_lank" value="{{ krog.iframe_lank }}">&nbsp;
+                        </div>
+
+                        <input type="submit" class="m2 btn btn-primary pull-right" name="update" value="Update"/>
+                        <input type="submit" class="m2 btn btn-danger pull-left" name="delete" value="Delete"/>
+                        <input type="submit" class="m2 btn btn-success pull-right" name="approve" value="Approve"/>
+                        <br/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    <!--fler objekt i databasen typ-->
+</div>
+
+
+
+{% endblock %}
