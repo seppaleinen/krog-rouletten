@@ -54,7 +54,8 @@
                         <div class="admin_input" style="clear:both; padding:25px;">
                             {{ render_field(adminKrogForm.id, readonly=true, label_visible=false, type='hidden') }}
                             {{ render_field(adminKrogForm.namn, label_visible=false, placeholder='Namn', type='text') }}
-                            {{ render_field(adminKrogForm.adress, label_visible=false, placeholder='Adress', type='text') }}
+                            {{ render_field(adminKrogForm.adress, label_visible=false, placeholder='Adress', type='text', id="admin_ny_krog_adress", list="admin_ny_krog_adress_list") }}
+                            <datalist id="admin_ny_krog_adress_list"></datalist>
                             {{ render_field(adminKrogForm.oppetTider, label_visible=false, placeholder='Öppettider', type='text') }}
                             {{ render_field(adminKrogForm.barTyp, label_visible=false, placeholder='Bartyp', type='text') }}
                             {{ render_field(adminKrogForm.stadsdel, label_visible=false, placeholder='Stadsdel', type='text') }}
@@ -91,7 +92,8 @@
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control m2" placeholder="Namn" name="namn" value="{{ krog.namn }}">&nbsp;
-                            <input type="text" class="form-control m2" placeholder="Adress" name="adress" value="{{ krog.adress }}">&nbsp;
+                            <input type="text" class="form-control m2" placeholder="Adress" name="adress" value="{{ krog.adress }}" id="admin_update_krog_adress" list="admin_update_krog_adress_list">&nbsp;
+                            <datalist id="admin_update_krog_adress_list"></datalist>
                             <input type="text" class="form-control m2" placeholder="Öppet tider" name="oppet_tider" value="{{ krog.oppet_tider }}">&nbsp;
                             <input type="text" class="form-control m2 " placeholder="Bar typ" name="bar_typ" value="{{ krog.bar_typ }}">&nbsp;
                             <input type="text" class="form-control m2 " placeholder="Stadsdel" name="stadsdel" value="{{ krog.stadsdel }}">&nbsp;

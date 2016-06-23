@@ -75,7 +75,8 @@
                 </div>
                 <div class="modal-body">
                     {{ render_field(userKrogForm.namn) }}
-                    {{ render_field(userKrogForm.adress) }}
+                    {{ render_field(userKrogForm.adress, id="user_krog_adress", list="user_krog_adress_list") }}
+                    <datalist id="user_krog_adress_list"></datalist>
                     {{ render_field(userKrogForm.beskrivning) }}
                 </div>
                 <div class="modal-footer">
