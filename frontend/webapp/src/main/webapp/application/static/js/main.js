@@ -35,7 +35,7 @@ $(document).ready(function() {
         if (val.length < 10) return;
         if (val === last_adress) return;
         if (val.indexOf(' ') < 0) return;
-        var url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(val) + "&sensor=false";
+        var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(val) + "&sensor=false";
         $.get(url, function(res) {
             var dataList = $(datalist_id);
             dataList.empty();
