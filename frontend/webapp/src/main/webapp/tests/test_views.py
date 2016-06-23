@@ -77,7 +77,7 @@ class SeleniumTests(LiveServerTestCase):
         Helper.snapshot(driver, '02_ny_krog_popup.png')
 
         driver.find_element_by_id("namn").send_keys("namn")
-        driver.find_element_by_id("adress").send_keys("adress")
+        driver.find_element_by_id("user_krog_adress").send_keys("adress")
         driver.find_element_by_id("beskrivning").send_keys("beskrivning")
         driver.find_element_by_id("user_krog_submit").click()
 
