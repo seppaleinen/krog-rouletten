@@ -26,7 +26,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 
 docker-compose stop
-letsencrypt/letsencrypt-auto --renew certonly --server https://acme-v01.api.letsencrypt.org/directory -a webroot --webroot-path=/tmp/letsencrypt-auto --agree-dev-preview -d krogrouletten.se -d www.krogrouletten.se
+letsencrypt/letsencrypt-auto --renew-by-default certonly --server https://acme-v01.api.letsencrypt.org/directory -a webroot --webroot-path=/tmp/letsencrypt-auto --agree-dev-preview -d krogrouletten.se -d www.krogrouletten.se
 sudo swapoff /swapfile
 cd krog-rouletten
 docker-compose up -d
