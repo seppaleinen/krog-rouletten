@@ -1,0 +1,12 @@
+{
+  "median": {
+    "firstView": {
+      "requests": 20,
+      "render": 400,
+      "loadTime": 3000,
+      "score_gzip": {
+        "min": 90
+      }
+    }
+  }
+}

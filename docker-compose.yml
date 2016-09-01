@@ -48,3 +48,11 @@ services:
     volumes:
       - /data/db
     command: echo ''
+
+
+  webpagetest:
+    build: webpagetest
+    ports:
+      - "80:80"
+    volumes:
+      - /tmp/wpt/result:/var/www/html/result
