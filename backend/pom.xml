@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <artifactFinalName>${project.artifactId}</artifactFinalName>
+        <tomcat.version>8.5.4</tomcat.version>
 
         <spring-framework.version>4.3.2.RELEASE</spring-framework.version>
         <spring-data-commons.version>1.12.2.RELEASE</spring-data-commons.version>
