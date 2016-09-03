@@ -7,13 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.context.embedded.LocalServerPort;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.controller.repository.entity.Krog;
 import se.doktorn.backend.controller.repository.KrogRepository;
@@ -26,21 +23,18 @@ import static com.jayway.restassured.RestAssured.when;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = KrogRoulettenApplication.class)
-@WebAppConfiguration
-@IntegrationTest("server.port:0")
-@TestPropertySource(locations = "classpath:application-test.properties")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = KrogRoulettenApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "classpath:application-test.properties")
 public class KrogControllerIT {
     @Autowired
     private KrogRepository repository;
-    @Value("${local.server.port}")
-    private int port;
+    @LocalServerPort
+    int randomServerPort;
 
     @Before
     public void setup() {
         repository.deleteAll();
-        RestAssured.port = port;
+        RestAssured.port = randomServerPort;
     }
 
     @Test
