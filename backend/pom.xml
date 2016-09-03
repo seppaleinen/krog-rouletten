@@ -27,8 +27,8 @@
         <spring-data-commons.version>1.11.1.RELEASE</spring-data-commons.version>
         <spring-data-mongodb.version>1.8.1.RELEASE</spring-data-mongodb.version>
         <jackson-annotations.version>2.6.3</jackson-annotations.version>
-        <lombok.version>1.16.6</lombok.version>
-        <rest-assured.version>2.7.0</rest-assured.version>
+        <lombok.version>1.16.10</lombok.version>
+        <rest-assured.version>2.9.0</rest-assured.version>
         <junit.version>4.12</junit.version>
 
         <docker-maven-plugin.version>0.4.12</docker-maven-plugin.version>
