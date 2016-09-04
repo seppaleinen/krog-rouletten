@@ -1,0 +1,12 @@
+version: "2"
+
+services:
+  webpagetest-manager:
+    build: webpagetest-manager
+    ports:
+      - "80:80"
+    volumes:
+      - /tmp/wpt/result:/var/www/html/result
+
+  webpagetest-agent:
+    build: webpagetest-agent
