@@ -5,8 +5,12 @@ services:
     build: webpagetest-manager
     ports:
       - "80:80"
+      - "443:80"
     volumes:
       - /tmp/wpt/result:/var/www/html/result
 
   webpagetest-agent:
     build: webpagetest-agent
+    links:
+      - webpagetest-manager:webpagetest-manager
+    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Office_IE8 --processvideo no
