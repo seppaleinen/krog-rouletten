@@ -13,23 +13,23 @@ services:
     build: webpagetest-agent
     links:
       - webpagetest-manager:webpagetest-manager
-    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser1 --processvideo no
+    command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser1 --processvideo no
 
   webpagetest-agent-location2:
     build: webpagetest-agent
     links:
       - webpagetest-manager:webpagetest-manager
-    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser2 --processvideo no
+    command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser2 --processvideo no
 
 
   webpagetest-agent-location3:
     build: webpagetest-agent
     links:
       - webpagetest-manager:webpagetest-manager
-    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser3 --processvideo no
+    command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser3 --processvideo no
 
   webpagetest-agent-location4:
     build: webpagetest-agent
     links:
       - webpagetest-manager:webpagetest-manager
-    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser4 --processvideo no
+    command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser4 --processvideo no
