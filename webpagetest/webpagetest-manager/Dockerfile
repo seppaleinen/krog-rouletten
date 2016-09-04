@@ -26,7 +26,7 @@ ENV     XVID_VERSION    1.3.3
 ENV     FDKAAC_VERSION  0.1.3
 ENV     EXIFTOOL_VERSION 9.75
 # from https://github.com/WPO-Foundation/webpagetest base on pmeenan
-ENV     WPT_VERSION 2.18
+ENV     WPT_VERSION 2.19
 ENV     SRC             /usr/local
 ENV     LD_LIBRARY_PATH ${SRC}/lib
 ENV     PKG_CONFIG_PATH ${SRC}/lib/pkgconfig
@@ -137,6 +137,8 @@ RUN yum -y install libjpeg-turbo-devel libjpeg-turbo-static libjpeg-turbo
 
 ## install exiftool
 RUN yum install -y perl-devel
+
+RUN yum clean all
 RUN DIR=$(mktemp -d) && cd ${DIR} && \
               curl -Os http://owl.phy.queensu.ca/~phil/exiftool/Image-ExifTool-${EXIFTOOL_VERSION}.tar.gz && \
               tar xvf Image-ExifTool-${EXIFTOOL_VERSION}.tar.gz && \
