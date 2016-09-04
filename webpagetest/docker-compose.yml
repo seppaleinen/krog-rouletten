@@ -9,8 +9,27 @@ services:
     volumes:
       - /tmp/wpt/result:/var/www/html/result
 
-  webpagetest-agent:
+  webpagetest-agent-location1:
     build: webpagetest-agent
     links:
       - webpagetest-manager:webpagetest-manager
-    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Office_IE8 --processvideo no
+    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser1 --processvideo no
+
+  webpagetest-agent-location2:
+    build: webpagetest-agent
+    links:
+      - webpagetest-manager:webpagetest-manager
+    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser2 --processvideo no
+
+
+  webpagetest-agent-location3:
+    build: webpagetest-agent
+    links:
+      - webpagetest-manager:webpagetest-manager
+    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser3 --processvideo no
+
+  webpagetest-agent-location4:
+    build: webpagetest-agent
+    links:
+      - webpagetest-manager:webpagetest-manager
+    command: wpt/agent/js/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser4 --processvideo no
