@@ -148,6 +148,8 @@ RUN DIR=$(mktemp -d) && cd ${DIR} && \
 	      cp -r exiftool lib /usr/bin && \
               rm -rf ${DIR}
 
+RUN yum remove -y perl-devel wget bzip2 git
+
 # Filesystem setting
 RUN mkdir -p /var/www/html/tmp &&	\
 	chmod 777 /var/www/html/tmp &&	\
@@ -165,6 +167,7 @@ RUN mkdir -p /var/www/html/tmp &&	\
 RUN DIR=$(mktemp -d) && cd ${DIR} && \
               curl -L -Os https://github.com/WPO-Foundation/webpagetest/archive/WebPageTest-${WPT_VERSION}.tar.gz  && \
               tar xvf WebPageTest-${WPT_VERSION}.tar.gz && \
+              rm -f WebPageTest-${WPT_VERSION}.tar.gz && \
               cd webpagetest-WebPageTest-${WPT_VERSION} && \
               cp -r www/*  /var/www/html/
 
@@ -174,6 +177,8 @@ COPY settings.ini /var/www/html/settings/
 
 # test results store volume
 VOLUME ["/var/www/html/results"]
+
+RUN sed -ri 's_#ServerName www.example.com:80_ServerName webpagetest-manager_' /etc/httpd/conf/httpd.conf
 
 EXPOSE 80
 CMD ["/usr/sbin/httpd", "-k", "start", "-D", "FOREGROUND"]
