@@ -1,5 +1,5 @@
 FROM php:7.0-apache
-MAINTAINER thomas.steinbach@aikq.de
+MAINTAINER davidbaeriksson@gmail.com
 
 RUN echo deb http://www.deb-multimedia.org jessie main non-free >> /etc/apt/sources.list && \
     apt-get update && \
@@ -29,8 +29,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     a2enmod expires headers rewrite
 
 RUN cd /tmp && \
-    wget https://github.com/WPO-Foundation/webpagetest/releases/download/WebPageTest-2.18/webpagetest_2.18.zip && \
-    unzip webpagetest_2.18.zip && \
+    wget https://github.com/WPO-Foundation/webpagetest/releases/download/WebPageTest-2.19/webpagetest_2.19.zip && \
+    unzip webpagetest_2.19.zip && \
     cp -a www/* /var/www/html && \
     rm -rf /tmp/* && \
     chown -R www-data:www-data /var/www/html && \
