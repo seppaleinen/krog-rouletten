@@ -11,12 +11,14 @@ services:
 
   webpagetest-agent-location1:
     build: webpagetest-agent
+    privileged: true
     links:
       - webpagetest-manager:webpagetest-manager
     command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser1 --processvideo no
 
   webpagetest-agent-location2:
     build: webpagetest-agent
+    privileged: true
     links:
       - webpagetest-manager:webpagetest-manager
     command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser2 --processvideo no
@@ -24,12 +26,14 @@ services:
 
   webpagetest-agent-location3:
     build: webpagetest-agent
+    privileged: true
     links:
       - webpagetest-manager:webpagetest-manager
     command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser3 --processvideo no
 
   webpagetest-agent-location4:
     build: webpagetest-agent
+    privileged: true
     links:
       - webpagetest-manager:webpagetest-manager
     command: wpt/mobile/wptdriver.sh -m debug --browser chrome --serverUrl webpagetest-manager --location Browser4 --processvideo no
