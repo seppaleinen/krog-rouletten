@@ -1,280 +1,96 @@
-webpagetest-agent-location1_1  | .......
-webpagetest-agent-location1_1  | I Sep_04_14:07:06.754 wpt_client.js:624 Client.processJobResponse_ : Got job: {"Test ID":"160904_7S_2","url":"https:\/\/krogrouletten.se","timeline":1,"timelineStackDepth":0,"Capture Video":1,"runs":1,"browser":"IE 8","orientation":"default"}
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.756 wpt_client.js:668 Client.startNextRun_ : Setting watchdog timeout to 1800000ms
-webpagetest-agent-location1_1  | I Sep_04_14:07:06.758 agent_main.js:477 Agent.<anonymous> : Starting run 1a/1 of job 160904_7S_2
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.785 process_utils.js:488 unknown : Calling Make dirs
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.786 process_utils.js:482 cb : Callback for Make dirs
-webpagetest-agent-location1_1  | 1.1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.828 process_utils.js:488 unknown : Calling Make dir
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.829 process_utils.js:482 cb : Callback for Make dir
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.913 process_utils.js:263 unknown : Exec with timeout(10000): ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.930 process_utils.js:314 Socket.<anonymous> : stderr: +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.930 process_utils.js:314 Socket.<anonymous> : stderr: ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:06.941 process_utils.js:328 ChildProcess.<anonymous> : stderr[164] +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.115 browser_base.js:165 createBrowser : Creating browser browser_local_chrome.BrowserLocalChrome
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.119 browser_local_chrome.js:53 new BrowserLocalChrome : BrowserLocalChrome(/wpt/agent/js/lib/webdriver/chromedriver/Linux x86_64/chromedriver-2.4, undefined)
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.167 process_utils.js:366 unknown : Spawning: chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234'
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.174 wd_server.js:1225 WebDriverServer.<anonymous> : Top-level process uncaught exception: spawn chrome ENOENT
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.179 wd_server.js:216 WebDriverServer.<anonymous> : Exception from "Run test": Error: spawn chrome ENOENT
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.179 wd_server.js:217 WebDriverServer.<anonymous> : Error: spawn chrome ENOENT
-webpagetest-agent-location1_1  |     at exports._errnoException (util.js:870:11)
-webpagetest-agent-location1_1  |     at Process.ChildProcess._handle.onexit (internal/child_process.js:178:32)
-webpagetest-agent-location1_1  |     at onErrorNT (internal/child_process.js:344:16)
-webpagetest-agent-location1_1  |     at nextTickCallbackWith2Args (node.js:441:9)
-webpagetest-agent-location1_1  |     at process._tickCallback (node.js:355:17)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234'
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at Object.exports.scheduleSpawn (/wpt/agent/js/src/process_utils.js:365:14)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.BrowserBase.startChildProcess (/wpt/agent/js/src/browser_base.js:59:24)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.startBrowser (/wpt/agent/js/src/browser_local_chrome.js:116:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.startChrome_ (/wpt/agent/js/src/wd_server.js:259:17)
-webpagetest-agent-location1_1  |     at WebDriverServer.runPageLoad_ (/wpt/agent/js/src/wd_server.js:1101:10)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:689:12)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Run test
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.runTest_ (/wpt/agent/js/src/wd_server.js:685:15)
-webpagetest-agent-location1_1  |     at WebDriverServer.connect (/wpt/agent/js/src/wd_server.js:1237:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:109:12)
-webpagetest-agent-location1_1  |     at emitTwo (events.js:87:13)
-webpagetest-agent-location1_1  |     at process.emit (events.js:172:7)
-webpagetest-agent-location1_1  |     at handleMessage (internal/child_process.js:689:10)
-webpagetest-agent-location1_1  |     at Pipe.channel.onread (internal/child_process.js:440:11)
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.190 wd_server.js:1350 WebDriverServer.scheduleCollectMetrics_ : Collecting metrics
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.192 wd_server.js:1566 WebDriverServer.<anonymous> : Done collecting results
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.193 wd_server.js:1599 WebDriverServer.<anonymous> : Scheduling Stop
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.225 wd_server.js:216 WebDriverServer.<anonymous> : Exception from "Capture Screen Shot": Error: Unable to take screenshot
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.228 wd_server.js:217 WebDriverServer.<anonymous> : Error: Unable to take screenshot
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:607:11)
-webpagetest-agent-location1_1  |     at /wpt/agent/js/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at notify (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
-webpagetest-agent-location1_1  |     at notifyAll (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
-webpagetest-agent-location1_1  |     at fulfill (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:402:7)
-webpagetest-agent-location1_1  |     at Object.webdriver.promise.asap (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:672:5)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1449:25)
-webpagetest-agent-location1_1  |     at notify (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
-webpagetest-agent-location1_1  |     at notifyAll (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | get capabilities
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.scheduleGetCapabilities (/wpt/agent/js/src/browser_local_chrome.js:156:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.getCapabilities_ (/wpt/agent/js/src/wd_server.js:806:24)
-webpagetest-agent-location1_1  |     at WebDriverServer.takeScreenshot_ (/wpt/agent/js/src/wd_server.js:569:15)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:1530:12)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
-webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Capture Screen Shot
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:1529:10)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
-webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Done
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.done_ (/wpt/agent/js/src/wd_server.js:1520:8)
-webpagetest-agent-location1_1  |     at /wpt/agent/js/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at notify (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
-webpagetest-agent-location1_1  |     at notifyAll (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
-webpagetest-agent-location1_1  |     at fulfill (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:402:7)
-webpagetest-agent-location1_1  |     at Object.webdriver.promise.asap (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:672:5)
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.269 process_utils.js:488 unknown : Calling Runtime.evaluate
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.270 process_utils.js:509 unknown : Ignoring Exception from "Runtime.evaluate": TypeError: Cannot read property 'sendCommand' of undefined
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.369 wd_server.js:1563 WebDriverServer.<anonymous> : Test passed
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.384 wd_server.js:1573 WebDriverServer.<anonymous> : Sending 'done' IPC
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.386 agent_main.js:158 Agent.<anonymous> : got IPC: done
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.417 process_utils.js:263 unknown : Exec with timeout(10000): ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.422 process_utils.js:263 unknown : Exec with timeout(10000): ps -u 0 -o 'ppid=' -o 'pid=' -o 'command='
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.430 process_utils.js:328 ChildProcess.<anonymous> : stdout[502]     0     1 node --max-old-space-size=4096 --expose-gc src/agent_main --serverUrl webpagetest-manager --location Browser1 --browser browser_local_chrome.BrowserLocalChrome --chromedriver /wpt/agent/js/lib/webdriver/chromedriver/Linux x86_64/chromedriver-2.4 --processvideo no
-webpagetest-agent-location1_1  |     1   256 /usr/bin/nodejs --max-old-space-size=4096 --expose-gc ./src/wd_server.js
-webpagetest-agent-location1_1  |     1   262 /bin/bash -eu ./ipfw_config clear
-webpagetest-agent-location1_1  |   256   263 ps -u 0 -o ppid= -o pid= -o command=
-webpagetest-agent-location1_1  |   262   264 /bin/bash -eu ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.441 process_utils.js:314 Socket.<anonymous> : stderr: +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.442 process_utils.js:314 Socket.<anonymous> : stderr: ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.454 process_utils.js:328 ChildProcess.<anonymous> : stderr[164] +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | A Sep_04_14:07:07.473 wpt_client.js:725 Client.finishRun_ : Finished run 1a/1 of job 160904_7S_2
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.473 wpt_client.js:912 Client.submitResult_ : submitResult_: job=160904_7S_2
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.474 wpt_client.js:668 Client.startNextRun_ : Setting watchdog timeout to 1800000ms
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.490 agent_main.js:477 Agent.<anonymous> : Starting run 1b/1 of job 160904_7S_2
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.497 wd_server.js:1233 WebDriverServer.<anonymous> : The main control flow has gone idle, history: []
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.520 process_utils.js:488 unknown : Calling Make dirs
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.520 process_utils.js:482 cb : Callback for Make dirs
-webpagetest-agent-location1_1  | 1.1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.556 process_utils.js:488 unknown : Calling Make dir
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.557 process_utils.js:482 cb : Callback for Make dir
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.635 process_utils.js:263 unknown : Exec with timeout(10000): ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.651 process_utils.js:314 Socket.<anonymous> : stderr: +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.652 process_utils.js:314 Socket.<anonymous> : stderr: ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.661 process_utils.js:328 ChildProcess.<anonymous> : stderr[164] +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.666 browser_base.js:165 createBrowser : Creating browser browser_local_chrome.BrowserLocalChrome
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.667 browser_local_chrome.js:53 new BrowserLocalChrome : BrowserLocalChrome(/wpt/agent/js/lib/webdriver/chromedriver/Linux x86_64/chromedriver-2.4, undefined)
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.699 process_utils.js:366 unknown : Spawning: chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234' '-remote-debugging-port=1234'
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.702 wd_server.js:1225 WebDriverServer.<anonymous> : Top-level process uncaught exception: spawn chrome ENOENT
-webpagetest-agent-location1_1  | .
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.707 wd_server.js:216 WebDriverServer.<anonymous> : Exception from "Run test": Error: spawn chrome ENOENT
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.707 wd_server.js:217 WebDriverServer.<anonymous> : Error: spawn chrome ENOENT
-webpagetest-agent-location1_1  |     at exports._errnoException (util.js:870:11)
-webpagetest-agent-location1_1  |     at Process.ChildProcess._handle.onexit (internal/child_process.js:178:32)
-webpagetest-agent-location1_1  |     at onErrorNT (internal/child_process.js:344:16)
-webpagetest-agent-location1_1  |     at nextTickCallbackWith2Args (node.js:441:9)
-webpagetest-agent-location1_1  |     at process._tickCallback (node.js:355:17)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234' '-remote-debugging-port=1234'
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at Object.exports.scheduleSpawn (/wpt/agent/js/src/process_utils.js:365:14)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.BrowserBase.startChildProcess (/wpt/agent/js/src/browser_base.js:59:24)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.startBrowser (/wpt/agent/js/src/browser_local_chrome.js:116:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.startChrome_ (/wpt/agent/js/src/wd_server.js:259:17)
-webpagetest-agent-location1_1  |     at WebDriverServer.runPageLoad_ (/wpt/agent/js/src/wd_server.js:1101:10)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:689:12)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Run test
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.runTest_ (/wpt/agent/js/src/wd_server.js:685:15)
-webpagetest-agent-location1_1  |     at WebDriverServer.connect (/wpt/agent/js/src/wd_server.js:1237:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:109:12)
-webpagetest-agent-location1_1  |     at emitTwo (events.js:87:13)
-webpagetest-agent-location1_1  |     at process.emit (events.js:172:7)
-webpagetest-agent-location1_1  |     at handleMessage (internal/child_process.js:689:10)
-webpagetest-agent-location1_1  |     at Pipe.channel.onread (internal/child_process.js:440:11)
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.710 wd_server.js:1211 WebDriverServer.<anonymous> : App uncaught exception event: [{"code":"ENOENT","errno":"ENOENT","syscall":"spawn chrome","path":"chrome","spawnargs":["--disable-fre","--enable-benchmarking","--metrics-recording-only","-remote-debugging-port=1234","-remote-debugging-port=1234"],"webdriver_promise_error_":true}]
-webpagetest-agent-location1_1  | C Sep_04_14:07:07.710 wd_server.js:1622 WebDriverServer.onUncaughtException_ : Uncaught exception: Error: spawn chrome ENOENT
-webpagetest-agent-location1_1  |     at exports._errnoException (util.js:870:11)
-webpagetest-agent-location1_1  |     at Process.ChildProcess._handle.onexit (internal/child_process.js:178:32)
-webpagetest-agent-location1_1  |     at onErrorNT (internal/child_process.js:344:16)
-webpagetest-agent-location1_1  |     at nextTickCallbackWith2Args (node.js:441:9)
-webpagetest-agent-location1_1  |     at process._tickCallback (node.js:355:17)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234' '-remote-debugging-port=1234'
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at Object.exports.scheduleSpawn (/wpt/agent/js/src/process_utils.js:365:14)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.BrowserBase.startChildProcess (/wpt/agent/js/src/browser_base.js:59:24)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.startBrowser (/wpt/agent/js/src/browser_local_chrome.js:116:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.startChrome_ (/wpt/agent/js/src/wd_server.js:259:17)
-webpagetest-agent-location1_1  |     at WebDriverServer.runPageLoad_ (/wpt/agent/js/src/wd_server.js:1101:10)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:689:12)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Run test
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.runTest_ (/wpt/agent/js/src/wd_server.js:685:15)
-webpagetest-agent-location1_1  |     at WebDriverServer.connect (/wpt/agent/js/src/wd_server.js:1237:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:109:12)
-webpagetest-agent-location1_1  |     at emitTwo (events.js:87:13)
-webpagetest-agent-location1_1  |     at process.emit (events.js:172:7)
-webpagetest-agent-location1_1  |     at handleMessage (internal/child_process.js:689:10)
-webpagetest-agent-location1_1  |     at Pipe.channel.onread (internal/child_process.js:440:11)
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.724 wd_server.js:1350 WebDriverServer.scheduleCollectMetrics_ : Collecting metrics
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.727 wd_server.js:1566 WebDriverServer.<anonymous> : Done collecting results
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.728 wd_server.js:1599 WebDriverServer.<anonymous> : Scheduling Stop
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.731 wd_server.js:1603 WebDriverServer.<anonymous> : Disconnecting IPC
-webpagetest-agent-location1_1  | E Sep_04_14:07:07.769 wd_server.js:216 WebDriverServer.<anonymous> : Exception from "Capture Screen Shot": Error: Unable to take screenshot
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.770 wd_server.js:217 WebDriverServer.<anonymous> : Error: Unable to take screenshot
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:607:11)
-webpagetest-agent-location1_1  |     at /wpt/agent/js/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at notify (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
-webpagetest-agent-location1_1  |     at notifyAll (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
-webpagetest-agent-location1_1  |     at fulfill (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:402:7)
-webpagetest-agent-location1_1  |     at Object.webdriver.promise.asap (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:672:5)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1449:25)
-webpagetest-agent-location1_1  |     at notify (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
-webpagetest-agent-location1_1  |     at notifyAll (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | get capabilities
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at BrowserLocalChrome.scheduleGetCapabilities (/wpt/agent/js/src/browser_local_chrome.js:156:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.getCapabilities_ (/wpt/agent/js/src/wd_server.js:806:24)
-webpagetest-agent-location1_1  |     at WebDriverServer.takeScreenshot_ (/wpt/agent/js/src/wd_server.js:569:15)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:1530:12)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
-webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Capture Screen Shot
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:1529:10)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
-webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
-webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
-webpagetest-agent-location1_1  | ==== async task ====
-webpagetest-agent-location1_1  | Done
-webpagetest-agent-location1_1  |     at app.schedule (/wpt/agent/js/src/process_utils.js:393:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/agent/js/src/wd_server.js:215:20)
-webpagetest-agent-location1_1  |     at WebDriverServer.done_ (/wpt/agent/js/src/wd_server.js:1520:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.onUncaughtException_ (/wpt/agent/js/src/wd_server.js:1624:8)
-webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/agent/js/src/wd_server.js:1213:36)
-webpagetest-agent-location1_1  |     at webdriver.EventEmitter.emit (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/events.js:52:17)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.abortNow_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1545:10)
-webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.abortFrame_ (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:1383:10)
-webpagetest-agent-location1_1  |     at null._onTimeout (/wpt/agent/js/node_modules/selenium-webdriver/lib/webdriver/promise.js:315:12)
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.814 process_utils.js:488 unknown : Calling Runtime.evaluate
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.815 process_utils.js:509 unknown : Ignoring Exception from "Runtime.evaluate": TypeError: Cannot read property 'sendCommand' of undefined
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | I Sep_04_14:07:07.917 wd_server.js:1563 WebDriverServer.<anonymous> : Test passed
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.931 wd_server.js:1573 WebDriverServer.<anonymous> : Sending 'done' IPC
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.932 agent_main.js:158 Agent.<anonymous> : got IPC: done
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.957 process_utils.js:263 unknown : Exec with timeout(10000): ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.964 process_utils.js:263 unknown : Exec with timeout(10000): ps -u 0 -o 'ppid=' -o 'pid=' -o 'command='
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.974 process_utils.js:328 ChildProcess.<anonymous> : stdout[502]     0     1 node --max-old-space-size=4096 --expose-gc src/agent_main --serverUrl webpagetest-manager --location Browser1 --browser browser_local_chrome.BrowserLocalChrome --chromedriver /wpt/agent/js/lib/webdriver/chromedriver/Linux x86_64/chromedriver-2.4 --processvideo no
-webpagetest-agent-location1_1  |     1   256 /usr/bin/nodejs --max-old-space-size=4096 --expose-gc ./src/wd_server.js
-webpagetest-agent-location1_1  |     1   356 /bin/bash -eu ./ipfw_config clear
-webpagetest-agent-location1_1  |   256   357 ps -u 0 -o ppid= -o pid= -o command=
-webpagetest-agent-location1_1  |   356   358 /bin/bash -eu ./ipfw_config clear
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.982 process_utils.js:314 Socket.<anonymous> : stderr: +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.983 process_utils.js:314 Socket.<anonymous> : stderr: ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | 1.
-webpagetest-agent-location1_1  | D Sep_04_14:07:07.997 process_utils.js:328 ChildProcess.<anonymous> : stderr[164] +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | +++ /sbin/ipfw list
-webpagetest-agent-location1_1  | ./ipfw_config: line 47: /sbin/ipfw: No such file or directory
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.045 wd_server.js:1233 WebDriverServer.<anonymous> : The main control flow has gone idle, history: []
-webpagetest-agent-location1_1  | .I Sep_04_14:07:08.049 agent_main.js:175 Agent.<anonymous> : wd_server child process exit code 0 signal null
-webpagetest-agent-location1_1  | A Sep_04_14:07:08.066 wpt_client.js:725 Client.finishRun_ : Failed run 1b/1 of finished job 160904_7S_2:  (spawn chrome ENOENT)
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.067 wpt_client.js:912 Client.submitResult_ : submitResult_: job=160904_7S_2
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.069 multipart.js:92 Multipart.exports.Multipart.addPart : addPart: name=id body=160904_7S_2 headers=["Content-Type: text/plain"]
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.070 multipart.js:92 Multipart.exports.Multipart.addPart : addPart: name=location body=Browser1 headers=undefined
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.070 multipart.js:92 Multipart.exports.Multipart.addPart : addPart: name=timeline body=1 headers=undefined
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.071 multipart.js:92 Multipart.exports.Multipart.addPart : addPart: name=done body=1 headers=undefined
-webpagetest-agent-location1_1  | D Sep_04_14:07:08.072 multipart.js:92 Multipart.exports.Multipart.addPart : addPart: name=agenterror body=spawn chrome ENOENT headers=undefined
-webpagetest-agent-location1_1  | I Sep_04_14:07:08.158 wpt_client.js:547 Client.<anonymous> : Get work: http://webpagetest-manager/work/getwork.php?location=Browser1&f=json&apk=1
 
+webpagetest-manager_1          | 172.18.0.3 - - [11/Sep/2016:11:53:55 +0000] "GET /work/getwork.php?location=Browser1&f=json HTTP/1.1" 200 630 "-" "-"
+webpagetest-agent-location1_1  | .
+webpagetest-agent-location1_1  | I Sep_11_11:53:55.629 wpt_client.js:598 Client.processJobResponse_ : Got job: {"Test ID":"160911_48_701f842b5b7abc2a8dfbc6c76064a124","url":"https:\/\/krogrouletten.se","Capture Video":1,"runs":1,"bwIn":0,"bwOut":0,"latency":0,"plr":0,"browser":"Nexus4 - Chrome","orientation":"default"}
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.630 wpt_client.js:642 Client.startNextRun_ : Setting watchdog timeout to 1800000ms
+webpagetest-agent-location1_1  | I Sep_11_11:53:55.631 agent_main.js:406 Agent.<anonymous> : Starting run 1a/1 of job 160911_48_701f842b5b7abc2a8dfbc6c76064a124
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.662 process_utils.js:487 unknown : Calling Make dirs
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.663 process_utils.js:481 cb : Callback for Make dirs
+webpagetest-agent-location1_1  | 1.
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.686 process_utils.js:487 unknown : Calling Make dir
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.687 process_utils.js:481 cb : Callback for Make dir
+webpagetest-agent-location1_1  | 1.
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.763 process_utils.js:487 unknown : Calling Clean video dir
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.767 process_utils.js:481 cb : Callback for Clean video dir
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.782 process_utils.js:487 unknown : Calling Tmp read
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.783 process_utils.js:481 cb : Callback for Tmp read
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.805 process_utils.js:263 unknown : Exec with timeout(10000): ./ipfw_config clear
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.812 agent_main.js:809 Agent.<anonymous> : Ignoring failed trafficShaper clear
+webpagetest-agent-location1_1  | D Sep_11_11:53:55.998 browser_base.js:154 createBrowser : Creating browser browser_local_chrome.BrowserLocalChrome
+webpagetest-agent-location1_1  | I Sep_11_11:53:56.002 browser_local_chrome.js:53 new BrowserLocalChrome : BrowserLocalChrome(/wpt/mobile/lib/webdriver/chromedriver/Linux x86_64/chromedriver-2.4, undefined)
+webpagetest-agent-location1_1  | 1.
+webpagetest-agent-location1_1  | I Sep_11_11:53:56.052 process_utils.js:365 unknown : Spawning: chrome --disable-fre --enable-benchmarking --metrics-recording-only '-remote-debugging-port=1234'
+webpagetest-agent-location1_1  | W Sep_11_11:53:56.129 process_utils.js:371 Socket.<anonymous> : chrome STDERR: [23:23:0911/115356:ERROR:browser_main_loop.cc(261)] Gtk: cannot open display:
+webpagetest-agent-location1_1  | I Sep_11_11:53:56.136 browser_base.js:65 BrowserLocalChrome.<anonymous> : Chrome EXIT code 1 signal null
+webpagetest-agent-location1_1  | E Sep_11_11:54:06.154 wd_server.js:208 WebDriverServer.<anonymous> : Exception from "Run test": Error: Connect DevTools
+webpagetest-agent-location1_1  | Wait timed out after 10047ms
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.154 wd_server.js:209 WebDriverServer.<anonymous> : Error: Connect DevTools
+webpagetest-agent-location1_1  | Wait timed out after 10047ms
+webpagetest-agent-location1_1  |     at /wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1210:29
+webpagetest-agent-location1_1  |     at /wpt/mobile/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at notify (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
+webpagetest-agent-location1_1  |     at then (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:377:7)
+webpagetest-agent-location1_1  |     at Object.webdriver.promise.asap (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:663:11)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1449:25)
+webpagetest-agent-location1_1  |     at pollCondition [as _onTimeout] (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1204:12)
+webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
+webpagetest-agent-location1_1  | ==== async task ====
+webpagetest-agent-location1_1  | Connect DevTools
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.wait (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1195:15)
+webpagetest-agent-location1_1  |     at WebDriverServer.connectDevTools_ (/wpt/mobile/src/wd_server.js:284:13)
+webpagetest-agent-location1_1  |     at WebDriverServer.startDevTools_ (/wpt/mobile/src/wd_server.js:258:8)
+webpagetest-agent-location1_1  |     at WebDriverServer.runPageLoad_ (/wpt/mobile/src/wd_server.js:1010:8)
+webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/mobile/src/wd_server.js:667:12)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
+webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
+webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
+webpagetest-agent-location1_1  | ==== async task ====
+webpagetest-agent-location1_1  | Run test
+webpagetest-agent-location1_1  |     at app.schedule (/wpt/mobile/src/process_utils.js:392:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/mobile/src/wd_server.js:207:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.runTest_ (/wpt/mobile/src/wd_server.js:663:15)
+webpagetest-agent-location1_1  |     at WebDriverServer.connect (/wpt/mobile/src/wd_server.js:1111:8)
+webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/mobile/src/wd_server.js:107:12)
+webpagetest-agent-location1_1  |     at emitTwo (events.js:87:13)
+webpagetest-agent-location1_1  |     at process.emit (events.js:172:7)
+webpagetest-agent-location1_1  |     at handleMessage (internal/child_process.js:689:10)
+webpagetest-agent-location1_1  |     at Pipe.channel.onread (internal/child_process.js:440:11)
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.164 wd_server.js:1220 WebDriverServer.scheduleCollectMetrics_ : Collecting metrics
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.167 wd_server.js:1406 WebDriverServer.<anonymous> : Done collecting results
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.169 wd_server.js:1433 WebDriverServer.<anonymous> : Scheduling Stop
+webpagetest-agent-location1_1  | E Sep_11_11:54:06.193 wd_server.js:208 WebDriverServer.<anonymous> : Exception from "Done": Error: Unable to take screenshot
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.193 wd_server.js:209 WebDriverServer.<anonymous> : Error: Unable to take screenshot
+webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/mobile/src/wd_server.js:585:11)
+webpagetest-agent-location1_1  |     at /wpt/mobile/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at notify (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
+webpagetest-agent-location1_1  |     at then (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:377:7)
+webpagetest-agent-location1_1  |     at WebDriverServer.takeScreenshot_ (/wpt/mobile/src/wd_server.js:547:34)
+webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/mobile/src/wd_server.js:1374:12)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
+webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
+webpagetest-agent-location1_1  | ==== async task ====
+webpagetest-agent-location1_1  | Capture Screen Shot
+webpagetest-agent-location1_1  |     at app.schedule (/wpt/mobile/src/process_utils.js:392:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/mobile/src/wd_server.js:207:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.<anonymous> (/wpt/mobile/src/wd_server.js:1373:10)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runEventLoop_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1303:8)
+webpagetest-agent-location1_1  |     at wrapper [as _onTimeout] (timers.js:275:11)
+webpagetest-agent-location1_1  |     at Timer.listOnTimeout (timers.js:92:15)
+webpagetest-agent-location1_1  | ==== async task ====
+webpagetest-agent-location1_1  | Done
+webpagetest-agent-location1_1  |     at app.schedule (/wpt/mobile/src/process_utils.js:392:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.scheduleNoFault_ (/wpt/mobile/src/wd_server.js:207:20)
+webpagetest-agent-location1_1  |     at WebDriverServer.done_ (/wpt/mobile/src/wd_server.js:1364:8)
+webpagetest-agent-location1_1  |     at /wpt/mobile/node_modules/selenium-webdriver/lib/goog/base.js:1178:15
+webpagetest-agent-location1_1  |     at webdriver.promise.ControlFlow.runInNewFrame_ (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:1438:20)
+webpagetest-agent-location1_1  |     at notify (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:328:12)
+webpagetest-agent-location1_1  |     at notifyAll (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:297:7)
+webpagetest-agent-location1_1  |     at fulfill (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:402:7)
+webpagetest-agent-location1_1  |     at Object.webdriver.promise.asap (/wpt/mobile/node_modules/selenium-webdriver/lib/webdriver/promise.js:672:5)
+webpagetest-agent-location1_1  | D Sep_11_11:54:06.223 wd_server.js:1107 WebDriverServer.<anonymous> : The main control flow has gone idle, history: []
+webpagetest-manager_1          | 192.16
