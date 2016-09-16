@@ -5,7 +5,7 @@ services:
     image: redis
 
   postgres:
-    image: 'postgres'
+    image: 'postgres:9.5'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -14,7 +14,7 @@ services:
       POSTGRES_DBPASS: sentry
 
   sentry:
-    image: sentry:8.7
+    image: 'sentry:8.7'
     links:
      - redis
      - postgres
@@ -23,6 +23,7 @@ services:
     depends_on:
     - postgres
     - sentry_upgrade
+    - sentry_create_user
     stdin_open: true
     tty: true
     environment:
@@ -33,7 +34,7 @@ services:
       SENTRY_REDIS_HOST: redis
 
   sentry_upgrade:
-    image: sentry:8.7
+    image: 'sentry:8.7'
     links:
      - redis
      - postgres
@@ -47,16 +48,34 @@ services:
       SENTRY_DB_USER: postgres
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: redis
-    command: bash -c "sleep 5; sentry upgrade"
+    command: bash -c "sleep 5; sentry upgrade --no-input"
+
+  sentry_create_user:
+    image: 'sentry:8.7'
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - sentry_upgrade
+    stdin_open: true
+    tty: true
+    environment:
+      SENTRY_SECRET_KEY: verysecret
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+    command: bash -c "sleep 60 && sentry createuser "--email=test@test.se" "--password=password" "--superuser" "--no-input""
 
   sentry_celery_beat:
-    image: sentry:8.7
+    image: 'sentry:8.7'
     links:
      - redis
      - postgres
     depends_on:
      - postgres
      - sentry_upgrade
+     - sentry_create_user
     environment:
       SENTRY_SECRET_KEY: verysecret
       SENTRY_POSTGRES_HOST: postgres
@@ -66,13 +85,13 @@ services:
     command: "sentry run cron"
 
   sentry_celery_worker:
-    image: sentry:8.7
+    image: 'sentry:8.7'
     links:
      - redis
      - postgres
     depends_on:
      - postgres
-     - sentry_upgrade
+     - sentry_create_user
     environment:
       SENTRY_SECRET_KEY: verysecret
       SENTRY_POSTGRES_HOST: postgres
