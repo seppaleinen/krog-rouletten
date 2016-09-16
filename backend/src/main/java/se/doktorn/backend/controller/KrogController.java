@@ -140,7 +140,7 @@ public class KrogController {
                 krogList.add(csvManager.parseKrog(line));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.log(Level.SEVERE, "Import failed: " + e.getMessage());
         }
 
         krogRepository.save(krogList);
