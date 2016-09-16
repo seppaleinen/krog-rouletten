@@ -10,17 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.multipart.MultipartFile;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.controller.repository.entity.Krog;
 import se.doktorn.backend.controller.repository.KrogRepository;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -186,7 +181,7 @@ public class KrogControllerIT {
 
     @Test
     public void canSaveCsv() {
-        String path = KrogControllerIT.class.getClassLoader().getResource("export.csv").getPath();
+        String path = KrogControllerIT.class.getClassLoader().getResource("imports/export.csv").getPath();
         File file = new File(path);
 
         given().multiPart(file).
