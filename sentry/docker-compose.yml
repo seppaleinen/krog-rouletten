@@ -14,7 +14,7 @@ services:
       POSTGRES_DBPASS: sentry
 
   sentry_install:
-    image: 'sentry:8.7'
+    build: .
     links:
      - redis
      - postgres
@@ -28,7 +28,7 @@ services:
       SENTRY_DB_USER: postgres
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: redis
-    command: bash -c "sleep 5; sentry upgrade --noinput && sentry createuser "--email=test@test.se" "--password=password" "--superuser" "--no-input""
+    command: bash -c "sleep 5; sentry upgrade --noinput && sentry createuser --email=test@test.se --password=password --superuser --no-input && sentry import sentry.json"
 
   sentry:
     image: 'sentry:8.7'
@@ -63,7 +63,7 @@ services:
       SENTRY_DB_USER: postgres
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: redis
-    command: "sentry run cron"
+    command: bash -c "sleep 60 && sentry run cron"
 
   sentry_celery_worker:
     image: 'sentry:8.7'
@@ -79,5 +79,6 @@ services:
       SENTRY_DB_USER: postgres
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: redis
-    command: "sentry run worker"
+      C_FORCE_ROOT: 1
+    command: bash -c "sleep 60 && sentry run worker"
 
