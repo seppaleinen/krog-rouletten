@@ -6,6 +6,7 @@ RUN apt-get install nodejs imagemagick curl unzip -y && \
     curl -L -o google-chrome-stable_current_amd64.deb 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb' && \
     apt-get install -y gconf-service libasound2 libgconf-2-4 libnspr4 libnss3 libpango1.0-0 fonts-liberation libcurl3 xdg-utils libxss1 libappindicator1 libindicator7 wget && \
     dpkg -i google-chrome-stable_current_amd64.deb && \
+    rm -f google-chrom-stable_current_amd64.deb && \
     ln -s /usr/bin/nodejs /usr/sbin/node && \
     ln -s /usr/bin/google-chrome /usr/bin/chrome
 
@@ -14,6 +15,11 @@ RUN apt-get update -y && \
     apt-get install -y python-gobject-2 && \
     #apt-get install -y libmng1 liblcms1 lib32asound2
     apt-get install -y curl git
+
+ENV DISPLAY :0
+RUN apt-get install -y xvfb && \
+    Xvfb :0 -screen 0 1024x768x24 &> xvfb.log &
+
 
 RUN mkdir wpt && \
     curl -L -o wpt/webpagetest.zip 'https://github.com/WPO-Foundation/webpagetest/releases/download/WebPageTest-2.19/webpagetest_2.19.zip' && \
@@ -28,3 +34,5 @@ RUN apt-get autoclean -y && \
     apt-get autoremove -y curl unzip
 
 #https://github.com/WPO-Foundation/webpagetest/issues/94
+
+CMD Xvfb :0 -screen 0 1024x768x24 &
