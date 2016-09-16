@@ -1,0 +1,83 @@
+version: "2"
+
+services:
+  redis:
+    image: redis
+
+  postgres:
+    image: 'postgres'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DBNAME: sentry
+      POSTGRES_DBUSER: sentry
+      POSTGRES_DBPASS: sentry
+
+  sentry:
+    image: sentry:8.7
+    links:
+     - redis
+     - postgres
+    ports:
+     - "9000:9000"
+    depends_on:
+    - postgres
+    - sentry_upgrade
+    stdin_open: true
+    tty: true
+    environment:
+      SENTRY_SECRET_KEY: verysecret
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+
+  sentry_upgrade:
+    image: sentry:8.7
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - postgres
+    stdin_open: true
+    tty: true
+    environment:
+      SENTRY_SECRET_KEY: verysecret
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+    command: bash -c "sleep 5; sentry upgrade"
+
+  sentry_celery_beat:
+    image: sentry:8.7
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - postgres
+     - sentry_upgrade
+    environment:
+      SENTRY_SECRET_KEY: verysecret
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+    command: "sentry run cron"
+
+  sentry_celery_worker:
+    image: sentry:8.7
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - postgres
+     - sentry_upgrade
+    environment:
+      SENTRY_SECRET_KEY: verysecret
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+    command: "sentry run worker"
+
