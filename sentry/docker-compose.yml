@@ -13,6 +13,23 @@ services:
       POSTGRES_DBUSER: sentry
       POSTGRES_DBPASS: sentry
 
+  sentry_install:
+    image: 'sentry:8.7'
+    links:
+     - redis
+     - postgres
+    depends_on:
+     - postgres
+    stdin_open: true
+    tty: true
+    environment:
+      SENTRY_SECRET_KEY: j8tj&7zcpulm-n50j4ao^l_qlqqhik8&4zj*^#4g7vm5_#a^_v
+      SENTRY_POSTGRES_HOST: postgres
+      SENTRY_DB_USER: postgres
+      SENTRY_DB_PASSWORD: postgres
+      SENTRY_REDIS_HOST: redis
+    command: bash -c "sleep 5; sentry upgrade --noinput && sentry createuser "--email=test@test.se" "--password=password" "--superuser" "--no-input""
+
   sentry:
     image: 'sentry:8.7'
     links:
@@ -22,8 +39,7 @@ services:
      - "9000:9000"
     depends_on:
     - postgres
-    - sentry_upgrade
-    - sentry_create_user
+    - sentry_install
     stdin_open: true
     tty: true
     environment:
@@ -32,40 +48,6 @@ services:
       SENTRY_DB_USER: postgres
       SENTRY_DB_PASSWORD: postgres
       SENTRY_REDIS_HOST: redis
-
-  sentry_upgrade:
-    image: 'sentry:8.7'
-    links:
-     - redis
-     - postgres
-    depends_on:
-     - postgres
-    stdin_open: true
-    tty: true
-    environment:
-      SENTRY_SECRET_KEY: j8tj&7zcpulm-n50j4ao^l_qlqqhik8&4zj*^#4g7vm5_#a^_v
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
-    command: bash -c "sleep 5; sentry upgrade --noinput"
-
-  sentry_create_user:
-    image: 'sentry:8.7'
-    links:
-     - redis
-     - postgres
-    depends_on:
-     - sentry_upgrade
-    stdin_open: true
-    tty: true
-    environment:
-      SENTRY_SECRET_KEY: j8tj&7zcpulm-n50j4ao^l_qlqqhik8&4zj*^#4g7vm5_#a^_v
-      SENTRY_POSTGRES_HOST: postgres
-      SENTRY_DB_USER: postgres
-      SENTRY_DB_PASSWORD: postgres
-      SENTRY_REDIS_HOST: redis
-    command: bash -c "sleep 60 && sentry createuser "--email=test@test.se" "--password=password" "--superuser" "--no-input""
 
   sentry_celery_beat:
     image: 'sentry:8.7'
@@ -74,8 +56,7 @@ services:
      - postgres
     depends_on:
      - postgres
-     - sentry_upgrade
-     - sentry_create_user
+     - sentry_install
     environment:
       SENTRY_SECRET_KEY: j8tj&7zcpulm-n50j4ao^l_qlqqhik8&4zj*^#4g7vm5_#a^_v
       SENTRY_POSTGRES_HOST: postgres
@@ -91,7 +72,7 @@ services:
      - postgres
     depends_on:
      - postgres
-     - sentry_create_user
+     - sentry_install
     environment:
       SENTRY_SECRET_KEY: j8tj&7zcpulm-n50j4ao^l_qlqqhik8&4zj*^#4g7vm5_#a^_v
       SENTRY_POSTGRES_HOST: postgres
