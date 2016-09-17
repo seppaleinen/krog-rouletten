@@ -1,7 +1,9 @@
 package se.doktorn.backend.controller.csv;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.geo.Point;
@@ -12,13 +14,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class CsvManagerTest {
     @InjectMocks
     private CsvManager csvManager;
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
@@ -86,6 +89,29 @@ public class CsvManagerTest {
             }
         }
     }
+
+
+
+    @Nested
+    @DisplayName("New junit 5 tests")
+    public class JunitFiveTests {
+        @Test
+        @DisplayName("Grouping assertions")
+        void groupedAssertions() {
+            Krog krog = Krog.builder().
+                    id("1").
+                    namn("test").
+                    approved(true).
+                    build();
+
+            assertAll("address",
+                    () -> assertEquals("test", krog.getNamn()),
+                    () -> assertEquals("1", krog.getId()),
+                    () -> assertEquals(true, krog.isApproved())
+            );
+        }
+    }
+
 
     private void validate(String string) {
         try {

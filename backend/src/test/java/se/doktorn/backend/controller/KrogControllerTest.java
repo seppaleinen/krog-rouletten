@@ -1,7 +1,8 @@
 package se.doktorn.backend.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
@@ -36,7 +39,7 @@ public class KrogControllerTest {
     @Mock
     private CsvManager csvManager;
 
-    @Before
+    @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
@@ -219,6 +222,7 @@ public class KrogControllerTest {
     }
 
     @Test
+    @DisplayName("╯°□°）╯")
     public void test_SaveCSV() {
         String path = KrogControllerTest.class.getClassLoader().getResource("imports/export.csv").getPath();
         try {
