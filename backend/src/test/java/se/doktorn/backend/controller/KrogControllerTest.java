@@ -2,6 +2,7 @@ package se.doktorn.backend.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -114,7 +116,7 @@ public class KrogControllerTest {
                 id("ID").
                 build();
 
-        when(repository.findByApprovedIsTrueOrderByNamnAsc()).thenReturn(Arrays.asList(krog));
+        when(repository.findByApprovedIsTrueOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
 
         List<Krog> result = krogController.findAllApproved();
 
@@ -126,140 +128,160 @@ public class KrogControllerTest {
         verify(repository, times(1)).findByApprovedIsTrueOrderByNamnAsc();
     }
 
-    @Test
-    public void test_findAllUnapproved() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
-
-        when(repository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc()).thenReturn(Arrays.asList(krog));
-
-        List<Krog> result = krogController.findAllUnapproved();
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(krog.getId(), result.get(0).getId());
-
-        verifyZeroInteractions(csvManager);
-        verify(repository, times(1)).findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
-    }
-
-    @Test
-    public void test_exportCsv() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
-
-        when(repository.findAll()).thenReturn(Arrays.asList(krog));
-
-        List<Krog> result = krogController.exportCsv();
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(krog.getId(), result.get(0).getId());
-
-        verifyZeroInteractions(csvManager);
-        verify(repository, times(1)).findAll();
-    }
-
-    @Test
-    public void test_FindRandom_ThreadLocalRandom() {
-        for(int i = 0; i < 20; i++) {
-            List<Krog> krogList = new ArrayList<>();
-            for(int x = 0; x < i; x++) {
-                krogList.add(new Krog());
-            }
-
-            when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).thenReturn(krogList);
-
-            try {
-                Search search = Search.builder()
-                        .latitude(123.0)
-                        .longitude(123.0)
-                        .distance(0.1)
-                        .build();
-                krogController.findRandom(search);
-            } catch(Exception e) {
-                fail("Should not fail: " + e.toString());
-            }
-        }
-    }
-
-    @Test
-    public void test_SaveCSV_TooManyHeaders() {
-        String path = KrogControllerTest.class.getClassLoader().getResource("imports/too_many_headers.csv").getPath();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
-
-            krogController.saveCsv(multipartFile);
-            fail("Should fail");
-        } catch (FileNotFoundException e) {
-            fail("Import file must exist");
-        } catch (IOException e) {
-            fail("Mock multipart failed: " + e.getMessage());
-        } catch (Exception e) {
-            assertEquals("Not valid csv-file", e.getMessage());
-        }
-    }
-
-    @Test
-    public void test_SaveCSV_WrongHeaders() {
-        String path = KrogControllerTest.class.getClassLoader().getResource("imports/wrong_headers.csv").getPath();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
-
-            krogController.saveCsv(multipartFile);
-            fail("Should fail");
-        } catch (FileNotFoundException e) {
-            fail("Import file must exist");
-        } catch (IOException e) {
-            fail("Mock multipart failed: " + e.getMessage());
-        } catch (Exception e) {
-            assertEquals("Not valid csv-file", e.getMessage());
-        }
-    }
-
-    @Test
-    @DisplayName("╯°□°）╯")
-    public void test_SaveCSV() {
-        String path = KrogControllerTest.class.getClassLoader().getResource("imports/export.csv").getPath();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
-
+    @Nested
+    @DisplayName("Grouped tests for findAllUnapproved method")
+    public class findAllUnapproved {
+        @Test
+        public void test_findAllUnapproved() {
             Krog krog = Krog.builder().
-                            namn("namn").
-                            adress("adress").
-                            oppet_tider("oppet_tider").
-                            bar_typ("bar_typ").
-                            stadsdel("stadsdel").
-                            beskrivning("beskrivning").
-                            betyg("betyg").
-                            hemside_lank("hemside_lank").
-                            intrade("intrade").
-                            iframe_lank("iframe_lank").
-                            build();
+                    id("ID").
+                    build();
 
-            when(csvManager.parseKrog(anyString())).thenReturn(krog);
+            when(repository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
 
-            ResponseEntity result = krogController.saveCsv(multipartFile);
+            List<Krog> result = krogController.findAllUnapproved();
 
             assertNotNull(result);
-            assertEquals(HttpStatus.OK, result.getStatusCode());
+            assertEquals(1, result.size());
+            assertEquals(krog.getId(), result.get(0).getId());
 
-            verify(csvManager, times(37)).parseKrog(anyString());
-            verify(repository, times(1)).save(any(List.class));
-        } catch (FileNotFoundException e) {
-            fail("Import file must exist");
-        } catch (IOException e) {
-            fail("Mock multipart failed: " + e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Shouldn't fail: " + e.getMessage());
+            verifyZeroInteractions(csvManager);
+            verify(repository, times(1)).findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
         }
     }
 
+
+    @Nested
+    @DisplayName("Grouped tests for exportCsv method")
+    public class exportCsv {
+        @Test
+        public void test_exportCsv() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
+
+            when(repository.findAll()).thenReturn(Collections.singletonList(krog));
+
+            List<Krog> result = krogController.exportCsv();
+
+            assertNotNull(result);
+            assertEquals(1, result.size());
+            assertEquals(krog.getId(), result.get(0).getId());
+
+            verifyZeroInteractions(csvManager);
+            verify(repository, times(1)).findAll();
+        }
+    }
+
+
+
+    @Nested
+    @DisplayName("Grouped tests for findRandom method")
+    public class findRandom {
+        @Test
+        public void test_FindRandom_ThreadLocalRandom() {
+            for(int i = 0; i < 20; i++) {
+                List<Krog> krogList = new ArrayList<>();
+                for(int x = 0; x < i; x++) {
+                    krogList.add(new Krog());
+                }
+
+                when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).thenReturn(krogList);
+
+                try {
+                    Search search = Search.builder()
+                            .latitude(123.0)
+                            .longitude(123.0)
+                            .distance(0.1)
+                            .build();
+                    krogController.findRandom(search);
+                } catch(Exception e) {
+                    fail("Should not fail: " + e.toString());
+                }
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Grouped tests for saveCsv method")
+    public class saveCSV {
+        @Test
+        @DisplayName("Too many headers")
+        public void test_SaveCSV_TooManyHeaders() {
+            String path = KrogControllerTest.class.getClassLoader().getResource("imports/too_many_headers.csv").getPath();
+            try {
+                FileInputStream fileInputStream = new FileInputStream(path);
+                MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
+
+                krogController.saveCsv(multipartFile);
+                fail("Should fail");
+            } catch (FileNotFoundException e) {
+                fail("Import file must exist");
+            } catch (IOException e) {
+                fail("Mock multipart failed: " + e.getMessage());
+            } catch (Exception e) {
+                assertEquals("Not valid csv-file", e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Test with wrong headers")
+        public void test_SaveCSV_WrongHeaders() {
+            String path = KrogControllerTest.class.getClassLoader().getResource("imports/wrong_headers.csv").getPath();
+            try {
+                FileInputStream fileInputStream = new FileInputStream(path);
+                MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
+
+                krogController.saveCsv(multipartFile);
+                fail("Should fail");
+            } catch (FileNotFoundException e) {
+                fail("Import file must exist");
+            } catch (IOException e) {
+                fail("Mock multipart failed: " + e.getMessage());
+            } catch (Exception e) {
+                assertEquals("Not valid csv-file", e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("╯°□°）╯")
+        public void test_SaveCSV() {
+            String path = KrogControllerTest.class.getClassLoader().getResource("imports/export.csv").getPath();
+            try {
+                FileInputStream fileInputStream = new FileInputStream(path);
+                MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
+
+                Krog krog = Krog.builder().
+                        namn("namn").
+                        adress("adress").
+                        oppet_tider("oppet_tider").
+                        bar_typ("bar_typ").
+                        stadsdel("stadsdel").
+                        beskrivning("beskrivning").
+                        betyg("betyg").
+                        hemside_lank("hemside_lank").
+                        intrade("intrade").
+                        iframe_lank("iframe_lank").
+                        build();
+
+                when(csvManager.parseKrog(anyString())).thenReturn(krog);
+
+                ResponseEntity result = krogController.saveCsv(multipartFile);
+
+                assertNotNull(result);
+                assertEquals(HttpStatus.OK, result.getStatusCode());
+
+                verify(csvManager, times(37)).parseKrog(anyString());
+                verify(repository, times(1)).save(anyListOf(Krog.class));
+            } catch (FileNotFoundException e) {
+                fail("Import file must exist");
+            } catch (IOException e) {
+                fail("Mock multipart failed: " + e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                fail("Shouldn't fail: " + e.getMessage());
+            }
+        }
+    }
 
 }
