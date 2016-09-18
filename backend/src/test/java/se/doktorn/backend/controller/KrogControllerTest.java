@@ -1,5 +1,6 @@
 package se.doktorn.backend.controller;
 
+import org.apache.http.impl.io.EmptyInputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -8,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +28,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
@@ -46,86 +46,109 @@ public class KrogControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void test_save() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
+    @Nested
+    @DisplayName("Grouped tests for save method")
+    public class save {
+        @Test
+        public void test_save() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
 
-        ResponseEntity result = krogController.save(krog);
+            ResponseEntity result = krogController.save(krog);
 
-        assertNotNull(result);
-        assertEquals(HttpStatus.CREATED, result.getStatusCode());
+            assertNotNull(result);
+            assertEquals(HttpStatus.CREATED, result.getStatusCode());
 
-        verify(csvManager, times(1)).getPointFromIframeLink(anyString());
-        verify(csvManager, times(1)).parseIframeLink(anyString());
-        verify(repository, times(1)).save(any(Krog.class));
+            verify(csvManager, times(1)).getPointFromIframeLink(anyString());
+            verify(csvManager, times(1)).parseIframeLink(anyString());
+            verify(repository, times(1)).save(any(Krog.class));
+        }
     }
 
-    @Test
-    public void test_update() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
 
-        ResponseEntity result = krogController.update(krog);
+    @Nested
+    @DisplayName("Grouped tests for update method")
+    public class update {
+        @Test
+        public void test_update() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
 
-        assertNotNull(result);
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+            ResponseEntity result = krogController.update(krog);
 
-        verify(csvManager, times(1)).getPointFromIframeLink(anyString());
-        verify(csvManager, times(1)).parseIframeLink(anyString());
-        verify(repository, times(1)).save(any(Krog.class));
+            assertNotNull(result);
+            assertEquals(HttpStatus.OK, result.getStatusCode());
+
+            verify(csvManager, times(1)).getPointFromIframeLink(anyString());
+            verify(csvManager, times(1)).parseIframeLink(anyString());
+            verify(repository, times(1)).save(any(Krog.class));
+        }
     }
 
-    @Test
-    public void test_delete() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
+    @Nested
+    @DisplayName("Grouped tests for delete method")
+    public class delete {
+        @Test
+        public void test_delete() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
 
-        ResponseEntity result = krogController.delete(krog);
+            ResponseEntity result = krogController.delete(krog);
 
-        assertNotNull(result);
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+            assertNotNull(result);
+            assertEquals(HttpStatus.OK, result.getStatusCode());
 
-        verifyZeroInteractions(csvManager);
-        verify(repository, times(1)).delete(any(Krog.class));
+            verifyZeroInteractions(csvManager);
+            verify(repository, times(1)).delete(any(Krog.class));
+        }
     }
 
-    @Test
-    public void test_find() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
 
-        when(repository.findOne(anyString())).thenReturn(krog);
+    @Nested
+    @DisplayName("Grouped tests for find method")
+    public class find {
+        @Test
+        public void test_find() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
 
-        Krog result = krogController.find("ID");
+            when(repository.findOne(anyString())).thenReturn(krog);
 
-        assertNotNull(result);
-        assertEquals(krog.getId(), result.getId());
+            Krog result = krogController.find("ID");
 
-        verifyZeroInteractions(csvManager);
-        verify(repository, times(1)).findOne("ID");
+            assertNotNull(result);
+            assertEquals(krog.getId(), result.getId());
+
+            verifyZeroInteractions(csvManager);
+            verify(repository, times(1)).findOne("ID");
+        }
     }
 
-    @Test
-    public void test_findAllApproved() {
-        Krog krog = Krog.builder().
-                id("ID").
-                build();
 
-        when(repository.findByApprovedIsTrueOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
+    @Nested
+    @DisplayName("Grouped tests for findAllApproved method")
+    public class findAllApproved {
+        @Test
+        public void test_findAllApproved() {
+            Krog krog = Krog.builder().
+                    id("ID").
+                    build();
 
-        List<Krog> result = krogController.findAllApproved();
+            when(repository.findByApprovedIsTrueOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
 
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(krog.getId(), result.get(0).getId());
+            List<Krog> result = krogController.findAllApproved();
 
-        verifyZeroInteractions(csvManager);
-        verify(repository, times(1)).findByApprovedIsTrueOrderByNamnAsc();
+            assertNotNull(result);
+            assertEquals(1, result.size());
+            assertEquals(krog.getId(), result.get(0).getId());
+
+            verifyZeroInteractions(csvManager);
+            verify(repository, times(1)).findByApprovedIsTrueOrderByNamnAsc();
+        }
     }
 
     @Nested
@@ -194,11 +217,41 @@ public class KrogControllerTest {
                             .longitude(123.0)
                             .distance(0.1)
                             .build();
-                    krogController.findRandom(search);
+
+                    Krog result = krogController.findRandom(search);
+
+                    if(krogList.isEmpty()) {
+                        assertNull(result);
+                    } else {
+                        assertNotNull(result);
+                    }
+
+                    Point point = new Point(123.0, 123.0);
+                    Distance distance = new Distance(0.1, Metrics.KILOMETERS);
+                    verify(repository, atLeastOnce()).findByLocationNearAndApprovedIsTrue(point, distance);
                 } catch(Exception e) {
                     fail("Should not fail: " + e.toString());
                 }
             }
+        }
+
+        @Test
+        public void test_SearchConstructWithoutArguments() {
+            Search search = new Search();
+            search.setLatitude(12.0);
+            search.setLongitude(21.0);
+            search.setDistance(1.0);
+
+            Krog krog = Krog.builder().
+                    id("ID")
+                    .build();
+            when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).
+                    thenReturn(Arrays.asList(krog));
+            Krog result = krogController.findRandom(search);
+
+            assertNotNull(result);
+            assertEquals(krog, result);
+            verify(repository, times(1)).findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class));
         }
     }
 
@@ -244,7 +297,7 @@ public class KrogControllerTest {
         }
 
         @Test
-        @DisplayName("╯°□°）╯")
+        @DisplayName("Correct headers should save to repository")
         public void test_SaveCSV() {
             String path = KrogControllerTest.class.getClassLoader().getResource("imports/export.csv").getPath();
             try {
@@ -281,6 +334,53 @@ public class KrogControllerTest {
                 e.printStackTrace();
                 fail("Shouldn't fail: " + e.getMessage());
             }
+        }
+
+        @Test
+        @DisplayName("Throw IOException")
+        public void test_SaveCSV_ThrowException() {
+            String path = KrogControllerTest.class.getClassLoader().getResource("imports/export.csv").getPath();
+
+            try {
+                FileInputStream fileInputStream = new FileInputStream(path);
+                MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", fileInputStream);
+
+                doThrow(new IOException()).when(csvManager).parseKrog(anyString());
+
+                ResponseEntity result = krogController.saveCsv(multipartFile);
+
+                assertNotNull(result);
+                assertEquals(HttpStatus.OK, result.getStatusCode());
+                verify(csvManager, times(1)).parseKrog(anyString());
+                verify(repository, times(1)).save(anyListOf(Krog.class));
+            } catch (IOException e) {
+                fail("Should not fail on multipartFile: " + e.getMessage());
+            } catch (Exception e) {
+                fail("Should not throw exception: " + e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Throw Exception when empty inputstream")
+        public void test_SaveCSV_EmptyInputStream() {
+            try {
+                MultipartFile multipartFile = new MockMultipartFile("file", "NameOfTheFile.csv", "multipart/form-data", EmptyInputStream.INSTANCE);
+
+                ResponseEntity result = krogController.saveCsv(multipartFile);
+                fail("Should throw exception");
+            } catch (IOException e) {
+                fail("Should not fail on multipartFile: " + e.getMessage());
+            } catch (Exception e) {
+                assertTrue(e instanceof IndexOutOfBoundsException);
+                assertEquals("Index: 0, Size: 0", e.getMessage());
+            }
+        }
+
+
+        @Test
+        @DisplayName("╯°□°）╯")
+        public void test() {
+            assertTrue(true);
         }
     }
 
