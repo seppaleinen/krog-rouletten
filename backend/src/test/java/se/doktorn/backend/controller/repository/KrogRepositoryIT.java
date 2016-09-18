@@ -14,8 +14,9 @@ import se.doktorn.backend.controller.repository.entity.Krog;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = KrogRoulettenApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "classpath:application-test.properties")
@@ -47,9 +48,9 @@ public class KrogRepositoryIT {
 
         List<Krog> result = repository.findByLocationNearAndApprovedIsTrue(point, new Distance(10, Metrics.KILOMETERS));
 
-        assertNotNull("Result should not be null", result);
-        assertEquals("There should only be one result", 1, result.size());
-        assertEquals("Id should be 1", "1", result.get(0).getId());
+        assertNotNull(result, "Result should not be null");
+        assertEquals(1, result.size(), "There should only be one result");
+        assertEquals("1", result.get(0).getId(), "Id should be 1");
     }
 
     @Test
@@ -71,9 +72,9 @@ public class KrogRepositoryIT {
 
         List<Krog> result = repository.findByApprovedIsTrueOrderByNamnAsc();
 
-        assertNotNull("Result should not be null", result);
-        assertEquals("There should only be one result", 1, result.size());
-        assertEquals("Id should be 1", approved.getId(), result.get(0).getId());
+        assertNotNull(result, "Result should not be null");
+        assertEquals(1, result.size(), "There should only be one result");
+        assertEquals(approved.getId(), result.get(0).getId(), "Id should be 1");
     }
 
     @Test
@@ -100,8 +101,8 @@ public class KrogRepositoryIT {
 
         List<Krog> result = repository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
 
-        assertNotNull("Result should not be null", result);
-        assertEquals("There should only be one result", 2, result.size());
+        assertNotNull(result, "Result should not be null");
+        assertEquals(2, result.size(), "There should only be one result");
     }
 
 

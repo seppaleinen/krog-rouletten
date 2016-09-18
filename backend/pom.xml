@@ -21,17 +21,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <artifactFinalName>${project.artifactId}</artifactFinalName>
-        <tomcat.version>8.5.4</tomcat.version>
+        <tomcat.version>9.0.0.M9</tomcat.version>
 
         <spring-framework.version>4.3.2.RELEASE</spring-framework.version>
         <spring-data-commons.version>1.12.2.RELEASE</spring-data-commons.version>
         <spring-data-mongodb.version>1.9.2.RELEASE</spring-data-mongodb.version>
-        <jackson-annotations.version>2.8.2</jackson-annotations.version>
+        <jackson-annotations.version>2.8.3</jackson-annotations.version>
         <lombok.version>1.16.10</lombok.version>
         <rest-assured.version>2.9.0</rest-assured.version>
-        <junit.version>4.12</junit.version>
+        <junit-jupiter.version>5.0.0-M2</junit-jupiter.version>
 
-        <docker-maven-plugin.version>0.4.12</docker-maven-plugin.version>
+        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -120,9 +120,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -153,7 +159,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -164,7 +170,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.0.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -182,6 +188,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.0.0-M2</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -215,6 +233,106 @@
                                 </resource>
                             </resources>
                         </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dependency-updates</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>versions-maven-plugin</artifactId>
+                        <version>2.3</version>
+                        <executions>
+                            <execution>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>display-dependency-updates</goal>
+                                    <goal>display-plugin-updates</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>pitest</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>1.1.10</version>
+                        <configuration>
+                            <targetClasses>
+                                <param>se.doktorn.backend.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>*</param>
+                            </targetTests>
+                            <!--
+                            <mutators>
+                                <mutator>CONDITIONALS_BOUNDARY</mutator>
+                                <mutator>INCREMENTS</mutator>
+                                <mutator>INVERT_NEGS</mutator>
+                                <mutator>MATH</mutator>
+                                <mutator>NEGATE_CONDITIONALS</mutator>
+                                <mutator>RETURN_VALS</mutator>
+                                <mutator>VOID_METHOD_CALLS</mutator>
+                                <mutator>CONSTRUCTOR_CALLS</mutator>
+                                <mutator>INLINE_CONSTS</mutator>
+                                <mutator>NON_VOID_METHOD_CALLS</mutator>
+                                <mutator>REMOVE_CONDITIONALS</mutator>
+                                <mutator>EXPERIMENTAL_MEMBER_VARIABLE</mutator>
+                                <mutator>EXPERIMENTAL_SWITCH</mutator>
+                            </mutators>
+                            -->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <id>Pitest - Mutation Coverage</id>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>owasp</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <version>1.4.3</version>
+                        <configuration>
+                            <cveValidForHours>12</cveValidForHours>
+                            <failBuildOnCVSS>8</failBuildOnCVSS>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <id>OWASP - Dependency check</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>

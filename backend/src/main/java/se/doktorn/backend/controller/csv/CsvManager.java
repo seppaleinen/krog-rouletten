@@ -81,7 +81,7 @@ public class CsvManager {
     public Point getPointFromIframeLink(String iframeLink) {
         //Ignore all until !2d and get longitude between !2d to !3d and latitude between !3d to !2m
         if(iframeLink != null) {
-            final String latLngRegex = ".*!2d(.*)!3d(.*)!2m.*";
+            final String latLngRegex = ".*!2d([0-9\\.]+)!3d([0-9\\.]+)!2m.*";
             final Pattern latLngPattern = Pattern.compile(latLngRegex);
             final Matcher latLngMatcher = latLngPattern.matcher(iframeLink);
 
