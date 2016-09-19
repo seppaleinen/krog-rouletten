@@ -3,14 +3,15 @@ version: "2"
 services:
   webpagetest-manager:
     build: webpagetest-manager
+    image: webpagetest-manager
     ports:
       - "80:80"
-      - "443:80"
     volumes:
       - /tmp/wpt/result:/var/www/html/result
 
   webpagetest-agent-location1:
     build: webpagetest-agent
+    image: webpagetest-agent
     privileged: true
     links:
       - webpagetest-manager:webpagetest-manager
