@@ -22,7 +22,10 @@ def random_page():
         except ValueError:
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and form.adress.data:
-        adress = urllib.quote(form.adress.data.encode('utf8'))
+        try:
+            adress = urllib.quote(form.adress.data.encode('utf8'))
+        except AttributeError: #if urllib.quote doesn't exist, it's python3, try urllib.parse.quote
+            adress = urllib.parse.quote(form.adress.data.encode('utf8'))
         result = requests.get('http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false' % adress)
         if result.status_code == 200:
             lat = result.json()

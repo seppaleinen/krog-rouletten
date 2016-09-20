@@ -9,6 +9,7 @@
 *.ear
 *.iml
 *.pyc
+.scaffolding_list.tmp
 npm-debug.log
 *.log
 .DS_Store
