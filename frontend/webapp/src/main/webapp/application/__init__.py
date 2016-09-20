@@ -7,4 +7,4 @@ if sys.version[0] == '2':
     reload(sys)
     sys.setdefaultencoding("utf-8")
 
-sentry = Sentry(app, dsn='http://04fbd07088774c5886ced92278f4fb70:a1a0095f937b4f01968137775738a707@192.168.99.100:9000/2')
+sentry = Sentry(app, dsn='https://5f31608fe1c24d2cbbf384e412c0e8c3:77adde0716644851b8d963af9d8b753e@sentry.io/98425')

@@ -15,6 +15,7 @@ services:
 
   sentry_install:
     build: .
+    image: sentry_install
     links:
      - redis
      - postgres
