@@ -1,3 +1,3 @@
-FROM sentry:8.7
+FROM sentry:8.8
 
 add sentry.json .
