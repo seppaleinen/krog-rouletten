@@ -5,12 +5,14 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Nested;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestMethod;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.controller.repository.entity.Krog;
 import se.doktorn.backend.controller.repository.KrogRepository;
@@ -38,6 +40,18 @@ public class KrogControllerIT {
     }
 
     @Test
+    public void canSave_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.SAVE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.SAVE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.SAVE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.SAVE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @Test
     public void canSave() {
         Krog krog = Krog.builder()
                 .namn("NAMN")
@@ -54,6 +68,18 @@ public class KrogControllerIT {
         assertEquals(1, krogList.size());
         assertEquals(krog.getNamn(), krogList.get(0).getNamn());
         assertNotNull(krogList.get(0).getLocation());
+    }
+
+    @Test
+    public void canUpdate_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.UPDATE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.UPDATE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.UPDATE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.UPDATE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @Test
@@ -76,6 +102,18 @@ public class KrogControllerIT {
     }
 
     @Test
+    public void canDelete_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.DELETE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.DELETE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.DELETE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().post(KrogController.DELETE_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @Test
     public void canDelete() {
         Krog krog = Krog.builder()
                 .id("ID")
@@ -93,6 +131,18 @@ public class KrogControllerIT {
 
         assertNotNull(krogList);
         assertTrue(krogList.isEmpty());
+    }
+
+    @Test
+    public void canFindAllUnapproved_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.FIND_ALL_UNAPPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.FIND_ALL_UNAPPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.FIND_ALL_UNAPPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().post(KrogController.FIND_ALL_UNAPPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @Test
@@ -123,6 +173,18 @@ public class KrogControllerIT {
     }
 
     @Test
+    public void canFind_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.FIND_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.FIND_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.FIND_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().post(KrogController.FIND_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @Test
     public void canFindOne() {
         Krog krog = Krog.builder().
                 id("ID").
@@ -139,6 +201,18 @@ public class KrogControllerIT {
     }
 
     @Test
+    public void canFindAllApproved_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.FIND_ALL_APPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.FIND_ALL_APPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.FIND_ALL_APPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().post(KrogController.FIND_ALL_APPROVED_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @Test
     public void canFindAllApproved() {
         Krog krog1 = Krog.builder().namn("NAMN1").approved(true).build();
         Krog krog2 = Krog.builder().namn("NAMN2").approved(false).build();
@@ -150,6 +224,18 @@ public class KrogControllerIT {
         assertEquals(1, krogList.length);
 
         assertEquals(krog1.getNamn(), krogList[0].getNamn());
+    }
+
+    @Test
+    public void canExportCsv_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.EXPORT_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.EXPORT_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.EXPORT_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().post(KrogController.EXPORT_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @Test
@@ -168,6 +254,18 @@ public class KrogControllerIT {
     }
 
     @Test
+    public void canSearch_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.FIND_RANDOM_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.FIND_RANDOM_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.FIND_RANDOM_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.FIND_RANDOM_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+    }
+
+    @Test
     public void canSearch() {
         String requestString = "{\"distance\": 8, \"bar_typ\": \"None\", \"stadsdel\": \"None\", \"longitude\": \"59.2646521\", \"oppet_tider\": \"None\", \"latitude\": \"59.2646521\", \"adress\": \"\", \"gps\": \"None\"}";
 
@@ -177,6 +275,18 @@ public class KrogControllerIT {
 
         assertNotNull(result);
         assertEquals(HttpStatus.OK.value(), result.getStatusCode());
+    }
+
+    @Test
+    public void canSaveCsv_NotAcceptableRequests() {
+        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.SAVE_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.SAVE_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.SAVE_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
+        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.SAVE_CSV_URL).
+                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
 
     @Test
