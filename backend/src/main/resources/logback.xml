@@ -3,8 +3,8 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
-    <appender name="SENTRY" class="net.kencochrane.raven.logback.SentryAppender">
-        <dsn>https://5f31608fe1c24d2cbbf384e412c0e8c3:77adde0716644851b8d963af9d8b753e@sentry.io/98425</dsn>
+    <appender name="SENTRY" class="com.getsentry.raven.logback.SentryAppender">
+        <release>0.0.1</release>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
