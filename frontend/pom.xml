@@ -6,12 +6,12 @@
     <parent>
         <groupId>se.doktorn</groupId>
         <artifactId>krog-rouletten</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
         <relativePath>..</relativePath>
     </parent>
 
     <artifactId>frontend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Krog-rouletten - Frontend</name>
