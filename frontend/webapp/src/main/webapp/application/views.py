@@ -22,6 +22,11 @@ def admin():
     return logic.admin()
 
 
+@app.route('/settings')
+def settings():
+    return logic.settings()
+
+
 @app.route('/admin/unapproved')
 def unapproved():
     return logic.unapproved()
@@ -47,21 +52,16 @@ def export_csv():
     return logic.export_csv()
 
 
-@app.route('/user_profile')
-def user_profile():
-    return logic.user_profile()
-
-
 @app.route('/bpm')
 def bpm():
     return logic.bpm()
 
 
-@app.route('/test1233')
-def test1233():
-    return logic.test1233()
+@app.route('/profile')
+def profile():
+    return logic.profile()
 
 
-@app.route('/error')
-def error():
-    return logic.error()
+@app.route('/error/<error_msg>')
+def error(error_msg):
+    return logic.error(error_msg)

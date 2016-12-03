@@ -1,0 +1,284 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+
+{% macro render_field(field) -%}
+<div>
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
+
+<!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
+<div style="padding:5%; padding-top:0%; margin-bottom:70px; text-align:center;">
+    <h2 style="text-align:center !important;">Mitt konto</h2>
+    <!-- Tabs with icons on Card -->
+    <div class="card card-nav-tabs card-plain">
+        <div class="header header-success">
+            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="active">
+                            <a href="#profile" data-toggle="tab">
+                                <i class="material-icons">face</i><span id="text_label_profile">Profil</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#comments" data-toggle="tab">
+                                <i class="material-icons">chat</i><span id="text_label_comments">Kommentarer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#favorites" data-toggle="tab">
+                                <i class="material-icons">favorite</i><span id="text_label_favourites">Favoriter</span>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="#settings" data-toggle="tab">
+                                <i class="material-icons">build</i><span id="text_label_settings">Inställningar</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tab-content text-center">
+                <div class="tab-pane active" id="profile">
+                    <h4 style="font-weight:400;">&nbsp;Profil</h4>
+                    <div style="text-align:left !important;">
+
+                        <p style="text-size:130%; font-weight:400;">
+                            Namn:<br/>
+                            <h4>Namnet</h4><br/>
+                            E-mail:<br/>
+                            <h4>test@example.com</h4><br/>
+                        </p>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#EmailModal">Redigera E-postadress</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#PasswModal">Byt lösenord</button>
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="tab-pane" id="comments">
+                    <h4 style="text-align:left !important; font-weight:400;">&nbsp;Kommentarer </h4>
+
+                    <table class="table" style="text-align:left !important;">
+                        <tbody>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 1 eller nåt</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 2 och så vidare och vidare...</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 2 och så vidare och vidare...</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 2 och så vidare och vidare...</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 2 och så vidare och vidare...</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Krognamnet:&nbsp;</b>Kommentar nummer 2 och så vidare och vidare...</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr><td></td><td></td></tr>
+                        </tbody>
+                    </table>
+
+
+
+
+
+                </div>
+                <div class="tab-pane" id="favorites">
+                    <h4 style="text-align:left !important; font-weight:400;">&nbsp;Favoriter</h4>
+                    <table class="table" style="text-align:left !important;">
+                        <tbody>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h5>Krognamnet</h5></td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons" style="font-size:210%;">close</i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr><td></td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="settings">
+                    <h4 style="font-weight:400;">Inställningar</h4>
+                    <p style="text-align:left !important; font-weight:400;">
+                        Standard sök inställningar exklusions preferenser
+                        <br>
+                        /osv osv osv...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Tabs with icons on Card -->
+
+
+</div>
+
+<!-- Modal Core -->
+<div class="modal fade" id="PasswModal" tabindex="-1" role="dialog" aria-labelledby="password" aria-hidden="true">
+    <div class="modal-dialog" style="margin-left:auto !important;margin-right:auto !important; max-width:320px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="password">Byt lösenord</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="input-group">
+					<span class="input-group-addon">
+						<i class="material-icons">lock_outline</i>
+					</span>
+                    <input type="password" placeholder="Lösenord..." class="form-control" />
+                </div>
+                <div class="input-group">
+					<span class="input-group-addon">
+						<i class="material-icons">lock_outline</i>
+					</span>
+                    <input type="password" placeholder="Repetera Lösenord..." class="form-control" />
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-info btn-simple">Spara</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Core -->
+<!-- Modal Core -->
+<div class="modal fade" id="EmailModal" tabindex="-1" role="dialog" aria-labelledby="email" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-left:auto !important;margin-right:auto !important; max-width:320px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="email">Byt E-postadress</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group label-floating">
+                    <label class="control-label">E-postadress</label>
+                    <input type="email" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Avbryt</button>
+                <button type="button" class="btn btn-info btn-simple">Spara</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

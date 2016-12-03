@@ -1,0 +1,125 @@
+{% macro render_field(field, label_visible=true) -%}
+<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+    {% if field.type != 'HiddenField' and label_visible %}
+    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
+    <br/>
+    {% endif %}
+    {{ field(class_='form-control', **kwargs) }}
+    {% if field.errors %}
+    {% for e in field.errors %}
+    <p class="help-block" style="color:red">{{ e }}</p>
+    {% endfor %}
+    {% endif %}
+</div>
+{%- endmacro %}
+
+
+<!-- Menyn -->
+<nav class="navbar navbar-inverse shadow4" style="background:#337ab7; border:0px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo lobster" href="/">Krogrouletten</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Start</a></li>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/bpm">BPM</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="ny_krog_link" data-toggle="modal" data-target="#nykrog_modal" href="#"><span class="glyphicon glyphicon-plus"></span> Ny Krog</a></li>
+                <li><a id="register_user_link" data-toggle="modal" data-target="#register_modal" href="#"><span class="glyphicon glyphicon-user"></span> Registrera dig</a></li>
+                <li><a id="login_user_link" data-toggle="modal" data-target="#login_modal" href="#"><span class="glyphicon glyphicon-log-in"></span> Logga in</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Slut på menyn -->
+<!-- Modal -->
+<div class="modal fade" id="login_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Logga in</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="register_usr">Användare:</label>
+                    <input type="text" class="form-control" id="register_usr">
+                </div>
+                <div class="form-group">
+                    <label for="register_pwd">Lösenord:</label>
+                    <input type="password" class="form-control" id="register_pwd">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Logga in</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="nykrog_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form method="post" action="/krog/save">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Ny Krog</h4>
+                </div>
+                <div class="modal-body">
+                    {{ render_field(userKrogForm.namn) }}
+                    {{ render_field(userKrogForm.adress, id="user_krog_adress", list="user_krog_adress_list") }}
+                    <datalist id="user_krog_adress_list"></datalist>
+                    {{ render_field(userKrogForm.beskrivning) }}
+                </div>
+                <div class="modal-footer">
+                    <input id="user_krog_submit" type="submit" value="Lägg till" class="btn btn-default"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="register_modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Skapa ett nytt konto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="anvandarnamn">Användarnamn:</label>
+                    <input type="text" class="form-control" id="anvandarnamn">
+                </div>
+                <div class="form-group">
+                    <label for="epost">Epost:</label>
+                    <input type="text" class="form-control" id="epost">
+                </div>
+                <div class="form-group">
+                    <label for="bekrafta_epost">Bekräfta epost:</label>
+                    <input type="text" class="form-control" id="bekrafta_epost">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Skapa ett lösenord:</label>
+                    <input type="password" class="form-control" id="pwd">
+                </div>
+                <div class="form-group">
+                    <label for="bekrafta_pwd">Bekräfta lösenordet:</label>
+                    <input type="password" class="form-control" id="bekrafta_pwd">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Skapa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Slut på Modal (popup rutorna)-->

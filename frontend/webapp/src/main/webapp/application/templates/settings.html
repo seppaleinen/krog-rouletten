@@ -1,0 +1,206 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+
+{% macro render_field(field) -%}
+<div>
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
+<!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
+<!-- Tabs with icons on Card -->
+<div class="card card-nav-tabs" style="    box-shadow: 0 0 0 0 !important; margin-bottom:70px;">
+
+    <div class="profile-tabs">
+        <div class="nav-align-center">
+            <ul class="nav nav-pills" role="tablist">
+                <li class="active">
+                    <a href="#gps" role="tab" data-toggle="tab">
+                        <i class="material-icons">place</i>
+                        Min plats
+                    </a>
+                </li>
+                <li>
+                    <a href="#plats" role="tab" data-toggle="tab">
+                        <i class="material-icons">map</i>
+                        Annan Plats
+                    </a>
+                </li>
+                <li>
+                    <a href="#favoriter" role="tab" data-toggle="tab">
+                        <i class="material-icons">favorite</i>
+                        Favoriter
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content gallery" style="margin-bottom:70px;">
+                <div class="tab-pane active" id="gps">
+                    <br/>
+                    <h3>Min Plats</h3>
+                    <br/>
+                    <h4 style="font-weight:400;">Sök inom radien:</h4>
+
+                    <div class="form-group center" style="width:80%; margin-left:10%;">
+                        <div>
+                            {{render_field(searchForm.distance, id="distance")}}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="tab-pane text-center" id="plats">
+                    <br/><h3>Annan Plats</h3>
+                    <!-- Tabs on Plain Card -->
+                    <div class="card card-nav-tabs card-plain" style="width:90%;">
+                        <div class="header header-success">
+                            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active"><a href="#adress" data-toggle="tab">Adress</a></li>
+                                        <li><a href="#stadsdel" data-toggle="tab">Stadsdel</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="tab-content text-center">
+
+                                <div class="tab-pane active form-group label-floating" id="adress">
+
+                                    <form role="form" method="post" action="/krog/random">
+
+                                        <div>
+
+                                            <div>
+
+                                                <label class="control-label" style="left:0px;">Adress</label>
+                                                {{ render_field(searchForm.adress, id="sok_adress", size="40", list="search_adress_list") }}
+
+                                                <datalist id="search_adress_list"></datalist>
+
+                                                <input id="findByAdress" type="submit" class="btn btn-primary" value="Hitta adress">
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="tab-pane" id="stadsdel">
+                                    <h3><i class="material-icons">check</i>Slumpa på stadsdel</h3>
+                                    <div style="text-align:left !important; padding:10%; color:#000000 !important;">
+                                        <h4>
+                                            <div class="checkbox">
+                                                <label for="pos_stadsdel_soder" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" name="optionsCheckboxes" id="pos_stadsdel_soder" checked>
+
+                                                    Söder
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary clearfix">
+                                                <label for="pos_stadsdel_kungsholmen" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" id="pos_stadsdel_kungsholmen">
+                                                    Kungsholmen
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary clearfix">
+                                                <label for="pos_stadsdel_vasastan" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" id="pos_stadsdel_vasastan">
+                                                    Vasastan
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary clearfix">
+
+                                                <label for="pos_stadsdel_city" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" id="pos_stadsdel_city">
+                                                    City
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary clearfix">
+                                                <label for="pos_stadsdel_gamlastan" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" id="pos_stadsdel_gamlastan">
+                                                    Gamla Stan
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary clearfix">
+                                                <label for="pos_stadsdel_ostermalm" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="checkbox" id="pos_stadsdel_ostermalm">
+                                                    Östermalm
+                                                </label>
+                                            </div>
+                                            <div class="radio  clearfix">
+                                                <label for="pos_stadsdel_soderort" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_soderort">
+                                                    Söderort
+                                                </label>
+                                            </div>
+                                            <div class="radio  clearfix">
+                                                <label for="pos_stadsdel_norrort" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_norrort">
+                                                    Norrort
+                                                </label>
+                                            </div>
+                                            <div class="radio  clearfix">
+                                                <label for="pos_stadsdel_vasterort" style="color: rgba(0,0,0, 0.87);">
+                                                    <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_vasterort">
+                                                    Västerort
+                                                </label>
+                                            </div>
+
+                                        </h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabs on plain Card -->
+
+                </div>
+
+                <div class="tab-pane text-center" id="favoriter">
+                    <br/>
+                    <h3>	Favoriter</h3>
+                    <!-- Tabs on Plain Card -->
+                    <div class="card card-nav-tabs card-plain" style="width:90%;">
+                        <div class="header header-success">
+                            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active"><a href="#favorit_alla" data-toggle="tab">Alla Favoriter</a></li>
+                                        <li><a href="#favorit_inom" data-toggle="tab">Avstånd</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="tab-content text-center">
+                                <div class="tab-pane active form-group label-floating" id="favorit_alla">
+                                    <h3><i class="material-icons">check</i> Slumpa mellan alla dina favoriter</h3>
+                                </div>
+                                <div class="tab-pane form-group label-floating" id="favorit_inom">
+                                    <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa favoriter inom:</h4>
+
+                                    <div class="form-group center" style="width:80%; margin-left:10%;">
+                                        <div>
+                                            <select class="form-control" id="distance_" name="distance" style="font-size:18px;"><option value="0.1">100m</option><option value="0.2">200m</option><option value="0.3">300m</option><option value="0.5">500m</option><option selected="" value="1">1 km</option><option value="3">3 km</option><option value="5">5 km</option><option value="8">8 km</option></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabs on plain Card -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

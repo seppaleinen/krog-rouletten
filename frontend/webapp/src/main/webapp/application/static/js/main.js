@@ -8,7 +8,7 @@ $(document).ready(function() {
         $("#hidden_submit").click()
     }
     function onError(error) {
-        document.location = "/error";
+        document.location = "/error/GPSERROR:" + error.message;
     }
     var options = {
         enableHighAccuracy: true,
@@ -23,7 +23,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#slumpaGPS").click(function() {
+    $("[name='slumpaGPS']").click(function() {
         getLocation();
     });
 

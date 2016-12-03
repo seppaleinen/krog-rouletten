@@ -1,5 +1,5 @@
 {% macro render_field(field, label_visible=true) -%}
-<div class="form-group {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
+<div class="form-group label-floating {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
     {% if field.type != 'HiddenField' and label_visible %}
     <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
     <br/>
@@ -15,64 +15,107 @@
 
 
 <!-- Menyn -->
-<nav class="navbar navbar-inverse shadow4" style="background:#337ab7; border:0px;">
-    <div class="container-fluid">
+<div style="background-color: #e200fd; height:70px; width:100%; max-width:800px;" id="topbar_1">
+    <nav class="navbar navbar-primary" style="position:fixed; z-index:1; width:100%; max-width:800px;">
+        <div class="container" style="width:100%; max-width:800px;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-transparent">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><b>Krogrouletten</b></a>
+            </div>
+
+            <div class="collapse navbar-collapse"  style="text-align:right;" id="example-navbar-transparent">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/" >
+                            Hem &nbsp;
+                            <i class="material-icons">home</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin"  >
+                            Admin &nbsp;
+                            <i class="material-icons">settings</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#addkrog">
+                            Ny krog &nbsp;
+                            <i class="material-icons">add</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile">
+                            Profil &nbsp;
+                            <i class="material-icons">account_circle</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- End Navbar Transparent-->
+
+
+
+<!-- end navbar -->
+<!-- Navbar Transparent -->
+<nav id="bottombar_1" class="navbar navbar-primary" style="position:fixed; bottom:-28px; right:0px; z-index:100; width:auto; box-shadow: 0 0 0 0 !important; border-radius:5px;">
+    <div class="container" style="width:auto;max-width:400px;">
+        <div class="collapse navbar-collapse"  style="text-align:right;" id="example-navbar-transparent1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/" >
+                        Hem &nbsp;
+                        <i class="material-icons">home</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin"  >
+                        Admin &nbsp;
+                        <i class="material-icons">settings</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#addkrog">
+                        Ny krog &nbsp;
+                        <i class="material-icons">add</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/profile">
+                        Profil &nbsp;
+                        <i class="material-icons">account_circle</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-transparent1">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand logo lobster" href="/">Krogrouletten</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Start</a></li>
-                <li><a href="/admin">Admin</a></li>
-                <li><a href="/bpm">BPM</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a id="ny_krog_link" data-toggle="modal" data-target="#nykrog_modal" href="#"><span class="glyphicon glyphicon-plus"></span> Ny Krog</a></li>
-                <li><a id="register_user_link" data-toggle="modal" data-target="#register_modal" href="#"><span class="glyphicon glyphicon-user"></span> Registrera dig</a></li>
-                <li><a id="login_user_link" data-toggle="modal" data-target="#login_modal" href="#"><span class="glyphicon glyphicon-log-in"></span> Logga in</a></li>
-            </ul>
         </div>
     </div>
 </nav>
-<!-- Slut på menyn -->
-<!-- Modal -->
-<div class="modal fade" id="login_modal" role="dialog">
-    <div class="modal-dialog modal-sm">
+
+
+<!-- Modal Core -->
+<div class="modal fade" id="addkrog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" style="margin-left:auto !important;margin-right:auto !important; max-width:320px;">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Logga in</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Lägg till krog</h4>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="register_usr">Användare:</label>
-                    <input type="text" class="form-control" id="register_usr">
-                </div>
-                <div class="form-group">
-                    <label for="register_pwd">Lösenord:</label>
-                    <input type="password" class="form-control" id="register_pwd">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Logga in</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="nykrog_modal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
             <form method="post" action="/krog/save">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Ny Krog</h4>
-                </div>
                 <div class="modal-body">
                     {{ render_field(userKrogForm.namn) }}
                     {{ render_field(userKrogForm.adress, id="user_krog_adress", list="user_krog_adress_list") }}
@@ -80,46 +123,10 @@
                     {{ render_field(userKrogForm.beskrivning) }}
                 </div>
                 <div class="modal-footer">
-                    <input id="user_krog_submit" type="submit" value="Lägg till" class="btn btn-default"/>
+                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Avbryt</button>
+                    <input id="user_krog_submit" type="submit" value="Spara" class="btn btn-info btn-simple"/>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="register_modal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Skapa ett nytt konto</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="anvandarnamn">Användarnamn:</label>
-                    <input type="text" class="form-control" id="anvandarnamn">
-                </div>
-                <div class="form-group">
-                    <label for="epost">Epost:</label>
-                    <input type="text" class="form-control" id="epost">
-                </div>
-                <div class="form-group">
-                    <label for="bekrafta_epost">Bekräfta epost:</label>
-                    <input type="text" class="form-control" id="bekrafta_epost">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Skapa ett lösenord:</label>
-                    <input type="password" class="form-control" id="pwd">
-                </div>
-                <div class="form-group">
-                    <label for="bekrafta_pwd">Bekräfta lösenordet:</label>
-                    <input type="password" class="form-control" id="bekrafta_pwd">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Skapa</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Slut på Modal (popup rutorna)-->

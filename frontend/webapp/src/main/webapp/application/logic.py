@@ -50,6 +50,10 @@ def admin():
     return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms())
 
 
+def settings():
+    return render_template('settings.html', **Helper().forms())
+
+
 def unapproved():
     return render_template('admin.html', kroglista=Helper.get_unapproved_krog_list(), **Helper().forms())
 
@@ -120,20 +124,16 @@ def export_csv():
     return response
 
 
-def user_profile():
-    return render_template('user_profile.html', **Helper().forms())
-
-
 def bpm():
     return render_template('bpm.html', **Helper().forms())
 
 
-def test1233():
-    return render_template('test1233.html', **Helper().forms())
+def profile():
+    return render_template('profile.html', **Helper().forms())
 
 
-def error():
-    return render_template('error.html', data='DET GICK FEL', **Helper().forms())
+def error(error_msg):
+    return render_template('error.html', data=error_msg, **Helper().forms())
 
 
 def user_krog_save():
