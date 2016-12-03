@@ -31,7 +31,7 @@ class AdminKrogForm(Form):
     stadsdel = TextField('Stadsdel')
     beskrivning = TextField('Beskrivning')
     betyg = TextField('Betyg')
-    hemside_lank = TextField('Hemside Lank')
+    hemside_lank = TextField('Hemsida')
     intrade = TextField('Intrade')
     iframe_lank = TextField('Iframe lank', [validators.Required()])
     approved = BooleanField('Approved')

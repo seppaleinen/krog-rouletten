@@ -28,12 +28,12 @@
                 <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="active">
-                            <a href="#godkanda" data-toggle="tab">
+                            <a href="#godkanda" onclick="window.location.href='/admin'" data-toggle="tab">
                                 <i class="material-icons">playlist_add_check</i><span id="text_label_ok">Godkända</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/admin/unapproved" data-toggle="tab">
+                            <a href="#ejgodkanda" onclick="window.location.href='/admin/unapproved'" data-toggle="tab">
                                 <i class="material-icons">playlist_add</i><span id="text_label_queue">Köade</span>
                             </a>
                         </li>
@@ -50,7 +50,7 @@
                             </form>
                         </li>
                         <li>
-                            <a href="/admin/exportcsv" data-toggle="tab">
+                            <a href="#" onclick="window.location.href='/admin/exportcsv'" data-toggle="tab">
                                 <i class="material-icons">cloud_download</i>
                                 <span id="text_label_export">Exportera csv</span>
                             </a>
@@ -70,7 +70,6 @@
                 <div class="tab-pane active" id="godkanda">
                     <h4 style="text-align:left !important; font-weight:400;">&nbsp;Godkända </h4>
 
-
                     <table class="table" style="text-align:left !important;">
                         <tbody>
                         {% for krog in kroglista %}
@@ -80,10 +79,10 @@
                                     {{krog.adress}}
                                 </td>
                                 <td class="td-actions text-right">
-                                    <button type="button" rel="tooltip" title="Editera" class="btn btn-primary btn-simple btn-xs">
+                                    <button type="button" rel="tooltip" title="Editera" name="update" class="btn btn-primary btn-simple btn-xs">
                                         <i class="material-icons">edit</i>
                                     </button>
-                                    <button type="button" rel="tooltip" title="Ta bort" class="btn btn-danger btn-simple btn-xs">
+                                    <button type="button" rel="tooltip" title="Ta bort" name="delete" class="btn btn-danger btn-simple btn-xs">
                                         <i class="material-icons">delete</i>
                                     </button>
                                 </td>
@@ -98,22 +97,25 @@
 
                     <table class="table" style="text-align:left !important;">
                         <tbody>
-                        <tr>
-                            <td><b>Krognamnet:&nbsp;</b>snabbsummering tex plats</td>
-                            <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Redigera" class="btn btn-primary btn-simple btn-xs">
-                                    <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Lägg till" class="btn btn-success btn-simple btn-xs">
-                                    <i class="material-icons">check</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Ta bort" class="btn btn-danger btn-simple btn-xs">
-                                    <i class="material-icons">close</i>
-                                </button>
-
-                            </td>
-                        </tr>
-                        <tr><td></td><td></td></tr>
+                        {% for krog in kroglista %}
+                            <tr>
+                                <td>
+                                    <b>{{krog.namn}}</b>
+                                    <b>{{krog.adress}}</b>
+                                </td>
+                                <td>
+                                    <button type="button" rel="tooltip" title="Redigera" name="update" class="btn btn-primary btn-simple btn-xs">
+                                        <i class="material-icons">edit</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" title="Lägg till" name="approve" class="btn btn-success btn-simple btn-xs">
+                                        <i class="material-icons">check</i>
+                                    </button>
+                                    <button type="button" rel="tooltip" title="Ta bort" name="delete" class="btn btn-danger btn-simple btn-xs">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -121,140 +123,136 @@
                 <div class="tab-pane" id="admin_nykrog" style="text-align:left !important; font-weight:400;">
                     <form method="post" action="/admin/krog/save">
 
-                    <h4 style="font-weight:400;">Lägg till ny krog</h4>
-                    <p style="text-align:left !important; font-weight:400;">
-                    <div class="form-group label-floating">
-                        <label class="control-label">Krognamn</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group label-floating">
-                        <label class="control-label">Adress</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group label-floating">
-                        <label class="control-label">Beskrivning</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group label-floating">
-                        <label class="control-label">Hemsida</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="form-group label-floating">
-                        <label class="control-label">Iframe</label>
-                        <input type="text" class="form-control">
-                    </div>
+                        <h4 style="font-weight:400;">Lägg till ny krog</h4>
+                        <p style="text-align:left !important; font-weight:400;">
+                        <div class="form-group label-floating">
+                            {{ render_field(adminKrogForm.namn) }}
+                        </div>
+                        <div class="form-group label-floating">
+                            {{ render_field(adminKrogForm.adress, id="user_krog_adress", list="user_krog_adress_list") }}
+                            <datalist id="user_krog_adress_list"></datalist>
+                        </div>
+                        <div class="form-group label-floating">
+                            {{ render_field(adminKrogForm.beskrivning) }}
+                        </div>
+                        <div class="form-group label-floating">
+                            {{ render_field(adminKrogForm.hemside_lank) }}
+                        </div>
+                        <div class="form-group label-floating">
+                            {{ render_field(adminKrogForm.iframe_lank) }}
+                        </div>
 
 
-                    <br/>
+                        <br/>
 
-                    <b>Plats:</b>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_none" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel" id="pos_stadsdel_none" checked="true" >
+                        <b>Plats:</b>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_none" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel" id="pos_stadsdel_none" checked="true" >
 
-                            None
-                        </label>
-                    </div>
+                                None
+                            </label>
+                        </div>
 
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_soder" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel" id="pos_stadsdel_soder">
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_soder" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel" id="pos_stadsdel_soder">
 
-                            Söder
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_kungsholmen" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_kungsholmen">
-                            Kungsholmen
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_vasastan" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_vasastan">
-                            Vasastan
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
+                                Söder
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_kungsholmen" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_kungsholmen">
+                                Kungsholmen
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_vasastan" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_vasastan">
+                                Vasastan
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
 
-                        <label for="pos_stadsdel_city" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_city">
-                            City
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_gamlastan" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_gamlastan">
-                            Gamla Stan
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_ostermalm" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_ostermalm">
-                            Östermalm
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_soderort" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_soderort">
-                            Söderort
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_norrort" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_norrort">
-                            Norrort
-                        </label>
-                    </div>
-                    <div class="radio  clearfix">
-                        <label for="pos_stadsdel_vasterort" style="color: rgba(0,0,0, 0.87);">
-                            <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_vasterort">
-                            Västerort
-                        </label>
-                    </div>
-                    <b>Bar typer:</b>
-                    <div class="checkbox checkbox-primary clearfix">
-                        <label for="admin_nykrog_bar" style="color: rgba(0,0,0, 0.87);">
-                            <input type="checkbox" id="admin_nykrog_bar">
-                            Bar
-                        </label>
-                    </div>
-                    <div class="checkbox checkbox-primary clearfix">
-                        <label for="admin_nykrog_sportbar" style="color: rgba(0,0,0, 0.87);">
-                            <input type="checkbox" id="admin_nykrog_sportbar">
-                            Sportbar
-                        </label>
-                    </div>
-                    <div class="checkbox checkbox-primary clearfix">
-                        <label for="admin_nykrog_sunkhak" style="color: rgba(0,0,0, 0.87);">
-                            <input type="checkbox" id="admin_nykrog_sunkhak">
-                            Sunkhak
-                        </label>
-                    </div>
-                    <div class="checkbox checkbox-primary clearfix">
-                        <label for="admin_nykrog_restaurang" style="color: rgba(0,0,0, 0.87);">
-                            <input type="checkbox" id="admin_nykrog_restaurang">
-                            Restaurang
-                        </label>
-                    </div>
-                    <div class="checkbox checkbox-primary clearfix">
-                        <label for="admin_nykrog_nattklubb" style="color: rgba(0,0,0, 0.87);">
-                            <input type="checkbox" id="admin_nykrog_nattklubb">
-                            Nattklubb
-                        </label>
-                    </div>
-                    <br/>
+                            <label for="pos_stadsdel_city" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_city">
+                                City
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_gamlastan" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_gamlastan">
+                                Gamla Stan
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_ostermalm" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_ostermalm">
+                                Östermalm
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_soderort" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_soderort">
+                                Söderort
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_norrort" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_norrort">
+                                Norrort
+                            </label>
+                        </div>
+                        <div class="radio  clearfix">
+                            <label for="pos_stadsdel_vasterort" style="color: rgba(0,0,0, 0.87);">
+                                <input type="radio"  name="admin_nykrog_stadsdel"  id="pos_stadsdel_vasterort">
+                                Västerort
+                            </label>
+                        </div>
+                        <b>Bar typer:</b>
+                        <div class="checkbox checkbox-primary clearfix">
+                            <label for="admin_nykrog_bar" style="color: rgba(0,0,0, 0.87);">
+                                <input type="checkbox" id="admin_nykrog_bar">
+                                Bar
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-primary clearfix">
+                            <label for="admin_nykrog_sportbar" style="color: rgba(0,0,0, 0.87);">
+                                <input type="checkbox" id="admin_nykrog_sportbar">
+                                Sportbar
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-primary clearfix">
+                            <label for="admin_nykrog_sunkhak" style="color: rgba(0,0,0, 0.87);">
+                                <input type="checkbox" id="admin_nykrog_sunkhak">
+                                Sunkhak
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-primary clearfix">
+                            <label for="admin_nykrog_restaurang" style="color: rgba(0,0,0, 0.87);">
+                                <input type="checkbox" id="admin_nykrog_restaurang">
+                                Restaurang
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-primary clearfix">
+                            <label for="admin_nykrog_nattklubb" style="color: rgba(0,0,0, 0.87);">
+                                <input type="checkbox" id="admin_nykrog_nattklubb">
+                                Nattklubb
+                            </label>
+                        </div>
+                        <br/>
 
-                    <div class="togglebutton">
-                        <label>
-                            <input type="checkbox" ><span style="text-align:left !important; font-weight:400; color: rgba(0,0,0, 0.87);">&nbsp;<b>Inträde</b> (även om det bara är ibland)&nbsp;</span>
-                        </label>
-                    </div>
+                        <div class="togglebutton">
+                            <label>
+                                <input type="checkbox" ><span style="text-align:left !important; font-weight:400; color: rgba(0,0,0, 0.87);">&nbsp;<b>Inträde</b> (även om det bara är ibland)&nbsp;</span>
+                            </label>
+                        </div>
 
-                    <br/>
-                    <button type="button" rel="tooltip" title="Lägg till" class="btn btn-success" onclick="this.form.submit()">
-                        Lägg till&nbsp;&nbsp;<i class="material-icons">check</i>
-                    </button>
+                        <br/>
+                        <button type="button" rel="tooltip" title="Lägg till" class="btn btn-success" onclick="this.form.submit()">
+                            Lägg till&nbsp;&nbsp;<i class="material-icons">check</i>
+                        </button>
                     </form>
 
                 </div>
