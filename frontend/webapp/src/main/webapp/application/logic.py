@@ -124,10 +124,6 @@ def export_csv():
     return response
 
 
-def bpm():
-    return render_template('bpm.html', **Helper().forms())
-
-
 def profile():
     return render_template('profile.html', **Helper().forms())
 

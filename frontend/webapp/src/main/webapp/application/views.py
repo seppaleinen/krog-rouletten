@@ -52,11 +52,6 @@ def export_csv():
     return logic.export_csv()
 
 
-@app.route('/bpm')
-def bpm():
-    return logic.bpm()
-
-
 @app.route('/profile')
 def profile():
     return logic.profile()
