@@ -72,7 +72,7 @@ class SeleniumTests(LiveServerTestCase):
         driver.get(self.get_server_url())
         Helper.snapshot(driver, '01_index.png')
 
-        driver.find_element_by_link_text("Ny Krog").click()
+        driver.find_element_by_id("nykrog").click()
         time.sleep(1)
         Helper.snapshot(driver, '02_ny_krog_popup.png')
 
@@ -83,7 +83,7 @@ class SeleniumTests(LiveServerTestCase):
 
         Helper.snapshot(driver, '03_after_user_krog_submit.png')
 
-        driver.find_element_by_link_text("Admin").click()
+        driver.find_element_by_id("adminpage").click()
         self.assertEquals('http://localhost:8944/admin', driver.current_url)
         self.assertEqual("Krogrouletten", driver.title)
 
@@ -109,26 +109,9 @@ class SeleniumTests(LiveServerTestCase):
 
         Helper.snapshot(driver, '05_after_click_visa_ej_godkanda.png')
 
-        approvables = driver.find_elements_by_name("approve")
+        #approvables = driver.find_elements_by_name("approve")
         #self.assertTrue(approvables, 'Should find one row')
         #approvables[0].click()
-
-        driver.quit()
-
-    @mock.patch('application.logic.requests')
-    def test_change_distance_and_click_slumpa_button(self, mocked_requests):
-        driver = webdriver.PhantomJS('phantomjs')
-        driver.set_window_size(1120, 550)
-        driver.get(self.get_server_url())
-        mocked_requests.return_value = []
-
-        self.assertEquals('http://localhost:8944/', driver.current_url)
-
-        driver.find_element_by_id("primary_collapse").click()
-        Select(driver.find_element_by_id("distance")).select_by_visible_text("300m")
-        driver.find_element_by_id("slumpaGPS").click()
-        self.assertEqual("Krogrouletten", driver.title)
-        #self.assertEqual(u"Hittade ingen krog på din sökning", driver.find_element_by_css_selector("div.container.bodycontainer > div.container > div").text)
 
         driver.quit()
 
