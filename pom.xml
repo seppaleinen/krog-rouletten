@@ -16,4 +16,13 @@
         <module>frontend</module>
     </modules>
 
+    <profiles>
+        <profile>
+            <id>webcrawler</id>
+            <modules>
+                <module>webcrawler</module>
+            </modules>
+        </profile>
+    </profiles>
+
 </project>
