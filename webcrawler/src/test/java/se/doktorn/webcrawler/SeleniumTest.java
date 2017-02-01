@@ -43,15 +43,13 @@ public class SeleniumTest {
         driver.get(URL);
 
         PopularaBarerPage popularaBarerPage = new PopularaBarerPage(driver);
-        GooglePage googlePage = new GooglePage(driver);
+        GooglePage googlePage = new GooglePage();
 
         List<Bar> barList = popularaBarerPage.getBasicInfo();
         List<Bar> refinedBarList = googlePage.refineBarList(barList);
 
         String path = ClassLoader.getSystemResource(".").getPath();
-        CsvExporter.exportListToPath(
-                CsvExporter.transformToCSVFormat(refinedBarList), new File(path, "bar.csv")
-        );
+        CsvExporter.exportListToCSV(refinedBarList, new File(path, "bar.csv"));
     }
 
 }

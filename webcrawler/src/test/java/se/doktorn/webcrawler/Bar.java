@@ -16,4 +16,5 @@ import lombok.ToString;
 public class Bar {
     private String name;
     private String adress;
+    private String betyg;
 }

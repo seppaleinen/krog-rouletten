@@ -17,7 +17,9 @@ public class PopularaBarerPage extends Helper {
 
     private static final String VENUE_ID_REPLACER = "venue_%s";
     private static final String NAME_REPLACER = "//li[@id='%s']/div/div/h3/a";
-    private static final String ADDRESS_REPLACER = "//li[@id='%s']/div/div/span/*";
+    private static final String BETYG_REPLACER = "//li[@id='%s']/div/div/h3/span/span";
+    private static final String ADDRESS_REPLACER = "//li[@id='%s']/div/div/span";
+    private static final String ADDRESS_REPLACER2 = "//li[@id='%s']/div/div/span/*";
 
     public PopularaBarerPage(WebDriver driver) {
         this.driver = driver;
@@ -25,7 +27,7 @@ public class PopularaBarerPage extends Helper {
     }
 
     public List<Bar> getBasicInfo() {
-        System.out.println("RESULT: " + getIfExists(driver, NEXT_BUTTON).getAttribute("href"));
+        System.out.println("NEXTPAGE: " + getIfExists(driver, NEXT_BUTTON).getAttribute("href"));
 
         loopRows();
 
@@ -40,16 +42,32 @@ public class PopularaBarerPage extends Helper {
                 String id = String.format(VENUE_ID_REPLACER, String.valueOf(i));
                 WebElement name = getIfExists(driver, By.xpath(String.format(NAME_REPLACER, id)));
                 WebElement address = getIfExists(driver, By.xpath(String.format(ADDRESS_REPLACER, id)));
+                WebElement betyg = getIfExists(driver, By.xpath(String.format(BETYG_REPLACER, id)));
 
                 Bar bar = Bar.builder().
                         name(name == null ? null : name.getText()).
-                        adress(address == null ? null : address.getText()).
+                        adress(trimAddress(address, id)).
+                        betyg(betyg == null ? null : betyg.getText()).
                         build();
 
-                System.out.println("BAR: " + bar);
+                System.out.println("Parsed: " + bar);
 
                 barList.add(bar);
             }
+        }
+    }
+
+    private String trimAddress(WebElement webElement, String id) {
+        if(webElement == null) {
+            return null;
+        } else {
+            List<WebElement> subElements = driver.findElements(By.xpath(String.format(ADDRESS_REPLACER2, id)));
+
+            String text = webElement.getText();
+            for(WebElement element: subElements) {
+                text = text.replaceAll(element.getText() + "\n*", "");
+            }
+            return text;
         }
     }
 
