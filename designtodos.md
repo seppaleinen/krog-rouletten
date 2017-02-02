@@ -42,3 +42,8 @@ response:
 * photos.width
 * rating
 * website
+
+
+
+* Means that we should remove all functionality about adding, removing or approving bars
+* Frontend should be pretty selfcontained, and only use the backend if login/user-related stuff
