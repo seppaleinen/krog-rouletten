@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -97,7 +98,7 @@ public class GooglePage extends Helper {
      * And if successfully imported writes line in status file
      */
     private boolean checkStatus(JsonElement jsonElement, Bar bar) {
-        String status = jsonElement.getAsJsonObject().getAsJsonPrimitive("status").getAsString();
+        String status = parseJsonPrimitive(jsonElement.getAsJsonObject().getAsJsonPrimitive("status"));
 
         if(StatusCode.OK.name().equals(status)) {
             try {
@@ -115,17 +116,15 @@ public class GooglePage extends Helper {
     }
 
     private void parseResult(JsonElement result, Bar bar) {
-        String adress = result.getAsJsonObject().getAsJsonPrimitive("formatted_address").getAsString();
-        String rating = result.getAsJsonObject().getAsJsonPrimitive("rating").getAsString();
-        String name = result.getAsJsonObject().getAsJsonPrimitive("name").getAsString();
-        String latitude = result.getAsJsonObject().getAsJsonObject("geometry").
+        String adress = parseJsonPrimitive(result.getAsJsonObject().getAsJsonPrimitive("formatted_address"));
+        String rating = parseJsonPrimitive(result.getAsJsonObject().getAsJsonPrimitive("rating"));
+        String name = parseJsonPrimitive(result.getAsJsonObject().getAsJsonPrimitive("name"));
+        String latitude = parseJsonPrimitive(result.getAsJsonObject().getAsJsonObject("geometry").
                 getAsJsonObject("location").
-                getAsJsonPrimitive("lat").
-                getAsString();
-        String longitude = result.getAsJsonObject().getAsJsonObject("geometry").
+                getAsJsonPrimitive("lat"));
+        String longitude = parseJsonPrimitive(result.getAsJsonObject().getAsJsonObject("geometry").
                 getAsJsonObject("location").
-                getAsJsonPrimitive("lng").
-                getAsString();
+                getAsJsonPrimitive("lng"));
 
         bar.setName(name);
         bar.setAdress(adress);
@@ -139,5 +138,9 @@ public class GooglePage extends Helper {
         } catch (UnsupportedEncodingException e) {
             return null;
         }
+    }
+
+    private String parseJsonPrimitive(JsonPrimitive jsonPrimitive) {
+        return jsonPrimitive != null ? jsonPrimitive.getAsString() : null;
     }
 }

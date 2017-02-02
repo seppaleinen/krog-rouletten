@@ -8,12 +8,14 @@ import se.doktorn.webcrawler.util.Helper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class PopularaBarerPage extends Helper {
     private WebDriver driver;
     private List<Bar> barList;
 
     private static final By NEXT_BUTTON = By.linkText("Visa fler resultat »");
+    private static final By NEXT_BUTTON2 = By.linkText("Nästa »");
 
     private static final String VENUE_ID_REPLACER = "venue_%s";
     private static final String NAME_REPLACER = "//li[@id='%s']/div/div/h3/a";
@@ -27,9 +29,35 @@ public class PopularaBarerPage extends Helper {
     }
 
     public List<Bar> getBasicInfo() {
-        System.out.println("NEXTPAGE: " + getIfExists(driver, NEXT_BUTTON).getAttribute("href"));
+        WebElement nastaButton = getIfExists(driver, NEXT_BUTTON2);
 
         loopRows();
+
+        if(nastaButton != null) {
+            System.out.println("Redirecting to next page: " + nastaButton.getAttribute("href"));
+            driver.get(nastaButton.getAttribute("href"));
+            try {
+                Thread.sleep(200L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            getBasicInfo();
+        } else {
+            WebElement visaFlerButton = getIfExists(driver, NEXT_BUTTON);
+
+            if(visaFlerButton != null) {
+                System.out.println("Redirecting to next page: " + visaFlerButton.getAttribute("href"));
+                driver.get(visaFlerButton.getAttribute("href"));
+                try {
+                    Thread.sleep(200L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getBasicInfo();
+            } else {
+                System.out.println("No next button on page. Aborting.");
+            }
+        }
 
         return barList;
     }
@@ -65,7 +93,7 @@ public class PopularaBarerPage extends Helper {
 
             String text = webElement.getText();
             for(WebElement element: subElements) {
-                text = text.replaceAll(element.getText() + "\n*", "");
+                text = text.replaceAll(Pattern.quote(element.getText()) + "\n*", "");
             }
             return text;
         }
