@@ -50,7 +50,6 @@ services:
 
   data:
     image: mongo
-    restart: never
     volumes:
       - /data/db
     command: echo ''

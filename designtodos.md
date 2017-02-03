@@ -46,4 +46,5 @@ response:
 
 
 * Means that we should remove all functionality about adding, removing or approving bars
+or that we should redirect functionality to push data to google api
 * Frontend should be pretty selfcontained, and only use the backend if login/user-related stuff

@@ -6,15 +6,15 @@ class SearchForm(Form):
     latitude = HiddenField('latitude', [validators.required()])
     longitude = HiddenField('longitude', [validators.required()])
     distance = SelectField("Test: ", [validators.required()], choices=[
-        (0.1, "100m"),
-        (0.2, "200m"),
-        (0.3, "300m"),
-        (0.5, "500m"),
-        (1, "1 km"),
-        (3, "3 km"),
-        (5, "5 km"),
-        (8, "8 km")],
-        default=1)
+        (100, "100m"),
+        (200, "200m"),
+        (300, "300m"),
+        (500, "500m"),
+        (1000, "1 km"),
+        (3000, "3 km"),
+        (5000, "5 km"),
+        (8000, "8 km")],
+        default=500)
     gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
     stadsdel = RadioField('stadsdel')
@@ -42,3 +42,14 @@ class UserKrogForm(Form):
     adress = TextField('Adress eller plats', [validators.Required()])
     beskrivning = TextField('Kommentar (frivilligt)')
     approved = BooleanField('Approved')
+
+
+class Krog(object):
+    def __init__(self, namn, bar_typ, beskrivning, adress, oppet_tider, iframe_lank, betyg):
+        self.namn = namn
+        self.bar_typ = bar_typ
+        self.beskrivning = beskrivning
+        self.adress = adress
+        self.oppet_tider = oppet_tider
+        self.iframe_lank = iframe_lank
+        self.betyg = betyg
