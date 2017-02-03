@@ -99,13 +99,10 @@
                 <h4 style="font-weight:400;">Info</h4>
 
 
-                <button type="button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b></br>BETYG</button>
-                <!--
-                <button type="button" class="btn btn-xs btn-danger" style="margin-left:12px; height:20px !important; width:75px !important; float:right; clear: both;">SUNKHAK</button>
-                <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; height:20px !important; width:75px !important; float:right; clear: both;">NATTKLUBB</button>
-                -->
-                <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; height:20px !important; width:75px !important; float:right; clear: both;">{{ data.bar_typ }}</button>
-
+                <button type="button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b><br/>BETYG</button>
+                {% for type in data.bar_types %}
+                    <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; margin-right:2px; height:20px !important; width:75px !important; float:right; clear: both;">{{ type }}</button>
+                {% endfor %}
 
 
                 <p style="text-align:left !important; font-weight:400;">
@@ -125,37 +122,12 @@
                 <h4 style="font-weight:400;">Kommentarer</h4>
                 <table class="table" style="text-align:left !important;">
                     <tbody>
-                    <tr>
-                        <td>Kommentarer om krogen </td>
-                        <td class="td-actions text-right">
-                            User
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Kommentarer om krogen </td>
-                        <td class="td-actions text-right">
-                            User
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Kommentarer om krogen </td>
-                        <td class="td-actions text-right">
-                            User
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Kommentarer om krogen </td>
-                        <td class="td-actions text-right">
-                            User
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Kommentarer om krogen </td>
-                        <td class="td-actions text-right">
-                            User
-                        </td>
-                    </tr>
-                    <tr><td></td><td></td></tr>
+                    {% for review in data.reviews %}
+                        <tr>
+                            <td>{{ review.comment }}</td>
+                            <td class="td-actions text-right">{{ review.author_name }}</td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
                 <p style="text-align:left !important; font-weight:400;">Kommentera:</p>

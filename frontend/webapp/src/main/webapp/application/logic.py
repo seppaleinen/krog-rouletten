@@ -1,9 +1,8 @@
 # coding=UTF-8
 import random, requests, json, urllib, os
 from flask import render_template, request, redirect, url_for, jsonify
-from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog
+from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
 from flask.ext import excel
-
 
 backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
 API_KEY = os.getenv('MAPS_API_KEY')
@@ -13,6 +12,7 @@ GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placei
 GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
+GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=%s&key=%s'
 
 
 def home():
@@ -62,26 +62,32 @@ def get_result_from_google(lat, lng, distance):
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
 
-    # print("SEARCHRESPONSE: %s" % search_response)
-
     krog = None
-    details_params = random.choice(search_response['results'])['place_id']
+    random_search_response = random.choice(search_response['results'])
+    details_params = random_search_response['place_id']
+
+    # print("RANDOM %s" % random_search_response)
 
     if details_params:
         details_response = requests.get(GOOGLE_DETAILS % (details_params, API_KEY)).json()
-        # print("DETAILSRESPONSE: %s" % details_response)
+
+        # print("DETAILS %s" % details_response)
+
+        reviews = []
+        for review in details_response['result']['reviews']:
+            if review['text']:
+                reviews.append(Review(author_name=review['author_name'], comment=review['text']))
 
         krog = Krog(
             namn=details_response['result']['name'],
-            bar_typ='bar',
+            bar_types=details_response['result']['types'],
             beskrivning='beskrivning',
             adress=details_response['result']['formatted_address'],
             oppet_tider='öppet',
             iframe_lank=(GOOGLE_EMBEDDED_MAPS % (details_params, MAPS_EMBED_KEY)),
-            betyg=details_response['result']['rating']
+            betyg=details_response['result']['rating'],
+            reviews=reviews
         )
-
-        # print("KROG: %s" % vars(krog))
 
     return krog
 
