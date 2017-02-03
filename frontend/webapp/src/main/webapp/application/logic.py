@@ -27,7 +27,8 @@ def random_page():
             krog = get_result_from_google(form.latitude.data, form.longitude.data, form.distance.data)
 
             return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
-        except ValueError:
+        except Exception as e:
+            print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and form.adress.data:
         try:
@@ -62,9 +63,10 @@ def get_result_from_google(lat, lng, distance):
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
 
+    print("SEARCHRESPONSE: %s" % search_response)
     krog = None
-    if not search_response['results']:
-        raise Exception('No results')
+    if search_response['status'] != 'OK' or not search_response['results']:
+        raise Exception("No results or wrong statuscode: %s" % search_response['status'])
 
     random_search_response = random.choice(search_response['results'])
     details_params = random_search_response['place_id']
@@ -74,7 +76,7 @@ def get_result_from_google(lat, lng, distance):
     if details_params:
         details_response = requests.get(GOOGLE_DETAILS % (details_params, API_KEY)).json()
 
-        # print("DETAILS %s" % details_response)
+        print("DETAILS %s" % details_response)
 
         reviews = []
         for review in details_response['result']['reviews']:
