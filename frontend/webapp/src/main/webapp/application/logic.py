@@ -63,6 +63,8 @@ def get_result_from_google(lat, lng, distance):
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
 
+    print("API_KEY: %s" % API_KEY)
+
     print("SEARCHRESPONSE: %s" % search_response)
     krog = None
     if search_response['status'] != 'OK' or not search_response['results']:
