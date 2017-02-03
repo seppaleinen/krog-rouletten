@@ -5,7 +5,7 @@ from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Rev
 from flask.ext import excel
 
 backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
-API_KEY = os.getenv('MAPS_API_KEY')
+API_KEY = os.getenv('MAPS_API_KEY', 'AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
 MAPS_EMBED_KEY = 'AIzaSyDMtS6rg17-Tr2neNR0b0RSgrF5RxmfUhQ'
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
 GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s'
