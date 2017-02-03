@@ -63,6 +63,9 @@ def get_result_from_google(lat, lng, distance):
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
 
     krog = None
+    if not search_response['results']:
+        raise Exception('No results')
+
     random_search_response = random.choice(search_response['results'])
     details_params = random_search_response['place_id']
 
