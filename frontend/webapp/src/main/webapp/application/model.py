@@ -45,7 +45,7 @@ class UserKrogForm(Form):
 
 
 class Krog(object):
-    def __init__(self, namn, bar_types, beskrivning, adress, oppet_tider, iframe_lank, betyg, reviews):
+    def __init__(self, namn, bar_types, beskrivning, adress, oppet_tider, iframe_lank, betyg, reviews, photos):
         self.namn = namn
         self.bar_types = bar_types
         self.beskrivning = beskrivning
@@ -54,6 +54,7 @@ class Krog(object):
         self.iframe_lank = iframe_lank
         self.betyg = betyg
         self.reviews = reviews
+        self.photos = photos
 
 
 class Review(object):

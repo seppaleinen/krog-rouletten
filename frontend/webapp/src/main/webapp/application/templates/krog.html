@@ -16,31 +16,36 @@
 
             <!-- Indicators -->
             <ol class="carousel-indicators" style="display:none;">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            {% for photo in data.photos %}
+                <!-- Set first photo as active photo -->
+                {% if loop.first %}
+                    <li data-target="#carousel-example-generic" data-slide-to="{{ loop.index0 }}" class="active"></li>
+                {% else %}
+                    <li data-target="#carousel-example-generic" data-slide-to="{{ loop.index0 }}"></li>
+                {% endif %}
+            {% endfor %}
             </ol>
 
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
+                {% for photo in data.photos %}
+                <!-- Set first photo as active photo -->
+                {% if loop.first %}
                 <div class="item active">
-                    <img src="/static/img/bg2.jpeg" alt="Awesome Image">
+                    <img src="{{ photo }}" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
                     <div class="carousel-caption">
                         <h2 style="font-weight:400;">{{ data.namn }}</h2>
                     </div>
                 </div>
+                {% else %}
                 <div class="item">
-                    <img src="/static/img/bg3.jpeg" alt="Awesome Image">
+                    <img src="{{ photo }}" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
                     <div class="carousel-caption">
                         <h2>{{ data.namn }}</h2>
                     </div>
                 </div>
-                <div class="item">
-                    <img src="/static/img/bg4.jpeg" alt="Awesome Image">
-                    <div class="carousel-caption">
-                        <h2>{{ data.namn }}</h2>
-                    </div>
-                </div>
+                {% endif %}
+                {% endfor %}
             </div>
 
             <!-- Controls -->
@@ -96,26 +101,29 @@
     <div class="content">
         <div class="tab-content text-center" style="margin-bottom:70px;">
             <div class="tab-pane active" id="profile">
-                <h4 style="font-weight:400;">Info</h4>
+                <h4 style="text-align:center; font-weight:400;">Info</h4>
 
 
                 <button type="button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b><br/>BETYG</button>
                 {% for type in data.bar_types %}
-                    <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; margin-right:2px; height:20px !important; width:75px !important; float:right; clear: both;">{{ type }}</button>
+                    <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; margin-right:2px; height:20px !important; width:85px !important; float:right; clear: both;">{{ type }}</button>
                 {% endfor %}
 
-
-                <p style="text-align:left !important; font-weight:400;">
+                <p style="text-align:center !important; font-weight:400;">
                     {{ data.beskrivning }}
                 </p>
-                <p class="text-muted"style="text-align:left !important;">
+                <p class="text-muted"style="text-align:center !important;">
                     {{ data.adress }}
                 </p>
             </div>
             <div class="tab-pane" id="tider">
                 <h4 style="font-weight:400;">Öppettider</h4>
-                <p style="text-align:left !important; font-weight:400;">
-                    {{ data.oppet_tider }}
+                <p style="text-align:center !important; font-weight:400;">
+                    {% for opening_hour in data.oppet_tider %}
+                        {{ opening_hour }} <br/>
+                    {% else %}
+                        Ingen information om öppettider.
+                    {% endfor %}
                 </p>
             </div>
             <div class="tab-pane" id="messages">
@@ -130,9 +138,11 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <!--
                 <p style="text-align:left !important; font-weight:400;">Kommentera:</p>
                 <textarea class="form-control" placeholder="Skriv en kommentar" style="margin-top:-26px !important;" rows="3"></textarea>
                 <button type="button" class="btn btn-primary">Skicka</button>
+                -->
             </div>
             <div class="tab-pane" id="karta">
                 <p>Karta</p>

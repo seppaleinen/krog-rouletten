@@ -12,7 +12,7 @@ GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placei
 GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
-GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=%s&key=%s'
+GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=%s&key=%s'
 
 
 def home():
@@ -85,15 +85,25 @@ def get_result_from_google(lat, lng, distance):
             if review['text']:
                 reviews.append(Review(author_name=review['author_name'], comment=review['text']))
 
+        photos = []
+        for photo in details_response['result']['photos']:
+            photos.append(GOOGLE_PLACES_PHOTO % (photo['photo_reference'], API_KEY))
+
+        bar_types = details_response['result']['types']
+        # Remove point_of_interest and establishment from bartypes, as they're not really that interesting..
+        if 'point_of_interest' in bar_types: bar_types.remove('point_of_interest')
+        if 'establishment' in bar_types: bar_types.remove('establishment')
+
         krog = Krog(
             namn=details_response['result']['name'],
-            bar_types=details_response['result']['types'],
-            beskrivning='beskrivning',
+            bar_types=bar_types,
+            beskrivning=details_response['result']['name'],
             adress=details_response['result']['formatted_address'],
-            oppet_tider='öppet',
+            oppet_tider=details_response['result']['opening_hours']['weekday_text'],
             iframe_lank=(GOOGLE_EMBEDDED_MAPS % (details_params, MAPS_EMBED_KEY)),
             betyg=details_response['result']['rating'],
-            reviews=reviews
+            reviews=reviews,
+            photos=photos
         )
 
     return krog
