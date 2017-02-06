@@ -5,7 +5,7 @@ from wtforms import Form, TextField, validators, HiddenField, SelectField, Radio
 class SearchForm(Form):
     latitude = HiddenField('latitude', [validators.required()])
     longitude = HiddenField('longitude', [validators.required()])
-    distance = SelectField("Test: ", [validators.required()], choices=[
+    distance = SelectField("Distance: ", [validators.required()], choices=[
         (100, "100m"),
         (200, "200m"),
         (300, "300m"),
@@ -20,6 +20,7 @@ class SearchForm(Form):
     stadsdel = RadioField('stadsdel')
     bar_typ = RadioField('bar_typ')
     oppet_tider = RadioField('oppet_tider')
+    earlier_search_results = HiddenField('earlier_search_results')
 
 
 class AdminKrogForm(Form):

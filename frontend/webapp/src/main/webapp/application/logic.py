@@ -1,6 +1,6 @@
 # coding=UTF-8
 import random, requests, json, urllib, os
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify, session
 from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
 from flask.ext import excel
 
@@ -16,17 +16,22 @@ GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxheigh
 
 
 def home():
-    return render_template('index.html', **Helper().forms())
+    Helper().init_session()
+    return render_template('index.html', **Helper().forms({'searchForm': SearchForm(request.form)}))
 
 
 def random_page():
+    print("EARLIER: %s" % Helper().init_session())
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
     if form and not form.adress.data:
         try:
-            krog = get_result_from_google(form.latitude.data, form.longitude.data, form.distance.data)
+            krog = get_result_from_google(form)
 
-            return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
+            Helper().init_session()
+            session[Helper().get_user_ip()] += krog.namn + ';'
+
+            return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -47,8 +52,12 @@ def random_page():
                 print("ADRESS:%s LAT:%s LNG:%s" % (form.adress.data, form.latitude.data, form.longitude.data))
 
             try:
-                krog = get_result_from_google(form.latitude.data, form.longitude.data, form.distance.data)
-                return render_template('krog.html', data=krog, **Helper().forms({'searchForm':form}))
+                krog = get_result_from_google(form)
+
+                Helper().init_session()
+                session[Helper().get_user_ip()] += krog.namn + ';'
+
+                return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
             except Exception as e:
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -56,10 +65,10 @@ def random_page():
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
-def get_result_from_google(lat, lng, distance):
+def get_result_from_google(form):
     search_params = ''
-    search_params += 'location=' + str(lat) + ',' + str(lng) + '&'
-    search_params += 'radius=' + str(distance) + '&'
+    search_params += 'location=' + str(form.latitude.data) + ',' + str(form.longitude.data) + '&'
+    search_params += 'radius=' + str(form.distance.data) + '&'
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
 
@@ -70,7 +79,19 @@ def get_result_from_google(lat, lng, distance):
     if search_response['status'] != 'OK' or not search_response['results']:
         raise Exception("No results or wrong statuscode: %s" % search_response['status'])
 
-    random_search_response = random.choice(search_response['results'])
+    # Remove earlier search results from new search to remove duplicates
+    result_list_without_earlier = []
+    for result in search_response['results']:
+        if not result['name'] in session[Helper().get_user_ip()].split(';'):
+            result_list_without_earlier.append(result)
+
+    # If there are any results after trimming duplicates, else redo with duplicates
+    if result_list_without_earlier:
+        random_search_response = random.choice(result_list_without_earlier)
+    else:
+        print("Already been through all")
+        random_search_response = random.choice(search_response['results'])
+
     details_params = random_search_response['place_id']
 
     # print("RANDOM %s" % random_search_response)
@@ -86,22 +107,35 @@ def get_result_from_google(lat, lng, distance):
                 reviews.append(Review(author_name=review['author_name'], comment=review['text']))
 
         photos = []
-        for photo in details_response['result']['photos']:
-            photos.append(GOOGLE_PLACES_PHOTO % (photo['photo_reference'], API_KEY))
+        try:
+            for photo in details_response['result']['photos']:
+                photos.append(GOOGLE_PLACES_PHOTO % (photo['photo_reference'], API_KEY))
+        except Exception:
+            photos.append('/static/img/bg2.jpeg')
 
         bar_types = details_response['result']['types']
         # Remove point_of_interest and establishment from bartypes, as they're not really that interesting..
         if 'point_of_interest' in bar_types: bar_types.remove('point_of_interest')
         if 'establishment' in bar_types: bar_types.remove('establishment')
 
+        try:
+            opening_hours = details_response['result']['opening_hours']['weekday_text']
+        except Exception:
+            opening_hours = []
+
+        try:
+            rating = details_response['result']['rating']
+        except Exception:
+            rating = "N/A"
+
         krog = Krog(
             namn=details_response['result']['name'],
             bar_types=bar_types,
             beskrivning=details_response['result']['name'],
             adress=details_response['result']['formatted_address'],
-            oppet_tider=details_response['result']['opening_hours']['weekday_text'],
+            oppet_tider=opening_hours,
             iframe_lank=(GOOGLE_EMBEDDED_MAPS % (details_params, MAPS_EMBED_KEY)),
-            betyg=details_response['result']['rating'],
+            betyg=rating,
             reviews=reviews,
             photos=photos
         )
@@ -114,7 +148,10 @@ def admin():
 
 
 def settings():
-    return render_template('settings.html', **Helper().forms())
+    form = SearchForm(request.form)
+    print("FORMDATA: %s" % form.data)
+
+    return render_template('settings.html', **Helper().forms({'searchForm': form}))
 
 
 def unapproved():
@@ -122,12 +159,14 @@ def unapproved():
 
 
 def upload_csv():
-    file = request.files['file']
-    if file and '.csv' in file.filename:
-        file_ = {'file': ('file', file)}
+    csv_file = request.files['file']
+    if csv_file and '.csv' in csv_file.filename:
+        file_ = {'file': ('file', csv_file)}
         try:
             requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': AdminKrogForm(request.form)}))
+            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms(
+                {'adminKrogForm': AdminKrogForm(request.form)})
+            )
         except Exception:
             return render_template('error.html', data='Nånting gick fel', **Helper().forms())
     else:
@@ -232,3 +271,18 @@ class Helper(object):
             return requests.get("%s/find/all/unapproved" % backend_url).json()
         except Exception:
             return []
+
+    @staticmethod
+    def get_user_ip():
+        # Try to get HTTP_X_REAL_IP, if not available, try get environment variable REMOTE_ADDR else get variable remote_addr
+        # Due to different levels of proxies.
+        return request.environ.get('HTTP_X_REAL_IP', request.environ.get('REMOTE_ADDR', request.remote_addr))
+
+    @staticmethod
+    def init_session():
+        user_ip = Helper().get_user_ip()
+        if user_ip not in session:
+            session[user_ip] = ''
+        return session[user_ip]
+
+

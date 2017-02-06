@@ -105,9 +105,11 @@
         {% block content %}{% endblock %}
 
         <div class="spinner" style="display:none;"></div>
-        <button  id="settings_1" onclick="window.location.href='/settings'" class="btn btn-primary" style="position:fixed; bottom: -10px; z-index:100; align:right; letter-spacing: 2px; margin-bottom:5px; margin-left:0px; font-weight: 400; border-radius:0px;">
-            <h4><i class="material-icons">settings</i></h4>
-        </button>
+        <form role="form" name="settings_form" method="get" action="/settings">
+            <button  id="settings_1" onclick="document.settings_form.submit()" class="btn btn-primary" style="position:fixed; bottom: -10px; z-index:100; align:right; letter-spacing: 2px; margin-bottom:5px; margin-left:0px; font-weight: 400; border-radius:0px;">
+                <h4><i class="material-icons">settings</i></h4>
+            </button>
+        </form>
         <button  id="slumpa_1" name="slumpaGPS" class="btn btn-primary pull-right" style=" z-index:90; box-shadow: 0 -10px 20px -12px rgba(0, 0, 0, 0.42), 0 -3px 20px 0px rgba(0, 0, 0, 0.12), 0 -8px 10px -5px rgba(0, 0, 0, 0.2); position:fixed; bottom: -10px; width:100%; margin-left:0px; max-width:800px; align:right; letter-spacing: 2px; margin-bottom:5px;  font-weight: 400; border-radius:0px;">
             <h4>Slumpa</h4>
         </button>
@@ -117,6 +119,7 @@
 <form role="form" method="post" action="/krog/random">
     {{ render_field(searchForm.latitude, id="latitude") }}
     {{ render_field(searchForm.longitude) }}
+    {{ render_field(searchForm.earlier_search_results) }}
     <input type="submit" id="hidden_submit" hidden/>
 </form>
 
