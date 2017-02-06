@@ -8,6 +8,12 @@
 </div>
 {%- endmacro %}
 
+{% macro render_radio(field) -%}
+<div class="radio  clearfix">
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
 <!-- you can use the class main-raised if you want the main area to be as a page with shadows -->
 <!-- Tabs with icons on Card -->
 <div class="card card-nav-tabs" style="    box-shadow: 0 0 0 0 !important; margin-bottom:70px;">
@@ -33,6 +39,14 @@
                         Favoriter
                     </a>
                 </li>
+                <!--
+                <li>
+                    <a href="#list" role="tab" data-toggle="tab">
+                        <i class="material-icons">assignment</i>
+                        Lista
+                    </a>
+                </li>
+                -->
             </ul>
 
             <form role="form" method="post" action="/krog/random">
@@ -85,6 +99,14 @@
                                         <h3><i class="material-icons">check</i>Slumpa på stadsdel</h3>
                                         <div style="text-align:left !important; padding:10%; color:#000000 !important;">
                                             <h4>
+                                                {{ render_field(searchForm.stadsdel) }}
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <br/>
+                                                <input id="findByStadsdel" type="submit" class="btn btn-primary" value="Sök">
+                                                <!--
                                                 <div class="checkbox">
                                                     <label for="pos_stadsdel_soder" style="color: rgba(0,0,0, 0.87);">
                                                         <input type="checkbox" name="optionsCheckboxes" id="pos_stadsdel_soder" checked>
@@ -141,6 +163,7 @@
                                                         Västerort
                                                     </label>
                                                 </div>
+                                                -->
 
                                             </h4>
                                         </div>
@@ -182,6 +205,22 @@
                                                 <select class="form-control" id="distance_" name="distance" style="font-size:18px;"><option value="0.1">100m</option><option value="0.2">200m</option><option value="0.3">300m</option><option value="0.5">500m</option><option selected="" value="1">1 km</option><option value="3">3 km</option><option value="5">5 km</option><option value="8">8 km</option></select>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Tabs on plain Card -->
+                    </div>
+
+                    <div class="tab-pane text-center" id="list">
+                        <br/>
+                        <h3>Lista på närmsta barer</h3>
+                        <!-- Tabs on Plain Card -->
+                        <div class="card card-nav-tabs card-plain" style="width:90%;">
+                            <div class="content">
+                                <div class="tab-content text-center">
+                                    <div class="tab-pane active form-group label-floating" id="narmsta">
+                                        <input id="findLista" type="submit" class="btn btn-primary" value="Lista närmsta">
                                     </div>
                                 </div>
                             </div>

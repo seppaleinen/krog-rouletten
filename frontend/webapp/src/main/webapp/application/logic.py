@@ -24,7 +24,8 @@ def random_page():
     print("EARLIER: %s" % Helper().init_session())
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
-    if form and not form.adress.data:
+    if form and form.latitude.data and form.longitude.data:
+        print("GPS")
         try:
             krog = get_result_from_google(form)
 
@@ -36,6 +37,7 @@ def random_page():
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and form.adress.data:
+        print("ADRESS")
         try:
             adress = urllib.quote(form.adress.data.encode('utf8'))
         except AttributeError: #if urllib.quote doesn't exist, it's python3, try urllib.parse.quote
@@ -61,6 +63,22 @@ def random_page():
             except Exception as e:
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
+    elif form and ',' in form.stadsdel.data:
+        print("HEJ: " + form.stadsdel.data)
+        try:
+            form.latitude.data = form.stadsdel.data.split(',')[0]
+            form.longitude.data = form.stadsdel.data.split(',')[1]
+            print("FORM2: %s" % form.data)
+            krog = get_result_from_google(form)
+
+            Helper().init_session()
+            session[Helper().get_user_ip()] += krog.namn + ';'
+
+            return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
+        except Exception as e:
+            print("EXCEPTION: %s" % e)
+            return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
+
     #Hell has frozen over
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 

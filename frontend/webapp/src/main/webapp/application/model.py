@@ -17,7 +17,14 @@ class SearchForm(Form):
         default=500)
     gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
-    stadsdel = RadioField('stadsdel')
+    stadsdel = RadioField('stadsdel', choices=[
+        ('59.313748,18.070410', 'SÖDERMALM'),
+        ('59.331931,18.026434', 'KUNGSHOLMEN'),
+        ('59.343181,18.050926', 'VASASTAN'),
+        ('59.332358,18.062513', 'CITY'),
+        ('59.325072,18.070745', 'GAMLA STAN'),
+        ('59.337367,18.084427', 'ÖSTERMALM')
+    ])
     bar_typ = RadioField('bar_typ')
     oppet_tider = RadioField('oppet_tider')
     earlier_search_results = HiddenField('earlier_search_results')
