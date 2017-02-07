@@ -60,3 +60,8 @@ def profile():
 @app.route('/error/<error_msg>')
 def error(error_msg):
     return logic.error(error_msg)
+
+
+@app.route('/details/<place_id>')
+def details(place_id):
+    return logic.details(place_id)

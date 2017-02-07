@@ -39,18 +39,15 @@
                         Favoriter
                     </a>
                 </li>
-                <!--
                 <li>
                     <a href="#list" role="tab" data-toggle="tab">
                         <i class="material-icons">assignment</i>
                         Lista
                     </a>
                 </li>
-                -->
             </ul>
 
             <form role="form" method="post" action="/krog/random">
-
                 <div class="tab-content gallery" style="margin-bottom:70px;">
                     <div class="tab-pane active" id="gps">
                         <br/>
@@ -213,14 +210,15 @@
                     </div>
 
                     <div class="tab-pane text-center" id="list">
-                        <br/>
-                        <h3>Lista på närmsta barer</h3>
                         <!-- Tabs on Plain Card -->
+                        <h3>Lista på närmsta barer</h3>
                         <div class="card card-nav-tabs card-plain" style="width:90%;">
                             <div class="content">
                                 <div class="tab-content text-center">
                                     <div class="tab-pane active form-group label-floating" id="narmsta">
-                                        <input id="findLista" type="submit" class="btn btn-primary" value="Lista närmsta">
+                                        <button id="findLista" type="button" class="btn btn-primary">
+                                            Lista närmsta
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -232,6 +230,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

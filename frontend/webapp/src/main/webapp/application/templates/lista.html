@@ -1,0 +1,57 @@
+{% extends "base/_base.html" %}
+
+{% block content %}
+
+{% macro render_field(field) -%}
+<div>
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
+{% macro render_radio(field) -%}
+<div class="radio  clearfix">
+    {{ field(class_='form-control', **kwargs) }}
+</div>
+{%- endmacro %}
+
+<div style="text-align: center;">
+    <h3>Lista på närmsta barer</h3>
+</div>
+<!-- Tabs on Plain Card -->
+<div class="card card-nav-tabs card-plain" style="width:90%;">
+    <div class="content">
+        <div class="tab-content text-center">
+            <div class="tab-pane active form-group label-floating" id="narmsta">
+                {% if data|length > 1 %}
+                <table style="width:80%; margin-left:10%; text-align: center;">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center;">Namn</th>
+                        <th style="text-align: center;">Adress</th>
+                        <th style="text-align: center;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for krog in data %}
+                    <tr>
+                        <form role="form" method="get" action="/details/{{ krog.place_id }}">
+                            <td hidden>{{ krog.place_id }}</td>
+                            <td>{{ krog.namn }}</td>
+                            <td>{{ krog.adress }}</td>
+                            <td>
+                                <input id="findDetails" type="submit" class="btn btn-primary" value="Visa detaljer">
+                            </td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+
+                <input id="findLista" type="submit" class="btn btn-primary" value="Lista närmsta">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

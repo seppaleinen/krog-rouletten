@@ -24,7 +24,7 @@ def random_page():
     print("EARLIER: %s" % Helper().init_session())
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
-    if form and form.latitude.data and form.longitude.data:
+    if form and form.searchtype.data == 'gps':
         print("GPS")
         try:
             krog = get_result_from_google(form)
@@ -36,6 +36,25 @@ def random_page():
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
+    elif form and form.searchtype.data == 'list':
+        Helper().init_session()
+
+        search_response = get_search_response_from_google(form)
+        krog_lista = []
+        for result in search_response['results']:
+            krog_lista.append(Krog(
+                namn=result['name'],
+                bar_types='',
+                beskrivning='',
+                adress=result['vicinity'],
+                oppet_tider='',
+                iframe_lank='',
+                betyg='',
+                reviews='',
+                photos='',
+                place_id=result['place_id']
+            ))
+        return render_template('lista.html', data=krog_lista, **Helper().forms({'searchForm': form}))
     elif form and form.adress.data:
         print("ADRESS")
         try:
@@ -83,39 +102,27 @@ def random_page():
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
-def get_result_from_google(form):
+def get_search_response_from_google(form):
     search_params = ''
     search_params += 'location=' + str(form.latitude.data) + ',' + str(form.longitude.data) + '&'
     search_params += 'radius=' + str(form.distance.data) + '&'
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
-
     print("API_KEY: %s" % API_KEY)
 
     print("SEARCHRESPONSE: %s" % search_response)
-    krog = None
+
     if search_response['status'] != 'OK' or not search_response['results']:
         raise Exception("No results or wrong statuscode: %s" % search_response['status'])
-
-    # Remove earlier search results from new search to remove duplicates
-    result_list_without_earlier = []
-    for result in search_response['results']:
-        if not result['name'] in session[Helper().get_user_ip()].split(';'):
-            result_list_without_earlier.append(result)
-
-    # If there are any results after trimming duplicates, else redo with duplicates
-    if result_list_without_earlier:
-        random_search_response = random.choice(result_list_without_earlier)
     else:
-        print("Already been through all")
-        random_search_response = random.choice(search_response['results'])
+        return search_response
 
-    details_params = random_search_response['place_id']
 
-    # print("RANDOM %s" % random_search_response)
+def get_details_response_from_google(place_id):
+    krog = None
 
-    if details_params:
-        details_response = requests.get(GOOGLE_DETAILS % (details_params, API_KEY)).json()
+    if place_id:
+        details_response = requests.get(GOOGLE_DETAILS % (place_id, API_KEY)).json()
 
         print("DETAILS %s" % details_response)
 
@@ -152,13 +159,33 @@ def get_result_from_google(form):
             beskrivning=details_response['result']['name'],
             adress=details_response['result']['formatted_address'],
             oppet_tider=opening_hours,
-            iframe_lank=(GOOGLE_EMBEDDED_MAPS % (details_params, MAPS_EMBED_KEY)),
+            iframe_lank=(GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY)),
             betyg=rating,
             reviews=reviews,
             photos=photos
         )
-
     return krog
+
+
+def get_result_from_google(form):
+    search_response = get_search_response_from_google(form)
+
+    # Remove earlier search results from new search to remove duplicates
+    result_list_without_earlier = []
+    for result in search_response['results']:
+        if not result['name'] in session[Helper().get_user_ip()].split(';'):
+            result_list_without_earlier.append(result)
+
+    # If there are any results after trimming duplicates, else redo with duplicates
+    if result_list_without_earlier:
+        random_search_response = random.choice(result_list_without_earlier)
+    else:
+        print("Already been through all")
+        random_search_response = random.choice(search_response['results'])
+
+    details_params = random_search_response['place_id']
+
+    return get_details_response_from_google(details_params)
 
 
 def admin():
@@ -250,6 +277,11 @@ def profile():
 
 def error(error_msg):
     return render_template('error.html', data=error_msg, **Helper().forms())
+
+
+def details(place_id):
+    krog = get_details_response_from_google(place_id)
+    return render_template('krog.html', data=krog, **Helper().forms())
 
 
 def user_krog_save():

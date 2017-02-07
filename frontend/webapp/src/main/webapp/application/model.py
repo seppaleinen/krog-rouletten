@@ -5,6 +5,7 @@ from wtforms import Form, TextField, validators, HiddenField, SelectField, Radio
 class SearchForm(Form):
     latitude = HiddenField('latitude', [validators.required()])
     longitude = HiddenField('longitude', [validators.required()])
+    hidden_distance = HiddenField('distance')
     distance = SelectField("Distance: ", [validators.required()], choices=[
         (100, "100m"),
         (200, "200m"),
@@ -18,16 +19,21 @@ class SearchForm(Form):
     gps = RadioField('gps', choices=[('value','description')])
     adress = TextField('adress')
     stadsdel = RadioField('stadsdel', choices=[
-        ('59.313748,18.070410', 'SÖDERMALM'),
-        ('59.331931,18.026434', 'KUNGSHOLMEN'),
-        ('59.343181,18.050926', 'VASASTAN'),
-        ('59.332358,18.062513', 'CITY'),
-        ('59.325072,18.070745', 'GAMLA STAN'),
-        ('59.337367,18.084427', 'ÖSTERMALM')
+        ('59.313748,18.070410', 'SÖDERMALM'), # Magnus Ladulåsgatan 65
+        ('59.331931,18.026434', 'KUNGSHOLMEN'), # Drottningholmsvägen 35
+        ('59.343181,18.050926', 'VASASTAN'), # Karlbergsvägen 4
+        ('59.332358,18.062513', 'CITY'), # Drottninggatan 45T
+        ('59.325072,18.070745', 'GAMLA STAN'), # Stortorget
+        ('59.337367,18.084427', 'ÖSTERMALM') # Nybergsgatan 9
     ])
-    bar_typ = RadioField('bar_typ')
+    bar_typ = RadioField('bar_typ', choices=[
+        ('bar',         'Bar'),
+        ('restaurant',  'Restaurant'),
+        ('night_club',  'Nattklubb')
+    ])
     oppet_tider = RadioField('oppet_tider')
     earlier_search_results = HiddenField('earlier_search_results')
+    searchtype = HiddenField('searchtype')
 
 
 class AdminKrogForm(Form):
@@ -53,7 +59,7 @@ class UserKrogForm(Form):
 
 
 class Krog(object):
-    def __init__(self, namn, bar_types, beskrivning, adress, oppet_tider, iframe_lank, betyg, reviews, photos):
+    def __init__(self, namn, bar_types, beskrivning, adress, oppet_tider, iframe_lank, betyg, reviews, photos, place_id=''):
         self.namn = namn
         self.bar_types = bar_types
         self.beskrivning = beskrivning
@@ -63,6 +69,7 @@ class Krog(object):
         self.betyg = betyg
         self.reviews = reviews
         self.photos = photos
+        self.place_id = place_id
 
 
 class Review(object):

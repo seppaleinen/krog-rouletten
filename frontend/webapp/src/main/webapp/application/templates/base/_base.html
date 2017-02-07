@@ -119,7 +119,9 @@
 <form role="form" method="post" action="/krog/random">
     {{ render_field(searchForm.latitude, id="latitude") }}
     {{ render_field(searchForm.longitude) }}
+    {{ render_field(searchForm.hidden_distance, id="hidden_distance" ) }}
     {{ render_field(searchForm.earlier_search_results) }}
+    {{ render_field(searchForm.searchtype, id="searchtype") }}
     <input type="submit" id="hidden_submit" hidden/>
 </form>
 
