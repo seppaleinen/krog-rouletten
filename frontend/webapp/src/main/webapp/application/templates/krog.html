@@ -31,18 +31,26 @@
                 {% for photo in data.photos %}
                 <!-- Set first photo as active photo -->
                 {% if loop.first %}
-                <div class="item active">
-                    <img src="{{ photo }}" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
-                    <div class="carousel-caption">
+                <div class="item active" id="first-picture-outer" >
+                    <img src="{{ photo }}" id="first-picture" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
+
+                    <div class="carousel-caption" style=" height:100%; right:0% !important; left:0% !important; bottom: 0px !important; width:100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 13%,rgba(0,0,0,0.5) 100%);">
+<div class="carousel-caption" >
                         <h2 style="font-weight:400;">{{ data.namn }}</h2>
+                      </div>
                     </div>
+
                 </div>
                 {% else %}
                 <div class="item">
                     <img src="{{ photo }}" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
-                    <div class="carousel-caption">
+
+
+                  <!--  <div class="carousel-caption">
                         <h2>{{ data.namn }}</h2>
-                    </div>
+                    </div>  -->
+
+
                 </div>
                 {% endif %}
                 {% endfor %}
@@ -70,28 +78,28 @@
                 <ul class="nav nav-tabs" data-tabs="tabs">
                     <li class="active">
                         <a href="#profile" data-toggle="tab">
-                            <i class="material-icons">info_outline</i><span id="text_label_info">Info</span>
+                            <i class="material-icons">info_outline</i><span class="text_labels" id="text_label_info">Info</span>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#tider" data-toggle="tab">
-                            <i class="material-icons">schedule</i><span id="text_label_hours">Öppettider</span>
+                            <i class="material-icons">schedule</i><span class="text_labels" id="text_label_hours">Öppettider</span>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
-                        <a href="#messages" data-toggle="tab">
-                            <i class="material-icons">chat</i><span id="text_label_comments">Kommentarer</span>
+                        <a href="#messages">
+                            <i class="material-icons">chat</i><span class="text_labels" id="text_label_comments">Kommentarer</span>
                         </a>
                     </li>
                     <li>
                         <a href="#karta" data-toggle="modal" data-target="#KartModal">
-                            <i class="material-icons">location_on</i><span id="text_label_map">Karta</span>
+                            <i class="material-icons">location_on</i><span class="text_labels" id="text_label_map">Karta</span>
                         </a>
 
                     </li>
                     <li>
                         <a href="#" data-toggle="tab">
-                            <i class="material-icons">favorite</i><span id="text_labels">Favorit</span>
+                            <i class="material-icons">favorite</i><span class="text_labels" id="text_labels_favourite">Favorit</span>
                         </a>
                     </li>
                 </ul>
@@ -101,48 +109,69 @@
     <div class="content">
         <div class="tab-content text-center" style="margin-bottom:70px;">
             <div class="tab-pane active" id="profile">
-                <h4 style="text-align:center; font-weight:400;">Info</h4>
+                <!-- Profil -->
 
 
-                <button type="button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b><br/>BETYG</button>
+                <button type="button" id="betyg-button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b><br/>BETYG</button>
+
+                <h4 style="text-align:left !important; font-weight:400;">
+                    {{ data.beskrivning }}
+                </h4>
+                <p class="text-muted"style="text-align:left !important;">
+                    {{ data.adress }}
+</br></br>
+
                 {% for type in data.bar_types %}
-                    <button type="button" class="btn btn-xs btn-primary" style="margin-left:12px; margin-right:2px; height:20px !important; width:85px !important; float:right; clear: both;">{{ type }}</button>
+
+                <span style=" border-radius: 4px; background: #999999; padding: 5px; color:white;"># {{ type }}</span>
                 {% endfor %}
 
-                <p style="text-align:center !important; font-weight:400;">
-                    {{ data.beskrivning }}
-                </p>
-                <p class="text-muted"style="text-align:center !important;">
-                    {{ data.adress }}
-                </p>
-            </div>
-            <div class="tab-pane" id="tider">
-                <h4 style="font-weight:400;">Öppettider</h4>
-                <p style="text-align:center !important; font-weight:400;">
+</p></br>
+                <!-- Öppettider -->
+                <h4 style="text-align:left !important; font-weight:400;"><i class="material-icons">schedule</i>&nbsp;&nbsp;Öppettider</h4>
+                <p style="text-align:left !important; font-weight:400;">
                     {% for opening_hour in data.oppet_tider %}
                         {{ opening_hour }} <br/>
                     {% else %}
                         Ingen information om öppettider.
                     {% endfor %}
                 </p>
-            </div>
-            <div class="tab-pane" id="messages">
-                <h4 style="font-weight:400;">Kommentarer</h4>
+</br>
+
+                <!-- Kommentarer -->
+                <h4 id="messages" style="font-weight:400; text-align:left !important;"><i class="material-icons">chat</i>&nbsp;&nbsp;Senaste kommentarerna</h4>
                 <table class="table" style="text-align:left !important;">
-                    <tbody>
+
                     {% for review in data.reviews %}
-                        <tr>
-                            <td>{{ review.comment }}</td>
-                            <td class="td-actions text-right">{{ review.author_name }}</td>
-                        </tr>
+                        <div style="color:white !important;background: linear-gradient(135deg, rgba(51,196,255,1) 0%,rgba(102,147,255,1) 100%); border-radius: 6px; padding 20px; margin:26px;">
+                            <div style="padding:20px;text-align:left !important;">{{ review.comment }}</br>
+                            <div style="padding:20px;padding-bottom:0px;text-align:right !important;"><span style="line-height:200%;">
+                            - {{ review.author_name }}</span></div>
+                            </div>
+                        </div>
                     {% endfor %}
-                    </tbody>
+
+
+                    <div style="background:#efefef; border-radius: 6px;">
+
+
+                    </div>
                 </table>
                 <!--
                 <p style="text-align:left !important; font-weight:400;">Kommentera:</p>
                 <textarea class="form-control" placeholder="Skriv en kommentar" style="margin-top:-26px !important;" rows="3"></textarea>
                 <button type="button" class="btn btn-primary">Skicka</button>
                 -->
+
+
+            </div>
+            <div class="tab-pane" id="tider">
+
+
+
+            </div>
+            <div class="tab-pane" >
+
             </div>
             <div class="tab-pane" id="karta">
                 <p>Karta</p>
@@ -165,8 +194,8 @@
             </div>
 
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-default" data-dismiss="modal">Stäng</button>
+            <div class="modal-footer" style="padding:16px !important;">
+                <button type="button" class="btn btn-default btn-default" style="margin 16px !important;" data-dismiss="modal">Stäng</button>
             </div>
         </div>
     </div>
