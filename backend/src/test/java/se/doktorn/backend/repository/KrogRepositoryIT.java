@@ -1,4 +1,4 @@
-package se.doktorn.backend.controller.repository;
+package se.doktorn.backend.repository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.KrogRoulettenApplication;
-import se.doktorn.backend.controller.repository.entity.Krog;
+import se.doktorn.backend.repository.entity.Krog;
 
 import java.util.List;
 
@@ -27,30 +27,6 @@ public class KrogRepositoryIT {
     @Before
     public void setup() {
         repository.deleteAll();
-    }
-
-    @Test
-    public void test_FindOnlyKrog_ByRandom_IfApproved() {
-        Point point = new Point(1, 1);
-        Krog approved = Krog.builder().
-                id("1").
-                approved(true).
-                location(point).
-                build();
-        Krog unapproved = Krog.builder().
-                id("2").
-                approved(false).
-                location(point).
-                build();
-
-        repository.save(approved);
-        repository.save(unapproved);
-
-        List<Krog> result = repository.findByLocationNearAndApprovedIsTrue(point, new Distance(10, Metrics.KILOMETERS));
-
-        assertNotNull(result, "Result should not be null");
-        assertEquals(1, result.size(), "There should only be one result");
-        assertEquals("1", result.get(0).getId(), "Id should be 1");
     }
 
     @Test

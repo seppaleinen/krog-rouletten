@@ -1,4 +1,4 @@
-package se.doktorn.backend.controller.domain;
+package se.doktorn.backend.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

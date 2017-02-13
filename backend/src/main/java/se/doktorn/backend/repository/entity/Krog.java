@@ -1,7 +1,6 @@
-package se.doktorn.backend.controller.repository.entity;
+package se.doktorn.backend.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -3,7 +3,7 @@ package se.doktorn.backend.controller.csv;
 import lombok.extern.java.Log;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
-import se.doktorn.backend.controller.repository.entity.Krog;
+import se.doktorn.backend.repository.entity.Krog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
