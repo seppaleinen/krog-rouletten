@@ -23,32 +23,24 @@
         <div class="tab-content text-center">
             <div class="tab-pane active form-group label-floating" id="narmsta">
                 {% if data|length > 1 %}
-                <table style="width:80%; margin-left:10%; text-align: center;">
-                    <thead>
-                    <tr>
-                        <th style="text-align: center;">Namn</th>
-                        <th style="text-align: center;">Adress</th>
-                        <th style="text-align: center;"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
+
+
                     {% for krog in data %}
-                    <tr>
+    <div style="text-align:left; margin:5%; border-radius:3px; background: #efefef; width:100%; height:100%; max-width:340px; padding:20px;">
                         <form role="form" method="get" action="/details/{{ krog.place_id }}">
-                            <td hidden>{{ krog.place_id }}</td>
-                            <td>{{ krog.namn }}</td>
-                            <td>{{ krog.adress }}</td>
-                            <td>
-                                <input id="findDetails" type="submit" class="btn btn-primary" value="Visa detaljer">
-                            </td>
+                            <span hidden>{{ krog.place_id }}</span>
+                            <div align="left" width="*" style=""><strong>{{ krog.namn }}</strong></br>
+                            {{ krog.adress }}  </div>
+                                <div  align="right"><input id="findDetails" style=" " type="submit" class="btn btn-default" value="Detaljer"></div>
+
                         </form>
-                    </tr>
+</div>
                     {% endfor %}
-                    </tbody>
-                </table>
+
+
                 {% endif %}
 
-                <input id="findLista" type="submit" class="btn btn-primary" value="Lista närmsta">
+                <input id="findLista" type="submit" class="btn btn-default" value="Lista närmsta">
             </div>
         </div>
     </div>
