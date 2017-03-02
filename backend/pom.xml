@@ -83,12 +83,14 @@
             <version>${spring-data-commons.version}</version>
             <scope>compile</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
             <version>${spring-data-mongodb.version}</version>
             <scope>compile</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -211,7 +213,7 @@
             <plugin>
                 <groupId>com.github.joelittlejohn.embedmongo</groupId>
                 <artifactId>embedmongo-maven-plugin</artifactId>
-                <version>0.3.4</version>
+                <version>0.3.3</version>
                 <executions>
                     <execution>
                         <id>start</id>

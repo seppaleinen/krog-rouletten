@@ -41,7 +41,7 @@ public class KrogController {
     @Autowired
     private CsvManager csvManager;
 
-    @RequestMapping(value = SAVE_URL, method = RequestMethod.POST)
+    @PostMapping(value = SAVE_URL)
     ResponseEntity save(@RequestBody Krog krog) {
         log.log(Level.INFO, "Saving: " + krog);
         krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
@@ -50,7 +50,7 @@ public class KrogController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = UPDATE_URL, method = RequestMethod.POST)
+    @PostMapping(value = UPDATE_URL)
     ResponseEntity update(@RequestBody Krog krog) {
         log.log(Level.INFO, "Updating: " + krog);
         krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
@@ -59,37 +59,37 @@ public class KrogController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = DELETE_URL, method = RequestMethod.DELETE)
+    @DeleteMapping(value = DELETE_URL)
     ResponseEntity delete(@RequestBody Krog krog) {
         log.log(Level.INFO, "Deleting: " + krog.toString());
         krogRepository.delete(krog);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = FIND_URL, method = RequestMethod.GET)
+    @GetMapping(value = FIND_URL)
     Krog find(@RequestParam String id) {
         log.log(Level.INFO, "Finding id: " + id);
         return krogRepository.findOne(id);
     }
 
-    @RequestMapping(value = FIND_ALL_APPROVED_URL, method = RequestMethod.GET)
+    @GetMapping(value = FIND_ALL_APPROVED_URL)
     List<Krog> findAllApproved() {
         log.log(Level.INFO, "Finding all");
         return krogRepository.findByApprovedIsTrueOrderByNamnAsc();
     }
 
-    @RequestMapping(value = FIND_ALL_UNAPPROVED_URL, method = RequestMethod.GET)
+    @GetMapping(value = FIND_ALL_UNAPPROVED_URL)
     List<Krog> findAllUnapproved() {
         log.log(Level.INFO, "Finding all");
         return krogRepository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
     }
 
-    @RequestMapping(value = EXPORT_CSV_URL, method = RequestMethod.GET)
+    @GetMapping(value = EXPORT_CSV_URL)
     List<Krog> exportCsv() {
         return krogRepository.findAll();
     }
 
-    @RequestMapping(value = SAVE_CSV_URL, method = RequestMethod.POST)
+    @PostMapping(value = SAVE_CSV_URL)
     ResponseEntity saveCsv(@RequestParam("file") MultipartFile file) throws Exception {
         List<Krog> krogList = new ArrayList<>();
 
