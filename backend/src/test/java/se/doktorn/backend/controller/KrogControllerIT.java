@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.repository.entity.Krog;
@@ -23,8 +24,13 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = KrogRoulettenApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "classpath:application-test.properties")
+@SpringBootTest(
+        classes = KrogRoulettenApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "classpath:application-test.properties"
+)
 public class KrogControllerIT {
     @Autowired
     private KrogRepository repository;

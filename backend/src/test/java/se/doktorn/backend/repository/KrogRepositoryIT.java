@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.repository.entity.Krog;
@@ -17,9 +18,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = KrogRoulettenApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "classpath:application-test.properties")
+@SpringBootTest(
+        classes = KrogRoulettenApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "classpath:application-test.properties"
+)
 public class KrogRepositoryIT {
     @Autowired
     private KrogRepository repository;
