@@ -28,61 +28,12 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @Log
 public class KrogController {
-    static final String SAVE_URL = "/save";
-    static final String UPDATE_URL = "/update";
-    static final String DELETE_URL = "/delete/krog";
-    static final String FIND_URL = "/find";
-    static final String FIND_ALL_APPROVED_URL = "/find/all/approved";
-    static final String FIND_ALL_UNAPPROVED_URL = "/find/all/unapproved";
     static final String SAVE_CSV_URL = "/save/csv";
     static final String EXPORT_CSV_URL = "/export/csv";
     @Autowired
     private KrogRepository krogRepository;
     @Autowired
     private CsvManager csvManager;
-
-    @PostMapping(value = SAVE_URL)
-    ResponseEntity save(@RequestBody Krog krog) {
-        log.log(Level.INFO, "Saving: " + krog);
-        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
-        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
-        krogRepository.save(krog);
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
-    @PostMapping(value = UPDATE_URL)
-    ResponseEntity update(@RequestBody Krog krog) {
-        log.log(Level.INFO, "Updating: " + krog);
-        krog.setLocation(csvManager.getPointFromIframeLink(krog.getIframe_lank()));
-        krog.setIframe_lank(csvManager.parseIframeLink(krog.getIframe_lank()));
-        krogRepository.save(krog);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = DELETE_URL)
-    ResponseEntity delete(@RequestBody Krog krog) {
-        log.log(Level.INFO, "Deleting: " + krog.toString());
-        krogRepository.delete(krog);
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping(value = FIND_URL)
-    Krog find(@RequestParam String id) {
-        log.log(Level.INFO, "Finding id: " + id);
-        return krogRepository.findOne(id);
-    }
-
-    @GetMapping(value = FIND_ALL_APPROVED_URL)
-    List<Krog> findAllApproved() {
-        log.log(Level.INFO, "Finding all");
-        return krogRepository.findByApprovedIsTrueOrderByNamnAsc();
-    }
-
-    @GetMapping(value = FIND_ALL_UNAPPROVED_URL)
-    List<Krog> findAllUnapproved() {
-        log.log(Level.INFO, "Finding all");
-        return krogRepository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
-    }
 
     @GetMapping(value = EXPORT_CSV_URL)
     List<Krog> exportCsv() {
