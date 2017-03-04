@@ -33,6 +33,3 @@ Allmänt
 
 * https://developers.google.com/places/javascript/ Specify location, radius and place types for your Places API search
 * https://developers.google.com/maps/documentation/javascript/ google maps javascript with markers and directions
-
-
-* Make python unittests abort mvn test phase.

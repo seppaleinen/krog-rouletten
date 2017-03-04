@@ -16,9 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import se.doktorn.backend.controller.csv.CsvManager;
-import se.doktorn.backend.controller.domain.Search;
-import se.doktorn.backend.controller.repository.KrogRepository;
-import se.doktorn.backend.controller.repository.entity.Krog;
+import se.doktorn.backend.domain.Search;
+import se.doktorn.backend.repository.KrogRepository;
+import se.doktorn.backend.repository.entity.Krog;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -193,65 +193,6 @@ public class KrogControllerTest {
 
             verifyZeroInteractions(csvManager);
             verify(repository, times(1)).findAll();
-        }
-    }
-
-
-
-    @Nested
-    @DisplayName("Grouped tests for findRandom method")
-    public class findRandom {
-        @Test
-        public void test_FindRandom_ThreadLocalRandom() {
-            for(int i = 0; i < 20; i++) {
-                List<Krog> krogList = new ArrayList<>();
-                for(int x = 0; x < i; x++) {
-                    krogList.add(new Krog());
-                }
-
-                when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).thenReturn(krogList);
-
-                try {
-                    Search search = Search.builder()
-                            .latitude(123.0)
-                            .longitude(123.0)
-                            .distance(0.1)
-                            .build();
-
-                    Krog result = krogController.findRandom(search);
-
-                    if(krogList.isEmpty()) {
-                        assertNull(result);
-                    } else {
-                        assertNotNull(result);
-                    }
-
-                    Point point = new Point(123.0, 123.0);
-                    Distance distance = new Distance(0.1, Metrics.KILOMETERS);
-                    verify(repository, atLeastOnce()).findByLocationNearAndApprovedIsTrue(point, distance);
-                } catch(Exception e) {
-                    fail("Should not fail: " + e.toString());
-                }
-            }
-        }
-
-        @Test
-        public void test_SearchConstructWithoutArguments() {
-            Search search = new Search();
-            search.setLatitude(12.0);
-            search.setLongitude(21.0);
-            search.setDistance(1.0);
-
-            Krog krog = Krog.builder().
-                    id("ID")
-                    .build();
-            when(repository.findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class))).
-                    thenReturn(Arrays.asList(krog));
-            Krog result = krogController.findRandom(search);
-
-            assertNotNull(result);
-            assertEquals(krog, result);
-            verify(repository, times(1)).findByLocationNearAndApprovedIsTrue(any(Point.class), any(Distance.class));
         }
     }
 

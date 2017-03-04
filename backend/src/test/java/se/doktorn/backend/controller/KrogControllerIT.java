@@ -11,11 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestMethod;
 import se.doktorn.backend.KrogRoulettenApplication;
-import se.doktorn.backend.controller.repository.entity.Krog;
-import se.doktorn.backend.controller.repository.KrogRepository;
+import se.doktorn.backend.repository.entity.Krog;
+import se.doktorn.backend.repository.KrogRepository;
 
 import java.io.File;
 import java.util.Arrays;
@@ -25,13 +26,18 @@ import static com.jayway.restassured.RestAssured.given;
 import static com.jayway.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = KrogRoulettenApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "classpath:application-test.properties")
+@SpringBootTest(
+        classes = KrogRoulettenApplication.class,
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        properties = "classpath:application-test.properties"
+)
 public class KrogControllerIT {
     @Autowired
     private KrogRepository repository;
     @LocalServerPort
-    int randomServerPort;
+    private int randomServerPort;
 
     @Before
     public void setup() {
@@ -251,30 +257,6 @@ public class KrogControllerIT {
 
         assertEquals(krog1.getNamn(), krogList[0].getNamn());
         assertEquals(krog2.getNamn(), krogList[1].getNamn());
-    }
-
-    @Test
-    public void canSearch_NotAcceptableRequests() {
-        given().contentType(ContentType.JSON).body(new Krog()).when().delete(KrogController.FIND_RANDOM_URL).
-                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
-        given().contentType(ContentType.JSON).body(new Krog()).when().put(KrogController.FIND_RANDOM_URL).
-                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
-        given().contentType(ContentType.JSON).body(new Krog()).when().patch(KrogController.FIND_RANDOM_URL).
-                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
-        given().contentType(ContentType.JSON).body(new Krog()).when().get(KrogController.FIND_RANDOM_URL).
-                then().statusCode(HttpStatus.METHOD_NOT_ALLOWED.value());
-    }
-
-    @Test
-    public void canSearch() {
-        String requestString = "{\"distance\": 8, \"bar_typ\": \"None\", \"stadsdel\": \"None\", \"longitude\": \"59.2646521\", \"oppet_tider\": \"None\", \"latitude\": \"59.2646521\", \"adress\": \"\", \"gps\": \"None\"}";
-
-        Response result = given().contentType(ContentType.JSON)
-                        .body(requestString)
-                        .when().post(KrogController.FIND_RANDOM_URL);
-
-        assertNotNull(result);
-        assertEquals(HttpStatus.OK.value(), result.getStatusCode());
     }
 
     @Test

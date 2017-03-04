@@ -5,10 +5,10 @@ $(document).ready(function() {
     function showPosition(position) {
         $("#latitude").val(position.coords.latitude);
         $("#longitude").val(position.coords.longitude);
-        $("#hidden_submit").click()
+        $("#hidden_submit").click();
     }
     function onError(error) {
-        document.location = "/error";
+        document.location = "/error/GPSERROR:" + error.message;
     }
     var options = {
         enableHighAccuracy: true,
@@ -23,8 +23,18 @@ $(document).ready(function() {
         }
     }
 
-    $("#slumpaGPS").click(function() {
+    $("[name='slumpaGPS']").click(function() {
+        $("#searchtype").val('gps');
         getLocation();
+    });
+
+    $("#findLista").click(function() {
+        $("#searchtype").val('list');
+        getLocation();
+    });
+
+    $("#distance").change(function() {
+        $("#hidden_distance").text($(this).val());
     });
 
     // Googlemaps datalist stuff

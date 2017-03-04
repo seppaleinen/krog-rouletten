@@ -8,7 +8,7 @@ import org.junit.platform.commons.util.StringUtils;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.geo.Point;
-import se.doktorn.backend.controller.repository.entity.Krog;
+import se.doktorn.backend.repository.entity.Krog;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
