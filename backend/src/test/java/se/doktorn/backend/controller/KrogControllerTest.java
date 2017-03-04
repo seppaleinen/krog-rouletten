@@ -8,28 +8,21 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import se.doktorn.backend.controller.csv.CsvManager;
-import se.doktorn.backend.domain.Search;
 import se.doktorn.backend.repository.KrogRepository;
 import se.doktorn.backend.repository.entity.Krog;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -45,134 +38,6 @@ public class KrogControllerTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
     }
-
-    @Nested
-    @DisplayName("Grouped tests for save method")
-    public class save {
-        @Test
-        public void test_save() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            ResponseEntity result = krogController.save(krog);
-
-            assertNotNull(result);
-            assertEquals(HttpStatus.CREATED, result.getStatusCode());
-
-            verify(csvManager, times(1)).getPointFromIframeLink(anyString());
-            verify(csvManager, times(1)).parseIframeLink(anyString());
-            verify(repository, times(1)).save(any(Krog.class));
-        }
-    }
-
-
-    @Nested
-    @DisplayName("Grouped tests for update method")
-    public class update {
-        @Test
-        public void test_update() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            ResponseEntity result = krogController.update(krog);
-
-            assertNotNull(result);
-            assertEquals(HttpStatus.OK, result.getStatusCode());
-
-            verify(csvManager, times(1)).getPointFromIframeLink(anyString());
-            verify(csvManager, times(1)).parseIframeLink(anyString());
-            verify(repository, times(1)).save(any(Krog.class));
-        }
-    }
-
-    @Nested
-    @DisplayName("Grouped tests for delete method")
-    public class delete {
-        @Test
-        public void test_delete() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            ResponseEntity result = krogController.delete(krog);
-
-            assertNotNull(result);
-            assertEquals(HttpStatus.OK, result.getStatusCode());
-
-            verifyZeroInteractions(csvManager);
-            verify(repository, times(1)).delete(any(Krog.class));
-        }
-    }
-
-
-    @Nested
-    @DisplayName("Grouped tests for find method")
-    public class find {
-        @Test
-        public void test_find() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            when(repository.findOne(anyString())).thenReturn(krog);
-
-            Krog result = krogController.find("ID");
-
-            assertNotNull(result);
-            assertEquals(krog.getId(), result.getId());
-
-            verifyZeroInteractions(csvManager);
-            verify(repository, times(1)).findOne("ID");
-        }
-    }
-
-
-    @Nested
-    @DisplayName("Grouped tests for findAllApproved method")
-    public class findAllApproved {
-        @Test
-        public void test_findAllApproved() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            when(repository.findByApprovedIsTrueOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
-
-            List<Krog> result = krogController.findAllApproved();
-
-            assertNotNull(result);
-            assertEquals(1, result.size());
-            assertEquals(krog.getId(), result.get(0).getId());
-
-            verifyZeroInteractions(csvManager);
-            verify(repository, times(1)).findByApprovedIsTrueOrderByNamnAsc();
-        }
-    }
-
-    @Nested
-    @DisplayName("Grouped tests for findAllUnapproved method")
-    public class findAllUnapproved {
-        @Test
-        public void test_findAllUnapproved() {
-            Krog krog = Krog.builder().
-                    id("ID").
-                    build();
-
-            when(repository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc()).thenReturn(Collections.singletonList(krog));
-
-            List<Krog> result = krogController.findAllUnapproved();
-
-            assertNotNull(result);
-            assertEquals(1, result.size());
-            assertEquals(krog.getId(), result.get(0).getId());
-
-            verifyZeroInteractions(csvManager);
-            verify(repository, times(1)).findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
-        }
-    }
-
 
     @Nested
     @DisplayName("Grouped tests for exportCsv method")

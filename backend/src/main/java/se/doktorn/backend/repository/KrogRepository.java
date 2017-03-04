@@ -10,6 +10,4 @@ import java.util.List;
 
 @Repository
 public interface KrogRepository extends MongoRepository<Krog, String> {
-    List<Krog> findByApprovedIsTrueOrderByNamnAsc();
-    List<Krog> findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
 }

@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
@@ -15,16 +17,13 @@ import se.doktorn.backend.repository.entity.Krog;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-        classes = KrogRoulettenApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = "classpath:application-test.properties"
-)
+@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 public class KrogRepositoryIT {
     @Autowired
     private KrogRepository repository;
@@ -35,56 +34,25 @@ public class KrogRepositoryIT {
     }
 
     @Test
-    public void test_FindOnlyKrog_IfApproved() {
-        Point point = new Point(1, 1);
-        Krog approved = Krog.builder().
-                id("1").
-                approved(true).
-                location(point).
-                build();
-        Krog unapproved = Krog.builder().
-                id("2").
-                approved(false).
-                location(point).
-                build();
+    public void canSave() {
+        Krog krog = Krog.builder()
+                .id("ID")
+                .beskrivning("beskrivning")
+                .build();
 
-        repository.save(approved);
-        repository.save(unapproved);
-
-        List<Krog> result = repository.findByApprovedIsTrueOrderByNamnAsc();
-
-        assertNotNull(result, "Result should not be null");
-        assertEquals(1, result.size(), "There should only be one result");
-        assertEquals(approved.getId(), result.get(0).getId(), "Id should be 1");
+        assertNotNull(repository.save(krog));
     }
 
     @Test
-    public void test_FindOnlyKrog_IfUnapproved() {
-        Point point = new Point(1, 1);
-        Krog approved = Krog.builder().
-                id("1").
-                approved(true).
-                location(point).
-                build();
-        Krog unapproved = Krog.builder().
-                id("2").
-                approved(false).
-                location(point).
-                build();
-        Krog approvedNull = Krog.builder().
-                id("3").
-                location(point).
-                build();
+    public void canFind() {
+        Krog krog = Krog.builder()
+                .id("ID")
+                .beskrivning("beskrivning")
+                .build();
 
-        repository.save(approved);
-        repository.save(unapproved);
-        repository.save(approvedNull);
+        repository.save(krog);
 
-        List<Krog> result = repository.findByApprovedIsFalseOrApprovedNullOrderByNamnAsc();
-
-        assertNotNull(result, "Result should not be null");
-        assertEquals(2, result.size(), "There should only be one result");
+        assertNull(repository.findOne(krog.getId()));
     }
-
 
 }
