@@ -6,19 +6,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.repository.entity.Krog;
 
-import java.util.List;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ActiveProfiles("test")
@@ -52,7 +45,7 @@ public class KrogRepositoryIT {
 
         repository.save(krog);
 
-        assertNull(repository.findOne(krog.getId()));
+        assertNotNull(repository.findOne(krog.getId()));
     }
 
 }
