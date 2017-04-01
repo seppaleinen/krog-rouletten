@@ -127,9 +127,12 @@ def get_details_response_from_google(place_id):
         print("DETAILS %s" % details_response)
 
         reviews = []
-        for review in details_response['result']['reviews']:
-            if review['text']:
-                reviews.append(Review(author_name=review['author_name'], comment=review['text']))
+        try:
+            for review in details_response['result']['reviews']:
+                if review['text']:
+                    reviews.append(Review(author_name=review['author_name'], comment=review['text']))
+        except Exception:
+            print("No reviews.. Ignoring")
 
         photos = []
         try:
