@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.repository.entity.Krog;
 
 
-import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ActiveProfiles("test")
