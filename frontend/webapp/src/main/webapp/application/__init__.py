@@ -11,5 +11,5 @@ if sys.version[0] == '2':
     reload(sys)
     sys.setdefaultencoding("utf-8")
 
-app.config['SENTRY_RELEASE'] = os.environ.get('SENTRY_RELEASE', '0.0.1')
+app.config['SENTRY_RELEASE'] = os.environ.get('SENTRY_RELEASE', '0.0.2')
 sentry = Sentry(app)
