@@ -25,7 +25,6 @@ def random_page():
     form = SearchForm(request.form)
     print("FORMDATA: %s" % form.data)
     if form and form.searchtype.data == 'gps':
-        print("GPS")
         try:
             krog = get_result_from_google(form)
 
@@ -56,7 +55,6 @@ def random_page():
             ))
         return render_template('lista.html', data=krog_lista, **Helper().forms({'searchForm': form}))
     elif form and form.adress.data:
-        print("ADRESS")
         try:
             adress = urllib.quote(form.adress.data.encode('utf8'))
         except AttributeError: #if urllib.quote doesn't exist, it's python3, try urllib.parse.quote
@@ -83,7 +81,6 @@ def random_page():
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and ',' in form.stadsdel.data:
-        print("HEJ: " + form.stadsdel.data)
         try:
             form.latitude.data = form.stadsdel.data.split(',')[0]
             form.longitude.data = form.stadsdel.data.split(',')[1]
@@ -112,10 +109,13 @@ def get_search_response_from_google(form):
 
     print("SEARCHRESPONSE: %s" % search_response)
 
-    if search_response['status'] != 'OK' or not search_response['results']:
-        raise Exception("No results or wrong statuscode: %s" % search_response['status'])
-    else:
+    if search_response['status'] == 'OK' and search_response['results']:
         return search_response
+    elif search_response['status'] == 'ZERO_RESULTS': # If no results, increase distance and search again
+        form.distance.data = int(form.distance.data) + 500
+        return get_search_response_from_google(form)
+    else:
+        raise Exception("Wrong statuscode: %s" % search_response['status'])
 
 
 def get_details_response_from_google(place_id):
@@ -123,8 +123,6 @@ def get_details_response_from_google(place_id):
 
     if place_id:
         details_response = requests.get(GOOGLE_DETAILS % (place_id, API_KEY)).json()
-
-        print("DETAILS %s" % details_response)
 
         reviews = []
         try:
