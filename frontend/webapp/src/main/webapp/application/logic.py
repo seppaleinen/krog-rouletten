@@ -1,8 +1,7 @@
 # coding=UTF-8
 import random, requests, json, urllib, os
-from flask import render_template, request, redirect, url_for, jsonify, session
+from flask import render_template, request, redirect, url_for, jsonify, session, redirect, url_for
 from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
-from flask.ext import excel
 from haversine import haversine
 
 backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
@@ -32,7 +31,9 @@ def random_page():
             Helper().init_session()
             session[Helper().get_user_ip()] += krog.namn + ';'
 
-            return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
+            return redirect('/details/' + krog.place_id, 302)
+
+            # return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -77,7 +78,7 @@ def random_page():
                 Helper().init_session()
                 session[Helper().get_user_ip()] += krog.namn + ';'
 
-                return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
+                return redirect('/details/' + krog.place_id, 302)
             except Exception as e:
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -91,12 +92,12 @@ def random_page():
             Helper().init_session()
             session[Helper().get_user_ip()] += krog.namn + ';'
 
-            return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
+            return redirect('/details/' + krog.place_id, 302)
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
 
-    #Hell has frozen over
+    # Hell has frozen over
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
@@ -173,6 +174,7 @@ def get_details_response_from_google(place_id, form=None):
             betyg=rating,
             reviews=reviews,
             photos=photos,
+            place_id=details_response['result']['place_id'],
             distance=dist
         )
     return krog
@@ -214,74 +216,6 @@ def unapproved():
     return render_template('admin.html', kroglista=Helper.get_unapproved_krog_list(), **Helper().forms())
 
 
-def upload_csv():
-    csv_file = request.files['file']
-    if csv_file and '.csv' in csv_file.filename:
-        file_ = {'file': ('file', csv_file)}
-        try:
-            requests.post(backend_url + '/save/csv', files=file_)
-            return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms(
-                {'adminKrogForm': AdminKrogForm(request.form)})
-            )
-        except Exception:
-            return render_template('error.html', data='Nånting gick fel', **Helper().forms())
-    else:
-        return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm': AdminKrogForm(request.form)}))
-
-
-def save_krog():
-    form = AdminKrogForm(request.form)
-    if request.method == 'POST' and form.validate():
-        #If admin saves krog, automatically approve..
-        form.approved.data = True
-        requests.post(backend_url + '/save', json=form.data)
-    return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms({'adminKrogForm':form}))
-
-
-def update():
-    form = AdminKrogForm(request.form)
-    if request.form.get('update'):
-        if request.method == 'POST':
-            form.approved.data = True
-            requests.post(backend_url + '/update', json=form.data)
-        return redirect(url_for('admin'))
-    elif request.form.get('delete'):
-        requests.delete(backend_url + '/delete/krog', json=form.data)
-        return redirect(url_for('admin'))
-    elif request.form.get('approve'):
-        form.approved.data = True
-        requests.post(backend_url + '/update', json=form.data)
-        return redirect(url_for('unapproved'))
-
-
-def export_csv():
-    kroglist = requests.get(backend_url + '/export/csv').json()
-    data = [
-        ['id', 'namn', 'adress', 'oppet_tider', 'bar_typ', 'stadsdel', 'beskrivning', 'betyg', 'hemside_lank', 'intrade', 'iframe_lank', 'approved']
-    ]
-    for krog in kroglist:
-        print(krog)
-        data.append([
-                     krog['id'],
-                     krog['namn'],
-                     krog['adress'],
-                     krog['oppet_tider'],
-                     krog['bar_typ'],
-                     krog['stadsdel'],
-                     krog['beskrivning'],
-                     krog['betyg'],
-                     krog['hemside_lank'],
-                     krog['intrade'],
-                     krog['iframe_lank'],
-                     krog['approved']
-        ])
-
-    response = excel.make_response_from_array(data, 'csv')
-    response.headers["Content-Disposition"] = "attachment; filename=export.csv"
-    response.headers["Content-type"] = "text/csv"
-    return response
-
-
 def profile():
     return render_template('profile.html', **Helper().forms())
 
@@ -293,23 +227,6 @@ def error(error_msg):
 def details(place_id):
     krog = get_details_response_from_google(place_id)
     return render_template('krog.html', data=krog, **Helper().forms())
-
-
-def user_krog_save():
-    userKrogForm = UserKrogForm(request.form)
-    # Either form is valid, then close popup,
-    # otherwise re-render popup and keep open
-    print("Saving krog %s" % userKrogForm.data)
-    if request.method == 'POST' and userKrogForm.validate():
-        print('POST')
-        try:
-            userKrogForm.approved.data = False
-            requests.post(backend_url + '/save', json=userKrogForm.data)
-        except Exception:
-            pass
-        return render_template('index.html', **Helper().forms({'userKrogForm': userKrogForm}))
-    else:
-        return render_template('index.html', **Helper().forms({'userKrogForm': userKrogForm}))
 
 
 class Helper(object):
