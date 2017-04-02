@@ -3,6 +3,7 @@ import random, requests, json, urllib, os
 from flask import render_template, request, redirect, url_for, jsonify, session
 from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
 from flask.ext import excel
+from haversine import haversine
 
 backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
 API_KEY = os.getenv('MAPS_API_KEY')
@@ -118,7 +119,7 @@ def get_search_response_from_google(form):
         raise Exception("Wrong statuscode: %s" % search_response['status'])
 
 
-def get_details_response_from_google(place_id):
+def get_details_response_from_google(place_id, form=None):
     krog = None
 
     if place_id:
@@ -154,6 +155,14 @@ def get_details_response_from_google(place_id):
         except Exception:
             rating = "N/A"
 
+        dist = None
+        if form:
+            dist = Helper.calculate_distance_between_locations(
+                form.latitude.data,
+                form.longitude.data,
+                details_response['result']['geometry']['location']['lat'],
+                details_response['result']['geometry']['location']['lng'])
+
         krog = Krog(
             namn=details_response['result']['name'],
             bar_types=bar_types,
@@ -163,7 +172,8 @@ def get_details_response_from_google(place_id):
             iframe_lank=(GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY)),
             betyg=rating,
             reviews=reviews,
-            photos=photos
+            photos=photos,
+            distance=dist
         )
     return krog
 
@@ -186,7 +196,7 @@ def get_result_from_google(form):
 
     details_params = random_search_response['place_id']
 
-    return get_details_response_from_google(details_params)
+    return get_details_response_from_google(details_params, form)
 
 
 def admin():
@@ -335,5 +345,15 @@ class Helper(object):
         if user_ip not in session:
             session[user_ip] = ''
         return session[user_ip]
+
+    @staticmethod
+    def calculate_distance_between_locations(user_lat, user_lng, bar_lat, bar_lng):
+        user_loc = (float(user_lat), float(user_lng))
+        bar_loc = (float(bar_lat), float(bar_lng))
+        # Calculates distance between points rounded down to 1 decimal in km
+        distance_in_km = "{0:.1f}".format(haversine(user_loc, bar_loc))
+        # Returns e.g km if over one 1 km distance, otherwise in meters
+        return distance_in_km + 'km' if float(distance_in_km) > 1 else str((float(distance_in_km) * 1000)) + 'm'
+
 
 
