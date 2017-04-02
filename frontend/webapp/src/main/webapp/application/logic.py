@@ -26,14 +26,12 @@ def random_page():
     print("FORMDATA: %s" % form.data)
     if form and form.searchtype.data == 'gps':
         try:
-            krog = get_result_from_google(form)
+            place_id = get_result_from_google(form)
 
             Helper().init_session()
-            session[Helper().get_user_ip()] += krog.namn + ';'
+            session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + krog.place_id, 302)
-
-            # return render_template('krog.html', data=krog, **Helper().forms({'searchForm': form}))
+            return redirect('/details/' + place_id, 302)
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -73,12 +71,12 @@ def random_page():
                 print("ADRESS:%s LAT:%s LNG:%s" % (form.adress.data, form.latitude.data, form.longitude.data))
 
             try:
-                krog = get_result_from_google(form)
+                place_id = get_result_from_google(form)
 
                 Helper().init_session()
-                session[Helper().get_user_ip()] += krog.namn + ';'
+                session[Helper().get_user_ip()] += place_id + ';'
 
-                return redirect('/details/' + krog.place_id, 302)
+                return redirect('/details/' + place_id, 302)
             except Exception as e:
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -87,12 +85,12 @@ def random_page():
             form.latitude.data = form.stadsdel.data.split(',')[0]
             form.longitude.data = form.stadsdel.data.split(',')[1]
             print("FORM2: %s" % form.data)
-            krog = get_result_from_google(form)
+            place_id = get_result_from_google(form)
 
             Helper().init_session()
-            session[Helper().get_user_ip()] += krog.namn + ';'
+            session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + krog.place_id, 302)
+            return redirect('/details/' + place_id, 302)
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -186,7 +184,7 @@ def get_result_from_google(form):
     # Remove earlier search results from new search to remove duplicates
     result_list_without_earlier = []
     for result in search_response['results']:
-        if not result['name'] in session[Helper().get_user_ip()].split(';'):
+        if not result['place_id'] in session[Helper().get_user_ip()].split(';'):
             result_list_without_earlier.append(result)
 
     # If there are any results after trimming duplicates, else redo with duplicates
@@ -196,9 +194,7 @@ def get_result_from_google(form):
         print("Already been through all")
         random_search_response = random.choice(search_response['results'])
 
-    details_params = random_search_response['place_id']
-
-    return get_details_response_from_google(details_params, form)
+    return random_search_response['place_id']
 
 
 def admin():
