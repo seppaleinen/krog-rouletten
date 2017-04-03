@@ -8,7 +8,7 @@ backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
 API_KEY = os.getenv('MAPS_API_KEY')
 MAPS_EMBED_KEY = 'AIzaSyDMtS6rg17-Tr2neNR0b0RSgrF5RxmfUhQ'
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
-GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&key=%s'
+GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&language=sv&key=%s'
 GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
@@ -31,7 +31,7 @@ def random_page():
             Helper().init_session()
             session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + place_id, 302)
+            return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -76,7 +76,7 @@ def random_page():
                 Helper().init_session()
                 session[Helper().get_user_ip()] += place_id + ';'
 
-                return redirect('/details/' + place_id, 302)
+                return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
             except Exception as e:
                 print("EXCEPTION: %s" % e)
                 return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -90,7 +90,7 @@ def random_page():
             Helper().init_session()
             session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + place_id, 302)
+            return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
         except Exception as e:
             print("EXCEPTION: %s" % e)
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
@@ -118,7 +118,7 @@ def get_search_response_from_google(form):
         raise Exception("Wrong statuscode: %s" % search_response['status'])
 
 
-def get_details_response_from_google(place_id, form=None):
+def get_details_response_from_google(place_id, location=None):
     krog = None
 
     if place_id:
@@ -154,12 +154,13 @@ def get_details_response_from_google(place_id, form=None):
         except Exception:
             rating = "N/A"
 
-        dist = Helper.calculate_distance_between_locations(
-            form.latitude.data,
-            form.longitude.data,
-            details_response['result']['geometry']['location']['lat'],
-            details_response['result']['geometry']['location']['lng']) \
-            if form else None
+        dist = None
+        if location:
+            dist = Helper.calculate_distance_between_locations(
+                location.split(',')[0],
+                location.split(',')[1],
+                details_response['result']['geometry']['location']['lat'],
+                details_response['result']['geometry']['location']['lng'])
 
         krog = Krog(
             namn=details_response['result']['name'],
@@ -219,8 +220,8 @@ def error(error_msg):
     return render_template('error.html', data=error_msg, **Helper().forms())
 
 
-def details(place_id):
-    krog = get_details_response_from_google(place_id)
+def details(place_id, location):
+    krog = get_details_response_from_google(place_id, location)
     return render_template('krog.html', data=krog, **Helper().forms())
 
 

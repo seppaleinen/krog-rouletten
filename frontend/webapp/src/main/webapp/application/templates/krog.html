@@ -108,7 +108,9 @@
                 <p class="text-muted"style="text-align:left !important;">
                     {{ data.adress }}
                 <br/><br/>
+                {% if data.distance %}
                     {{ data.distance }}
+                {% endif %}
 
                 {% for type in data.bar_types %}
 
