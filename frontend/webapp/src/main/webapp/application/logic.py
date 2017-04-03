@@ -154,13 +154,12 @@ def get_details_response_from_google(place_id, form=None):
         except Exception:
             rating = "N/A"
 
-        dist = None
-        if form:
-            dist = Helper.calculate_distance_between_locations(
-                form.latitude.data,
-                form.longitude.data,
-                details_response['result']['geometry']['location']['lat'],
-                details_response['result']['geometry']['location']['lng'])
+        dist = Helper.calculate_distance_between_locations(
+            form.latitude.data,
+            form.longitude.data,
+            details_response['result']['geometry']['location']['lat'],
+            details_response['result']['geometry']['location']['lng']) \
+            if form else None
 
         krog = Krog(
             namn=details_response['result']['name'],

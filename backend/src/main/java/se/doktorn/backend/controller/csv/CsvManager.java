@@ -12,17 +12,6 @@ import java.util.regex.Pattern;
 @Component
 @Log
 public class CsvManager {
-    private static final String NAMN = "namn";
-    private static final String ADRESS = "adress";
-    private static final String OPPET_TIDER = "oppet_tider";
-    private static final String BAR_TYP = "bar_typ";
-    private static final String STADSDEL = "stadsdel";
-    private static final String BESKRIVNING = "beskrivning";
-    private static final String BETYG = "betyg";
-    private static final String HEMSIDE_LANK = "hemside_lank";
-    private static final String INTRADE = "intrade";
-    private static final String IFRAME_LANK = "iframe_lank";
-
     public Krog parseKrog(String string) throws Exception {
         log.info("Parsing line: " + string);
         String[] split = string.split(",", -1);
@@ -65,14 +54,12 @@ public class CsvManager {
     }
 
     public String parseIframeLink(String iframeLank) {
-        final String IFRAME_START = "iframe src=\"";
-        final String IFRAME_END   = "\" width=";
+        final String iframeStart = "iframe src=\"";
+        final String iframeEnd   = "\" width=";
 
-        if(iframeLank != null) {
-            if (iframeLank.contains(IFRAME_START)) {
-                iframeLank = iframeLank.split(IFRAME_START)[1];
-                iframeLank = iframeLank.split(IFRAME_END)[0];
-            }
+        if(iframeLank != null && iframeLank.contains(iframeStart)) {
+            iframeLank = iframeLank.split(iframeStart)[1];
+            iframeLank = iframeLank.split(iframeEnd)[0];
         }
 
         return iframeLank;

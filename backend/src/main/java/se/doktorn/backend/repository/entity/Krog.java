@@ -30,7 +30,6 @@ public class Krog {
     private String hemside_lank;
     private String intrade;
     private String iframe_lank;
-    //@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.WRAPPER_OBJECT, property = "x")
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2D)
     private Point location;
     private boolean approved;
