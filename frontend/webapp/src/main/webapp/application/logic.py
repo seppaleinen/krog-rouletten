@@ -13,6 +13,7 @@ GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&se
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
 GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=%s&key=%s'
+GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=340&photoreference=%s&key=%s'
 
 
 def home():
@@ -47,6 +48,13 @@ def random_page():
                 result['geometry']['location']['lat'],
                 result['geometry']['location']['lng'])
 
+            photo = None
+            try:
+                for photo_ref in result['photos']:
+                    photo = GOOGLE_PLACES_LIST_PHOTO % (photo_ref['photo_reference'], API_KEY)
+            except Exception:
+                photo = '/static/img/bg2.jpeg'
+
             krog_lista.append(Krog(
                 namn=result['name'],
                 bar_types='',
@@ -56,7 +64,7 @@ def random_page():
                 iframe_lank='',
                 betyg='',
                 reviews='',
-                photos='',
+                photos=photo,
                 distance=dist,
                 place_id=result['place_id']
             ))

@@ -26,11 +26,12 @@
 
 
                     {% for krog in data %}
-                    <div style="text-align:left; margin:5%; border-radius:3px; background: #efefef; width:100%; height:100%; max-width:340px; padding:20px;">
+                    <div style="text-align:left; margin:5%; border-radius:3px; width:100%; height:100%; max-width:340px; background-image: url('{{ krog.photos }}'); background-repeat: no-repeat;">
                         <form id="list-form-{{ krog.place_id }}" role="form" method="get" action="/details/{{ krog.place_id }}">
-                            <div onClick="document.forms['list-form-{{ krog.place_id }}'].submit();">
+                            <div onClick="document.forms['list-form-{{ krog.place_id }}'].submit();" style="background-image: url('{{ krog.photos }}'); background-repeat: no-repeat; background-position:center;">
                                 <span hidden>{{ krog.place_id }}</span>
-                                <div align="left" width="*" style=""><strong>{{ krog.namn }}</strong><br/>
+                                <div align="left">
+                                    <strong>{{ krog.namn }}</strong> <br/>
                                     {{ krog.adress }} <strong>{{ krog.distance }}</strong>
                                 </div>
                             </div>
