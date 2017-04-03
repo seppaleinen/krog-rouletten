@@ -2,16 +2,11 @@ package se.doktorn.backend.controller;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import se.doktorn.backend.controller.csv.CsvManager;
-import se.doktorn.backend.domain.Search;
 import se.doktorn.backend.repository.entity.Krog;
 import se.doktorn.backend.repository.KrogRepository;
 
@@ -20,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -63,11 +57,11 @@ public class KrogController {
 
             for(String line : br.lines().skip(1).collect(Collectors.toList())) {
                 log.log(Level.FINE, "Reading line: " + line);
-                //namn;adress;oppet_tider;bar_typ;stadsdel;beskrivning;betyg;hemside_lank;intrade;iframe_lank;
+                // namn;adress;oppet_tider;bar_typ;stadsdel;beskrivning;betyg;hemside_lank;intrade;iframe_lank
                 krogList.add(csvManager.parseKrog(line));
             }
         } catch (IOException e) {
-            log.log(Level.SEVERE, "Import failed: " + e.getMessage());
+            log.log(Level.SEVERE, "Import failed: " + e.getMessage(), e);
         }
 
         krogRepository.save(krogList);
