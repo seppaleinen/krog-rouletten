@@ -23,13 +23,10 @@ services:
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"
-    links:
-      - backend:backend
     volumes:
       - /webapp/application/static
     environment:
       - MAPS_API_KEY=${MAPS_API_KEY}
-      - BACKEND_URL=http://backend:10080
       - SENTRY_DSN=https://5f31608fe1c24d2cbbf384e412c0e8c3:77adde0716644851b8d963af9d8b753e@sentry.io/98425
       - SENTRY_RELEASE=0.0.2
     command: gunicorn --config=gunicorn.config.py wsgi:app
