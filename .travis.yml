@@ -8,6 +8,10 @@ dist: trusty
 services:
   - docker
 
+branches:
+  only:
+  - master
+
 addons:
   apt:
     packages:
