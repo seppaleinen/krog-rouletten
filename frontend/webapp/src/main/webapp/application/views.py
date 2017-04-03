@@ -37,6 +37,7 @@ def error(error_msg):
     return logic.error(error_msg)
 
 
-@app.route('/details/<place_id>')
-def details(place_id):
-    return logic.details(place_id)
+@app.route('/details/<place_id>', defaults={'location': None})
+@app.route('/details/<place_id>/<location>')
+def details(place_id, location):
+    return logic.details(place_id, location)
