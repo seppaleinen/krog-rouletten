@@ -41,6 +41,14 @@ def random_page():
         search_response = get_search_response_from_google(form)
         krog_lista = []
         for result in search_response['results']:
+            dist = None
+            if form:
+                dist = Helper.calculate_distance_between_locations(
+                    form.latitude.data,
+                    form.longitude.data,
+                    result['geometry']['location']['lat'],
+                    result['geometry']['location']['lng'])
+
             krog_lista.append(Krog(
                 namn=result['name'],
                 bar_types='',
@@ -51,9 +59,11 @@ def random_page():
                 betyg='',
                 reviews='',
                 photos='',
+                distance=dist,
                 place_id=result['place_id']
             ))
-        return render_template('lista.html', data=krog_lista, **Helper().forms({'searchForm': form}))
+
+        return render_template('lista.html', data=sorted(krog_lista, key=lambda x: x.distance), **Helper().forms({'searchForm': form}))
     elif form and form.adress.data:
         try:
             adress = urllib.quote(form.adress.data.encode('utf8'))

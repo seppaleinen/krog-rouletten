@@ -31,7 +31,7 @@
                             <div onClick="document.forms['list-form-{{ krog.place_id }}'].submit();">
                                 <span hidden>{{ krog.place_id }}</span>
                                 <div align="left" width="*" style=""><strong>{{ krog.namn }}</strong><br/>
-                                    {{ krog.adress }}
+                                    {{ krog.adress }} <strong>{{ krog.distance }}</strong>
                                 </div>
                             </div>
                         </form>
