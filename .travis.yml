@@ -49,10 +49,10 @@ after_success:
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 # docker push backend
-  - export BACKEND_REPO=seppaleinen/krogrouletten-backend
-  - docker tag $BACKEND_REPO $BACKEND_REPO:$TAG
-  - docker tag $BACKEND_REPO $BACKEND_REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $BACKEND_REPO
+#  - export BACKEND_REPO=seppaleinen/krogrouletten-backend
+#  - docker tag $BACKEND_REPO $BACKEND_REPO:$TAG
+#  - docker tag $BACKEND_REPO $BACKEND_REPO:travis-$TRAVIS_BUILD_NUMBER
+#  - docker push $BACKEND_REPO
 # docker push webapp
   - export WEBAPP_REPO=seppaleinen/krogrouletten-webapp
   - docker tag $WEBAPP_REPO $WEBAPP_REPO:$TAG
@@ -60,4 +60,4 @@ after_success:
   - docker push $WEBAPP_REPO
 # ssh into server and run deployscript
   - export SSHPASS=$DEPLOY_PASS
-  - sshpass -e ssh -o stricthostkeychecking=no $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git pull; docker-compose kill; docker ps -a | grep -E 'backend|webapp' | awk '{print $1}' | xargs docker rm -f; docker-compose pull && docker-compose build && docker-compose up -d && docker images -qf 'dangling=true' | xargs docker rmi -f"
+  - sshpass -e ssh -o stricthostkeychecking=no $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && git pull; docker-compose pull && docker-compose up -d --build && docker system prune -f"

@@ -22,11 +22,6 @@ def settings():
     return logic.settings()
 
 
-@app.route('/admin/unapproved')
-def unapproved():
-    return logic.unapproved()
-
-
 @app.route('/profile')
 def profile():
     return logic.profile()

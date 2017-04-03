@@ -4,7 +4,6 @@ from flask import render_template, request, redirect, url_for, jsonify, session,
 from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
 from haversine import haversine
 
-backend_url = os.getenv('BACKEND_URL', 'http://localhost:10080')
 API_KEY = os.getenv('MAPS_API_KEY')
 MAPS_EMBED_KEY = 'AIzaSyDMtS6rg17-Tr2neNR0b0RSgrF5RxmfUhQ'
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
@@ -214,7 +213,7 @@ def get_result_from_google(form):
 
 
 def admin():
-    return render_template('admin.html', kroglista=Helper.get_krog_list(), **Helper().forms())
+    return render_template('admin.html', kroglista=[], **Helper().forms())
 
 
 def settings():
@@ -222,10 +221,6 @@ def settings():
     print("FORMDATA: %s" % form.data)
 
     return render_template('settings.html', **Helper().forms({'searchForm': form}))
-
-
-def unapproved():
-    return render_template('admin.html', kroglista=Helper.get_unapproved_krog_list(), **Helper().forms())
 
 
 def profile():
@@ -249,22 +244,9 @@ class Helper(object):
         return forms
 
     @staticmethod
-    def get_krog_list():
-        try:
-            return requests.get("%s/find/all/approved" % backend_url).json()
-        except Exception:
-            return []
-
-    @staticmethod
-    def get_unapproved_krog_list():
-        try:
-            return requests.get("%s/find/all/unapproved" % backend_url).json()
-        except Exception:
-            return []
-
-    @staticmethod
     def get_user_ip():
-        # Try to get HTTP_X_REAL_IP, if not available, try get environment variable REMOTE_ADDR else get variable remote_addr
+        # Try to get HTTP_X_REAL_IP, if not available,
+        # try get environment variable REMOTE_ADDR else get variable remote_addr
         # Due to different levels of proxies.
         return request.environ.get('HTTP_X_REAL_IP', request.environ.get('REMOTE_ADDR', request.remote_addr))
 
