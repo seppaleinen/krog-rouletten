@@ -8,7 +8,12 @@ $(document).ready(function() {
         $("#hidden_submit").click();
     }
     function onError(error) {
-        document.location = "/error/GPSERROR:" + error.message;
+        console.log(error.message);
+        if(error.code == error.PERMISSION_DENIED) {
+            document.location = "/error/" + encodeURIComponent('Tillstånd att kolla din GPS behövs för den funktionen');
+        } else {
+            document.location = "/error/" + encodeURIComponent('Det gick inte att hämta dina koordinater');
+        }
     }
     var options = {
         enableHighAccuracy: true,
