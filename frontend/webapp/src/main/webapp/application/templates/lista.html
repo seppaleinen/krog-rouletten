@@ -8,12 +8,6 @@
 </div>
 {%- endmacro %}
 
-{% macro render_radio(field) -%}
-<div class="radio  clearfix">
-    {{ field(class_='form-control', **kwargs) }}
-</div>
-{%- endmacro %}
-
 <div style="text-align: center;">
     <h3>Lista på närmsta barer</h3>
 </div>
@@ -23,7 +17,6 @@
         <div class="tab-content text-center">
             <div class="tab-pane active form-group label-floating" id="narmsta">
                 {% if data|length > 1 %}
-
 
                     {% for krog in data %}
                     <div style="text-align:left; margin:5%; border-radius:3px; width:100%; height:100%; max-width:340px; background-image: url('{{ krog.photos }}'); background-repeat: no-repeat;">
@@ -38,7 +31,6 @@
                         </form>
                     </div>
                     {% endfor %}
-
 
                 {% endif %}
 

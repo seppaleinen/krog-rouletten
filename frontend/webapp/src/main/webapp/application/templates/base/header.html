@@ -1,57 +1,17 @@
-{% macro render_field(field, label_visible=true) -%}
-<div class="form-group label-floating {% if field.errors %}has-error{% endif %} {{ kwargs.pop('class_', '') }}">
-    {% if field.type != 'HiddenField' and label_visible %}
-    <label for="{{ field.id }}" class="control-label">{{ field.label }}</label>
-    <br/>
-    {% endif %}
-    {{ field(class_='form-control', **kwargs) }}
-    {% if field.errors %}
-    {% for e in field.errors %}
-    <p class="help-block" style="color:red">{{ e }}</p>
-    {% endfor %}
-    {% endif %}
-</div>
-{%- endmacro %}
-
-
 <!-- Menyn -->
 <div style="background-color: #e200fd; height:70px; width:100%; max-width:800px;" id="topbar_1">
     <nav class="navbar navbar-primary" style="position:fixed; z-index:1; width:100%; max-width:800px;">
         <div class="container" style="width:100%; max-width:800px;">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-transparent">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="/"><b>Krogrouletten</b></a>
             </div>
 
             <div class="collapse navbar-collapse"  style="text-align:right;" id="example-navbar-transparent">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/" >
+                        <a href="/">
                             Hem &nbsp;
                             <i class="material-icons">home</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/admin" id="adminpage">
-                            Admin &nbsp;
-                            <i class="material-icons">settings</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="nykrog" data-toggle="modal" data-target="#addkrog">
-                            Ny krog &nbsp;
-                            <i class="material-icons">add</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/profile">
-                            Profil &nbsp;
-                            <i class="material-icons">account_circle</i>
                         </a>
                     </li>
                 </ul>
@@ -59,39 +19,16 @@
         </div>
     </nav>
 </div>
-<!-- End Navbar Transparent-->
 
-
-
-<!-- end navbar -->
-<!-- Navbar Transparent -->
+<!-- Undermeny -->
 <nav id="bottombar_1" class="navbar navbar-primary" style="position:fixed;  bottom:-28px; right:0px; z-index:100; width:auto; border-radius:0px; ">
     <div class="container" style="width:100%;">
-
         <div class="collapse navbar-collapse"  style="text-align:right;" id="example-navbar-transparent1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="/" >
                         Hem &nbsp;
                         <i class="material-icons">home</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin">
-                        Admin &nbsp;
-                        <i class="material-icons">settings</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#addkrog">
-                        Ny krog &nbsp;
-                        <i class="material-icons">add</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="/profile">
-                        Profil &nbsp;
-                        <i class="material-icons">account_circle</i>
                     </a>
                 </li>
             </ul>
@@ -106,28 +43,3 @@
         </div>
     </div>
 </nav>
-
-
-<!-- Modal Core -->
-<div class="modal fade" id="addkrog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" style="margin-left:auto !important;margin-right:auto !important; max-width:320px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Lägg till krog</h4>
-            </div>
-            <form method="post" action="/krog/save">
-                <div class="modal-body">
-                    {{ render_field(userKrogForm.namn) }}
-                    {{ render_field(userKrogForm.adress, id="user_krog_adress", list="user_krog_adress_list") }}
-                    <datalist id="user_krog_adress_list"></datalist>
-                    {{ render_field(userKrogForm.beskrivning) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Avbryt</button>
-                    <input id="user_krog_submit" type="submit" value="Spara" class="btn btn-info btn-simple"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

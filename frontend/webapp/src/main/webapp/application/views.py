@@ -22,11 +22,6 @@ def settings():
     return logic.settings()
 
 
-@app.route('/profile')
-def profile():
-    return logic.profile()
-
-
 @app.route('/error/<error_msg>')
 def error(error_msg):
     return logic.error(error_msg)
