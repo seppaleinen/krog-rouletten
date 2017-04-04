@@ -18,161 +18,65 @@
 
 <!-- Tabs with icons on Card -->
 <br/><br/>
-<h3 style="text-align:center;">Sök inställningar</h3><br/>
-<br/>
-<div class="card card-nav-tabs card-plain" style="  width:90%; margin-left:5%;  box-shadow: 0 0 0 0 !important; margin-bottom:70px;">
-    <div id="settings_topmenu"class="header header-success">
-  <div class="nav-tabs-navigation">
-      <div class="nav-tabs-wrapper">
-          <ul class="nav nav-tabs" data-tabs="tabs">
-                <li class="active">
-                    <a href="#gps" role="tab" data-toggle="tab">
-                        <i class="material-icons">place</i>
-                        Min plats
-                    </a>
-                </li>
-                <li>
-                    <a href="#plats" role="tab" data-toggle="tab">
-                        <i class="material-icons">map</i>
-                        Annan Plats
-                    </a>
-                </li>
-                <li>
-                    <a href="#favoriter" role="tab" data-toggle="tab">
-                        <i class="material-icons">favorite</i>
-                        Favoriter
-                    </a>
-                </li>
-                <li>
-                    <a href="#list" role="tab" data-toggle="tab">
-                        <i class="material-icons">assignment</i>
-                        Lista
-                    </a>
-                </li>
-            </ul>
-          </div>
-      </div>
-    </div>
-            <form role="form" method="post" action="/krog/random">
-              <div class="content">
-                <div class="tab-content text-center" style="margin-bottom:70px;">
-                    <div class="tab-pane active form-group label-floating" id="gps">
-                        <br/>
-                        <h4 style="font-weight:400;">
-                            <i class="material-icons">check</i>Slumpa inom radien av:
-                        </h4>
+<h3 style="text-align:center;">Sök inställningar</h3>
+<div style="width:90%; margin-left:5%;  box-shadow: 0 0 0 0 !important; margin-bottom:70px;">
+    <form id="settings_form" role="form" method="post" action="/krog/random">
+        <div class="content">
+            <div style="margin-bottom:70px;">
 
-                        <div class="form-group center" style="width:80%; margin-left:10%;">
-                            <div>
-                                {{render_field(searchForm.distance, id="distance")}}
-                            </div>
+                <div class="form-group label-floating text-center" id="gps">
+                    <br/>
+                    <h4 style="font-weight:400;">
+                        <i class="material-icons">check</i>Slumpa inom radien av:
+                    </h4>
+
+                    <div class="form-group center" style="width:80%; margin-left:10%;">
+                        <div>
+                            {{render_field(searchForm.distance, id="distance", class="text-center")}}
                         </div>
-                    </div>
-
-                    <div class="tab-pane text-center" id="plats">
-                        <!-- Tabs on Plain Card -->
-                        <div class="card card-nav-tabs card-plain" style="width:90%;">
-                            <div id="settings_submenu1"class="header header-success">
-                                <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="active"><a href="#adress" data-toggle="tab">Adress</a></li>
-                                            <li><a href="#stadsdel" data-toggle="tab">Stadsdel</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="tab-content text-center">
-                                    <div class="tab-pane active form-group label-floating" id="adress">
-                                        <div>
-                                            <div>
-                                                <label class="control-label" style="left:0px;">Adress</label>
-                                                {{ render_field(searchForm.adress, id="sok_adress", size="40", list="search_adress_list") }}
-                                                <datalist id="search_adress_list"></datalist>
-
-                                                <input id="findByAdress" type="submit" class="btn btn-default" value="Hitta adress">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="stadsdel">
-                                        <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa på stadsdel</h4>
-                                        <div style="text-align:left !important; padding:10%; color:#000000 !important;">
-                                            <h4>
-                                                <div id="stadsdel_div">
-                                                    {{ render_field(searchForm.stadsdel) }}
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <br/>
-                                                    <input id="findByStadsdel" type="submit" class="btn btn-default" value="Sök">
-                                                </div>
-                                            </h4>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Tabs on plain Card -->
-
-                    </div>
-
-                    <div class="tab-pane text-center" id="favoriter">
-                        <!-- Tabs on Plain Card -->
-                        <div class="card card-nav-tabs card-plain" style="width:90%;">
-                            <div id="settings_submenu2"class="header header-success">
-                                <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="active"><a href="#favorit_alla" data-toggle="tab">Alla Favoriter</a></li>
-                                            <li><a href="#favorit_inom" data-toggle="tab">Avstånd</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="tab-content text-center">
-                                    <div class="tab-pane active form-group label-floating" id="favorit_alla">
-                                        <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa mellan alla dina favoriter</h4>
-                                    </div>
-                                    <div class="tab-pane form-group label-floating" id="favorit_inom">
-                                        <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa favoriter inom:</h4>
-
-                                        <div class="form-group center" style="width:80%; margin-left:10%;">
-                                            <div>
-                                                <select class="form-control" id="distance_" name="distance" style="font-size:18px;"><option value="0.1">100m</option><option value="0.2">200m</option><option value="0.3">300m</option><option value="0.5">500m</option><option selected="" value="1">1 km</option><option value="3">3 km</option><option value="5">5 km</option><option value="8">8 km</option></select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Tabs on plain Card -->
-                    </div>
-
-                    <div class="tab-pane text-center" id="list">
-                        <!-- Tabs on Plain Card -->
-                        <h3>Lista på närmsta barer</h3>
-                        <div class="card card-nav-tabs card-plain" style="width:90%;">
-                            <div class="content">
-                                <div class="tab-content text-center">
-                                    <div class="tab-pane active form-group label-floating" id="narmsta">
-                                        <button id="findLista" type="button" class="btn btn-default">
-                                            Lista närmsta
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Tabs on plain Card -->
                     </div>
                 </div>
-              </div>
-            </form>
+
+                <div class="text-center" id="plats">
+                    <!-- Tabs on Plain Card -->
+                    <div style="width:90%;">
+                        <div class="content">
+                            <div class="text-center">
+                                <div id="stadsdel">
+                                    <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa på stadsdel</h4>
+                                    <div id="stadsdel_div" style="!important; color:#000000 !important;">
+                                        <h4>
+                                            {{ render_field(searchForm.stadsdel, class="text-center") }}
+                                            <input id="findByStadsdel" type="submit" class="btn btn-default" value="Sök">
+                                        </h4>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabs on plain Card -->
+
+                </div>
+
+                <div class="text-center" id="list">
+                    <!-- Tabs on Plain Card -->
+                    <div style="width:90%;">
+                        <div class="content">
+                            <div class="text-center">
+                                <div class="form-group label-floating" id="narmsta">
+                                    <button id="findLista" type="button" class="btn btn-default">
+                                        Lista närmsta barer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabs on plain Card -->
+                </div>
+            </div>
+        </div>
+    </form>
 
 </div>
 
