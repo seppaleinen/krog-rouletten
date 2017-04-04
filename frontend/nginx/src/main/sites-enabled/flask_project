@@ -44,7 +44,8 @@ server {
     server_name krogrouletten;
     charset utf-8;
 
-    location .well-known/acme-challenge {
+    location ~ /.well-known {
+        allow all;
         default_type "text/plain";
         root /tmp/letsencrypt-auto;
     }
