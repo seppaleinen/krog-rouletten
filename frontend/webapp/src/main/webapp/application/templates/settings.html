@@ -46,8 +46,7 @@
                                     <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa på stadsdel</h4>
                                     <div id="stadsdel_div" style="!important; color:#000000 !important;">
                                         <h4>
-                                            {{ render_field(searchForm.stadsdel, class="text-center") }}
-                                            <input id="findByStadsdel" type="submit" class="btn btn-default" value="Sök">
+                                            {{ render_field(searchForm.stadsdel, class="text-center", onClick="document.forms['settings_form'].submit();") }}
                                         </h4>
                                     </div>
                                 </div>
