@@ -22,6 +22,13 @@ class UnitTests(TestCase):
         result = self.client.get('/settings')
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('settings.html')
+        self.assertTrue('Sök inställningar' in result.data)
+
+    def test_error_page(self):
+        result = self.client.get('/error/error_msg')
+        self.assertEquals(STATUS_200, result.status)
+        self.assert_template_used('error.html')
+        self.assertTrue('error_msg' in result.data)
 
     @mock.patch('application.logic.requests')
     def test_details_page_without_location(self, mocked):

@@ -191,10 +191,7 @@ def admin():
 
 
 def settings():
-    form = SearchForm(request.form)
-    print("FORMDATA: %s" % form.data)
-
-    return render_template('settings.html', **Helper().forms({'searchForm': form}))
+    return render_template('settings.html', **Helper().forms({'searchForm': SearchForm(request.form)}))
 
 
 def error(error_msg):
