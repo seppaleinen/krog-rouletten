@@ -85,11 +85,6 @@
                         </a>
 
                     </li>
-                    <li>
-                        <a href="#" data-toggle="tab">
-                            <i class="material-icons">favorite_border</i><span class="text_labels" id="text_labels_favourite">Favorit</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -113,8 +108,7 @@
                 {% endif %}
 
                 {% for type in data.bar_types %}
-
-                <span style=" border-radius: 4px; background: #999999; padding: 5px; color:white;"># {{ type }}</span>
+                    <span style="border-radius: 4px; background: #999999; padding: 5px; color:white;"># {{ type }}</span>
                 {% endfor %}
 
                 </p><br/>
@@ -144,11 +138,6 @@
                         </div>
                     {% endfor %}
 
-
-                    <div style="border-radius: 6px;">
-
-
-                    </div>
                 </table>
                 {% endif %}
             </div>
