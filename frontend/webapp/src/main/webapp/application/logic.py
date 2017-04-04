@@ -1,7 +1,7 @@
 # coding=UTF-8
 import random, requests, json, urllib, os
 from flask import render_template, request, redirect, url_for, jsonify, session, redirect, url_for
-from application.model import AdminKrogForm, SearchForm, UserKrogForm, Krog, Review
+from application.model import SearchForm, Krog, Review
 from haversine import haversine
 
 API_KEY = os.getenv('MAPS_API_KEY')
@@ -69,32 +69,6 @@ def random_page():
             ))
 
         return render_template('lista.html', data=sorted(krog_lista, key=lambda x: x.distance), **Helper().forms({'searchForm': form}))
-    elif form and form.adress.data:
-        try:
-            adress = urllib.quote(form.adress.data.encode('utf8'))
-        except AttributeError: #if urllib.quote doesn't exist, it's python3, try urllib.parse.quote
-            adress = urllib.parse.quote(form.adress.data.encode('utf8'))
-        result = requests.get(GOOGLE_GEOCODE % adress)
-        if result.status_code == 200:
-            lat = result.json()
-
-            # I'm a lazy and inefficient bastard.. Take the last location from list
-            for place in lat['results']:
-                form.adress.data = place['formatted_address']
-                form.latitude.data = place['geometry']['location']['lat']
-                form.longitude.data = place['geometry']['location']['lng']
-                print("ADRESS:%s LAT:%s LNG:%s" % (form.adress.data, form.latitude.data, form.longitude.data))
-
-            try:
-                place_id = get_result_from_google(form)
-
-                Helper().init_session()
-                session[Helper().get_user_ip()] += place_id + ';'
-
-                return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
-            except Exception as e:
-                print("EXCEPTION: %s" % e)
-                return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and ',' in form.stadsdel.data:
         try:
             form.latitude.data = form.stadsdel.data.split(',')[0]
@@ -223,10 +197,6 @@ def settings():
     return render_template('settings.html', **Helper().forms({'searchForm': form}))
 
 
-def profile():
-    return render_template('profile.html', **Helper().forms())
-
-
 def error(error_msg):
     return render_template('error.html', data=error_msg, **Helper().forms())
 
@@ -239,7 +209,7 @@ def details(place_id, location):
 class Helper(object):
     @staticmethod
     def forms(kwargs={}):
-        forms = {'searchForm': SearchForm(), 'userKrogForm': UserKrogForm(), 'adminKrogForm': AdminKrogForm()}
+        forms = {'searchForm': SearchForm()}
         forms.update(kwargs)
         return forms
 

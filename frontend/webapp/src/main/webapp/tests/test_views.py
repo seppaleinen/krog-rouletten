@@ -18,6 +18,11 @@ class UnitTests(TestCase):
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('index.html')
 
+    def test_settings_page(self):
+        result = self.client.get('/settings')
+        self.assertEquals(STATUS_200, result.status)
+        self.assert_template_used('settings.html')
+
     @mock.patch('application.logic.requests')
     def test_details_page_without_location(self, mocked):
         file = os.path.join(os.path.dirname(__file__), 'google_details.txt')

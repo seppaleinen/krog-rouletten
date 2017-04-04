@@ -36,28 +36,6 @@ class SearchForm(Form):
     searchtype = HiddenField('searchtype')
 
 
-class AdminKrogForm(Form):
-    id = HiddenField('id')
-    namn = TextField('Namn', [validators.Required()])
-    adress = TextField('Adress')
-    oppetTider = TextField('Oppettider')
-    barTyp = TextField('Bartyp')
-    stadsdel = TextField('Stadsdel')
-    beskrivning = TextField('Beskrivning')
-    betyg = TextField('Betyg')
-    hemside_lank = TextField('Hemsida')
-    intrade = TextField('Intrade')
-    iframe_lank = TextField('Iframe lank', [validators.Required()])
-    approved = BooleanField('Approved')
-
-
-class UserKrogForm(Form):
-    namn = TextField('Krog namn', [validators.Required()])
-    adress = TextField('Adress eller plats', [validators.Required()])
-    beskrivning = TextField('Kommentar (frivilligt)')
-    approved = BooleanField('Approved')
-
-
 class Krog(object):
     def __init__(self, namn, bar_types, beskrivning, adress, oppet_tider, iframe_lank, betyg, reviews, photos, place_id='', distance=0.0):
         self.namn = namn
