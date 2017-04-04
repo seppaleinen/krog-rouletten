@@ -35,7 +35,7 @@
                     <img src="{{ photo }}" id="first-picture" alt="Awesome Image" style="margin-left: auto;margin-right: auto;">
 
                     <div class="carousel-caption" style=" height:100%; right:0% !important; left:0% !important; bottom: 0px !important; width:100%; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 13%,rgba(0,0,0,0.5) 100%);">
-<div class="carousel-caption" >
+                        <div class="carousel-caption" >
                         <h2 style="font-weight:400;">{{ data.namn }}</h2>
                       </div>
                     </div>
@@ -94,7 +94,6 @@
             <div class="tab-pane active" id="profile">
                 <!-- Profil -->
 
-
                 <button type="button" id="betyg-button" class="btn btn-xs btn-default btn-success" style="margin-left:12px; height:75px !important;width:75px !important; float:right; clear: both;"><b style="font-size:300%; font-weight:400;">{{ data.betyg }}</b><br/>BETYG</button>
 
                 <h4 style="text-align:left !important; font-weight:400;">
@@ -114,7 +113,9 @@
                 </p><br/>
                 <!-- Öppettider -->
                 {% if data.oppet_tider %}
-                <h4 style="text-align:left !important; font-weight:400;"><i class="material-icons">schedule</i>&nbsp;&nbsp;Öppettider</h4>
+                <h4 style="text-align:left !important; font-weight:400;">
+                    <i class="material-icons">schedule</i>&nbsp;&nbsp;Öppettider
+                </h4>
                 <p style="text-align:left !important;">
                     {% for opening_hour in data.oppet_tider %}
                         {{ opening_hour }} <br/>
@@ -126,25 +127,27 @@
 
                 <!-- Kommentarer -->
                 {% if data.reviews %}
-                <h4 id="messages" style="font-weight:400; text-align:left !important;"><i class="material-icons">chat</i>&nbsp;&nbsp;Senaste kommentarerna</h4>
-                <table class="table" style="text-align:left !important;">
+                <h4 id="messages" style="font-weight:400; text-align:left !important;">
+                    <i class="material-icons">chat</i>&nbsp;&nbsp;Senaste kommentarerna
+                </h4>
+                <div style="text-align:left !important;">
 
                     {% for review in data.reviews %}
                         <div style="font-weight:400; background:#F9F6ED; border-radius: 6px; padding 20px; margin:26px; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);">
-                            <div style="padding:20px;text-align:left !important;">{{ review.comment }}<br/>
-                            <div style="padding:20px;padding-bottom:0px;text-align:right !important;"><span style="line-height:200%;">
-                            - {{ review.author_name }}</span></div>
+                            <div style="padding:20px;text-align:left !important;">
+                                {{ review.comment }}
+                                <br/>
+                                <div style="padding:20px;padding-bottom:0px;text-align:right !important;">
+                                    <span style="line-height:200%;">
+                                        - {{ review.author_name }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
 
-                </table>
+                </div>
                 {% endif %}
-            </div>
-            <div class="tab-pane" id="tider">
-            </div>
-            <div class="tab-pane" >
-
             </div>
             <div class="tab-pane" id="karta">
                 <p>Karta</p>
@@ -154,7 +157,7 @@
 </div>
 <!-- End Tabs with icons on Card --
 >
-<!-- Modal Core -->
+<!-- Map Modal -->
 <div class="modal fade" id="KartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-top:10px !important; margin-left:auto !important;margin-right:auto !important; max-width:800px;">
         <div class="modal-content">
@@ -163,14 +166,11 @@
                 <iframe class="iframe1" src="{{ data.iframe_lank }}" width="100%" height="100%" frameborder="0" align="center" allowfullscreen=""></iframe>
             </div>
 
-
             <div class="modal-footer" style="padding:16px !important;">
                 <button type="button" class="btn btn-default btn-default" style="margin 16px !important;" data-dismiss="modal">Stäng</button>
             </div>
         </div>
     </div>
 </div>
-
-<!--Slut Slump knappen-->
 
 {% endblock %}

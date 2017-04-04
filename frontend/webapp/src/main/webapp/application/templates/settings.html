@@ -9,7 +9,7 @@
 {%- endmacro %}
 
 {% macro render_radio(field) -%}
-<div class="radio  clearfix">
+<div class="radio" style="color:#000000">
     {{ field(class_='form-control', **kwargs) }}
 </div>
 {%- endmacro %}
@@ -38,28 +38,21 @@
                 </div>
 
                 <div class="text-center" id="plats">
-                    <!-- Tabs on Plain Card -->
                     <div style="width:90%;">
                         <div class="content">
                             <div class="text-center">
                                 <div id="stadsdel">
                                     <h4 style="font-weight:400;"><i class="material-icons">check</i>Slumpa på stadsdel</h4>
-                                    <div id="stadsdel_div" style="!important; color:#000000 !important;">
-                                        <h4>
-                                            {{ render_field(searchForm.stadsdel, class="text-center", onClick="document.forms['settings_form'].submit();") }}
-                                        </h4>
-                                    </div>
+                                    <h4>
+                                        {{ render_radio(searchForm.stadsdel, class="text-center", onClick="document.forms['settings_form'].submit();") }}
+                                    </h4>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                    <!-- End Tabs on plain Card -->
-
                 </div>
 
                 <div class="text-center" id="list">
-                    <!-- Tabs on Plain Card -->
                     <div style="width:90%;">
                         <div class="content">
                             <div class="text-center">
@@ -71,7 +64,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Tabs on plain Card -->
                 </div>
             </div>
         </div>
