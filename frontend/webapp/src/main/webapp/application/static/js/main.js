@@ -39,7 +39,7 @@ $(document).ready(function() {
     });
 
     $("#distance").change(function() {
-        $("#hidden_distance").text($(this).val());
+        $("#hidden_distance").val($(this).val());
     });
 
     // Googlemaps datalist stuff
@@ -65,23 +65,4 @@ $(document).ready(function() {
             }
         }, "json");
     };
-
-    if (document.createElement("datalist").options) {
-        $('#sok_adress').on('input', function() {
-            var val = $(this).val();
-            generic_datalist_function(val, "#search_adress_list")
-        });
-        $('#user_krog_adress').on('input', function() {
-            var val = $(this).val();
-            generic_datalist_function(val, "#user_krog_adress_list")
-        });
-        $('#admin_ny_krog_adress').on('input', function() {
-            var val = $(this).val();
-            generic_datalist_function(val, "#admin_ny_krog_adress_list")
-        });
-        $('#admin_update_krog_adress').on('input', function() {
-            var val = $(this).val();
-            generic_datalist_function(val, "#admin_update_krog_adress_list")
-        });
-    }
 });
