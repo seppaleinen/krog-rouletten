@@ -11,6 +11,7 @@ GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placei
 GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
+GOOGLE_EMBEDDED_DIRECTIONS_MAPS = 'https://www.google.com/maps/embed/v1/directions?mode=%s&origin=%s&destination=place_id:%s&key=%s'
 GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=%s&key=%s'
 GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=340&photoreference=%s&key=%s'
 
@@ -26,7 +27,7 @@ def random_page():
     print("FORMDATA: %s" % form.data)
     if form and form.searchtype.data == 'gps':
         try:
-            place_id = get_result_from_google(form)
+            place_id = filter_search_from_previous_results(form)
 
             Helper().init_session()
             session[Helper().get_user_ip()] += place_id + ';'
@@ -38,7 +39,7 @@ def random_page():
     elif form and form.searchtype.data == 'list':
         Helper().init_session()
 
-        search_response = get_search_response_from_google(form)
+        search_response = search_google_and_broaden_if_no_results(form)
         krog_lista = []
         for result in search_response['results']:
             dist = Helper.calculate_distance_between_locations(
@@ -74,7 +75,7 @@ def random_page():
             form.latitude.data = form.stadsdel.data.split(',')[0]
             form.longitude.data = form.stadsdel.data.split(',')[1]
             print("FORM2: %s" % form.data)
-            place_id = get_result_from_google(form)
+            place_id = filter_search_from_previous_results(form)
 
             Helper().init_session()
             session[Helper().get_user_ip()] += place_id + ';'
@@ -88,7 +89,7 @@ def random_page():
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
 
 
-def get_search_response_from_google(form):
+def search_google_and_broaden_if_no_results(form):
     search_params = ''
     search_params += 'location=' + str(form.latitude.data) + ',' + str(form.longitude.data) + '&'
     search_params += 'radius=' + str(form.distance.data) + '&'
@@ -102,7 +103,7 @@ def get_search_response_from_google(form):
         return search_response
     elif search_response['status'] == 'ZERO_RESULTS': # If no results, increase distance and search again
         form.distance.data = int(form.distance.data) + 500
-        return get_search_response_from_google(form)
+        return search_google_and_broaden_if_no_results(form)
     else:
         raise Exception("Wrong statuscode: %s" % search_response['status'])
 
@@ -145,11 +146,22 @@ def get_details_response_from_google(place_id, location=None):
 
         dist = None
         if location:
+            lat=location.split(',')[0]
+            lng=location.split(',')[1]
+
             dist = Helper.calculate_distance_between_locations(
-                location.split(',')[0],
-                location.split(',')[1],
+                lat,
+                lng,
                 details_response['result']['geometry']['location']['lat'],
                 details_response['result']['geometry']['location']['lng'])
+            if 'km' in dist:
+                # Maybe should be driving...
+                iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % ('transit', lat + ',' + lng,place_id, MAPS_EMBED_KEY))
+            else:
+                iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % ('walking', lat + ',' + lng,place_id, MAPS_EMBED_KEY))
+
+        else:
+            iframe_lank = (GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY))
 
         krog = Krog(
             namn=details_response['result']['name'],
@@ -157,7 +169,7 @@ def get_details_response_from_google(place_id, location=None):
             beskrivning=details_response['result']['name'],
             adress=details_response['result']['formatted_address'],
             oppet_tider=opening_hours,
-            iframe_lank=(GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY)),
+            iframe_lank=iframe_lank,
             betyg=rating,
             reviews=reviews,
             photos=photos,
@@ -167,8 +179,8 @@ def get_details_response_from_google(place_id, location=None):
     return krog
 
 
-def get_result_from_google(form):
-    search_response = get_search_response_from_google(form)
+def filter_search_from_previous_results(form):
+    search_response = search_google_and_broaden_if_no_results(form)
 
     # Remove earlier search results from new search to remove duplicates
     result_list_without_earlier = []
