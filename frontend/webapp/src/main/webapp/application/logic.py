@@ -90,9 +90,10 @@ def random_page():
 
 
 def search_google_and_broaden_if_no_results(form):
+    distance = form.hidden_distance.data if form.hidden_distance.data else form.distance.data
     search_params = ''
     search_params += 'location=' + str(form.latitude.data) + ',' + str(form.longitude.data) + '&'
-    search_params += 'radius=' + str(form.distance.data) + '&'
+    search_params += 'radius=' + str(distance) + '&'
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
     print("API_KEY: %s" % API_KEY)
@@ -154,12 +155,8 @@ def get_details_response_from_google(place_id, location=None):
                 lng,
                 details_response['result']['geometry']['location']['lat'],
                 details_response['result']['geometry']['location']['lng'])
-            if 'km' in dist:
-                # Maybe should be driving...
-                iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % ('transit', lat + ',' + lng,place_id, MAPS_EMBED_KEY))
-            else:
-                iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % ('walking', lat + ',' + lng,place_id, MAPS_EMBED_KEY))
-
+            mode = 'transit' if 'km' in dist else 'walking'
+            iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % (mode, lat + ',' + lng,place_id, MAPS_EMBED_KEY))
         else:
             iframe_lank = (GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY))
 
