@@ -16,8 +16,6 @@ class SearchForm(Form):
         (5000, "5 km"),
         (8000, "8 km")],
         default=500)
-    gps = RadioField('gps', choices=[('value','description')])
-    adress = TextField('adress')
     stadsdel = RadioField('stadsdel', choices=[
         ('59.313748,18.070410', 'SÖDERMALM'), # Magnus Ladulåsgatan 65
         ('59.331931,18.026434', 'KUNGSHOLMEN'), # Drottningholmsvägen 35
@@ -31,8 +29,6 @@ class SearchForm(Form):
         ('restaurant',  'Restaurant'),
         ('night_club',  'Nattklubb')
     ])
-    oppet_tider = RadioField('oppet_tider')
-    earlier_search_results = HiddenField('earlier_search_results')
     searchtype = HiddenField('searchtype')
 
 
