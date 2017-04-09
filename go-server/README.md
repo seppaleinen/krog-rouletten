@@ -1,7 +1,7 @@
 ### Commands
 
 ```bash
-go build
+go build src/*.go
 
 go test
 ```
