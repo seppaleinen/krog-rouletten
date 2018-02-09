@@ -9,16 +9,31 @@ services:
     build: frontend/nginx/src/main
     image: seppaleinen/krogrouletten-nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "8081:8081"
     volumes:
-      - /www/static
-#      - /private/etc/letsencrypt:/private/etc/letsencrypt
-#      - /tmp/letsencrypt-auto:/tmp/letsencrypt-auto
-      - /opt/nginx:/opt/nginx
       - frontend:/webapp/application/static
     networks:
       - frontend
+    labels:
+      - "traefik.backend=nginx"
+      - "traefik.domain=docker.localhost"
+      - "traefik.frontend.rule=Host:nginx.docker.localhost"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.enable=true"
+
+  traefik:
+    build: frontend/traefik
+    image: seppaleinen/krogrouletten-traefik
+    command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    networks:
+      - frontend
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /dev/null:/traefik.toml
 
   webapp:
     restart: always
@@ -34,6 +49,9 @@ services:
       - SENTRY_DSN=https://5f31608fe1c24d2cbbf384e412c0e8c3:77adde0716644851b8d963af9d8b753e@sentry.io/98425
       - SENTRY_RELEASE=0.0.2
     command: gunicorn --config=gunicorn.config.py wsgi:app
+    labels:
+      - "traefik.backend=webapp"
+      - "traefik.frontend.rule=Host:docker.localhost"
 
 networks:
   frontend:
