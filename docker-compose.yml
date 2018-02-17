@@ -15,7 +15,6 @@ services:
       - /www/static
 #      - /private/etc/letsencrypt:/private/etc/letsencrypt
 #      - /tmp/letsencrypt-auto:/tmp/letsencrypt-auto
-      - /opt/nginx:/opt/nginx
       - frontend:/webapp/application/static
     networks:
       - frontend
