@@ -34,5 +34,5 @@ docker-compose up -d
 
 
 ```
-docker-compose stop && ../letsencrypt/letsencrypt-auto --renew-by-default certonly --server https://acme-v01.api.letsencrypt.org/directory -a webroot --webroot-path=/tmp/letsencrypt-auto --agree-dev-preview -d krogrouletten.se -d www.krogrouletten.se && docker-compose up -d
+letsencrypt/letsencrypt-auto --renew-by-default certonly --server https://acme-v01.api.letsencrypt.org/directory -a webroot --webroot-path=/tmp/letsencrypt-auto --agree-dev-preview -d krogrouletten.se -d www.krogrouletten.se && docker-compose restart nginx
 ```

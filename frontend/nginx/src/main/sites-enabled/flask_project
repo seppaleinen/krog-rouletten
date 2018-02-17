@@ -1,6 +1,6 @@
 server {
 
-    listen 443 ssl;
+    listen 443 ssl http2;
     server_name krogrouletten;
     charset utf-8;
 
@@ -18,6 +18,7 @@ server {
         proxy_cache STATIC;
         proxy_cache_valid 200 7d;
         add_header Cache-Control "public";
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
         alias /webapp/application/static;
     }
@@ -27,6 +28,7 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
     }
 
     location /admin {
@@ -34,6 +36,7 @@ server {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         auth_basic "Restricted Content";
         auth_basic_user_file /opt/nginx/.htpasswd;
     }
