@@ -4,23 +4,6 @@ volumes:
   frontend:
 
 services:
-  nginx:
-    restart: always
-    build: frontend/nginx/src/main
-    image: seppaleinen/krogrouletten-nginx
-    ports:
-      - "8081:8081"
-    volumes:
-      - frontend:/webapp/application/static
-    networks:
-      - frontend
-    labels:
-      - "traefik.backend=nginx"
-      - "traefik.domain=docker.localhost"
-      - "traefik.frontend.rule=Host:nginx.docker.localhost"
-      - "traefik.frontend.entryPoints=http"
-      - "traefik.enable=true"
-
   traefik:
     build: frontend/traefik
     image: seppaleinen/krogrouletten-traefik
@@ -35,8 +18,26 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /dev/null:/traefik.toml
 
+  nginx:
+    restart: always
+    build: frontend/nginx
+    image: seppaleinen/krogrouletten-nginx
+    ports:
+      - "8081:8081"
+    volumes:
+      - frontend:/webapp/application/static
+    networks:
+      - frontend
+    labels:
+      - "traefik.backend=nginx"
+      - "traefik.domain=docker.localhost"
+      - "traefik.frontend.rule=Host:nginx.docker.localhost"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.enable=true"
+
   webapp:
     restart: always
+    build: frontend/webapp
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"

@@ -38,13 +38,11 @@ before_install:
   - sudo pip install -r frontend/webapp/src/main/webapp/requirements.txt;
 
 script:
-  - mvn clean install;
 #  - sudo python frontend/webapp/src/main/webapp/runtests.py;
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH != "master" && exit
-  - mvn install -DskipTests=true -Pdocker
-  - echo "test"
+  - docker-compose build;
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
 # docker push webapp
