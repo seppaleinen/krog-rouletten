@@ -8,9 +8,9 @@ dist: trusty
 services:
   - docker
 
-branches:
-  only:
-  - master
+#branches:
+#  only:
+#  - master
 
 addons:
   apt:
