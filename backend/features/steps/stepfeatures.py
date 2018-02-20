@@ -34,25 +34,46 @@ def mocked_requests_get(*args, **kwargs):
 
 
 @given('google endpoint is mocked')
-def givenMockedEndpoint(context):
+def given_mocked_endpoint(context):
     response = None
 
 
+@given('requestdata is {requestData}')
+def given_mocked_endpoint(context, requestData):
+    context.request_data = requestData
+
+
 @when('calling GET on "{endpoint}"')
-def callEndpoint(context, endpoint):
-    with mock.patch('application.logic.requests.get', side_effect=mocked_requests_get) as mocked:
-        context.response = context.client.get(endpoint)
+def get_to_endpoint(context, endpoint):
+    with mock.patch('application.logic.requests.get', side_effect=mocked_requests_get, autospec=True) as mocked:
+        context.response = context.client.get(endpoint, follow_redirects=True)
+        context.mock = mocked
+
+
+@when('calling POST on "{endpoint}"')
+def post_to_endpoint(context, endpoint):
+    with mock.patch('application.logic.requests.get', side_effect=mocked_requests_get, autospec=True) as mocked:
+        context.response = context.client.post(endpoint,
+                                               follow_redirects=True,
+                                               data=context.request_data,
+                                               content_type='application/json')
         context.mock = mocked
 
 
 @then('"{expected_status}" should be the status')
-def expectedResponseStatus(context, expected_status):
+def expected_response_status(context, expected_status):
     assert_that(context.response.status, equal_to(expected_status))
 
 
+@then('these endpoints should have been called')
+def expected_response_status(context):
+    for row in context.table:
+        context.mock.assert_called_with(row['url'])
+
+
 @then('"{expectedText}" should be in body')
-def expectedBody(context, expectedText):
+def expected_body(context, expectedText):
     body = context.response.get_data(as_text=True)
-    assert_that(body, contains_string(expectedText))
+    assert_that(body, contains_string(expectedText), body)
 
 

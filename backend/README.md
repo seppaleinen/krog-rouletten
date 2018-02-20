@@ -1,42 +1,41 @@
 # API
 
 
-[https://golang.org/doc/install](https://golang.org/doc/install)
-or with homebrew on mac
-```bash
-brew install go
-```
+Framework:	Flask
+
+Language:	Javascript/Python
+
+Dependencies: [Python](https://www.python.org/downloads)
 
 ### Endpoints are:
 ```
-GET http://localhost:8080/
-GET http://localhost:8080/todos
-POST http://localhost:8080/todos
-GET http://localhost:8080/todos/{id}
+GET http://localhost:8000/error/<message>
+POST http://localhost:8000/krog/random
+POST http://localhost:8000/details/<place_id>
+POST http://localhost:8000/details/<place_id>/<location>
 ```
 
-### JSON Object
-{"id":2,"name":"Name","completed":false,"due":"0001-01-01T00:00:00Z"}
-
+### Commands to test
 ```bash
 # To check that server is up
-curl 'http://localhost:8080/'
+curl 'http://localhost:8000/error/hello'
 # To add entry
-curl -X POST 'http://localhost:8080/todos' -d '{"name":"Name","completed":false,"due":"0001-01-01T00:00:00Z"}'
+curl -X POST 'http://localhost:8000/krog/random' -d '{"searchtype": "gps", "distance": 200, "latitude": "59.33228889999999", "longitude": "18.0734164"}'
 # To get entry
-curl 'http://localhost:8080/todos/1' 
+curl -X POST 'http://localhost:8000/details/ChIJkYdudFudX0YRlbnhiqyWAuE' 
 # To list all entries
-curl 'http://localhost:8080/todos'
+curl -X POST 'http://localhost:8000/details/ChIJkYdudFudX0YRlbnhiqyWAuE/59.33228889999999,18.0734164'
 ```
 
 ### Commands
 
 ```bash
-make
+# To install libs
+pip3 install -r requirements.txt
 
-make release
+# To run tests
+behave
 
-go build -o api src/*.go 
-
-go test src/*.go
+# To start server
+gunicorn --config=gunicorn.config.py wsgi:app
 ```

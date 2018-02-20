@@ -1,14 +1,13 @@
 # coding=UTF-8
 import random, requests, json, urllib, os, jsonpickle
 from flask import render_template, request, redirect, url_for, jsonify, session, redirect, url_for
-from application.model import SearchForm, Krog, Review
+from application.model import Krog, Review
 from haversine import haversine
 
 API_KEY = os.getenv('MAPS_API_KEY')
 MAPS_EMBED_KEY = 'AIzaSyDMtS6rg17-Tr2neNR0b0RSgrF5RxmfUhQ'
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
 GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&language=sv&key=%s'
-GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
 GOOGLE_EMBEDDED_DIRECTIONS_MAPS = 'https://www.google.com/maps/embed/v1/directions?mode=%s&origin=%s&destination=place_id:%s&key=%s'
@@ -17,23 +16,24 @@ GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?max
 
 
 def random_page():
-    form = SearchForm(request.form)
-    if form and form.searchtype.data == 'gps':
+    form = request.data
+
+    if form and form['searchtype'] == 'gps':
         try:
             place_id = filter_search_from_previous_results(form)
 
-            session[Helper().get_user_ip()] += place_id + ';'
+            #session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
+            return details(place_id, form['latitude'] + ',' + form['longitude'])
         except Exception as e:
             return redirect('/error/nocando', 302)
-    elif form and form.searchtype.data == 'list':
+    elif form and form['searchtype'] == 'list':
         search_response = search_google_and_broaden_if_no_results(form)
         krog_lista = []
         for result in search_response['results']:
             dist = Helper.calculate_distance_between_locations(
-                form.latitude.data,
-                form.longitude.data,
+                form['latitude'],
+                form['longitude'],
                 result['geometry']['location']['lat'],
                 result['geometry']['location']['lng'])
 
@@ -59,26 +59,26 @@ def random_page():
             ))
 
         return jsonpickle.encode(sorted(krog_lista, key=lambda x: x.distance))
-    elif form and ',' in form.stadsdel.data:
+    elif form and ',' in form['stadsdel']:
         try:
-            form.latitude.data = form.stadsdel.data.split(',')[0]
-            form.longitude.data = form.stadsdel.data.split(',')[1]
+            form['latitude'] = form['stadsdel'].split(',')[0]
+            form['longitude'] = form['stadsdel'].split(',')[1]
             place_id = filter_search_from_previous_results(form)
 
             session[Helper().get_user_ip()] += place_id + ';'
 
-            return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
+            return details(place_id, form['latitude'] + ',' + form['longitude'])
         except Exception as e:
             return redirect('/error/nocando', 302)
 
     # Hell has frozen over
-    return redirect('/error/Error', 302)
+    return redirect('/error/Error', 500)
 
 
 def search_google_and_broaden_if_no_results(form):
-    distance = form.hidden_distance.data if form.hidden_distance.data else form.distance.data
+    distance = form['distance']
     search_params = ''
-    search_params += 'location=' + str(form.latitude.data) + ',' + str(form.longitude.data) + '&'
+    search_params += 'location=' + str(form['latitude']) + ',' + str(form['longitude']) + '&'
     search_params += 'radius=' + str(distance) + '&'
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
@@ -86,7 +86,7 @@ def search_google_and_broaden_if_no_results(form):
     if search_response['status'] == 'OK' and search_response['results']:
         return search_response
     elif search_response['status'] == 'ZERO_RESULTS': # If no results, increase distance and search again
-        form.distance.data = int(form.distance.data) + 500
+        form['distance'] = int(form['distance']) + 500
         return search_google_and_broaden_if_no_results(form)
     else:
         raise Exception("Wrong statuscode: %s" % search_response['status'])
@@ -161,12 +161,11 @@ def get_details_response_from_google(place_id, location=None):
 
 def filter_search_from_previous_results(form):
     search_response = search_google_and_broaden_if_no_results(form)
-
     # Remove earlier search results from new search to remove duplicates
     result_list_without_earlier = []
-    for result in search_response['results']:
-        if not result['place_id'] in session[Helper().get_user_ip()].split(';'):
-            result_list_without_earlier.append(result)
+    #for result in search_response['results']:
+    #    if not result['place_id'] in session[Helper().get_user_ip()].split(';'):
+    #        result_list_without_earlier.append(result)
 
     # If there are any results after trimming duplicates, else redo with duplicates
     if result_list_without_earlier:

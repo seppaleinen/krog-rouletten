@@ -2,9 +2,20 @@ import tempfile
 from application import app
 
 
+class my_proxy_hack(object):
+
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        environ['REMOTE_ADDR'] = environ.get('REMOTE_ADDR', '127.0.0.1')
+        return self.app(environ, start_response)
+
+
 def before_feature(context, feature):
     app.testing = True
     app.config['TESTING'] = True
+    app.wsgi_app = my_proxy_hack(app.wsgi_app)
     app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
     context.client = app.test_client()
 
