@@ -1,8 +1,13 @@
 # krog-rouletten
 Krogrouletten
 
+<a href="https://requires.io/github/seppaleinen/krog-rouletten/requirements/?branch=api"><img src="https://requires.io/github/seppaleinen/krog-rouletten/requirements.svg?branch=api" alt="Requirements Status" /></a>
+
+
 [Installing git](htts://git-scm.com/download/win)
+
 [Installing docker](https://www.docker.com/)
+
 [Installing docker-compose](https://docs.docker.com/compose/)
 
 
