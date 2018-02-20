@@ -6,7 +6,7 @@ volumes:
 services:
   nginx:
     restart: always
-    build: frontend/nginx/src/main
+    build: frontend/nginx
     image: seppaleinen/krogrouletten-nginx
     ports:
       - "80:80"
@@ -21,6 +21,7 @@ services:
 
   webapp:
     restart: always
+    build: frontend/webapp
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"
