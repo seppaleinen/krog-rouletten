@@ -13,7 +13,7 @@ def error(error_msg):
     raise exceptions.APIException(error_msg)
 
 
-@app.route('/details/<place_id>', defaults={'location': None})
-@app.route('/details/<place_id>/<location>')
-def details(place_id, location):
-    return logic.details(place_id, location)
+#@app.route('/details/<place_id>', defaults={'location': None}, methods=['POST'])
+#@app.route('/details/<place_id>/<location>', methods=['POST'])
+#def details(place_id, location):
+#    return logic.details(place_id, location)

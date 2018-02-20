@@ -40,7 +40,9 @@ services:
     build: backend
     image: seppaleinen/krogrouletten-api
     ports:
-      - "8080:8080"
+      - "8002:8002"
+    environment:
+      - MAPS_API_KEY=${MAPS_API_KEY}
     networks:
       - frontend
     #command: gunicorn --config=gunicorn.config.py wsgi:app
