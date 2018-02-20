@@ -35,5 +35,15 @@ services:
       - SENTRY_RELEASE=0.0.2
     command: gunicorn --config=gunicorn.config.py wsgi:app
 
+  api:
+    restart: always
+    build: backend
+    image: seppaleinen/krogrouletten-api
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend
+    #command: gunicorn --config=gunicorn.config.py wsgi:app
+
 networks:
   frontend:
