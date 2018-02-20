@@ -38,6 +38,7 @@ before_install:
   - sudo pip install -r frontend/webapp/requirements.txt;
 
 script:
+  - sh -c 'cd backend && behave'
 #  - sudo python frontend/webapp/src/main/webapp/runtests.py;
 
 after_success:
