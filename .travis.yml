@@ -36,6 +36,7 @@ env:
 before_install:
   - sudo pip install --upgrade pip setuptools
   - sudo pip install -r frontend/webapp/requirements.txt;
+  - sudo pip install -r backend/requirements.txt;
 
 script:
   - sh -c 'cd backend && behave'
