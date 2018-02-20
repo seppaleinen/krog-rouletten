@@ -1,13 +1,12 @@
 package main
 
 import (
-	"log"
+	"api"
+	"fmt"
 	"net/http"
 )
 
 func main() {
-
-	router := NewRouter()
-
-	log.Fatal(http.ListenAndServe(":8080", router))
+	fmt.Println("Server starting")
+	http.ListenAndServe(":3000", api.Handlers())
 }
