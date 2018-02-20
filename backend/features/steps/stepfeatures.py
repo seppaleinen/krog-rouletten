@@ -38,9 +38,9 @@ def given_mocked_endpoint(context):
     response = None
 
 
-@given('requestdata is {requestData}')
-def given_mocked_endpoint(context, requestData):
-    context.request_data = requestData
+@given('requestdata is {request_data}')
+def given_mocked_endpoint(context, request_data):
+    context.request_data = request_data
 
 
 @when('calling GET on "{endpoint}"')

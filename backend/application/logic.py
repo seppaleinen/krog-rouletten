@@ -16,11 +16,12 @@ GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?max
 
 
 def random_page():
-    form = request.data
+    form = request.get_json(force=True)
 
     if form and form['searchtype'] == 'gps':
         try:
             place_id = filter_search_from_previous_results(form)
+            print(place_id)
 
             #session[Helper().get_user_ip()] += place_id + ';'
 
@@ -93,10 +94,12 @@ def search_google_and_broaden_if_no_results(form):
 
 
 def get_details_response_from_google(place_id, location=None):
+    print("Getting details")
     krog = None
 
     if place_id:
         details_response = requests.get(GOOGLE_DETAILS % (place_id, API_KEY)).json()
+        print("ReSPONSE")
 
         reviews = []
         try:
@@ -160,6 +163,7 @@ def get_details_response_from_google(place_id, location=None):
 
 
 def filter_search_from_previous_results(form):
+    print("SEARCH")
     search_response = search_google_and_broaden_if_no_results(form)
     # Remove earlier search results from new search to remove duplicates
     result_list_without_earlier = []
@@ -168,6 +172,7 @@ def filter_search_from_previous_results(form):
     #        result_list_without_earlier.append(result)
 
     # If there are any results after trimming duplicates, else redo with duplicates
+    print("asd")
     if result_list_without_earlier:
         random_search_response = random.choice(result_list_without_earlier)
     else:

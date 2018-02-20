@@ -20,7 +20,7 @@ POST http://localhost:8000/details/<place_id>/<location>
 # To check that server is up
 curl 'http://localhost:8002/error/hello'
 # To search for random bar
-curl -X POST 'http://localhost:8002/krog/random' -d '{"searchtype": "gps", "distance": 200, "latitude": "59.33228889999999", "longitude": "18.0734164"}'
+curl -X POST 'http://localhost:8002/krog/random' -d '{"data"={"searchtype": "gps", "distance": 200, "latitude": "59.33228889999999", "longitude": "18.0734164"}}'
 # To get list of nearby bars
 curl -X POST 'http://localhost:8002/krog/random' -d '{"searchtype": "gps", "distance": 200, "latitude": "59.33228889999999", "longitude": "18.0734164"}'
 ```
