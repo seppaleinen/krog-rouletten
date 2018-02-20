@@ -1,9 +1,10 @@
-FROM golang:1.10-alpine
+FROM jfloff/alpine-python:3.4
 
-COPY release/ /server/
+ADD . /webapp
 
-WORKDIR /server
+ENV PYTHONUNBUFFERED 0
 
-EXPOSE 8080
-
-ENTRYPOINT /server/api-v1.0.0-linux-amd64
+WORKDIR /webapp
+RUN pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
+    pip install -r requirements.txt
