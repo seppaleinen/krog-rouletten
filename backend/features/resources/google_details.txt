@@ -1,0 +1,251 @@
+{
+   "html_attributions" : [],
+   "result" : {
+      "address_components" : [
+         {
+            "long_name" : "8",
+            "short_name" : "8",
+            "types" : [ "street_number" ]
+         },
+         {
+            "long_name" : "Näckströmsgatan",
+            "short_name" : "Näckströmsgatan",
+            "types" : [ "route" ]
+         },
+         {
+            "long_name" : "Norrmalm",
+            "short_name" : "Norrmalm",
+            "types" : [ "sublocality_level_1", "sublocality", "political" ]
+         },
+         {
+            "long_name" : "Stockholm",
+            "short_name" : "Stockholm",
+            "types" : [ "locality", "political" ]
+         },
+         {
+            "long_name" : "Stockholm",
+            "short_name" : "Stockholm",
+            "types" : [ "postal_town" ]
+         },
+         {
+            "long_name" : "Stockholms län",
+            "short_name" : "Stockholms län",
+            "types" : [ "administrative_area_level_1", "political" ]
+         },
+         {
+            "long_name" : "Sweden",
+            "short_name" : "SE",
+            "types" : [ "country", "political" ]
+         },
+         {
+            "long_name" : "111 47",
+            "short_name" : "111 47",
+            "types" : [ "postal_code" ]
+         }
+      ],
+      "adr_address" : "\u003cspan class=\"street-address\"\u003eNäckströmsgatan 8\u003c/span\u003e, \u003cspan class=\"postal-code\"\u003e111 47\u003c/span\u003e \u003cspan class=\"locality\"\u003eStockholm\u003c/span\u003e, \u003cspan class=\"country-name\"\u003eSweden\u003c/span\u003e",
+      "formatted_address" : "Näckströmsgatan 8, 111 47 Stockholm, Sweden",
+      "formatted_phone_number" : "08-566 322 00",
+      "geometry" : {
+         "location" : {
+            "lat" : 59.33228889999999,
+            "lng" : 18.0734164
+         },
+         "viewport" : {
+            "northeast" : {
+               "lat" : 59.3323385,
+               "lng" : 18.0734758
+            },
+            "southwest" : {
+               "lat" : 59.33221489999998,
+               "lng" : 18.0732382
+            }
+         }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+      "id" : "1ac3a554f52ad2010b141e1462b18a183851f8a2",
+      "international_phone_number" : "+46 8 566 322 00",
+      "name" : "Berns",
+      "photos" : [
+         {
+            "height" : 2684,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAAMC3pLde7Z3VY_LJZl-HtTWavN9LxwzdZpMbR2MzpaxhUntp1Z14A-yL7NV2CcpImsBIQr-a0RIieFpKXX8aZMeSFtGC88Um2G4Bk0iwj1-gHqu8zF3XW8hMDOBHIZ62nPJk6xiaupR4njuz-czhh0iKF4uZiFUjZePrt6LBAakJEhCJpxycG0DCkoihonSEHoDfGhSoxKvniwC61TnHYnOcoN6k2HbT2g",
+            "width" : 2009
+         },
+         {
+            "height" : 3337,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAAFUYRh5pddwDscyvy39ywOMrumttmlb6C3JtG7d4iQVhM1FstkpRoNK0cd704NtaoX1zOwax7mVK0BQcWsjf9367OWRgCxpaiDeVqlw47tlg_6DjjH98U3WJG-2hegWuFCFiY4RXHe2fp-hpVbUvkZojaU7Py2B6SWhRbXBMV0vMEhDDa347MO56qrS36MxVhIDNGhS5D1gvvgYHHWZFq4dSUT0mSlDFEQ",
+            "width" : 5000
+         },
+         {
+            "height" : 1280,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAAA6EDcECDHaYyrLOe8BBMGEno-14vro2YZRgfOlK_Lg5y2kesdqJ4TdDF47e3xURdbSK0LhkzKB2gbrxg_jrUk2LDs9gSTxaEWT8sHox9hQHN8ZEFXJeVXC5h_rAZdwYmY5gB_NveJ4Mebs3FWBYVvUUEFPLrBXk9vZqus8h0PXfEhCRtpYjhVvw-L21JzF7nWYjGhTWkZElT0ztApuUl3CGzb-YmcjOhw",
+            "width" : 1920
+         },
+         {
+            "height" : 3265,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/108618177694476337420/photos\"\u003eNicholas Richter\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAABcyA_ZM3C6jzfTJRnk81Lzey0gNQS71FG-WsXyj3PIL0EmQPNJN4l1eo6YEj8a8pZ-pHK6VTL-SLnlNWjWIv-qgcBybXLPmpmJ-dAfLegPCJ1enpzAeruMrfXR3I-mY7_XpdHZnJRt55tra_dgVnwyDg6XqeMU8Ajy1XNnec3NOEhAfaOhwdE_gcLl_3j5yRioDGhT_MY0DLlkWArPi7F7_PE4LFi5Xyg",
+            "width" : 4898
+         },
+         {
+            "height" : 3562,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAABs6EwVWUOJdm9KhLgqK3waNrNY75GyIeyuCbwtGRX1TQajfzH1HbJTcPPGal_kBkU92WLnx73-e6hc8z3Uq9TNEeeqJlkO3uvXOwXZsgiDacTxtd2y03qgJrPdMPPiYe88ZZ8FCqsbYwTFdrC62vkVUejPaAEJHDvcuy_mCGYjTEhCHQ7aUoizpQVh3UhWmuDqoGhQhPpwpR9-wVWN131nfF22HGqfiig",
+            "width" : 5508
+         },
+         {
+            "height" : 2988,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/116751355744253869322/photos\"\u003eLeendert-Jan den Boer\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAAPbfOueiYYDaMHEY6nKJAapdIP9Se19TG1XlXyRI-svZbqoE-GYUIJoq7fwEePMYbpj3e9x5AZvA5N_8_ymwFR3jyVfVHo10SW9wjZvqsfnDM4iAihK2l9Owpn5lJUHiRVwGDUNjlAOAJ4PQoPoI6rgKZnNpvBl_082XupyJI1R1EhCSBahQCqcUOetOzylHm9-wGhTJwRca8RbL_wWPzHZzd5tOJkjjbQ",
+            "width" : 5312
+         },
+         {
+            "height" : 720,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAANCb8oI_VHPFP0_8SvTDNwCrEIG3nra2xJbPrZRTXD2pTRhwdrzMRnjTl0OC9sG3ClTHtM1H7Y_cZsoSapPvi4jb_GyGiIXuztaRAje4ZWWsgIvWB2Ym5ZJdhR0el8TYS40h0Z9p-plJ7ZNQ04Jn7GGgNrQCFKiaTaTFlJPx1XlTEhAFnJLGCp_RGMl9mhnri2pRGhSQLkSI82r3H2kZ_pYwiLclbZxZ0A",
+            "width" : 1080
+         },
+         {
+            "height" : 2204,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/116407739226950082250/photos\"\u003eMona Devall\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAACGKSgiMy6x9OUUya4Sro0fatzX6N-eYYtj6r4bWehnPSlwVIApPLwc9XnAT23fB-yOZUz9QcZIAmNbq2VMM_WCPNoSKoHfhH1YcpAgTcgaDXLdQcmYOS_k8ZfLTUxRH8L56O9FrvamsolB2qbYxyGm3GJubT4XwXmTwz3FfEzL9EhCwQ0M_1z89tPoJWsGDVewRGhTZwtZnvYx1dGgkuWoQWVAZYK_f4g",
+            "width" : 3920
+         },
+         {
+            "height" : 3265,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/108618177694476337420/photos\"\u003eNicholas Richter\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAADQ7IBelbouPyGErDjfgTpYKSacsnW6Bg3umAfGuCIyNnz4314C6m7iXGmBXepSdIBZizfA9HOfLWxEhk0cvvc2Ju8AO6CZHJsGud4MNyFeqOzrwlanyJ-W4NrpPg3fnyCe2HEs1T-VnP4iajYMawYqAF-z0RvCUoVrEhyuczZ-yEhA0Q6okMspJuFLdtOc1UJRVGhRWWKt_SPbKUk14ggui4oay1WsAgQ",
+            "width" : 4898
+         },
+         {
+            "height" : 2268,
+            "html_attributions" : [
+               "\u003ca href=\"https://maps.google.com/maps/contrib/104000718999704910317/photos\"\u003epaul gallagher\u003c/a\u003e"
+            ],
+            "photo_reference" : "CoQBdwAAAKfQscZNS74NT7AEPUs2QYjRDtmH_8w0Nyk4C4qETsXs97ilvDKI5RR8ypoPhaUq7nYOZZ4zh2hMODt6-5a7nuk2QqkIWNb7pMTyJIdKJhUwHCtnvbLUsHyHEIkZYLYYbX7m3uQfV9TWh6ryQhOWeDt9YUELcbcDb-tnDqGozQ9ZEhDphjDDkksDZWCKQKjnbWr7GhQFB3TRcblFUW-tf19i25swmVygIA",
+            "width" : 4032
+         }
+      ],
+      "place_id" : "ChIJu-dN5ludX0YR5bHEIi3av_s",
+      "rating" : 4,
+      "reference" : "CmRSAAAAV_Uxxv9C20BcaGRoR41n0HKBq5qwq7EDh_zhh2U-vEfUpwWowIoctJEPzaqdALEr8rayHLafHYDaDO0cTgPfm0DE_QZl1BOxJ9x-Cba-GcbU5_EMoD91-t-9iJrxxtTwEhB0ttFVy4f3PMTE3YGHHQwfGhRA4qf39a1eIUCuIwLMDOEb1FEGXA",
+      "reviews" : [
+         {
+            "aspects" : [
+               {
+                  "rating" : 2,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "Bonyo Buogha",
+            "author_url" : "https://www.google.com/maps/contrib/115975170550656370642/reviews",
+            "language" : "en",
+            "profile_photo_url" : "//lh4.googleusercontent.com/-ylujTr6ul5w/AAAAAAAAAAI/AAAAAAAANh0/OAjoLH6WDsw/s128/photo.jpg",
+            "rating" : 4,
+            "relative_time_description" : "a month ago",
+            "text" : "It's an alright place. I spent about an hour there; there was no crowd there, but the barman was really cool - he had spent some of his time in Kenya and could speak some Swahili. The service of the rest of the team was also really good.",
+            "time" : 1481264821
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 3,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "Edon Luta",
+            "author_url" : "https://www.google.com/maps/contrib/106524801194925477854/reviews",
+            "language" : "en",
+            "profile_photo_url" : "//lh6.googleusercontent.com/-v9gp0QgWwq8/AAAAAAAAAAI/AAAAAAAAA88/aHHyuBLxfO4/s128/photo.jpg",
+            "rating" : 5,
+            "relative_time_description" : "3 weeks ago",
+            "text" : "The tasting menu was absolutely amazing! The tasting menu was so good.",
+            "time" : 1484211116
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 1,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "Allister Sykes",
+            "author_url" : "https://www.google.com/maps/contrib/109479791419048097042/reviews",
+            "language" : "en",
+            "rating" : 3,
+            "relative_time_description" : "a month ago",
+            "text" : "Hotel rooms are quite dated, but not too bad. Breakfast was good",
+            "time" : 1481128897
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 2,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "sQuirle W",
+            "author_url" : "https://www.google.com/maps/contrib/107680380114366939933/reviews",
+            "language" : "en",
+            "profile_photo_url" : "//lh4.googleusercontent.com/-uGYo_9AqeD4/AAAAAAAAAAI/AAAAAAAAEE0/fbKG6qM7yyI/s128/photo.jpg",
+            "rating" : 4,
+            "relative_time_description" : "4 months ago",
+            "text" : "Fantastic little boutique hotel in the smack middle of all action! Short walking distance to Stureplan, Gamla Stan, Ostermalm, Nodermalm, Skansen, and Sodermalm makes this an excellent stay of choice. \n\nRooms are well decorated and large window /balcony opens for fresh air. The bathroom is small and amenities outdated hence no 5 stars. ",
+            "time" : 1473342081
+         },
+         {
+            "aspects" : [
+               {
+                  "rating" : 2,
+                  "type" : "overall"
+               }
+            ],
+            "author_name" : "Deen Olokodana",
+            "author_url" : "https://www.google.com/maps/contrib/104211147270591544168/reviews",
+            "language" : "en",
+            "profile_photo_url" : "//lh3.googleusercontent.com/-9PP-g_r-y18/AAAAAAAAAAI/AAAAAAAAAXE/VQUN35zh22A/s128/photo.jpg",
+            "rating" : 4,
+            "relative_time_description" : "4 months ago",
+            "text" : "A Great Venue to Eat, Drink, Dance & Sleep if you need to. A High Quality Venue.",
+            "time" : 1474193207
+         }
+      ],
+      "scope" : "GOOGLE",
+      "types" : [
+         "night_club",
+         "bar",
+         "lodging",
+         "restaurant",
+         "food",
+         "point_of_interest",
+         "establishment"
+      ],
+      "url" : "https://maps.google.com/?cid=18140457711463346661",
+      "utc_offset" : 60,
+      "vicinity" : "Näckströmsgatan 8, Stockholm",
+      "website" : "http://www.berns.se/en"
+   },
+   "status" : "OK"
+}

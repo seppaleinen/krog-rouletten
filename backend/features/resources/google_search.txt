@@ -1,0 +1,923 @@
+{
+   "html_attributions" : [],
+   "next_page_token" : "CoQC_QAAAOefVkIiumMYhxX_6lFOUrJfSjCdc9F_HrTQgYDxn5sad1QzH2UvICv1VaKuDGEty9BuLTGOX4TyysjFZFM76FzIAYUg-gMMNrOQMtx-800OJSyy7Kr1ueYGfKdAsLSywE7nQOvQjUYV1ofiJ9FroZl9oxkpT65SOTflmByHS0KiN8AB0EgpqE-p2FVVFoec6cC7K6KMyNEgr--NOcsQ5KHpTVTm9jS6WjSnaV56PlFikGbToc6q2JT59QhYoksA2LqId_ZLv_zhbNmuN-u_Fi9QGU8aoZzGYoAT-xvwljqTbRdsMU3DvEb5KStddQrWuaXyDfUEHyZIQ21U_f0BPQsSEN_bA4NF3ZOkfVnXC0_PFn4aFESIK4HsbXfa9RpmlfiVxT3O_jzh",
+   "results" : [
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3347348,
+               "lng" : 18.075138
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33481905000001,
+                  "lng" : 18.0751879
+               },
+               "southwest" : {
+                  "lat" : 59.33470325,
+                  "lng" : 18.07509110000001
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "acf12ce13e635bf732c7c4fea47bc4c82fe5a08a",
+         "name" : "Story Hotel",
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107862688788189595889/photos\"\u003eRobin Åhman\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAANuVb49CZeKcYC3Yu8uHhFAGczeD8woYMK6h13ti4yV32NqeJKjLcDUj85smfMa5e16_CkPkDzRJ7WV8Xh7yac87DtyCcjC1LJskIuI6-mpzbuFq5q1ld4UmBq7HJRvAR4gELnCU-Rrq8zq0RmpbCBzuWJy61UXSb7Sakd6stAM2EhDf_N6rcA0Mu48i-oCsL-OMGhRnn7OmIAn4ZB4eibtetVN_AZOuEg",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJkYdudFudX0YRlbnhiqyWAuE",
+         "rating" : 4.1,
+         "reference" : "CmRSAAAAyRkGnftuUk6aZ6bDrU8XIZN_5wK6rTNhWOQ3PHcNKZDH7alu6X7ekdJpNxTFvrvjuS1hWULOdW2QPX6InbEHPmGjj2PstNZmb9akJJSeZUsatYgvQNgueukuoFF-xQCKEhDVJ8v0GB0XRMIPtdT0gv4xGhTdFK4MjPesL6i5lo8tZwCAi2oqpw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Riddargatan 6, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.33228889999999,
+               "lng" : 18.0734164
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.3323385,
+                  "lng" : 18.0734758
+               },
+               "southwest" : {
+                  "lat" : 59.33221489999998,
+                  "lng" : 18.0732382
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "1ac3a554f52ad2010b141e1462b18a183851f8a2",
+         "name" : "Berns",
+         "photos" : [
+            {
+               "height" : 2684,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/101141806667299823453/photos\"\u003eBerns Hotel\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAADd86AC56_6vwQBPYMfMqiCFqYEoo0PsiymiB8rfWJ7Xqwq1bClTYw7z5I5lWtQqltZWGaYNLnaz1_89-fXj7iiRjTt6EscQkML2h0a3kzu8v8COloPA7_5QbnaJRpK6oOPNWjGppV2kygpMvKeeLf8Y9aFPb6XSnEzOo8RQ30qREhBqHSlR6rbLVzpJRMTPkrkFGhQnzeehUREUp7GEod-sGrXfzJMjJA",
+               "width" : 2009
+            }
+         ],
+         "place_id" : "ChIJu-dN5ludX0YR5bHEIi3av_s",
+         "rating" : 4,
+         "reference" : "CmRSAAAAu1ClsEAJ53_R_OndqOHlKZAOTFlJb44s2Tre02utVW6ZDB7S1QDTHX5XlXdmlqWjJkaj4GPegDJK19Qn-rg2SUS_rItsv2BMBih3hVK9hemS5CBYoKK7AdxkQBqi_1_iEhAzo52OlEmTlOswdgRwg1BzGhTvMSaTy5bseAPY_W8_bpUAmxdtEw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "night_club",
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Näckströmsgatan 8, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.337039,
+               "lng" : 18.072964
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.337312,
+                  "lng" : 18.0730184
+               },
+               "southwest" : {
+                  "lat" : 59.33694799999999,
+                  "lng" : 18.0728008
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "93f75acb89dcb4aef0252f2e791d4d0bca5c54a5",
+         "name" : "Scandic Anglais",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 722,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116385314705520961552/photos\"\u003eScandic Anglais\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAI46_ZPnix017WEAhRL1MGA_Z5Gz0H64FIoSvDzldlQ1CP2ubFbyUyGnbAWsZZ16bsk0rVGYSc4P_PMAxKxv4G3qk1SiZOJAzr9p1DFCPncuVV__oEPiGC185ADHs5xlLqys9dNdYqfmJUnrG22FUziDU3V_ZT5MyO3dsD6Xe5UKEhBj19uGSs99VIkyR3ZPJtH6GhQAztI-jaRkXt5SQ4vqiBkN6CpBOQ",
+               "width" : 1087
+            }
+         ],
+         "place_id" : "ChIJ7YzPsFydX0YR6tMPR1jggrI",
+         "rating" : 3.9,
+         "reference" : "CmRSAAAAqSn-XQDULfSJDBOHZr81bpKNJ7EPc5klfVxkuBG8hd_9Np1x3wJaJ7EJX16IU-lgifkQulV60uPHnFACs1jYCrUgVdWH-CRO0FqZ-Qdekhb5Z1Rx_Dg0ICkjpEWhLpb6EhDsjvaA9zGq2J9yg9iY6vW5GhTCR3kL2mPmJvE94XpbSdF6z6dwCg",
+         "scope" : "GOOGLE",
+         "types" : [
+            "gym",
+            "bar",
+            "spa",
+            "lodging",
+            "health",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Humlegårdsgatan 23, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.34091789999999,
+               "lng" : 18.0754479
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.34102034999999,
+                  "lng" : 18.07578554999999
+               },
+               "southwest" : {
+                  "lat" : 59.34061054999999,
+                  "lng" : 18.07533535
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "66da2301a7a8b24045a11025c64f1ccb43009536",
+         "name" : "Scandic Park",
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/101052509481472718093/photos\"\u003ePeter Lynch\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAOl773JldVjR7NvIpvrW0Qd8xEVZqoqRXyBVrNND5GSa3ot_eXv4AeTdTArH4Je4c3bpnAFT-Ew_dXXHBMgpBAqokWc_STxNyySjh4cu7jZNAMfAA80FEijgBcAeDjd08JZ8-dGMyS3pav9DemS-Rkq7RWcC-LY3wxcnzq8mTdRBEhBIu2fOFD0aIfcMjRxIVsPsGhQSvTR6JfxLWuhbSh_2sgPdNqWk0g",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJddSAmUOdX0YRI-lTSB3w96Y",
+         "rating" : 4,
+         "reference" : "CmRSAAAArpo4yADnzPLaE67W9biB_EU4TppYQw6Y4Fsjlr6P70mQNLlOa8mqIwql0OYcNEf05fRCd1G4ZqLbCRCdJspnxPKMffLPw2xuatrQeSeQupXHVvqsy_-iwafcqwHvysjVEhAi8xlSnhTI9voQxVJ6lFB3GhTjjwj4THmQWtjQKB6LNRKQa3nD3Q",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Karlavägen 43, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3254362,
+               "lng" : 18.0753853
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.32549275000001,
+                  "lng" : 18.0757014
+               },
+               "southwest" : {
+                  "lat" : 59.32541735,
+                  "lng" : 18.0752526
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "89e502694b0f97fe48d5e961d3cb6d9dae3df149",
+         "name" : "First Hotel Reisen",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 558,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107339505981632971171/photos\"\u003eFirst Hotel Reisen\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAOlF0RbAxXjHQVV7OEgnw8ctXksvczHOdf0uCxkuvFncyQfnyV9I59gnq3--UxoaKfY22CTvSCM6oj6o8Wmp8DweShd5_4Fviefppa4CclX094RLw4z1XW3fjr_JxcrIPj3oPfVHbqGT2cqQwIcY_bKbKAvet7l6pjLG9jCtD2-JEhDC7ArYJCTDJLwc3q9wBMpyGhTt9S6dGSmgWn9MtkEwUOL2piz6hA",
+               "width" : 558
+            }
+         ],
+         "place_id" : "ChIJCROhqeJ3X0YRB-bAbUDczMs",
+         "rating" : 4,
+         "reference" : "CmRSAAAAPnWwT4J_lk3-ono9uSh_xpOY2M0_-u7uFG8Y0la5gQYw8UH-DEhYEwpeTmdIEj3bl6g586KATUDYz1l62mX1Fj6G9127QFVFDJecgbCQ9nZFFA5UvrJC5SFAqh6R2-O3EhANf53UkncZGvBc8nxy82HGGhTq9TbQY3fniQsv58VHiFFoLxks8w",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "spa",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Skeppsbron 12, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3326009,
+               "lng" : 18.0569631
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33273439999999,
+                  "lng" : 18.0570231
+               },
+               "southwest" : {
+                  "lat" : 59.33220039999999,
+                  "lng" : 18.05678309999999
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "62a712497726160370ab3bcff9f053d24b41f6d4",
+         "name" : "Hotell i Stockholm | Nordic Light Hotel",
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112855633553277982595/photos\"\u003e전영춘\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAHVqRncdHuGTYYlTwbluQOfXoq--EwRNkZyCbd3nxdBVV3YFFYUFiBzZ9fJsS9daal4Zfiddl78zP67bme4VslpSbPgJ8qKTnh_3xvRpHljVPHyvof2IIpKo5zTXQPuhPRFZT7IWmlST8KzwzLU_qz0VWALkxXWptEaKVg0QEn48EhAsz5pwQVoJmJD6dW25M96vGhSpkwR0h3BcgIryyBOxcQy24c2unw",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJ2UT_f2CdX0YR7z_qs38zu2k",
+         "rating" : 4.1,
+         "reference" : "CmRRAAAAjpcc4YkIcIBbwcMcG4bOe3eDQPi1PmDHcqLT4Vb4CFzgjawPGzY286pzQEk2BZkngr9TkogvJnAoa4Ff6Nuw3dtmpqxa3uv6BefH0pqG6GZJZyI9qxHr1fdwuxP3O2zREhATa41Jg5WAmgKy_vghVmqxGhRFZuj9QAeKq6dSX_KD_TnA-ffcXQ",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Vasaplan 7, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.336763,
+               "lng" : 18.05634
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33687939999999,
+                  "lng" : 18.05637955
+               },
+               "southwest" : {
+                  "lat" : 59.33672419999999,
+                  "lng" : 18.05622134999999
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "bfaefb3c5ed78dc0b0f22dea99829e1e3ed96b3c",
+         "name" : "Scandic Norra Bantorget",
+         "photos" : [
+            {
+               "height" : 3120,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107216223616053006472/photos\"\u003eALAIN ANTHONY ALVAREZ SANTIVAÑEZ\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAJeSYrFPaDeCUgxbt1wBnVdZ78XF2nlUqv7aDwqeinUZ8CnC2RptDaB9f1uozI1Z1IX911PsdTrrxp_vlLKBix_TFuhZLuJEKSm_uK8AcOKbwuRJuJsv0uMhPC87moEWOI15yEKOjm1lYaDxcsieWcc1_4ValXiwN3exYdlZ32rkEhCGk150wWxHF4DKpcNPpvuEGhTuhDZZXyfycy13WrcCZxTE03ukzw",
+               "width" : 4208
+            }
+         ],
+         "place_id" : "ChIJ61ZIi2adX0YRJJzIuEbm-kU",
+         "rating" : 3.6,
+         "reference" : "CmRRAAAAzvLQdIigSkzKHwpRi84wxUNcW2I4aAAoiFx9zbXdVp5UuN4AD0_383RV4jeQR_VQoThefi2DjhSS1Nojxsl5JOTCTdG7DxCYbbhoHsAdn7W0Zq374vy2xPdoJAoJkqenEhDYftB8cuR3kspBUnlTHwMRGhRVM4XupHJexsNQDtXr4DjF9skFqw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Wallingatan 15, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.33478049999999,
+               "lng" : 18.0530906
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.3347948,
+                  "lng" : 18.05380024999999
+               },
+               "southwest" : {
+                  "lat" : 59.3347376,
+                  "lng" : 18.05285405
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "8a40d03e30256aab9695fd37fe884e89dbdb356d",
+         "name" : "Clarion Hotel Sign",
+         "photos" : [
+            {
+               "height" : 1508,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112222249262717559260/photos\"\u003eClarion Hotel Sign\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAACorvyhtnZTVhhfp7Tck0K6UJj1TTotTyPdR-QOwdrYF4l-zjKum3yDGSy0MAQ92ur7UCQafOvtLPi93_oXQMEzyIx6NV4xl-lFQfCCPpKw7UhTMWd-xehWyl39rUCX2UFK3dHMIAVk3jiwaiHisiHfnZ0E1bNNddNDyzAl6SlvrEhAuBIPUrDo0ULz8Pxj5qXMjGhTEpqC8SlLLlOvIf1SROWDYKZ1fCQ",
+               "width" : 1502
+            }
+         ],
+         "place_id" : "ChIJc7gNTWGdX0YRKG-_8pWA0rM",
+         "rating" : 4.1,
+         "reference" : "CmRSAAAAhf_s74Vv_uHBpQCcObXfmslf5Di9Q4dkwuXLHUmVcA-cshleM9bK9aKpXnhT7Wgr-5gzf6RuHNbIeWgfccNBgbAIgFb-nFY7IIP3Wu8wTDidoYq9QEtjv5DOVVWwShqOEhBm8hJGF1l6bhNl9wT7C3DbGhTL56ipjZuPgU-AnX9sNpdNFhwiqQ",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Östra Järnvägsgatan 35, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.325238,
+               "lng" : 18.09901
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.32525884999998,
+                  "lng" : 18.09946975
+               },
+               "southwest" : {
+                  "lat" : 59.32523104999999,
+                  "lng" : 18.09885675
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "88bbebecb54a45fd2b3de4f5aafa14c9618901a3",
+         "name" : "Scandic Hasselbacken",
+         "photos" : [
+            {
+               "height" : 2322,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/102438737164413242480/photos\"\u003eRoger Svensson\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAIOCqgGy3SyGfFlQktwsywbHLgLnrCgX82Lq0M9kljzdq4clayugX9vlbJiudmctTj90ChpQZ_t7ofMFn1YT-JIrXi1sOSzivRn0EwaKSiFvn_f-LQxrFbCQsrvDYVEl5Vuxb3DdeBrFYuQCZ1JkcYlC7MukvX4QShj60RVHJw_YEhDkmY67dn618qwh-fN_F5JvGhRxye1NtjUiBb3MQGOseuZ2zlPIuQ",
+               "width" : 4128
+            }
+         ],
+         "place_id" : "ChIJBaGvIauCX0YRtofOrK0-pVg",
+         "rating" : 3.9,
+         "reference" : "CmRRAAAADNGXCoctHFKW45y8gX_re8vqIIU7MsF5ZPFiI_3f-mNUdl41SwQoI5650a7Rhbm5IIIRjH47AvVPunEJd1HVrHxHewxiarIYaBXV2nDiqnbTscP85pA-6XtbY6yUMzy8EhAI4x3qPkD-JNpmsdQFJvzwGhQ0zqujnyIM8-pmetcoId_rL03WiQ",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Hazeliusbacken 20, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.34763100000001,
+               "lng" : 18.049193
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.34771440000001,
+                  "lng" : 18.0494417
+               },
+               "southwest" : {
+                  "lat" : 59.3473808,
+                  "lng" : 18.0491101
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "e3d707edf41b83c077d6a8117f946f9469105699",
+         "name" : "Best Western Plus Time Hotel",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 2916,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116192045796353476787/photos\"\u003eBest Western Plus Time Hotel\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAEMY7u0O9eMtJevNzF2upDbmh2rjqK4CP2U05fDtnZ59N9qFruWQ7oAaRAdwnxzrUxb19OBqWDGDgaJHu0iq0NoqxW9pVhoHNS7s1HIeMuZichOKS_3GVIrSpNGlA1Z5BcQzgzVyhoiAX9WLpKM1piH7UTqoVy9E-YNVd9dDTNv9EhDrON635Qfs_p2-GCHU-GovGhTB1kkK3tqeug8MKMSBR8D5ZJaJBQ",
+               "width" : 5184
+            }
+         ],
+         "place_id" : "ChIJP0lkGHKdX0YRUU1S6dCWwR4",
+         "rating" : 4.2,
+         "reference" : "CmRRAAAA0Y4Uf8TP2Hx15eQA69UCHtsQ2q1pzTjk7CGY10fGfXEXyHOatmI82te-AwfF3FTGf7mAapYKLlzwwKNUpD4WyygbdSxgOsvwoij56gwcViZc-nf4UyfBu_gMPv7dr5EhEhA0jQkh8WDGwdjrEuMbAc8xGhQqzqZPFSKh9bHxq4FKtssOydqNGA",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "spa",
+            "real_estate_agency",
+            "lodging",
+            "health",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Vanadisvägen 12, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.314581,
+               "lng" : 18.073646
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.31460394999998,
+                  "lng" : 18.0738509
+               },
+               "southwest" : {
+                  "lat" : 59.31451215,
+                  "lng" : 18.0730313
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "060bded01e2a7e7bd558a4bc3c6c13f1b3322bd4",
+         "name" : "Scandic Malmen",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1158,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107258346699941797289/photos\"\u003eDavid Ljungström\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAMuSA6e49nhJKt1Msxz48TLIW0EwRX5GRrilWeS1EIpenqwgkrd1AD1N1R8D4lkh1bttFJi8beEqoaegxUNvGOHOjBvroPA5sMSGFYv103-u-dVSQ58oIFJfZ7WsGLp3FEfHmAWHgkj_7BeAE26INm6We3D8e2cmeKu8lX16fcbiEhB0uX1tNCuWw1hkI-2oDfkjGhRJ2KxTH1Wb3wp3B674oW8iAGGX3w",
+               "width" : 2048
+            }
+         ],
+         "place_id" : "ChIJWYRJtvZ3X0YRHbAuaGeecWw",
+         "rating" : 3.7,
+         "reference" : "CmRRAAAA2kaOlnOq6BNRK8bI1_rW0W6HaLq6yMgrhBmVNNtgLhUCdoLIEQ7AmnRs5jEte8WHIesNomQnJrMXt12YyTIalh8qi-rSpuHu222TKemj9fwDh0bGgy8EPpVN7j-aeZvGEhCTRuEdDJjtZHOYKwQguepzGhSb8waeIwWTXxdUk7GPxrj3NzbmJw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Götgatan 49-51, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.33145589999999,
+               "lng" : 18.0216953
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33167624999999,
+                  "lng" : 18.02211579999999
+               },
+               "southwest" : {
+                  "lat" : 59.33079485,
+                  "lng" : 18.02043380000001
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "902821fc4bf3cd07dfea2d31fe39a81116216d5f",
+         "name" : "Courtyard Stockholm Kungsholmen",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 419,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/111383665870293340238/photos\"\u003eCourtyard Stockholm Kungsholmen\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAANTQBQjuHAwy1RaF9h41ZCFCCR75x2vYAfxr5TWI2hk2aRB2i0LyitI_3DCc45RjIRqodde_KvB8VcOSpiIZKvA7dZTUGDuasYB5CHfeiHV_oH1I4XywPBR30TTdfA39Od6-xisvFMy0Im6s6X10WZgYeEsiwVs414xo6WPxceNhEhDt91_v0mCyhg6vZO2YoZy3GhShgx1nn1JegKBl21ZizUm1PKxTUQ",
+               "width" : 418
+            }
+         ],
+         "place_id" : "ChIJDdAaF9V3X0YR-rpujg8wQ98",
+         "rating" : 4.2,
+         "reference" : "CmRSAAAAofCXptsS6wm_tgfthhycwezuR4tvP1UgY9R2tgzXBbCBBqKZPvOUVyFXOdX195Yh17OC5zljy74B4hi39vjFPbV1IdktsKo429rY8SHdyxQFqgA78-IPR32qalpesjMVEhBieR-1ft32X5zLxUHq5ZCiGhTdC1KqsHX3VEwhEBuL8CZZw5bsHQ",
+         "scope" : "GOOGLE",
+         "types" : [ "bar", "lodging", "point_of_interest", "establishment" ],
+         "vicinity" : "Rålambshovsleden 50, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.29290399999999,
+               "lng" : 18.083975
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.29290435,
+                  "lng" : 18.08456165
+               },
+               "southwest" : {
+                  "lat" : 59.29290295000001,
+                  "lng" : 18.08377945
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "c6dfcbaa957240511e6397adab28201397156cfa",
+         "name" : "Quality Hotel Globe",
+         "photos" : [
+            {
+               "height" : 1367,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/114698296942523645471/photos\"\u003eQuality Hotel Globe\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAABUx4AST28bun4mt_WCbGN1dfm7wbNqMyRG9RQn8i2xpxiNkBzitIUQ7Aq2RKrHsz7GSqK9nC2kSXhJZnggnuHdpJ-Nl047y8_LWFMn3eRp2fX31FPK4lkgaCOdsK-NbWFjh6CHJctt63TPE2Z-Onzv0o5gtv-tqSWENB15IVGgtEhCpw6QoVPVGw3buni0aZw58GhRcCYl9vDp67GJ6wQwMVBnPIe5U6Q",
+               "width" : 1369
+            }
+         ],
+         "place_id" : "ChIJD4eBGCR4X0YR0juz3BMblMI",
+         "rating" : 4.2,
+         "reference" : "CmRSAAAAJqQG3MtG6UuQAAAOk2vLvbzEhm89DfmZcAQFPws_jwUybTlSK5D-1otB_4p0xnBW8Sl5gHUzTgUJgBlkwLrFeFetvEZjF-rPWgrokeutyZJ6zlAOnMQK7AVwe8DRNt3hEhATsspXa6rXZmYZgyqxLSX0GhRH7DpWUFcx8pnTNs5r_GMNyKC5cA",
+         "scope" : "GOOGLE",
+         "types" : [ "bar", "lodging", "point_of_interest", "establishment" ],
+         "vicinity" : "Arenaslingan 7, Johanneshov"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3595317,
+               "lng" : 17.9603379
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.3596847,
+                  "lng" : 17.96071395
+               },
+               "southwest" : {
+                  "lat" : 59.3594807,
+                  "lng" : 17.96021255
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "c4b2527b1e3b9191050ed8dbf442ccf43a51ab91",
+         "name" : "Brommavik Hotel AB",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 250,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107132766658715416435/photos\"\u003eBrommavik Hotel AB\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAKappRpLczLTeA2l5R6lsQ3gpI8W60Ws6kefuGGREdujHnHC8_PJCNB-hPBYPFXMFpWZpOWH2MT1pLnM2uVRSS5U36nRt-I_m9kmChQw1jJGwr5MIKZVPALu4VwutocZBOaYbo0qm5n5kTOW_p0Pv8-HgP_jLdWnClagxdxGHNJNEhCkr7j6kUC4w_7WUGehvSlfGhS6AZ_Vz8VihXV1y1O6nAA1Y7QKcA",
+               "width" : 250
+            }
+         ],
+         "place_id" : "ChIJxXtfIOKdX0YR4-Z-G_rLHNM",
+         "rating" : 3.8,
+         "reference" : "CmRSAAAA7b_2IgKsuk3dz0yneBfCh7cj9gh4ZMKmRl9--FzKGgm9G-b_cWt2t45axvlCY2Pl7Fov8Q023_Jks6YDKtIE7HxrexogIUk_fiAsHC_ARaxxHUM1RS89ZVIIa6VtMXz9EhBqU-tNlqjE_zLQ4Ry7loT7GhTfGbd9HlQM4M2sY1oYnxUknPirnw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Karlsbodavägen 45, Bromma"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.31875780000001,
+               "lng" : 18.075912
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.31899225,
+                  "lng" : 18.07603569999999
+               },
+               "southwest" : {
+                  "lat" : 59.31867965000001,
+                  "lng" : 18.0755409
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "22cb4ec7899cb5981ad3dab62ac67f9e6d6d5dee",
+         "name" : "Scandic Sjöfartshotellet",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 3265,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/113527142307668025831/photos\"\u003eAlexander D\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAEaMLkRlO9BMD1jMMVvvd-TKQqfvaIzh2wzJIQoVXF26KrTW3M5zPXtO4o1f-OZN1e4p7mmLsegkgAYyIUoO35oo0uSm7WljXCEVBi4N-k8Vvrkfl-D2KV5iAFBvCu4iH1lxjW2WMyVvh4cC622sNTEwR3RxcYL9GFPn0ZYcTu5vEhBck4Ia-GQO0thV11KMvP3FGhQXUtmNIbq05yhgAfntxmJEG-cqlQ",
+               "width" : 4898
+            }
+         ],
+         "place_id" : "ChIJEW_Le_t3X0YRStdY6V8dTyU",
+         "rating" : 3.7,
+         "reference" : "CmRRAAAAjsBOneSuD3RvGChL0cL0lK9MFgj7To16WNkGWEU_D3Q-G8hkoWgaJBGUOGO4-xB-yai4nBAf7VWY1eu3FuiqWF4ZF5xI7xXSl2IJtUM_512JkzfIh8kuejbfOkh1adKKEhDhe86TLqPgCC6dbkHKUfrhGhRMy2QdEWXDJ0GbBn316TpqG3gI6w",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Katarinavägen 26, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3476689,
+               "lng" : 18.0401346
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.34768889999999,
+                  "lng" : 18.0406812
+               },
+               "southwest" : {
+                  "lat" : 59.34760890000001,
+                  "lng" : 18.0399524
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "d957c3d41402aa96f9153c6e6c9f3538101f37cd",
+         "name" : "First Hotel Norrtull",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 788,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107612278002629074072/photos\"\u003eFirst Hotel Norrtull\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAO0vEAy6lZU8DyBuGrSgKaVm0XkOqbq82fcXBr5xsJo34v1aWq6nhdXohgtwwgvQoY55HOe-8_KTzZFTycbC9RCBF8dLb3M-q8iprIIpCPtfYgMQxuU53ZXCm2bL-AvEY8jOkamIYqz_k198QnpHWoJkEew9t7B2Hqoaptx4Tc64EhDy1qtlGV4hXVDxqIHWh469GhSkfMWP_D7sHy3Q0DFmiu2CYs1Rtw",
+               "width" : 984
+            }
+         ],
+         "place_id" : "ChIJCUxfpXadX0YRdmMR1irRstE",
+         "rating" : 3.6,
+         "reference" : "CmRSAAAAT4wiTWtUmqlE4Lg2fWACk5lP8BDAACELU2E_POTuLIk5tDBGOt6D1OArevFEWtk7HDQZAakrWpeCUsRvn8zF376ehpF7ZNj5_YGSQA3D1X_tPsyupJ1fxm0VFdjM_Py9EhAsVES_sGSXTAmy2cV6M1q_GhQM7n2qH61KdFsTKNm2PbYhB8Icyw",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Sankt Eriksgatan 119, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3313502,
+               "lng" : 18.0451718
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33143519999999,
+                  "lng" : 18.04559225000001
+               },
+               "southwest" : {
+                  "lat" : 59.33131359999999,
+                  "lng" : 18.04503165
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "19f998ff171000462c7dc23eae79d9db6f6422b2",
+         "name" : "Clarion Hotel Amaranten",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1636,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116383643359582198693/photos\"\u003eFabio Spizzo\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAJGVdyHUkxBzkdy1Ie1VpeYnDVUHBM53qxyGpoObFvVTwMZ16QVIObWatWGzbxdyNBoYV2Fq2fRxjmnqNqSvhJQiOleRWkop19arDF2HNy35CX7jfg92bfla6YhLYfgDnDE63v-yH8IFK1kemeQBTe-vrEQhlNKVG441GurGA088EhBo2qJYKiLb4FiuH_YpVJnoGhQ4ZiUxnOHXPLuvzZhUh1elXm7qqA",
+               "width" : 1635
+            }
+         ],
+         "place_id" : "ChIJVf9AXmKdX0YR36MXSqDHkOw",
+         "rating" : 3.8,
+         "reference" : "CmRSAAAAkz1Y-_Sy5HkZbuvv7CxrsPFHiue2vibXZfs8azNARs7MWyIhil-C8VJ8yIpV5Q2rSUknaHwNkHk_9jmBnZrKhqC0TV9r_QHbIIeqLqOa9HQ7bU4NTsWO9VJ8-An_Kv6KEhB8vzimh3pk7VVn262_lBupGhSp1qiDzVeIehmQ6BIGz5OQJT644w",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Kungsholmsgatan 31, Stockholm"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.3316332,
+               "lng" : 17.9825236
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.331866,
+                  "lng" : 17.98260205
+               },
+               "southwest" : {
+                  "lat" : 59.3315556,
+                  "lng" : 17.98228825
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "429d5629358d82a0e1d34cc44178a4b1f01d0b65",
+         "name" : "Scandic Alvik",
+         "photos" : [
+            {
+               "height" : 2592,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106983245636008153694/photos\"\u003erotraut geringer\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAAxBSLnNUoze1Cl5EA2z-k_RMD6aTD2cnc0iHPqZn8-ahpTJgQRniH4ZPxD_mAkvv-TE_aFc0F3SzRnAWymS4VK728NuN3KqgUZ-3YGsBk1Cj5m9NPAg52qD3DkYqNCtRBw1rU7iK8jBUisgxVTh7v72zCp91HAi3jGXKmql3EGtEhCNR1XlZYERnhN0hKrCi0WqGhRTgF4rUMiEe5ypQ-5JCG6wdCDZ5A",
+               "width" : 4608
+            }
+         ],
+         "place_id" : "ChIJTyNQMSJ2X0YREOegzKlaEqM",
+         "rating" : 4,
+         "reference" : "CmRSAAAAFVYHDDhj83KofL8TWnxRiA7gbEqoceEWnu-EZX50krM6kEOGgFT9HtJVHSIiokUk8ey2eTPw1VNAxzsfje6A_6kvXDCm8eaqoACvZbbi55GAj6j61K1ArsuUmZxurX4rEhBCdOwuByVEOi-zRrbxxx4eGhS6rmyfdBwPHHtyeTBsA2y9uPw47g",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Gustavslundsvägen 153, Bromma"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.33425200000001,
+               "lng" : 17.978646
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.33454404999999,
+                  "lng" : 17.97900405
+               },
+               "southwest" : {
+                  "lat" : 59.33415465000001,
+                  "lng" : 17.97852665
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "659705d2125778dd0dd85d7385851c10cd44f8a0",
+         "name" : "StayAt Stockholm Bromma",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1836,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/114242542126500075192/photos\"\u003ePravin Kumar\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAAL2ONrANzeU2SfaY-jl3v_CR1c0owDPYqqYdj7ZxHgbvVuj2ufLrpgbPXsGMbWgh8agt4w7lxrwuv06lbaeM0BpSABYCuYu9MBhoP1jZLluBTtjguQiiz8NGvVsGVcQv4YD0zxubyDWEigftrXTDs8RJIFHfNEQViOexqQ_QboULEhDSwN8TVzXoUEympSkKkkNyGhTw1NH8qniUzNLQrUU5G8BPH1VHWw",
+               "width" : 3264
+            }
+         ],
+         "place_id" : "ChIJX-izRB92X0YRGKiyr6-B5LI",
+         "rating" : 3.8,
+         "reference" : "CmRSAAAAEDpv1E_UdwIrZ-ui5PmKW286ohXgaNRRGRU4oHO6_x93NABYviWwzLxOClS77YTubKe1sD2FD1XXRye1-BZaKaTnqZcPc8d-xFlcdLz6X1_ivBOCyRbyLAHcw4TwgFxtEhAB27CysBHpm1ERfPxHWpsEGhQpctPaVTha_x9lBuNWfnZbdIBdBQ",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Vidängsvägen 9, Bromma"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 59.37212599999999,
+               "lng" : 18.0032043
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 59.3725514,
+                  "lng" : 18.00384929999999
+               },
+               "southwest" : {
+                  "lat" : 59.3719842,
+                  "lng" : 18.00298930000001
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+         "id" : "740a159724a05f33a0aadba745fbe1f60c8b79bc",
+         "name" : "Quality Hotel Friends",
+         "opening_hours" : {
+            "open_now" : true,
+            "weekday_text" : []
+         },
+         "photos" : [
+            {
+               "height" : 1436,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107371990488456647465/photos\"\u003eQuality Hotel Friends\u003c/a\u003e"
+               ],
+               "photo_reference" : "CoQBdwAAALEW3vTxQItv9JyC1PbQ7WTykJPYRUCHykWuJSi1KlCFRouafwMZezriQahNk2UMQgwR5OGwcE-P3szc2dd8fhY_P9bziQuIAMnkjLnb8PNi6slzjk-7bpear7LIEyggyVSED6qEQINM6vc2j3suM601RPrNiRumHHGPUsNpNpCLEhCLBR3N_qmTZkSylzdHeJWvGhTm7AO6vR62-LhGpxwh3RFGCSEIvw",
+               "width" : 1433
+            }
+         ],
+         "place_id" : "ChIJ8erxpcidX0YRIJ0TBEEt78w",
+         "rating" : 4.2,
+         "reference" : "CmRSAAAA1VWvHhAnhru7Ntv02y4BIKIbJTcO06eaSAJj0mPnaMs5vUQTOgkVoddsEONtIogVw790W2ieQenmesCAdFVGFf4OIBFzsXED6u2GNn6DuGXu7pXrF6CQwk5F9R-5pEs_EhDuh0uca5LoaqdfhaeeruE9GhSdkVq3jEs9thk2pHh8D594aTLV5w",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bar",
+            "lodging",
+            "restaurant",
+            "food",
+            "point_of_interest",
+            "establishment"
+         ],
+         "vicinity" : "Råsta Strandväg 1, Solna"
+      }
+   ],
+   "status" : "OK"
+}
