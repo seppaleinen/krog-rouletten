@@ -1,11 +1,6 @@
 from behave import given, when, then
-from hamcrest import assert_that, contains_string, equal_to
-import os.path, json, mock, jsonpickle
-from application import views
-
-app = views.app
-app.config['TESTING'] = True
-app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = False
+from hamcrest import assert_that, contains_string, instance_of, equal_to
+import os.path, json, mock
 
 
 def mocked_requests_get(*args, **kwargs):
@@ -45,17 +40,14 @@ def given_mocked_endpoint(context, request_data):
 @when('calling GET on "{endpoint}"')
 def get_to_endpoint(context, endpoint):
     with mock.patch('application.logic.requests.get', side_effect=mocked_requests_get, autospec=True) as mocked:
-        context.response = context.client.get(endpoint, follow_redirects=True)
+        context.response = context.client.get(endpoint, expect_errors=True)
         context.mock = mocked
 
 
 @when('calling POST on "{endpoint}"')
 def post_to_endpoint(context, endpoint):
     with mock.patch('application.logic.requests.get', side_effect=mocked_requests_get, autospec=True) as mocked:
-        context.response = context.client.post(endpoint,
-                                               follow_redirects=True,
-                                               data=context.request_data,
-                                               content_type='application/json')
+        context.response = context.client.post(endpoint, context.request_data, expect_errors=True)
         context.mock = mocked
 
 
@@ -72,7 +64,8 @@ def expected_response_status(context):
 
 @then('"{expectedText}" should be in body')
 def expected_body(context, expectedText):
-    body = context.response.get_data(as_text=True)
-    assert_that(body, contains_string(expectedText), body)
+    body = str(json.loads(context.response.json))
+    assert_that(body, instance_of(str), "%s must be of type str" % body)
+    assert_that(body, contains_string(expectedText), "%s should contain %s" % (body, expectedText))
 
 

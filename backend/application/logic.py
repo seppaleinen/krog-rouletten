@@ -1,6 +1,6 @@
 # coding=UTF-8
 import random, requests, json, urllib, os, jsonpickle
-from flask import request, session, redirect
+from flask import request, session, redirect, jsonify
 from application.model import Krog, Review
 from haversine import haversine
 
@@ -16,9 +16,7 @@ GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?max
 
 
 def random_page():
-    print(request.is_json)
     form = request.get_json(force=True)
-    print("YEAHMAN")
 
     if form and form['searchtype'] == 'gps':
         try:
@@ -27,7 +25,7 @@ def random_page():
 
             #session[Helper().get_user_ip()] += place_id + ';'
 
-            return details(place_id, form['latitude'] + ',' + form['longitude'])
+            return jsonify(details(place_id, form['latitude'] + ',' + form['longitude']))
         except Exception as e:
             return redirect('/error/nocando', 302)
     elif form and form['searchtype'] == 'list':
@@ -61,7 +59,7 @@ def random_page():
                 place_id=result['place_id']
             ))
 
-        return jsonpickle.encode(sorted(krog_lista, key=lambda x: x.distance))
+        return jsonify(jsonpickle.encode(sorted(krog_lista, key=lambda x: x.distance)))
     elif form and ',' in form['stadsdel']:
         try:
             form['latitude'] = form['stadsdel'].split(',')[0]
