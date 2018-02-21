@@ -1,11 +1,5 @@
 Feature: Check endpoints
 
-  Scenario: Error Endpoint
-    Given google endpoint is mocked
-    When calling GET on "/error/error_msg"
-    Then "500 INTERNAL SERVER ERROR" should be the status
-    And "error_msg" should be in body
-
   Scenario: Random Bar
     Given google endpoint is mocked
     And requestdata is {"searchtype": "gps", "distance": 200, "latitude": "123", "longitude": "321"}
