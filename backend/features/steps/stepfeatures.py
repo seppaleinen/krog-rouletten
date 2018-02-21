@@ -1,8 +1,7 @@
 from behave import given, when, then
-from hamcrest import assert_that, contains_string, not_none, none, equal_to
-import os.path, json, mock
+from hamcrest import assert_that, contains_string, equal_to
+import os.path, json, mock, jsonpickle
 from application import views
-
 
 app = views.app
 app.config['TESTING'] = True

@@ -1,6 +1,6 @@
 # coding=UTF-8
 import random, requests, json, urllib, os, jsonpickle
-from flask import render_template, request, redirect, url_for, jsonify, session, redirect, url_for
+from flask import request, session, redirect
 from application.model import Krog, Review
 from haversine import haversine
 
@@ -16,7 +16,9 @@ GOOGLE_PLACES_LIST_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?max
 
 
 def random_page():
+    print(request.is_json)
     form = request.get_json(force=True)
+    print("YEAHMAN")
 
     if form and form['searchtype'] == 'gps':
         try:

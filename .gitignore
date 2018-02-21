@@ -20,3 +20,4 @@ target
 node
 node_modules
 jspm_packages
+.idea
