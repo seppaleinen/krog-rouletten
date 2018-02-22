@@ -62,10 +62,19 @@ def expected_response_status(context):
         context.mock.assert_called_with(row['url'])
 
 
-@then('"{expectedText}" should be in body')
+@then('{expectedText} should be in body')
 def expected_body(context, expectedText):
     body = str(json.loads(context.response.json))
     assert_that(body, instance_of(str), "%s must be of type str" % body)
     assert_that(body, contains_string(expectedText), "%s should contain %s" % (body, expectedText))
+
+
+@then('body should contain')
+def expected_body(context):
+    body = str(json.loads(context.response.json))
+    for row in context.table:
+        expected_text = row['expected_text']
+        assert_that(body, instance_of(str), "%s must be of type str" % body)
+        assert_that(body, contains_string(expected_text), "%s should contain %s" % (body, expected_text))
 
 
