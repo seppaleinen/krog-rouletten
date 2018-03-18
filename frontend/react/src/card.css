@@ -1,0 +1,18 @@
+.card {
+  margin: 10px;
+  display: inline-block;
+  padding: 10px;
+  background: white;
+}
+
+.card .image {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.card .image.flipped {
+  opacity: 1;
+}
