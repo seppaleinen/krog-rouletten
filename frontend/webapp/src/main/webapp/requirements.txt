@@ -1,10 +1,10 @@
-Flask==0.10.1
-Jinja2==2.7.3
-MarkupSafe==0.23
-Werkzeug==0.10.4
-gunicorn==19.4.5
-itsdangerous==0.24
-requests==2.9.1
+Flask==2.1.2
+Jinja2==3.0
+MarkupSafe>=2.0.0rc2
+Werkzeug==2.0
+gunicorn==19.5.0
+itsdangerous==2.0
+requests==2.20.0
 Flask-WTF>=0.12
 tornado>=4.3
 Flask-Testing>=0.4.2

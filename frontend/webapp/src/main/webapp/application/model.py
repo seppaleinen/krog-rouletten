@@ -1,12 +1,12 @@
 # coding=UTF-8
-from wtforms import Form, TextField, validators, HiddenField, SelectField, RadioField, BooleanField
+from wtforms import Form, StringField, validators, HiddenField, SelectField, RadioField, BooleanField
 
 
 class SearchForm(Form):
-    latitude = HiddenField('latitude', [validators.required()])
-    longitude = HiddenField('longitude', [validators.required()])
+    latitude = HiddenField('latitude', [validators.DataRequired()])
+    longitude = HiddenField('longitude', [validators.DataRequired()])
     hidden_distance = HiddenField('distance')
-    distance = SelectField("Distance: ", [validators.required()], choices=[
+    distance = SelectField("Distance: ", [validators.DataRequired()], choices=[
         (100, "100m"),
         (200, "200m"),
         (300, "300m"),
