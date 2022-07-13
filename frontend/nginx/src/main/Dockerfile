@@ -1,6 +1,6 @@
-FROM nginx:1.13.8-alpine
+FROM nginx:stable-alpine
 
-RUN addgroup -g 1000 -S www-data && adduser -u 1000 -D -S -G www-data www-data
+RUN adduser -D -H -u 1000 -s /bin/bash www-data -G www-data
 ADD sites-enabled/ /etc/nginx/sites-enabled
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD certs/ /etc/nginx/certs

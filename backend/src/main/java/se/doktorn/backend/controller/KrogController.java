@@ -1,15 +1,5 @@
 package se.doktorn.backend.controller;
 
-import lombok.extern.java.Log;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import se.doktorn.backend.controller.csv.CsvManager;
-import se.doktorn.backend.repository.entity.Krog;
-import se.doktorn.backend.repository.KrogRepository;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,6 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.extern.java.Log;
+import se.doktorn.backend.controller.csv.CsvManager;
+import se.doktorn.backend.repository.KrogRepository;
+import se.doktorn.backend.repository.entity.Krog;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
@@ -64,7 +65,7 @@ public class KrogController {
             log.log(Level.SEVERE, "Import failed: " + e.getMessage(), e);
         }
 
-        krogRepository.save(krogList);
+        krogRepository.saveAll(krogList);
 
         return new ResponseEntity(HttpStatus.OK);
     }

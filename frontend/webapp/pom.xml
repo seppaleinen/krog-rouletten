@@ -24,61 +24,6 @@
         <docker-maven-plugin.version>0.4.12</docker-maven-plugin.version>
     </properties>
 
-    <build>
-        <plugins>
-            <!--
-            <plugin>
-                <groupId>com.googlecode.jslint4java</groupId>
-                <artifactId>jslint4java-maven-plugin</artifactId>
-                <version>2.0.2</version>
-                <executions>
-                    <execution>
-                        <id>lint</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>lint</goal>
-                        </goals>
-                        <configuration>
-                            <failOnError>true</failOnError>
-                            <excludes>
-                                jquery.fancybox.pack.js
-                            </excludes>
-                            <options>
-                                <undef>true</undef>
-                                <predef>$, location, parent, document, navigator, window</predef>
-                            </options>
-                            <sourceFolders>${project.basedir}/src/main/webapp/application/static/js</sourceFolders>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.0</version>
-
-                <configuration>
-                    <workingDirectory>src/main/webapp</workingDirectory>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                            <installDirectory>target</installDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
-        </plugins>
-    </build>
-
     <profiles>
         <profile>
             <id>docker</id>

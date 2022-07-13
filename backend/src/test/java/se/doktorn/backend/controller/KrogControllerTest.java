@@ -55,7 +55,7 @@ public class KrogControllerTest {
             assertEquals(1, result.size());
             assertEquals(krog.getId(), result.get(0).getId());
 
-            verifyZeroInteractions(csvManager);
+            verifyNoInteractions(csvManager);
             verify(repository, times(1)).findAll();
         }
     }
@@ -130,7 +130,7 @@ public class KrogControllerTest {
                 assertEquals(HttpStatus.OK, result.getStatusCode());
 
                 verify(csvManager, times(37)).parseKrog(anyString());
-                verify(repository, times(1)).save(anyListOf(Krog.class));
+                verify(repository, times(1)).saveAll(anyList());
             } catch (FileNotFoundException e) {
                 fail("Import file must exist");
             } catch (IOException e) {
@@ -157,7 +157,7 @@ public class KrogControllerTest {
                 assertNotNull(result);
                 assertEquals(HttpStatus.OK, result.getStatusCode());
                 verify(csvManager, times(1)).parseKrog(anyString());
-                verify(repository, times(1)).save(anyListOf(Krog.class));
+                verify(repository, times(1)).saveAll(anyList());
             } catch (IOException e) {
                 fail("Should not fail on multipartFile: " + e.getMessage());
             } catch (Exception e) {
@@ -177,7 +177,7 @@ public class KrogControllerTest {
                 fail("Should not fail on multipartFile: " + e.getMessage());
             } catch (Exception e) {
                 assertTrue(e instanceof IndexOutOfBoundsException);
-                assertEquals("Index: 0, Size: 0", e.getMessage());
+                assertEquals("Index 0 out of bounds for length 0", e.getMessage());
             }
         }
 

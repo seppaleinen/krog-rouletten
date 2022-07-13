@@ -12,9 +12,7 @@
     <description>Krogrouletten</description>
 
     <modules>
-        <!--
         <module>backend</module>
-        -->
         <module>frontend</module>
     </modules>
 </project>

@@ -21,6 +21,7 @@ services:
 
   webapp:
     restart: always
+    build: frontend/webapp/src/main/webapp
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"

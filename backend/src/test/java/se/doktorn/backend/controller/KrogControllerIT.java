@@ -2,15 +2,14 @@ package se.doktorn.backend.controller;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import se.doktorn.backend.KrogRoulettenApplication;
 import se.doktorn.backend.repository.entity.Krog;
 import se.doktorn.backend.repository.KrogRepository;
@@ -24,7 +23,6 @@ import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 @SpringBootTest(
         classes = KrogRoulettenApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -36,7 +34,7 @@ public class KrogControllerIT {
     @LocalServerPort
     private int randomServerPort;
 
-    @Before
+    @BeforeEach
     public void setup() {
         repository.deleteAll();
         RestAssured.port = randomServerPort;
@@ -59,7 +57,7 @@ public class KrogControllerIT {
         Krog krog1 = Krog.builder().namn("NAMN1").approved(true).build();
         Krog krog2 = Krog.builder().namn("NAMN2").approved(false).build();
 
-        repository.save(Arrays.asList(krog1, krog2));
+        repository.saveAll(Arrays.asList(krog1, krog2));
 
         Krog[] krogList = when().get(KrogController.EXPORT_CSV_URL).getBody().as(Krog[].class);
         assertNotNull(krogList);

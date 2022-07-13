@@ -1,26 +1,24 @@
 package se.doktorn.backend.repository;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+
 import se.doktorn.backend.repository.entity.Krog;
 
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @ActiveProfiles("test")
-@RunWith(SpringRunner.class)
 @DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
 public class KrogRepositoryIT {
     @Autowired
     private KrogRepository repository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         repository.deleteAll();
     }
@@ -44,7 +42,7 @@ public class KrogRepositoryIT {
 
         repository.save(krog);
 
-        assertNotNull(repository.findOne(krog.getId()));
+        assertTrue(repository.findById(krog.getId()).isPresent());
     }
 
 }
