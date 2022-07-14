@@ -38,7 +38,6 @@ def random_page():
             return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
     elif form and form.searchtype.data == 'list':
         Helper().init_session()
-
         search_response = search_google_and_broaden_if_no_results(form)
         krog_lista = []
         for result in search_response['results']:
@@ -68,22 +67,9 @@ def random_page():
                 distance=dist,
                 place_id=result['place_id']
             ))
+        print("KROGLISTA: ", krog_lista[0])
 
         return render_template('lista.html', data=sorted(krog_lista, key=lambda x: x.distance), **Helper().forms({'searchForm': form}))
-    elif form and ',' in form.stadsdel.data:
-        try:
-            form.latitude.data = form.stadsdel.data.split(',')[0]
-            form.longitude.data = form.stadsdel.data.split(',')[1]
-            print("FORM2: %s" % form.data)
-            place_id = filter_search_from_previous_results(form)
-
-            Helper().init_session()
-            session[Helper().get_user_ip()] += place_id + ';'
-
-            return redirect('/details/' + place_id + '/' + form.latitude.data + ',' + form.longitude.data, 302)
-        except Exception as e:
-            print("EXCEPTION: %s" % e)
-            return render_template('error.html', data='Hittade ingen krog på din sökning', **Helper().forms())
 
     # Hell has frozen over
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
@@ -96,7 +82,7 @@ def search_google_and_broaden_if_no_results(form):
     search_params += 'radius=' + str(distance) + '&'
     search_params += 'type=bar'
     search_response = requests.get(GOOGLE_SEARCH % (search_params, API_KEY)).json()
-    print("API_KEY: %s" % API_KEY)
+    # print("API_KEY: %s" % API_KEY)
 
     print("SEARCHRESPONSE: %s" % search_response)
 
@@ -156,9 +142,9 @@ def get_details_response_from_google(place_id, location=None):
                 details_response['result']['geometry']['location']['lat'],
                 details_response['result']['geometry']['location']['lng'])
             mode = 'transit' if 'km' in dist else 'walking'
-            iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % (mode, lat + ',' + lng,place_id, MAPS_EMBED_KEY))
+            iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % (mode, lat + ',' + lng,place_id, API_KEY))
         else:
-            iframe_lank = (GOOGLE_EMBEDDED_MAPS % (place_id, MAPS_EMBED_KEY))
+            iframe_lank = (GOOGLE_EMBEDDED_MAPS % (place_id, API_KEY))
 
         krog = Krog(
             namn=details_response['result']['name'],
