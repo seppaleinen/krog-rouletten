@@ -27,9 +27,9 @@ jobs:
         run: mvn install -DskipTests -Pdocker && docker-compose build
       - name: Push docker image
         env:
-          dockerhub_password: ${{ secrets.dockerhub_password }}
+          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          docker login -u "seppaleinen" -p $( echo $DOCKERHUB_PASSWORD )
+          docker login -u "seppaleinen" -p $( echo $dockerhub_password )
           docker push seppaleinen/krogrouletten-backend:dev
   webapp:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
           docker-compose build webapp
       - name: Tag as latest and push to dockerhub
         env:
-          dockerhub_password: ${{ secrets.dockerhub_password }}
+          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
-          docker login -u "seppaleinen" -p $( echo $DOCKERHUB_PASSWORD )
+          docker login -u "seppaleinen" -p $( echo $dockerhub_password )
           docker push seppaleinen/krogrouletten-webapp:dev
