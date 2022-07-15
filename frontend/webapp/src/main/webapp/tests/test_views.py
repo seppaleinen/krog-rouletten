@@ -1,5 +1,5 @@
 # coding=UTF-8
-import sys, urllib2, mock, os, time, requests_mock, json
+import sys, mock, os, time, requests_mock, json
 from os import path
 from application import views, app, model
 from tests import STATUS_405, STATUS_200, STATUS_404
@@ -23,7 +23,6 @@ def mocked_requests_get(*args, **kwargs):
     with open(_file, 'r') as content_file:
         google_search_content = content_file.read()
 
-    print(args[0])
     if 'https://maps.googleapis.com/maps/api/place/nearbysearch/' in args[0]:
         return MockResponse(json.loads(google_search_content), 200)
     else:
@@ -46,35 +45,38 @@ class UnitTests(TestCase):
         result = self.client.get('/settings')
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('settings.html')
-        self.assertTrue('Sök inställningar' in result.data)
+        self.assertTrue('Sök inställningar' in result.data.decode('utf-8'))
 
     def test_error_page(self):
         result = self.client.get('/error/error_msg')
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('error.html')
-        self.assertTrue('error_msg' in result.data)
+        page = result.data.decode('utf-8')
+        self.assertTrue('error_msg' in page)
 
     @mock.patch('application.logic.requests.get', side_effect=mocked_requests_get)
     def test_details_page_without_location(self, mocked_get):
         result = self.client.get('/details/place_id')
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('krog.html')
-        self.assertTrue('Berns' in result.data, result.data)
-        self.assertTrue('Näckströmsgatan 8, 111 47 Stockholm, Sweden' in result.data, result.data)
-        self.assertTrue('Bonyo Buogha' in result.data)
+        page = result.data.decode('utf-8')
+        self.assertTrue('Berns' in page, page)
+        self.assertTrue('Näckströmsgatan 8, 111 47 Stockholm, Sweden' in page, page)
+        self.assertTrue('Bonyo Buogha' in page)
 
-        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/details/json?placeid=place_id&language=sv&key=AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
+        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/details/json?placeid=place_id&language=sv&key=None')
 
     @mock.patch('application.logic.requests.get', side_effect=mocked_requests_get)
     def test_details_page_with_location(self, mocked_get):
         result = self.client.get('/details/place_id/1.2,1.3')
         self.assertEquals(STATUS_200, result.status)
         self.assert_template_used('krog.html')
-        self.assertTrue('Berns' in result.data, result.data)
-        self.assertTrue('Näckströmsgatan 8, 111 47 Stockholm, Sweden' in result.data)
-        self.assertTrue('Bonyo Buogha' in result.data, result.data)
+        page = result.data.decode('utf-8')
+        self.assertTrue('Berns' in page, page)
+        self.assertTrue('Näckströmsgatan 8, 111 47 Stockholm, Sweden' in page)
+        self.assertTrue('Bonyo Buogha' in page, page)
 
-        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/details/json?placeid=place_id&language=sv&key=AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
+        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/details/json?placeid=place_id&language=sv&key=None')
 
     @mock.patch('application.logic.requests.get', side_effect=mocked_requests_get)
     def test_search_gps(self, mocked_get):
@@ -85,7 +87,7 @@ class UnitTests(TestCase):
 
         self.assertEquals(302, result.status_code)
 
-        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=1.1,2.2&radius=500&type=bar&key=AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
+        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=1.1,2.2&radius=500&type=bar&key=None')
 
     @mock.patch('application.logic.requests.get', side_effect=mocked_requests_get)
     def test_search_lista(self, mocked_get):
@@ -97,18 +99,7 @@ class UnitTests(TestCase):
         self.assertEquals(200, result.status_code)
         self.assert_template_used('lista.html')
 
-        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=1.1,2.2&radius=500&type=bar&key=AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
-
-    @mock.patch('application.logic.requests.get', side_effect=mocked_requests_get)
-    def test_search_stadsdel(self, mocked_get):
-        result = self.client.post(
-            '/krog/random',
-            data = dict(stadsdel="lat,lng"),
-            follow_redirects=False)
-
-        self.assertEquals(302, result.status_code)
-
-        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=lat,lng&radius=500&type=bar&key=AIzaSyBlK6_BqAG_JDwcuyBBt1xL9jIpRMYIb8M')
+        mocked_get.assert_called_with(u'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=1.1,2.2&radius=500&type=bar&key=None')
 
     def test_form(self):
         form = model.SearchForm()
@@ -117,6 +108,5 @@ class UnitTests(TestCase):
         form.latitude.data = '1.1'
         form.bar_typ.data='bar'
         form.distance.data=500
-        form.stadsdel.data='59.313748,18.070410'
         self.assertTrue(form.validate(), form.errors)
 

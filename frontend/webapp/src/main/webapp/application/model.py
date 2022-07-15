@@ -16,14 +16,6 @@ class SearchForm(Form):
         (5000, "5 km"),
         (8000, "8 km")],
         default=500)
-    stadsdel = RadioField('stadsdel', choices=[
-        ('59.313748,18.070410', 'SÖDERMALM'), # Magnus Ladulåsgatan 65
-        ('59.331931,18.026434', 'KUNGSHOLMEN'), # Drottningholmsvägen 35
-        ('59.343181,18.050926', 'VASASTAN'), # Karlbergsvägen 4
-        ('59.332358,18.062513', 'CITY'), # Drottninggatan 45T
-        ('59.325072,18.070745', 'GAMLA STAN'), # Stortorget
-        ('59.337367,18.084427', 'ÖSTERMALM') # Nybergsgatan 9
-    ])
     bar_typ = RadioField('bar_typ', choices=[
         ('bar',         'Bar'),
         ('restaurant',  'Restaurant'),
