@@ -20,6 +20,7 @@ services:
 
   webapp:
     restart: always
+    build: frontend/nginx/src/main
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"
