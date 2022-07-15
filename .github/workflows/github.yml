@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-importer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: mvn -B dependency:resolve
+      - name: Run tests
+        run: mvn test
+      - name: Build docker dev image
+        run: mvn spring-boot:build-image && docker-compose build
+      - name: Push docker image
+        env:
+          dockerhub_password: ${{ secrets.dockerhub_password }}
+        run: |
+          echo "$dockerhub_password" | docker login -u "seppaleinen" --password-stdin
+          docker push seppaleinen/movies_backend_importer:dev
+  deploy:
+    runs-on: ubuntu-latest
+    needs: integration-tests
+
+    steps:
+      - name: Get latest dev images
+        run: |
+          docker pull seppaleinen/worldofmovies-importer:dev
+      - name: Tag as latest and push to dockerhub
+        env:
+          dockerhub_password: ${{ secrets.dockerhub_password }}
+        run: |
+          # echo "$dockerhub_password" | docker login -u "seppaleinen" --password-stdin
+          # docker tag seppaleinen/worldofmovies-importer:dev seppaleinen/worldofmovies-importer:latest
+          # docker push seppaleinen/worldofmovies-importer:latest
