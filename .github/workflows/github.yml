@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build-importer:
+  backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: Install dependencies
-        run: find . && mvn -B dependency:resolve
+        run: mvn -B dependency:resolve
       - name: Run tests
         run: mvn test
       - name: Build docker dev image
@@ -29,21 +29,19 @@ jobs:
         env:
           dockerhub_password: ${{ secrets.dockerhub_password }}
         run: |
-          echo "$dockerhub_password" | docker login -u "seppaleinen" --password-stdin
+          docker login -u "seppaleinen" -p $( echo $DOCKERHUB_PASSWORD )
           docker push seppaleinen/krogrouletten-backend:dev
-          docker push seppaleinen/krogrouletten-nginx:dev
-          docker push seppaleinen/krogrouletten-webapp:dev
-  deploy:
+  webapp:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get latest dev images
+      - uses: actions/checkout@v3
+      - name: Build docker dev image
         run: |
-          docker pull seppaleinen/worldofmovies-importer:dev
+          docker-compose build webapp
       - name: Tag as latest and push to dockerhub
         env:
           dockerhub_password: ${{ secrets.dockerhub_password }}
         run: |
-          # echo "$dockerhub_password" | docker login -u "seppaleinen" --password-stdin
-          # docker tag seppaleinen/worldofmovies-importer:dev seppaleinen/worldofmovies-importer:latest
-          # docker push seppaleinen/worldofmovies-importer:latest
+          docker login -u "seppaleinen" -p $( echo $DOCKERHUB_PASSWORD )
+          docker push seppaleinen/krogrouletten-webapp:dev
