@@ -18,7 +18,7 @@ jobs:
       - name: Run tests
         run: mvn test
       - name: Build docker dev image
-        run: mvn spring-boot:build-image && docker-compose build
+        run: mvn install -DskipTests -Pdocker && docker-compose build
       - name: Push docker image
         env:
           dockerhub_password: ${{ secrets.dockerhub_password }}
