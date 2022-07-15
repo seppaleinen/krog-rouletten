@@ -41,7 +41,7 @@ jobs:
           python3 frontend/webapp/src/main/webapp/runtests.py
       - name: Build docker dev image
         run: |
-          mvn --batch-mode -f frontend/webapp/pom.xml package -Pdocker
+          mvn --batch-mode -f frontend/webapp/pom.xml clean install -Pdocker
       - name: Tag as latest and push to dockerhub
         env:
           dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
