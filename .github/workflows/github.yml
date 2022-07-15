@@ -24,7 +24,9 @@ jobs:
           dockerhub_password: ${{ secrets.dockerhub_password }}
         run: |
           echo "$dockerhub_password" | docker login -u "seppaleinen" --password-stdin
-          docker push seppaleinen/movies_backend_importer:dev
+          docker push seppaleinen/krogrouletten-backend:dev
+          docker push seppaleinen/krogrouletten-nginx:dev
+          docker push seppaleinen/krogrouletten-webapp:dev
   deploy:
     runs-on: ubuntu-latest
 
