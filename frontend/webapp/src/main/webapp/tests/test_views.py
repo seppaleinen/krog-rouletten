@@ -107,6 +107,6 @@ class UnitTests(TestCase):
         form.longitude.data = '1.1'
         form.latitude.data = '1.1'
         form.bar_typ.data='bar'
-        form.distance.data=500
+        form.distance.data='500'
         self.assertTrue(form.validate(), form.errors)
 
