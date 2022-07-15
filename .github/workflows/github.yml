@@ -47,5 +47,5 @@ jobs:
           dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: |
           docker login -u "seppaleinen" -p $( echo $dockerhub_password )
-          docker tag seppaleinen/krogrouletten-webapp seppaleinen/krogrouletten-webapp:dev
+          docker tag seppaleinen/krogrouletten-webapp:latest seppaleinen/krogrouletten-webapp:dev
           docker push seppaleinen/krogrouletten-webapp:dev
