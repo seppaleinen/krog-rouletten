@@ -1,14 +1,13 @@
 # coding=UTF-8
-import random, requests, json, urllib, os
-from flask import render_template, request, redirect, url_for, jsonify, session, redirect, url_for
+import random, requests, os
+from flask import render_template, request, session, redirect
 from application.model import SearchForm, Krog, Review
 from haversine import haversine
 
 API_KEY = os.getenv('MAPS_API_KEY')
-MAPS_EMBED_KEY = 'AIzaSyDMtS6rg17-Tr2neNR0b0RSgrF5RxmfUhQ'
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
 GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&language=sv&key=%s'
-GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
+# GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
 #Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
 GOOGLE_EMBEDDED_DIRECTIONS_MAPS = 'https://www.google.com/maps/embed/v1/directions?mode=%s&origin=%s&destination=place_id:%s&key=%s'

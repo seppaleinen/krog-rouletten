@@ -1,5 +1,5 @@
 # coding=UTF-8
-from wtforms import Form, StringField, validators, HiddenField, SelectField, RadioField, BooleanField
+from wtforms import Form, validators, HiddenField, SelectField, RadioField
 
 
 class SearchForm(Form):
