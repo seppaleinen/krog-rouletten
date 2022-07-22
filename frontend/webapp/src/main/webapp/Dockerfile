@@ -1,4 +1,3 @@
-#FROM python:3.4-onbuild
 FROM python:alpine3.16
 
 ENV PYTHONUNBUFFERED 1

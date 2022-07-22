@@ -91,7 +91,8 @@ def search_google_and_broaden_if_no_results(form):
         form.distance.data = int(form.distance.data) + 500
         return search_google_and_broaden_if_no_results(form)
     else:
-        raise Exception("Wrong statuscode: %s" % search_response['status'])
+        raise Exception("Wrong statuscode: '%s' with message: '%s'" %
+                        (search_response['status'], search_response['error_message']))
 
 
 def get_details_response_from_google(place_id, location=None):

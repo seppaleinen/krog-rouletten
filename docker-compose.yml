@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
   nginx:
@@ -9,25 +9,22 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /www/static
-#      - /etc/letsencrypt:/etc/letsencrypt
-#      - /tmp/letsencrypt-auto:/tmp/letsencrypt-auto
-#      - /opt/nginx:/opt/nginx
-    volumes_from:
-      - webapp
+      - webapp-volume:/webapp/application/static
     links:
       - webapp:webapp
 
   webapp:
     restart: always
-#    build: frontend/nginx/src/main
     image: seppaleinen/krogrouletten-webapp
     expose:
       - "8000"
     volumes:
-      - /webapp/application/static
+      - webapp-volume:/webapp/application/static
     environment:
       - MAPS_API_KEY=${MAPS_API_KEY}
       - SENTRY_DSN=https://5f31608fe1c24d2cbbf384e412c0e8c3:77adde0716644851b8d963af9d8b753e@sentry.io/98425
       - SENTRY_RELEASE=0.0.2
     command: gunicorn --config=gunicorn.config.py wsgi:app
+
+volumes:
+  webapp-volume:
