@@ -1,5 +1,7 @@
 # coding=UTF-8
-import random, requests, os
+import random
+import requests
+import os
 from flask import render_template, request, session, redirect
 from application.model import SearchForm, Krog, Review
 from haversine import haversine
@@ -8,7 +10,7 @@ API_KEY = os.getenv('MAPS_API_KEY')
 GOOGLE_SEARCH = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?%s&key=%s'
 GOOGLE_DETAILS = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=%s&language=sv&key=%s'
 # GOOGLE_GEOCODE = 'http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false'
-#Should either be this map or one with directions
+# Should either be this map or one with directions
 GOOGLE_EMBEDDED_MAPS = 'https://www.google.com/maps/embed/v1/place?q=place_id:%s&key=%s'
 GOOGLE_EMBEDDED_DIRECTIONS_MAPS = 'https://www.google.com/maps/embed/v1/directions?mode=%s&origin=%s&destination=place_id:%s&key=%s'
 GOOGLE_PLACES_PHOTO = 'https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=%s&key=%s'
@@ -68,7 +70,10 @@ def random_page():
             ))
         print("KROGLISTA: ", krog_lista[0])
 
-        return render_template('lista.html', data=sorted(krog_lista, key=lambda x: x.distance), **Helper().forms({'searchForm': form}))
+        return render_template(
+            'lista.html',
+            data=sorted(krog_lista, key=lambda x: x.distance),
+            **Helper().forms({'searchForm': form}))
 
     # Hell has frozen over
     return render_template('error.html', data='Nånting gick fel', **Helper().forms())
@@ -87,7 +92,7 @@ def search_google_and_broaden_if_no_results(form):
 
     if search_response['status'] == 'OK' and search_response['results']:
         return search_response
-    elif search_response['status'] == 'ZERO_RESULTS': # If no results, increase distance and search again
+    elif search_response['status'] == 'ZERO_RESULTS':  # If no results, increase distance and search again
         form.distance.data = int(form.distance.data) + 500
         return search_google_and_broaden_if_no_results(form)
     else:
@@ -118,8 +123,10 @@ def get_details_response_from_google(place_id, location=None):
 
         bar_types = details_response['result']['types']
         # Remove point_of_interest and establishment from bartypes, as they're not really that interesting..
-        if 'point_of_interest' in bar_types: bar_types.remove('point_of_interest')
-        if 'establishment' in bar_types: bar_types.remove('establishment')
+        if 'point_of_interest' in bar_types:
+            bar_types.remove('point_of_interest')
+        if 'establishment' in bar_types:
+            bar_types.remove('establishment')
 
         try:
             opening_hours = details_response['result']['opening_hours']['weekday_text']
@@ -133,8 +140,8 @@ def get_details_response_from_google(place_id, location=None):
 
         dist = None
         if location:
-            lat=location.split(',')[0]
-            lng=location.split(',')[1]
+            lat = location.split(',')[0]
+            lng = location.split(',')[1]
 
             dist = Helper.calculate_distance_between_locations(
                 lat,
@@ -142,7 +149,7 @@ def get_details_response_from_google(place_id, location=None):
                 details_response['result']['geometry']['location']['lat'],
                 details_response['result']['geometry']['location']['lng'])
             mode = 'transit' if 'km' in dist else 'walking'
-            iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % (mode, lat + ',' + lng,place_id, API_KEY))
+            iframe_lank = (GOOGLE_EMBEDDED_DIRECTIONS_MAPS % (mode, lat + ',' + lng, place_id, API_KEY))
         else:
             iframe_lank = (GOOGLE_EMBEDDED_MAPS % (place_id, API_KEY))
 
@@ -227,6 +234,3 @@ class Helper(object):
         distance_in_km = "{0:.1f}".format(haversine(user_loc, bar_loc))
         # Returns e.g km if over one 1 km distance, otherwise in meters
         return distance_in_km + 'km' if float(distance_in_km) > 1 else str((float(distance_in_km) * 1000)) + 'm'
-
-
-
