@@ -3,13 +3,13 @@ import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 import HomeScreen from "./screens/HomeScreen";
-import UserScreen from "./screens/UserScreen";
+import BarScreen from "./screens/BarScreen";
 import SettingScreen from "./screens/SettingScreen";
 
 const AppNavigator = createStackNavigator(
     {
         Home: HomeScreen,
-        User: UserScreen,
+        Bar: BarScreen,
         Setting: SettingScreen,
     },
     {
@@ -23,9 +23,6 @@ const AppNavigator = createStackNavigator(
             },
             headerTintColor: "#FFF",
         },
-    },
-    {
-        initialRouteName: "Home",
     }
 );
 

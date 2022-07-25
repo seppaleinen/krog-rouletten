@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const User = () => {
+const Bar = () => {
     return (
         <View style={{ flex: 1, alignItems: "center",
             justifyContent: "center" }}>
@@ -15,10 +15,11 @@ const User = () => {
     );
 };
 
-User.navigationOptions = (navData) => {
+// @ts-ignore
+Bar.navigationOptions = (navData) => {
     return {
         headerTitle: navData.navigation.getParam("username"),
     };
 };
 
-export default User;
+export default Bar;
