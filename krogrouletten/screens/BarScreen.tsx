@@ -21,11 +21,7 @@ const Bar = (navData) => {
             flex: 1, alignItems: "center",
             justifyContent: "center"
         }}>
-            <Text style={{color: "#006600", fontSize: 40}}>
-                User Screen! {data.name}
-            </Text>
-            <Ionicons name="ios-person-circle-outline"
-                      size={80} color="#006600"/>
+            <Text style={{color: "#006600", fontSize: 40}}>{data.name}</Text>
         </View>
     );
 };
