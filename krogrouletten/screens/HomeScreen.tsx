@@ -8,7 +8,7 @@ import {
     HeaderButtons,
 } from "react-navigation-header-buttons";
 import axios from 'axios';
-
+import * as Location from 'expo-location';
 
 // @ts-ignore
 const Home = (props) => {
@@ -24,14 +24,28 @@ const Home = (props) => {
             <Button
                 title="Slumpa"
                 color="#006600"
-                onPress={() => {
+                onPress={async () => {
                     let data = "59.4496733,17.932673";
+                    console.log("LOC2: " + await getLocation());
+
                     props.navigation.navigate("Bar", {location: data});
                 }}
             />
         </View>
     );
 };
+
+const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+        console.error('Permission to access location was denied');
+        return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    console.log("LOC: " + JSON.stringify(location));
+    return location.coords.latitude +  ',' + location.coords.longitude;
+}
 
 // @ts-ignore
 const HeaderButtonComponent = (props) => (

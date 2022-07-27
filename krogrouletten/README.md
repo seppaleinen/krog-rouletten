@@ -2,3 +2,6 @@
 - npm run android
 - npm run ios
 - npm run web
+
+
+Skapa en .env fil med GOOGLE_MAPS_API_KEY satt
