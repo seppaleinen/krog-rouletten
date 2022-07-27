@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios';
-import Config from 'react-native-config';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
 import Home from './HomeScreen';
+// @ts-ignore
+import {GOOGLE_MAPS_API_KEY} from 'react-native-dotenv';
+
 
 // @ts-ignore
 const Bar = (navData) => {
@@ -29,11 +31,11 @@ const Bar = (navData) => {
 };
 
 const clickRandom = (location: string, count: number) => {
-    let radius = '500';
+    let radius = 500 * (count + 1);
     let type = 'bar';
-    let API_KEY = '';//Config.GOOGLE_MAPS_API_KEY;
+    let API_KEY = GOOGLE_MAPS_API_KEY;
 
-    console.log(count);
+    console.log('Count: ' + count);
     if (count > 5) {
         throw new Error("Could not find any bars nearby");
     }
