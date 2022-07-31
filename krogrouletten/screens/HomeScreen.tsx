@@ -28,7 +28,11 @@ const Home = (props) => {
                     //let data = "59.4496733,17.932673";
                     getLocation()
                         .then(location => {
-                            props.navigation.navigate("Bar", {location: location});
+                            const loc = {
+                                latitude: location.coords.latitude,
+                                longitude: location.coords.longitude
+                            }
+                            props.navigation.navigate("Bar", {location: loc});
                         });
                 }}
             />
@@ -36,15 +40,17 @@ const Home = (props) => {
     );
 };
 
-const getLocation = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-        console.error('Permission to access location was denied');
-        return;
-    }
+const getLocation = () => {
+    return Location.requestForegroundPermissionsAsync()
+        .then(status => {
+            if (status.status !== 'granted') {
+                console.error('Permission to access location was denied');
+                return;
+            }
+            return Location.getCurrentPositionAsync({});
+        });
 
-    let location = await Location.getCurrentPositionAsync({});
-    return location.coords.latitude +  ',' + location.coords.longitude;
+    //return location.coords.latitude +  ',' + location.coords.longitude;
 }
 
 // @ts-ignore

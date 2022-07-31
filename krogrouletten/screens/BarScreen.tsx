@@ -6,6 +6,7 @@ import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-butto
 import Home from './HomeScreen';
 // @ts-ignore
 import { GOOGLE_MAPS_API_KEY } from 'react-native-dotenv';
+import haversine from 'haversine-distance'
 
 
 // @ts-ignore
@@ -19,6 +20,7 @@ const Bar = (navData) => {
             latitude: "123",
             longitude: "123"
         },
+        distance: '',
         price_level: 1,
         rating: 1,
         place_id: "placeid",
@@ -33,11 +35,13 @@ const Bar = (navData) => {
                 const resp1 = nearbyResp[0];
                 getDetails(resp1.place_id)
                     .then(detailsResp => {
+                        const placeLoc = {
+                            "latitude": resp1.geometry.location.lat,
+                            "longitude": resp1.geometry.location.lng
+                        };
                         let place: Place = {
-                            location: {
-                                "latitude": resp1.geometry.location.lat,
-                                "longitude": resp1.geometry.location.lng
-                            },
+                            location: placeLoc,
+                            distance: calculateDistance(location, placeLoc),
                             place_id: resp1.place_id,
                             price_level: resp1.price_level,
                             rating: resp1.rating,
@@ -75,19 +79,21 @@ const Bar = (navData) => {
             <Text style={{color: "#006600", fontSize: 40}}>{data.name}</Text>
             <Text>Open now: {String(data.open_now)}</Text>
             <Text>Open: {'\n'}{data.open.join("\n")}</Text>
+            <Text>Distance to: {data.distance}</Text>
         </View>
     );
 };
 
-const clickRandom = (location: string, count: number) => {
+const clickRandom = (location: Location, count: number) => {
     let radius = 500 * (count + 1);
     let type = 'bar';
     let API_KEY = GOOGLE_MAPS_API_KEY;
+    let loc = `${location.latitude},${location.longitude}`;
 
     if (count > 5) {
         throw new Error("Could not find any bars nearby");
     }
-    let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location}&radius=${radius}&type=${type}&key=${API_KEY}`;
+    let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&radius=${radius}&type=${type}&key=${API_KEY}`;
     return axios.get(url,)
         .then(response => {
             if (response.data.status === 'OK') {
@@ -122,8 +128,11 @@ const getPhotoUrl = (photoId: string) => {
     return `https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=${photoId}&key=${API_KEY}`;
 }
 
-const calculateDistance = () => {
-
+const calculateDistance = (userLoc: Location, placeLoc: Location) => {
+    const user = { latitude: Number(userLoc.latitude), longitude: Number(userLoc.longitude) }
+    const place = { latitude: Number(placeLoc.latitude), longitude: Number(placeLoc.longitude) }
+    let distance = Number(haversine(user, place).toFixed(1));
+    return distance > 1000 ? (distance / 1000) + 'km' : distance + 'm';
 }
 
 // @ts-ignore
@@ -157,6 +166,7 @@ interface Place {
     name: string;
     open_now: boolean;
     location: Location;
+    distance: string;
     price_level: number;
     rating: number;
     place_id: string;
@@ -168,7 +178,7 @@ interface Place {
     types: string[];
 }
 
-interface Location {
+export interface Location {
     latitude: string;
     longitude: string;
 }
