@@ -25,10 +25,11 @@ const Home = (props) => {
                 title="Slumpa"
                 color="#006600"
                 onPress={async () => {
-                    let data = "59.4496733,17.932673";
-                    console.log("LOC2: " + await getLocation());
-
-                    props.navigation.navigate("Bar", {location: data});
+                    //let data = "59.4496733,17.932673";
+                    getLocation()
+                        .then(location => {
+                            props.navigation.navigate("Bar", {location: location});
+                        });
                 }}
             />
         </View>
@@ -43,7 +44,6 @@ const getLocation = async () => {
     }
 
     let location = await Location.getCurrentPositionAsync({});
-    console.log("LOC: " + JSON.stringify(location));
     return location.coords.latitude +  ',' + location.coords.longitude;
 }
 
