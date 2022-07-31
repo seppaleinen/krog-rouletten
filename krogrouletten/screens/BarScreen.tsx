@@ -5,7 +5,6 @@ import axios from 'axios';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
 import Home from './HomeScreen';
 // @ts-ignore
-import { GOOGLE_MAPS_API_KEY } from 'react-native-dotenv';
 import haversine from 'haversine-distance'
 
 
@@ -87,7 +86,7 @@ const Bar = (navData) => {
 const clickRandom = (location: Location, count: number) => {
     let radius = 500 * (count + 1);
     let type = 'bar';
-    let API_KEY = GOOGLE_MAPS_API_KEY;
+    let API_KEY = process.env.GOOGLE_API_KEY;
     let loc = `${location.latitude},${location.longitude}`;
 
     if (count > 5) {
@@ -110,7 +109,7 @@ const clickRandom = (location: Location, count: number) => {
 }
 
 const getDetails = async (placeId: string) => {
-    let API_KEY = GOOGLE_MAPS_API_KEY;
+    let API_KEY = process.env.GOOGLE_API_KEY;
     let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&language=sv&key=${API_KEY}`;
     return axios(url,)
         .then(response => {
@@ -124,7 +123,7 @@ const getDetails = async (placeId: string) => {
 }
 
 const getPhotoUrl = (photoId: string) => {
-    let API_KEY = GOOGLE_MAPS_API_KEY;
+    let API_KEY = process.env.GOOGLE_API_KEY;
     return `https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=${photoId}&key=${API_KEY}`;
 }
 
