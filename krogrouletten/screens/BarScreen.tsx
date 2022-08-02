@@ -3,9 +3,8 @@ import { Text, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
-import Home from './HomeScreen';
-// @ts-ignore
 import haversine from 'haversine-distance'
+// @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
 
@@ -99,8 +98,8 @@ const Bar = (navData) => {
         }}>
             <Image style={{width: 200, height: 200}} source={{uri: data.photo_refs[0]}}></Image>
             <Text style={{color: "#006600", fontSize: 40}}>{data.name}</Text>
-            <Text>Open now: {String(data.open_now)}</Text>
-            <Text>Open: {'\n'}{data.open?.join("\n")}</Text>
+            {data.open_now !== undefined ? <Text>Open now: {String(data.open_now)}</Text> : <Text/>}
+            {data.open !== undefined ? <Text>Open: {'\n'}{data.open?.join("\n")}</Text> : <Text/>}
             <Text>Distance to: {data.distance}</Text>
         </View>
     );
@@ -116,13 +115,12 @@ const clickRandom = async (location: Location, count: number): Promise<any> => {
     }
     let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&radius=${radius}&type=${type}&key=${API_KEY}`;
 
-    console.log(url);
     return axios.get(url,)
         .then(response => {
             if (response.data.status === 'OK') {
                 return response;
             } else if (response.data.status === 'ZERO_RESULTS') {
-                console.log("No results. Trying again: " + radius);
+                console.log("No results. Trying again: " + 500 * ((count + 2) ** 2));
                 return clickRandom(location, count + 1);
             } else {
                 console.log("Wrong statuscode %s raising as error", response.data.status)
@@ -135,7 +133,6 @@ const clickRandom = async (location: Location, count: number): Promise<any> => {
 const getDetails = async (placeId: string) => {
     let API_KEY = getGoogleApiKey();
     let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&language=sv&key=${API_KEY}`;
-    console.log("details: " + url);
     return axios(url,)
         .then(response => {
             if (response.data.status === 'OK') {
