@@ -1,111 +1,123 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Dimensions, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
 import haversine from 'haversine-distance'
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
+import Carousel from 'react-native-sideswipe';
 
 
 // @ts-ignore
 const Bar = (navData) => {
     let location = navData.navigation.getParam("location");
-    const [data, setData] = useState<Place>({
-        name: "name",
-        open_now: false,
-        open: [],
-        location: {
-            latitude: "123",
-            longitude: "123"
-        },
-        distance: '',
-        price_level: 1,
-        rating: 1,
-        place_id: "placeid",
-        address: "address",
-        photo_refs: [],
-        reviews: [],
-        types: []
-    })
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [data, setData] = useState<Place[]>([])
+
     useEffect(() => {
-        clickRandom(location, 0)
+        findNearbies(location, 0)
             .then(nearbyResp => {
-                const resp1 = nearbyResp.data.results[0];
-                getDetails(resp1.place_id)
-                    .then(detailsResp => {
-                        const placeLoc = {
-                            "latitude": resp1.geometry.location.lat,
-                            "longitude": resp1.geometry.location.lng
-                        };
-                        let place: Place = {
-                            location: placeLoc,
-                            distance: calculateDistance(location, placeLoc),
-                            place_id: resp1.place_id,
-                            price_level: resp1.price_level,
-                            rating: resp1.rating,
-                            name: resp1.name,
-                            open_now: resp1.opening_hours?.open_now,
+                nearbyResp.data.results
+                    .filter((result: any) => result.business_status === 'OPERATIONAL')
+                    .forEach((result: any) => {
+                        getDetails(result.place_id)
+                            .then(detailsResp => {
+                                const placeLoc = {
+                                    "latitude": result.geometry.location.lat,
+                                    "longitude": result.geometry.location.lng
+                                };
+                                let place: Place = {
+                                    location: placeLoc,
+                                    distance: calculateDistance(location, placeLoc),
+                                    place_id: result.place_id,
+                                    price_level: result.price_level,
+                                    rating: result.rating,
+                                    name: result.name,
+                                    open_now: result.opening_hours?.open_now,
 
-                            address: detailsResp.formatted_address,
-                            open: detailsResp.opening_hours?.weekday_text,
-                            photo_refs: detailsResp.photos ? detailsResp.photos
-                                    .map((photo: {}) => getPhotoUrl(photo.photo_reference))
-                                : [],
-                            reviews: detailsResp.reviews ? detailsResp.reviews
-                                .map((review: {}) => {
-                                    let rev: Review = {
-                                        "name": review.author_name,
-                                        "rating": review.rating,
-                                        "text": review.text
-                                    };
-                                    return rev;
-                                }) : [],
-                            types: detailsResp.types ? detailsResp.types
-                                .filter((type: string) => type !== 'point_of_interest' && type !== 'establishment')
-                                .map((type: string) => type) : []
-                        }
+                                    address: detailsResp.formatted_address,
+                                    open: detailsResp.opening_hours?.weekday_text,
+                                    photo_refs: detailsResp.photos ? detailsResp.photos
+                                            .map((photo: {}) => getPhotoUrl(photo.photo_reference))
+                                        : undefined,
+                                    reviews: detailsResp.reviews ? detailsResp.reviews
+                                        .map((review: {}) => {
+                                            let rev: Review = {
+                                                "name": review.author_name,
+                                                "rating": review.rating,
+                                                "text": review.text
+                                            };
+                                            return rev;
+                                        }) : [],
+                                    types: detailsResp.types ? detailsResp.types
+                                        .filter((type: string) => type !== 'point_of_interest' && type !== 'establishment')
+                                        .map((type: string) => type) : []
+                                }
 
-                        setData(place);
+                                setData(prevState => {
+                                    console.log("PLACE: " + JSON.stringify(place));
+                                    return [...prevState, place];
+                                });
+                            })
                     })
             })
             .catch(error => {
                 console.log("ERROR: " + error);
                 const noPlace = {
                     name: "No place found",
-                    open_now: false,
-                    open: [],
                     location: {
                         latitude: "123",
                         longitude: "123"
                     },
                     distance: '',
-                    price_level: 1,
-                    rating: 1,
                     place_id: "placeid",
-                    address: "address",
-                    photo_refs: [],
-                    reviews: [],
                     types: []
                 };
-                setData(noPlace);
+                setData([noPlace]);
             })
     }, [])
+
+    const {width} = Dimensions.get('window');
+
     return (
         <View style={{
-            flex: 1, alignItems: "center",
+            flex: 1,
+            alignItems: "center",
             justifyContent: "center"
         }}>
-            <Image style={{width: 200, height: 200}} source={{uri: data.photo_refs[0]}}></Image>
-            <Text style={{color: "#006600", fontSize: 40}}>{data.name}</Text>
-            {data.open_now !== undefined ? <Text>Open now: {String(data.open_now)}</Text> : <Text/>}
-            {data.open !== undefined ? <Text>Open: {'\n'}{data.open?.join("\n")}</Text> : <Text/>}
-            <Text>Distance to: {data.distance}</Text>
+            <Carousel
+                data={data}
+                style={{width}}
+                itemWidth={width}
+                threshold={120}
+                contentOffset={0}
+                index={currentIndex}
+                onIndexChange={index =>
+                    setCurrentIndex(index)
+                }
+                renderItem={({item}) => (
+                    <View style={{
+                        width: width, paddingHorizontal: 10, flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}>
+                        {item.photo_refs ?
+                            <Image style={{width: width, height: 200}} source={{uri: item.photo_refs[0]}}></Image> :
+                            <Image style={{width: width, height: 200}}
+                                   source={{uri: 'https://unsplash.com/photos/_RBcxo9AU-U/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mnx8cGxhY2V8ZW58MHx8fHwxNjU5NTQzMzk1&force=true&w=640'}}/>}
+                        <Text style={{color: "#006600", fontSize: 40}}>{item.name}</Text>
+                        {item.open_now !== undefined ? <Text>Open now: {String(item.open_now)}</Text> : <Text/>}
+                        {item.open !== undefined ? <Text>Open: {'\n'}{item.open?.join("\n")}</Text> : <Text/>}
+                        <Text>Distance to: {item.distance}</Text>
+                    </View>
+                )}
+            />
         </View>
     );
 };
 
-const clickRandom = async (location: Location, count: number): Promise<any> => {
+const findNearbies = async (location: Location, count: number): Promise<any> => {
     let radius = 500 * ((count + 1) ** 2);
     let type = 'bar';
     let API_KEY = getGoogleApiKey();
@@ -121,7 +133,7 @@ const clickRandom = async (location: Location, count: number): Promise<any> => {
                 return response;
             } else if (response.data.status === 'ZERO_RESULTS') {
                 console.log("No results. Trying again: " + 500 * ((count + 2) ** 2));
-                return clickRandom(location, count + 1);
+                return findNearbies(location, count + 1);
             } else {
                 console.log("Wrong statuscode %s raising as error", response.data.status)
                 throw new Error(response.data.error_message);
@@ -198,17 +210,17 @@ Bar.navigationOptions = (navData) => {
 
 interface Place {
     name: string;
-    open_now: boolean;
     location: Location;
     distance: string;
-    price_level: number;
-    rating: number;
     place_id: string;
 
-    address: string;
-    open: string[];
-    photo_refs: string[];
-    reviews: Review[];
+    address?: string;
+    open_now?: boolean;
+    rating?: number;
+    price_level?: number;
+    open?: string[];
+    photo_refs?: string[];
+    reviews?: Review[];
     types: string[];
 }
 
