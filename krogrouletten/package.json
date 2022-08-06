@@ -22,6 +22,7 @@
     "react-dom": "17.0.2",
     "react-native": "0.68.2",
     "react-native-dotenv": "^3.3.1",
+    "react-native-maps-directions": "^1.9.0",
     "react-native-paper": "^3.12.0",
     "react-native-picker-select": "^8.0.4",
     "react-native-sideswipe": "^1.5.0",
@@ -30,7 +31,8 @@
     "react-navigation": "^4.4.4",
     "react-navigation-header-buttons": "^9.0.1",
     "react-navigation-material-bottom-tabs": "^2.3.5",
-    "react-navigation-stack": "^2.10.4"
+    "react-navigation-stack": "^2.10.4",
+    "react-native-maps": "0.30.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
