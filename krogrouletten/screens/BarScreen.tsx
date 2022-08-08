@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, Dimensions, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
+import {  HeaderButtons, Item } from 'react-navigation-header-buttons';
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
 import Carousel from 'react-native-sideswipe';
 import MapViewDirections from 'react-native-maps-directions';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import axios from 'axios';
+import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import haversine from 'haversine-distance'
+import {findNearbies, getGoogleApiKey} from './Service';
+import {Place, Location} from './Types';
+import { HeaderButtonComponent } from './HomeScreen';
 
 
 // @ts-ignore
@@ -20,6 +21,7 @@ const Bar = (navData) => {
         const [loaded, setLoaded] = useState<boolean>(false)
 
         useEffect(() => {
+            setLoaded(false);
             findNearbies(location, 0)
                 .then(nearbyResp => {
                     nearbyResp.data.results
@@ -93,6 +95,8 @@ const Bar = (navData) => {
                             longitude: Number(data[currentIndex].location.longitude)
                         }}/>
 
+                        { data[currentIndex].name === 'asdasd' ? <Circle center={{latitude: location.latitude, longitude: location.longitude}} radius={500}></Circle> : <Text/>}
+
                         <MapViewDirections
                             origin={{
                                 latitude: Number(location.latitude),
@@ -138,46 +142,6 @@ const Bar = (navData) => {
         }
     };
 
-const findNearbies = async (location: Location, count: number): Promise<any> => {
-    let radius = 500 * ((count + 1) ** 2);
-    let type = 'bar';
-    let API_KEY = getGoogleApiKey();
-    let loc = `${location.latitude},${location.longitude}`;
-    if (count > 5) {
-        throw new Error("Could not find any bars nearby");
-    }
-    let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${loc}&radius=${radius}&type=${type}&key=${API_KEY}`;
-
-    return axios.get(url,)
-        .then(response => {
-            if (response.data.status === 'OK') {
-                return response;
-            } else if (response.data.status === 'ZERO_RESULTS') {
-                console.log("No results. Trying again: " + 500 * ((count + 2) ** 2));
-                return findNearbies(location, count + 1);
-            } else {
-                console.log("Wrong statuscode %s raising as error", response.data.status)
-                throw new Error(response.data.error_message);
-            }
-        })
-        .catch(error => console.error("Could not get nearby places due to error.", error));
-}
-
-/**
-const getDetails = async (placeId: string) => {
-    let API_KEY = getGoogleApiKey();
-    let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&language=sv&key=${API_KEY}`;
-    return axios(url,)
-        .then(response => {
-            if (response.data.status === 'OK') {
-                return response.data.result
-            } else {
-                throw new Error(`Wrong statuscode ${response.data.status}, throwing error ${response.data.error_message}`);
-            }
-        })
-        .catch(error => console.error("Could not get details due to error.", error))
-}
-**/
 
 const getPhotoUrl = (photoId: string) => {
     let API_KEY = getGoogleApiKey();
@@ -189,30 +153,6 @@ const calculateDistance = (userLoc: Location, placeLoc: Location) => {
     const place = {latitude: Number(placeLoc.latitude), longitude: Number(placeLoc.longitude)}
     let distance = Number(haversine(user, place).toFixed(1));
     return distance > 1000 ? (distance / 1000).toFixed(1) + 'km' : distance.toFixed(1) + 'm';
-}
-
-// @ts-ignore
-const HeaderButtonComponent = (props) => (
-    <HeaderButton
-        IconComponent={Ionicons}
-        iconSize={23}
-        color="#FFF"
-        iconName="settingsButton"
-        {...props}
-    />
-);
-
-const getGoogleApiKey = () => {
-    const processKey = process.env.GOOGLE_API_KEY;
-    if (processKey) {
-        return processKey;
-    }
-    const dotEnvKey = GOOGLE_API_KEY;
-    if (dotEnvKey) {
-        return dotEnvKey;
-    } else {
-        throw new Error("No google api key found in environment");
-    }
 }
 
 // @ts-ignore
@@ -230,33 +170,6 @@ Bar.navigationOptions = (navData) => {
         ),
     };
 };
-
-interface Place {
-    name: string;
-    location: Location;
-    distance: string;
-    place_id: string;
-
-    address?: string;
-    open_now?: boolean;
-    rating?: number;
-    price_level?: number;
-    open?: string[];
-    photo_refs?: string[];
-    reviews?: Review[];
-    types?: string[];
-}
-
-export interface Location {
-    latitude: string;
-    longitude: string;
-}
-
-interface Review {
-    name: string;
-    rating: number;
-    text: string;
-}
 
 export default Bar;
 

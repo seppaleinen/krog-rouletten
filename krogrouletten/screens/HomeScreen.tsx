@@ -62,12 +62,10 @@ const getLocation = () => {
             }
             return Location.getCurrentPositionAsync({});
         });
-
-    //return location.coords.latitude +  ',' + location.coords.longitude;
 }
 
 // @ts-ignore
-const HeaderButtonComponent = (props) => (
+export const HeaderButtonComponent = (props) => (
     <HeaderButton
         IconComponent={Ionicons}
         iconSize={23}
