@@ -19,6 +19,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "se.krogrouletten.krogroulette",
       "supportsTablet": true
     },
     "android": {
