@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, Dimensions, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import axios from 'axios';
 import { HeaderButton, HeaderButtons, Item } from 'react-navigation-header-buttons';
-import haversine from 'haversine-distance'
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
+
 import Carousel from 'react-native-sideswipe';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
+import axios from 'axios';
+import haversine from 'haversine-distance'
 
 
 // @ts-ignore
@@ -37,27 +38,9 @@ const Bar = (navData) => {
                                 name: result.name,
                                 open_now: result.opening_hours?.open_now,
                                 photo_refs: result.photos ? result.photos
+                                        // @ts-ignore
                                         .map((photo: {}) => getPhotoUrl(photo.photo_reference))
                                     : undefined
-                                /**
-                                 address: detailsResp.formatted_address,
-                                 open: detailsResp.opening_hours?.weekday_text,
-                                 photo_refs: detailsResp.photos ? detailsResp.photos
-                                 .map((photo: {}) => getPhotoUrl(photo.photo_reference))
-                                 : undefined,
-                                 reviews: detailsResp.reviews ? detailsResp.reviews
-                                 .map((review: {}) => {
-                                    let rev: Review = {
-                                        "name": review.author_name,
-                                        "rating": review.rating,
-                                        "text": review.text
-                                    };
-                                    return rev;
-                                }) : [],
-                                 types: detailsResp.types ? detailsResp.types
-                                 .filter((type: string) => type !== 'point_of_interest' && type !== 'establishment')
-                                 .map((type: string) => type) : []
-                                 **/
                             }
 
                             setData(prevState => {
@@ -74,7 +57,7 @@ const Bar = (navData) => {
                             longitude: "123"
                         },
                         distance: '',
-                        place_id: "placeid"
+                        place_id: ''
                     };
                     setData([noPlace]);
                 })
@@ -155,8 +138,7 @@ const Bar = (navData) => {
         } else {
             return <View><Text>Loading</Text></View>
         }
-    }
-;
+    };
 
 const findNearbies = async (location: Location, count: number): Promise<any> => {
     let radius = 500 * ((count + 1) ** 2);
@@ -183,6 +165,7 @@ const findNearbies = async (location: Location, count: number): Promise<any> => 
         .catch(error => console.error("Could not get nearby places due to error.", error));
 }
 
+/**
 const getDetails = async (placeId: string) => {
     let API_KEY = getGoogleApiKey();
     let url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&language=sv&key=${API_KEY}`;
@@ -196,6 +179,7 @@ const getDetails = async (placeId: string) => {
         })
         .catch(error => console.error("Could not get details due to error.", error))
 }
+**/
 
 const getPhotoUrl = (photoId: string) => {
     let API_KEY = getGoogleApiKey();

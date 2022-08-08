@@ -30,6 +30,7 @@ const Navigator = createAppContainer(AppNavigator);
 
 export default function App() {
     return (
+        // @ts-ignore
         <Navigator>
             <HomeScreen />
         </Navigator>
