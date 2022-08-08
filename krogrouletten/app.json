@@ -13,7 +13,7 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/5105b207-01cb-4dc7-93a7-6b0c25455887?runtime-version=exposdk:46.0.0&channel-name=default&platform=android"
+      "url": "https://u.expo.dev/5105b207-01cb-4dc7-93a7-6b0c25455887"
     },
     "assetBundlePatterns": [
       "**/*"
