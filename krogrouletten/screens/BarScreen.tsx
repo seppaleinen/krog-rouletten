@@ -78,6 +78,36 @@ const Bar = (navData) => {
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
+                    <MapView style={StyleSheet.absoluteFill}
+                             initialRegion={{
+                                 latitude: Number(location.latitude),
+                                 longitude: Number(location.longitude),
+                                 latitudeDelta: LATITUDE_DELTA,
+                                 longitudeDelta: LONGITUDE_DELTA
+                             }}
+                             customMapStyle={googleMapStyle}
+                        //provider={PROVIDER_GOOGLE}
+                    >
+                        <Marker coordinate={{
+                            latitude: Number(data[currentIndex].location.latitude),
+                            longitude: Number(data[currentIndex].location.longitude)
+                        }}/>
+
+                        <MapViewDirections
+                            origin={{
+                                latitude: Number(location.latitude),
+                                longitude: Number(location.longitude)
+                            }}
+                            destination={{
+                                latitude: Number(data[currentIndex].location.latitude),
+                                longitude: Number(data[currentIndex].location.longitude)
+                            }}
+                            mode={'WALKING'}
+                            apikey={getGoogleApiKey()}
+                            strokeWidth={3}
+                            strokeColor="hotpink"
+                        />
+                    </MapView>
                     <Carousel
                         data={data}
                         style={{width}}
@@ -85,45 +115,13 @@ const Bar = (navData) => {
                         threshold={120}
                         contentOffset={0}
                         index={currentIndex}
-                        onIndexChange={index =>
-                            setCurrentIndex(index)
-                        }
+                        onIndexChange={index => setCurrentIndex(index)}
                         renderItem={({item}) => (
                             <View style={{
                                 width: width, height: height, flex: 1,
                                 alignItems: "center",
                                 justifyContent: "center"
                             }}>
-                                <MapView style={StyleSheet.absoluteFill}
-                                         initialRegion={{
-                                             latitude: Number(location.latitude),
-                                             longitude: Number(location.longitude),
-                                             latitudeDelta: LATITUDE_DELTA,
-                                             longitudeDelta: LONGITUDE_DELTA
-                                         }}
-                                         customMapStyle={googleMapStyle}
-                                    //provider={PROVIDER_GOOGLE}
-                                >
-                                    <Marker coordinate={{
-                                        latitude: Number(item.location.latitude),
-                                        longitude: Number(item.location.longitude)
-                                    }}/>
-
-                                    <MapViewDirections
-                                        origin={{
-                                            latitude: Number(location.latitude),
-                                            longitude: Number(location.longitude)
-                                        }}
-                                        destination={{
-                                            latitude: Number(item.location.latitude),
-                                            longitude: Number(item.location.longitude)
-                                        }}
-                                        mode={'WALKING'}
-                                        apikey={getGoogleApiKey()}
-                                        strokeWidth={3}
-                                        strokeColor="hotpink"
-                                    />
-                                </MapView>
                                 <Callout>
                                     <View style={{bottom: 100}}>
                                         <Text style={{color: "#006600", fontSize: 40}}>{item.name}</Text>
