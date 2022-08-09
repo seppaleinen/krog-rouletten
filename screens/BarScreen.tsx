@@ -24,7 +24,7 @@ const Bar = (navData) => {
             setLoaded(false);
             findNearbies(location, 0)
                 .then(nearbyResp => {
-                    nearbyResp.data.results
+                    nearbyResp?.data.results
                         .filter((result: any) => result.business_status === 'OPERATIONAL')
                         .forEach((result: any) => {
                             const placeLoc = {

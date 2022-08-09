@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Location } from './BarScreen';
+import { Location } from './Types';
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 

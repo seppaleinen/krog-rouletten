@@ -9,43 +9,14 @@ on:
       - master
 
 jobs:
-  backend:
+  expo-project:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-node@v3
         with:
-          java-version: '11'
-          distribution: 'adopt'
-      - name: Run tests
-        run: mvn --batch-mode test
-      - name: Build docker dev image
-        run: mvn --batch-mode -f backend/pom.xml install -DskipTests -Pdocker
-      - name: Push docker image
-        env:
-          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: |
-          docker login -u "seppaleinen" -p $( echo $dockerhub_password )
-          docker tag seppaleinen/krogrouletten-backend seppaleinen/krogrouletten-backend:dev
-          docker push seppaleinen/krogrouletten-backend:dev
-  webapp:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Test
-        run: |
-          pip3 install -r frontend/webapp/src/main/webapp/requirements.txt
-          python3 frontend/webapp/src/main/webapp/runtests.py
-      - name: Build docker dev image
-        run: |
-          mvn --batch-mode -f frontend/webapp/pom.xml clean install -Pdocker
-      - name: Tag as latest and push to dockerhub
-        env:
-          dockerhub_password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        run: |
-          docker login -u "seppaleinen" -p $( echo $dockerhub_password )
-          docker tag seppaleinen/krogrouletten-webapp:latest seppaleinen/krogrouletten-webapp:dev
-          docker push seppaleinen/krogrouletten-webapp:dev
+          node-version: 16
+      - name: Install dependencies
+        run: npm install

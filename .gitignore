@@ -1,22 +1,15 @@
-*.class
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+*.env*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.iml
-*.pyc
-.scaffolding_list.tmp
-npm-debug.log
-*.log
+# macOS
 .DS_Store
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-target
-node
-node_modules
-jspm_packages
