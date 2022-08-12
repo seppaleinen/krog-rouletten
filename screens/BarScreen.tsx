@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, Dimensions, StyleSheet } from "react-native";
-import {  HeaderButtons, Item } from 'react-navigation-header-buttons';
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
@@ -10,7 +9,6 @@ import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-
 import haversine from 'haversine-distance'
 import {findNearbies, getGoogleApiKey} from './Service';
 import {Place, Location} from './Types';
-import { HeaderButtonComponent } from './HomeScreen';
 
 
 // @ts-ignore
@@ -159,15 +157,6 @@ const calculateDistance = (userLoc: Location, placeLoc: Location) => {
 Bar.navigationOptions = (navData) => {
     return {
         headerTitle: "Krogrouletten",
-        headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButtonComponent}>
-                <Item
-                    title="Setting"
-                    iconName="ios-settings-outline"
-                    onPress={() => navData.navigation.navigate("Setting")}
-                />
-            </HeaderButtons>
-        ),
     };
 };
 

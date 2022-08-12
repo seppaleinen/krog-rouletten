@@ -1,13 +1,6 @@
-import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { Text, View, Button, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-    Item,
-    HeaderButton,
-    HeaderButtons,
-} from "react-navigation-header-buttons";
-import axios from 'axios';
 import * as Location from 'expo-location';
 
 const style = StyleSheet.create({
@@ -26,7 +19,6 @@ const style = StyleSheet.create({
 });
 
 const Home = (props: any) => {
-    const [input, setInput] = useState("");
     return (
         <View style={style.view}>
             <Text style={style.welcomeDiv}>
@@ -65,29 +57,9 @@ const getLocation = () => {
 }
 
 // @ts-ignore
-export const HeaderButtonComponent = (props) => (
-    <HeaderButton
-        IconComponent={Ionicons}
-        iconSize={23}
-        color="#FFF"
-        iconName="settingsButton"
-        {...props}
-    />
-);
-
-// @ts-ignore
 Home.navigationOptions = (navData) => {
     return {
         headerTitle: "Krogrouletten",
-        headerRight: () => (
-            <HeaderButtons HeaderButtonComponent={HeaderButtonComponent}>
-                <Item
-                    title="Setting"
-                    iconName="ios-settings-outline"
-                    onPress={() => navData.navigation.navigate("Setting")}
-                />
-            </HeaderButtons>
-        ),
     };
 };
 

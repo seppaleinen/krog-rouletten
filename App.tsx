@@ -4,13 +4,11 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import HomeScreen from "./screens/HomeScreen";
 import BarScreen from "./screens/BarScreen";
-import SettingScreen from "./screens/SettingScreen";
 
 const AppNavigator = createStackNavigator(
     {
         Home: HomeScreen,
         Bar: BarScreen,
-        Setting: SettingScreen,
     },
     {
         defaultNavigationOptions: {
