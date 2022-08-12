@@ -21,32 +21,12 @@ const Bar = (navData) => {
         useEffect(() => {
             setLoaded(false);
             findNearbies(location, 0)
-                .then(nearbyResp => {
-                    nearbyResp?.data.results
-                        .filter((result: any) => result.business_status === 'OPERATIONAL')
-                        .forEach((result: any) => {
-                            const placeLoc = {
-                                "latitude": result.geometry.location.lat,
-                                "longitude": result.geometry.location.lng
-                            };
-                            let place: Place = {
-                                location: placeLoc,
-                                distance: calculateDistance(location, placeLoc),
-                                place_id: result.place_id,
-                                price_level: result.price_level,
-                                rating: result.rating,
-                                name: result.name,
-                                open_now: result.opening_hours?.open_now,
-                                photo_refs: result.photos ? result.photos
-                                        // @ts-ignore
-                                        .map((photo: {}) => getPhotoUrl(photo.photo_reference))
-                                    : undefined
-                            }
-
-                            setData(prevState => {
-                                return [...prevState, place];
-                            });
-                        })
+                .then((nearbyResp: Place[]) => {
+                    nearbyResp.forEach(place => {
+                        setData(prevState => {
+                            return [...prevState, place];
+                        });
+                    })
                 })
                 .catch((error: any) => {
                     console.log("ERROR: " + error);
@@ -120,7 +100,9 @@ const Bar = (navData) => {
                         onIndexChange={index => setCurrentIndex(index)}
                         renderItem={({item}) => (
                             <View style={{
-                                width: width, height: height, flex: 1,
+                                width: width,
+                                height: height,
+                                flex: 1,
                                 alignItems: "center",
                                 justifyContent: "center"
                             }}>
@@ -139,19 +121,6 @@ const Bar = (navData) => {
             return <View><Text>Loading</Text></View>
         }
     };
-
-
-const getPhotoUrl = (photoId: string) => {
-    let API_KEY = getGoogleApiKey();
-    return `https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=${photoId}&key=${API_KEY}`;
-}
-
-const calculateDistance = (userLoc: Location, placeLoc: Location) => {
-    const user = {latitude: Number(userLoc.latitude), longitude: Number(userLoc.longitude)}
-    const place = {latitude: Number(placeLoc.latitude), longitude: Number(placeLoc.longitude)}
-    let distance = Number(haversine(user, place).toFixed(1));
-    return distance > 1000 ? (distance / 1000).toFixed(1) + 'km' : distance.toFixed(1) + 'm';
-}
 
 // @ts-ignore
 Bar.navigationOptions = (navData) => {
