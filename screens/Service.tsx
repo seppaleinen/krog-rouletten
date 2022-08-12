@@ -21,8 +21,8 @@ export const findNearbies = async (location: Location, count: number): Promise<a
                     .filter((result: any) => result.business_status === 'OPERATIONAL')
                     .map((result: any) => {
                         const placeLoc = {
-                            "latitude": result.geometry.location.lat,
-                            "longitude": result.geometry.location.lng
+                            "latitude": Number(result.geometry.location.lat),
+                            "longitude": Number(result.geometry.location.lng)
                         };
                         let place: Place = {
                             location: placeLoc,
@@ -83,8 +83,8 @@ const getPhotoUrl = (photoId: string) => {
 }
 
 const calculateDistance = (userLoc: Location, placeLoc: Location) => {
-    const user = {latitude: Number(userLoc.latitude), longitude: Number(userLoc.longitude)}
-    const place = {latitude: Number(placeLoc.latitude), longitude: Number(placeLoc.longitude)}
+    const user = {latitude: userLoc.latitude, longitude: userLoc.longitude}
+    const place = {latitude: placeLoc.latitude, longitude: placeLoc.longitude}
     let distance = Number(haversine(user, place).toFixed(1));
     return distance > 1000 ? (distance / 1000).toFixed(1) + 'km' : distance.toFixed(1) + 'm';
 }

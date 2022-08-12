@@ -33,8 +33,8 @@ const Bar = (navData) => {
                     const noPlace = {
                         name: "No place found",
                         location: {
-                            latitude: "123",
-                            longitude: "123"
+                            latitude: 123,
+                            longitude: 123
                         },
                         distance: '',
                         place_id: ''
@@ -60,8 +60,8 @@ const Bar = (navData) => {
                 }}>
                     <MapView style={StyleSheet.absoluteFill}
                              initialRegion={{
-                                 latitude: Number(location.latitude),
-                                 longitude: Number(location.longitude),
+                                 latitude: location.latitude,
+                                 longitude: location.longitude,
                                  latitudeDelta: LATITUDE_DELTA,
                                  longitudeDelta: LONGITUDE_DELTA
                              }}
@@ -69,20 +69,20 @@ const Bar = (navData) => {
                         //provider={PROVIDER_GOOGLE}
                     >
                         <Marker coordinate={{
-                            latitude: Number(data[currentIndex].location.latitude),
-                            longitude: Number(data[currentIndex].location.longitude)
+                            latitude: data[currentIndex].location.latitude,
+                            longitude: data[currentIndex].location.longitude
                         }}/>
 
                         { data[currentIndex].name === 'asdasd' ? <Circle center={{latitude: location.latitude, longitude: location.longitude}} radius={500}></Circle> : <Text/>}
 
                         <MapViewDirections
                             origin={{
-                                latitude: Number(location.latitude),
-                                longitude: Number(location.longitude)
+                                latitude: location.latitude,
+                                longitude: location.longitude
                             }}
                             destination={{
-                                latitude: Number(data[currentIndex].location.latitude),
-                                longitude: Number(data[currentIndex].location.longitude)
+                                latitude: data[currentIndex].location.latitude,
+                                longitude: data[currentIndex].location.longitude
                             }}
                             mode={'WALKING'}
                             apikey={getGoogleApiKey()}

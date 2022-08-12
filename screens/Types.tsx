@@ -15,8 +15,8 @@ export interface Place {
 }
 
 export interface Location {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
 export interface Review {

@@ -34,8 +34,8 @@ const Home = (props: any) => {
                     getLocation()
                         .then(location => {
                             const loc = {
-                                latitude: location?.coords.latitude,
-                                longitude: location?.coords.longitude
+                                latitude: Number(location?.coords.latitude),
+                                longitude: Number(location?.coords.longitude)
                             }
                             props.navigation.navigate("Bar", {location: loc});
                         });
