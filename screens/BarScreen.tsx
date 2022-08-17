@@ -6,9 +6,8 @@ import { GOOGLE_API_KEY } from 'react-native-dotenv';
 import Carousel from 'react-native-sideswipe';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import haversine from 'haversine-distance'
 import {findNearbies, getGoogleApiKey} from './Service';
-import {Place, Location} from './Types';
+import {Place} from './Types';
 
 
 // @ts-ignore
@@ -22,7 +21,7 @@ const Bar = (navData) => {
             setLoaded(false);
             findNearbies(location, 0)
                 .then((nearbyResp: Place[]) => {
-                    nearbyResp.forEach(place => {
+                    nearbyResp.slice(0, 20).forEach(place => {
                         setData(prevState => {
                             return [...prevState, place];
                         });
@@ -73,7 +72,6 @@ const Bar = (navData) => {
                             longitude: data[currentIndex].location.longitude
                         }}/>
 
-                        { data[currentIndex].name === 'asdasd' ? <Circle center={{latitude: location.latitude, longitude: location.longitude}} radius={500}></Circle> : <Text/>}
 
                         <MapViewDirections
                             origin={{

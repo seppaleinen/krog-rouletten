@@ -34,6 +34,11 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5105b207-01cb-4dc7-93a7-6b0c25455887"
+      }
     }
   }
 }
