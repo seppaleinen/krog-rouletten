@@ -47,7 +47,10 @@ export const findNearbies = async (location: Location, count: number): Promise<a
                 throw new Error(response.data.error_message);
             }
         })
-        .catch(error => console.error("Could not get nearby places due to error.", error));
+        .catch(error => {
+            console.error("Could not get nearby places due to error.", error);
+            throw error;
+        });
 }
 
 export const getDetails = async (placeId: string) => {

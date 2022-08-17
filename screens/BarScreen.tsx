@@ -21,7 +21,7 @@ const Bar = (navData) => {
             setLoaded(false);
             findNearbies(location, 0)
                 .then((nearbyResp: Place[]) => {
-                    nearbyResp.slice(0, 20).forEach(place => {
+                    nearbyResp?.slice(0, 20)?.forEach(place => {
                         setData(prevState => {
                             return [...prevState, place];
                         });
@@ -39,6 +39,7 @@ const Bar = (navData) => {
                         place_id: ''
                     };
                     setData([noPlace]);
+                    return '';
                 })
                 .finally(() => {
                     setLoaded(true);
@@ -65,7 +66,7 @@ const Bar = (navData) => {
                                  longitudeDelta: LONGITUDE_DELTA
                              }}
                              customMapStyle={googleMapStyle}
-                        //provider={PROVIDER_GOOGLE}
+                        provider={PROVIDER_GOOGLE}
                     >
                         <Marker coordinate={{
                             latitude: data[currentIndex].location.latitude,
