@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Image, Dimensions, StyleSheet } from "react-native";
+import { Text, View, Dimensions, StyleSheet, Alert } from "react-native";
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
@@ -8,6 +8,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import { findNearbies, getGoogleApiKey } from './Service';
 import { Place, Location } from './Types';
+import { Card } from "@rneui/themed";
 
 
 function findNearbiesAndSetData(location: Location,
@@ -54,6 +55,12 @@ const Bar = (navData) => {
     const LATITUDE_DELTA = 0.0252;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+    const createMessageAlert = (title: string, text: string) => {
+        return (
+            Alert.alert(title, text, [{text: 'OK', onPress: () => console.log("OKAYYYY")}])
+        );
+    };
+
     if (loaded) {
         return (
             <View style={{
@@ -61,7 +68,7 @@ const Bar = (navData) => {
                 alignItems: "center",
                 justifyContent: "center"
             }}>
-                <MapView style={StyleSheet.absoluteFill}
+                <MapView style={{...StyleSheet.absoluteFillObject, flex: 1}}
                          initialRegion={{
                              latitude: location.latitude,
                              longitude: location.longitude,
@@ -75,7 +82,6 @@ const Bar = (navData) => {
                         latitude: data[currentIndex].location.latitude,
                         longitude: data[currentIndex].location.longitude
                     }}/>
-
 
                     <MapViewDirections
                         origin={{
@@ -101,7 +107,6 @@ const Bar = (navData) => {
                     index={currentIndex}
                     onIndexChange={index => setCurrentIndex(index)}
                     onEndReached={() => {
-                        console.log("Loading more: " + data.map(a => a.name));
                         findNearbiesAndSetData(location, setData, setLoaded, (count + 1), setCount);
                     }}
                     renderItem={({item}) => (
@@ -113,11 +118,12 @@ const Bar = (navData) => {
                             justifyContent: "center"
                         }}>
                             <Callout>
-                                <View style={{bottom: 100}}>
-                                    <Text style={{color: "#006600", fontSize: 40}}>{item.name}</Text>
-                                    {item.photo_refs ? <Image source={{uri: item.photo_refs[0]}}></Image> :
-                                        <Image style={{width: 200}}
-                                               source={{uri: "https://pixabay.com/get/g201317c887247393a5470e324a8b0e4b1bd2f4015653d90eb0dcfa75c608f5d4d7ad82b02530267b0d797b2504517a4453e5019e1cae49ccdee4abedd1dba4d2108f3239c190d29d19e11d7124b240e1_640.jpg"}}/>}
+                                <View style={{width: 400, height: 150, bottom: -190}}>
+                                    <Card>
+                                        <Card.Title>{item.name}</Card.Title>
+                                        <Card.Divider />
+                                        {item.photo_refs ? <Card.Image style={{width: "100%", height: 100}} source={{uri: item.photo_refs[0]}}></Card.Image> : <Text/>}
+                                    </Card>
                                 </View>
                             </Callout>
                         </View>
