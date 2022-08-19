@@ -68,6 +68,7 @@ export const getDetails = async (placeId: string) => {
 }
 
 export const getGoogleApiKey = () => {
+    // @ts-ignore
     const processKey = process.env.GOOGLE_API_KEY;
     if (processKey) {
         return processKey;
