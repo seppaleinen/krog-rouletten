@@ -2,9 +2,24 @@ import React from "react";
 import "react-native-gesture-handler";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
+import * as Sentry from 'sentry-expo';
 
 import HomeScreen from "./screens/HomeScreen";
 import BarScreen from "./screens/BarScreen";
+import { getSentryDSN } from './app.config';
+
+Sentry.init({
+    dsn: getSentryDSN(),
+    enableInExpoDevelopment: true,
+    beforeBreadcrumb(breadcrumb, hint) {
+        if (breadcrumb.category === 'console') {
+            return null
+        }
+        return breadcrumb
+    },
+    maxBreadcrumbs: 50,
+    debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+});
 
 const AppNavigator = createStackNavigator(
     {

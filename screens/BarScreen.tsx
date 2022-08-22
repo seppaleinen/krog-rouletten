@@ -9,6 +9,7 @@ import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-
 import { findNearbies, getGoogleApiKey } from './Service';
 import { Place, Location } from './Types';
 import { Card } from "@rneui/themed";
+import * as Sentry from 'sentry-expo';
 
 
 function findNearbiesAndSetData(location: Location,
@@ -30,6 +31,7 @@ function findNearbiesAndSetData(location: Location,
             })
         })
         .catch((error: any) => {
+            Sentry.Native.captureException(error);
             console.log("ERROR: " + error);
         })
         .finally(() => {

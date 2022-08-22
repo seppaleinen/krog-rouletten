@@ -3,6 +3,7 @@ import { Location, Place } from './Types';
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 import haversine from 'haversine-distance';
+import * as Sentry from 'sentry-expo';
 
 export const findNearbies = async (location: Location, count: number): Promise<any> => {
     let radius = 500 * ((count + 1) ** 2);
@@ -49,6 +50,7 @@ export const findNearbies = async (location: Location, count: number): Promise<a
         })
         .catch(error => {
             console.error("Could not get nearby places due to error.", error);
+            Sentry.Native.captureException(error);
             throw error;
         });
 }
@@ -64,7 +66,10 @@ export const getDetails = async (placeId: string) => {
                 throw new Error(`Wrong statuscode ${response.data.status}, throwing error ${response.data.error_message}`);
             }
         })
-        .catch(error => console.error("Could not get details due to error.", error))
+        .catch(error => {
+            console.error("Could not get details due to error.", error);
+            Sentry.Native.captureException(error);
+        })
 }
 
 export const getGoogleApiKey = () => {

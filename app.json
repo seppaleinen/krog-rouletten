@@ -39,6 +39,21 @@
       "eas": {
         "projectId": "5105b207-01cb-4dc7-93a7-6b0c25455887"
       }
+    },
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "david-eriksson",
+            "project": "krogrouletten",
+            "authToken": "REPLACE_ME_IN_APP_CONFIG_JS"
+          }
+        }
+      ]
     }
   }
 }
