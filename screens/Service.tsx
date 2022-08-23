@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { Location, Place } from './Types';
+import { Delta, Location, Place } from './Types';
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 import haversine from 'haversine-distance';
 import * as Sentry from 'sentry-expo';
+import { Dimensions } from 'react-native';
 
 export const findNearbies = async (location: Location, count: number): Promise<any> => {
     let radius = 500 * ((count + 1) ** 2);
@@ -29,6 +30,8 @@ export const findNearbies = async (location: Location, count: number): Promise<a
                             location: placeLoc,
                             distance: calculateDistance(location, placeLoc),
                             place_id: result.place_id,
+                            radius: radius,
+                            delta: calculateDelta(location, placeLoc),
                             price_level: result.price_level,
                             rating: result.rating,
                             name: result.name,
@@ -96,4 +99,23 @@ const calculateDistance = (userLoc: Location, placeLoc: Location) => {
     const place = {latitude: placeLoc.latitude, longitude: placeLoc.longitude}
     let distance = Number(haversine(user, place).toFixed(1));
     return distance > 1000 ? (distance / 1000).toFixed(1) + 'km' : distance.toFixed(1) + 'm';
+}
+
+export const calculateDelta = (userLoc: Location, placeLoc: Location): Delta => {
+    const minLat = Math.min(userLoc.latitude, placeLoc.latitude);
+    const minLng = Math.min(userLoc.longitude, placeLoc.longitude);
+    const maxLat = Math.max(userLoc.latitude, placeLoc.latitude);
+    const maxLng = Math.max(userLoc.longitude, placeLoc.longitude);
+
+    const {width, height} = Dimensions.get('window');
+    const ASPECT_RATIO = width / height;
+
+    // Get delta relative to aspect-ratio, and multiply by 6 seems to do the trick.
+    const latDelta = ((maxLat - minLat) * ASPECT_RATIO) * 6;
+    const lngDelta = ((maxLng - minLng) * ASPECT_RATIO) * 6;
+
+    return {
+        latitude_delta: latDelta,
+        longitude_delta: lngDelta
+    }
 }

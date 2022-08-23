@@ -3,6 +3,8 @@ export interface Place {
     location: Location;
     distance: string;
     place_id: string;
+    radius: number;
+    delta: Delta;
 
     address?: string;
     open_now?: boolean;
@@ -23,4 +25,9 @@ export interface Review {
     name: string;
     rating: number;
     text: string;
+}
+
+export interface Delta {
+    latitude_delta: number;
+    longitude_delta: number;
 }

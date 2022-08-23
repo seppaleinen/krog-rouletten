@@ -7,10 +7,12 @@ import Carousel from 'react-native-sideswipe';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import { findNearbies, getGoogleApiKey } from './Service';
-import { Place, Location } from './Types';
+import { Place, Location, Delta } from './Types';
 import { Card } from "@rneui/themed";
 import * as Sentry from 'sentry-expo';
 
+const {width, height} = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
 
 function findNearbiesAndSetData(location: Location,
                                 setData: (value: (((prevState: Place[]) => Place[]) | Place[])) => void,
@@ -46,16 +48,15 @@ const Bar = (navData) => {
     const [data, setData] = useState<Place[]>([])
     const [loaded, setLoaded] = useState<boolean>(false)
     const [count, setCount] = useState<number>(0)
+    const [delta, setDelta] = useState<Delta>({
+        latitude_delta: 0.0252,
+        longitude_delta: 0.0252 * ASPECT_RATIO
+    });
 
     useEffect(() => {
         setLoaded(false);
         findNearbiesAndSetData(location, setData, setLoaded, count, setCount);
     }, []);
-
-    const {width, height} = Dimensions.get('window');
-    const ASPECT_RATIO = width / height;
-    const LATITUDE_DELTA = 0.0252;
-    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
     const createMessageAlert = (title: string, text: string) => {
         return (
@@ -74,8 +75,14 @@ const Bar = (navData) => {
                          initialRegion={{
                              latitude: location.latitude,
                              longitude: location.longitude,
-                             latitudeDelta: LATITUDE_DELTA,
-                             longitudeDelta: LONGITUDE_DELTA
+                             latitudeDelta: delta.latitude_delta,
+                             longitudeDelta: delta.longitude_delta
+                         }}
+                         region={{
+                             latitude: location.latitude,
+                             longitude: location.longitude,
+                             latitudeDelta: delta.latitude_delta,
+                             longitudeDelta: delta.longitude_delta
                          }}
                          customMapStyle={googleMapStyle}
                          provider={PROVIDER_GOOGLE}
@@ -107,7 +114,11 @@ const Bar = (navData) => {
                     threshold={120}
                     contentOffset={0}
                     index={currentIndex}
-                    onIndexChange={index => setCurrentIndex(index)}
+                    onIndexChange={index => {
+                        setDelta(data[index].delta);
+                        setCurrentIndex(index);
+
+                    }}
                     onEndReached={() => {
                         findNearbiesAndSetData(location, setData, setLoaded, (count + 1), setCount);
                     }}
