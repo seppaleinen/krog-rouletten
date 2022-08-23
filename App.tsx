@@ -6,6 +6,8 @@ import * as Sentry from 'sentry-expo';
 
 import HomeScreen from "./screens/HomeScreen";
 import BarScreen from "./screens/BarScreen";
+import DetailsScreen from "./screens/DetailsScreen";
+
 import { getSentryDSN } from './app.config';
 
 Sentry.init({
@@ -25,6 +27,7 @@ const AppNavigator = createStackNavigator(
     {
         Home: HomeScreen,
         Bar: BarScreen,
+        Details: DetailsScreen,
     },
     {
         defaultNavigationOptions: {

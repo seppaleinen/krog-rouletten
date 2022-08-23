@@ -89,7 +89,7 @@ export const getGoogleApiKey = () => {
     }
 }
 
-const getPhotoUrl = (photoId: string) => {
+export const getPhotoUrl = (photoId: string) => {
     let API_KEY = getGoogleApiKey();
     return `https://maps.googleapis.com/maps/api/place/photo?maxheight=414&photoreference=${photoId}&key=${API_KEY}`;
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Dimensions, StyleSheet, Alert } from "react-native";
+import { Text, View, Dimensions, StyleSheet, Alert, Button } from "react-native";
 // @ts-ignore
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 
 import Carousel from 'react-native-sideswipe';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { Marker, Circle, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import { findNearbies, getGoogleApiKey } from './Service';
+import { findNearbies, getDetails, getGoogleApiKey } from './Service';
 import { Place, Location, Delta } from './Types';
 import { Card } from "@rneui/themed";
 import * as Sentry from 'sentry-expo';
@@ -136,6 +136,7 @@ const Bar = (navData) => {
                                         <Card.Title>{item.name}</Card.Title>
                                         <Card.Divider />
                                         {item.photo_refs ? <Card.Image style={{width: "100%", height: 100}} source={{uri: item.photo_refs[0]}}></Card.Image> : <Text/>}
+                                        <Button title={"Details"} onPress={() => onClickDetails(navData, data[currentIndex])}/>
                                     </Card>
                                 </View>
                             </Callout>
@@ -148,6 +149,14 @@ const Bar = (navData) => {
         return <View><Text>Loading</Text></View>
     }
 };
+
+const onClickDetails = (navData: any, place: Place) => {
+    getDetails(place.place_id)
+        .then(details => {
+            navData.navigation.navigate("Details", {place: place, details: details});
+        })
+        .catch(error => Sentry.Native.captureException(error));
+}
 
 // @ts-ignore
 Bar.navigationOptions = (navData) => {
